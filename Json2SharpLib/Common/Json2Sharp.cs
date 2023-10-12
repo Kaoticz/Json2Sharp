@@ -1,5 +1,6 @@
 using Json2SharpLib.Emitters;
 using Json2SharpLib.Emitters.Abstractions;
+using Json2SharpLib.Emitters.CSharp;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Models;
 using System.Collections.Immutable;
@@ -67,6 +68,7 @@ public static class Json2Sharp
         return options.TargetLanguage switch
         {
             Language.CSharp when options.CSharp.TargetType is CSharpObjectType.Record => new CSharpRecordEmitter(options.CSharp),
+            Language.CSharp when options.CSharp.TargetType is CSharpObjectType.Class => new CSharpClassEmitter(options.CSharp),
             _ => throw new UnreachableException($"Emitter for language {options.TargetLanguage} was not implemented."),
         };
     }

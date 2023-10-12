@@ -2,10 +2,11 @@ using Json2SharpLib.Common;
 using Json2SharpLib.Emitters.Abstractions;
 using Json2SharpLib.Extensions;
 using Json2SharpLib.Models;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 
-namespace Json2SharpLib.Emitters;
+namespace Json2SharpLib.Emitters.CSharp;
 
 internal sealed class CSharpRecordEmitter : ICodeEmitter
 {
@@ -15,7 +16,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
 
     internal CSharpRecordEmitter(Json2SharpCSharpOptions options)
     {
-        _accessibility = options.AccessibilityLevel.ToCode() + ((options.IsSealed) ? " sealed" : string.Empty);
+        _accessibility = options.AccessibilityLevel.ToCode() + (options.IsSealed ? " sealed" : string.Empty);
         _serializationAttribute = options.SerializationAttribute.ToCode();
         _indentationPadding = options.IndentationPadding;
     }
@@ -46,7 +47,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
                     _indentationPadding,
                     _serializationAttribute,
                     property.JsonName!,
-                    bclTypeName + ((property.JsonElement.ValueKind is JsonValueKind.Null) ? "?" : string.Empty),
+                    bclTypeName + (property.JsonElement.ValueKind is JsonValueKind.Null ? "?" : string.Empty),
                     property.FinalName!
                 )
             );
@@ -93,6 +94,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
         return false;
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static string CreateMemberDeclaration(string indentationPadding, string serializationAttributeName, string jsonName, string targetTypeName, string propertyName)
         => $"{indentationPadding}[{serializationAttributeName}(\"{jsonName}\")] {targetTypeName} {propertyName}";
 }

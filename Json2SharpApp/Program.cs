@@ -52,6 +52,10 @@ internal sealed class Program
 
     private static void Main(string[] args)
     {
-        Console.Write(Json2Sharp.Parse("Test", _rawJson));
+        Console.Write(Json2Sharp.Parse("Test", _rawJson, new Json2SharpLib.Models.Json2SharpOptions() { CSharp = new()
+        {
+            TargetType = Json2SharpLib.Enums.CSharpObjectType.Class,
+            SetterType = Json2SharpLib.Enums.CSharpSetterType.Set
+        }}));
     }
 }

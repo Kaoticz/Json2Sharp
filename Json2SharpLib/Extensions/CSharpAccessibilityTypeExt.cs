@@ -3,9 +3,9 @@ using System.Diagnostics;
 
 namespace Json2SharpLib.Extensions;
 
-public static class CSharpAccessibilityTypeExt
+internal static class CSharpAccessibilityTypeExt
 {
-    public static string ToCode(this CSharpAccessibilityLevel accessibilityLevel)
+    internal static string ToCode(this CSharpAccessibilityLevel accessibilityLevel)
     {
         return accessibilityLevel switch
         {
