@@ -1,5 +1,6 @@
 using Json2SharpLib.Common;
-using System.Reflection;
+using Json2SharpLib.Enums;
+using Json2SharpLib.Extensions;
 using System.Text;
 using System.Text.Json;
 
@@ -9,6 +10,11 @@ internal sealed class CSharpRecordEmitter
 {
     private readonly string _accessibility;
     private readonly string _indentationPadding;
+
+    internal CSharpRecordEmitter(CSharpAccessibilityLevel accessibilityLevel, bool isSealed = true, string indentationPadding = Constants.IndentationPadding)
+        : this(accessibilityLevel.ToCode() + ((isSealed) ? " sealed" : string.Empty), indentationPadding)
+    {
+    }
 
     internal CSharpRecordEmitter(string accessibility = Constants.CSharpDefaultAccessibility, string indentationPadding = Constants.IndentationPadding)
     {
@@ -38,6 +44,7 @@ internal sealed class CSharpRecordEmitter
             {
                 extraTypes.Add(Parse(property.FinalName ?? property.BclType.Name, property.JsonElement));
                 stringBuilder.AppendLine($"{_indentationPadding}[JsonPropertyName(\"{property.JsonName}\")] {property.FinalName} {property.FinalName}");
+
                 continue;
             }
             else if (property.BclType == typeof(object[]))
