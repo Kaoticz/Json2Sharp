@@ -21,7 +21,6 @@ public static class Json2Sharp
         return emitter.Parse(objectName, jsonDocument.RootElement);
     }
 
-    // TODO: create ParseArrayProperties
     public static IReadOnlyList<JsonClassProperty> ParseProperties(JsonElement jsonElement)
     {
         if (jsonElement.ValueKind is JsonValueKind.Object)

@@ -9,16 +9,18 @@ namespace Json2SharpLib.Emitters;
 internal sealed class CSharpRecordEmitter
 {
     private readonly string _accessibility;
+    private readonly string _serializationAttribute;
     private readonly string _indentationPadding;
 
-    internal CSharpRecordEmitter(CSharpAccessibilityLevel accessibilityLevel, bool isSealed = true, string indentationPadding = Constants.IndentationPadding)
-        : this(accessibilityLevel.ToCode() + ((isSealed) ? " sealed" : string.Empty), indentationPadding)
+    internal CSharpRecordEmitter(CSharpAccessibilityLevel accessibilityLevel, CSharpSerializationAttribute serializationAttributeType, bool isSealed = true, string indentationPadding = Constants.IndentationPadding)
+        : this(accessibilityLevel.ToCode() + ((isSealed) ? " sealed" : string.Empty), serializationAttributeType.ToCode(), indentationPadding)
     {
     }
 
-    internal CSharpRecordEmitter(string accessibility = Constants.CSharpDefaultAccessibility, string indentationPadding = Constants.IndentationPadding)
+    internal CSharpRecordEmitter(string accessibility = Constants.CSharpDefaultAccessibility, string serializationAttribute = Constants.CSharpDefaultSerializationAttribute, string indentationPadding = Constants.IndentationPadding)
     {
         _accessibility = accessibility ?? Constants.CSharpDefaultAccessibility;
+        _serializationAttribute = serializationAttribute ?? Constants.CSharpDefaultSerializationAttribute;
         _indentationPadding = indentationPadding ?? Constants.IndentationPadding;
     }
 
@@ -43,7 +45,7 @@ internal sealed class CSharpRecordEmitter
             if (property.BclType == typeof(object))
             {
                 extraTypes.Add(Parse(property.FinalName ?? property.BclType.Name, property.JsonElement));
-                stringBuilder.AppendLine($"{_indentationPadding}[JsonPropertyName(\"{property.JsonName}\")] {property.FinalName} {property.FinalName}");
+                stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, _serializationAttribute, property.JsonName!, property.FinalName!, property.FinalName!));
 
                 continue;
             }
@@ -56,13 +58,13 @@ internal sealed class CSharpRecordEmitter
                 if (childrenTypes.Length is 1)
                 {
                     extraTypes.Add(Parse(property.FinalName ?? bclTypeName, childrenTypes[0].JsonElement));
-                    stringBuilder.AppendLine($"{_indentationPadding}[JsonPropertyName(\"{property.JsonName}\")] {property.FinalName}[] {property.FinalName}");
-                    
+                    stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, _serializationAttribute, property.JsonName!, property.FinalName + "[]", property.FinalName!));
+
                     continue;
                 }
             }
-            
-            stringBuilder.AppendLine($"{_indentationPadding}[JsonPropertyName(\"{property.JsonName}\")] {bclTypeName} {property.FinalName}");
+
+            stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, _serializationAttribute, property.JsonName!, bclTypeName, property.FinalName!));
         }
 
         stringBuilder.Append(");");
@@ -75,4 +77,7 @@ internal sealed class CSharpRecordEmitter
 
         return result;
     }
+
+    private static string CreateMemberDeclaration(string indentationPadding, string serializationAttributeName, string jsonName, string targetTypeName, string propertyName)
+        => $"{indentationPadding}[{serializationAttributeName}(\"{jsonName}\")] {targetTypeName} {propertyName}";
 }
