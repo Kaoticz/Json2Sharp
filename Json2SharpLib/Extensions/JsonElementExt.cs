@@ -45,16 +45,16 @@ internal static class JsonElementExt
     {
         if (jsonElement.TryGetInt32(out _))
             return typeof(int);
+        else if (jsonElement.TryGetUInt32(out _))
+            return typeof(uint);
         else if (jsonElement.TryGetInt64(out _))
             return typeof(long);
+        else if (jsonElement.TryGetUInt64(out _))
+            return typeof(ulong);
         else if (jsonElement.TryGetSingle(out _))
             return typeof(float);
         else if (jsonElement.TryGetDouble(out _))
             return typeof(double);
-        else if (jsonElement.TryGetUInt32(out _))
-            return typeof(uint);
-        else if (jsonElement.TryGetUInt32(out _))
-            return typeof(ulong);
         else if (jsonElement.TryGetDecimal(out _))
             return typeof(decimal);
         else

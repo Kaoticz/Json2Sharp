@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json2SharpLib", "Json2SharpLib\Json2SharpLib.csproj", "{817FCF26-561B-43A5-AB39-994D716AAE12}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json2Sharp.Tests", "Json2Sharp.Tests\Json2Sharp.Tests.csproj", "{2F832455-75C4-4EA5-AFC2-32B888B1DDA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json2SharpTests", "Json2SharpTests\Json2SharpTests.csproj", "{2F832455-75C4-4EA5-AFC2-32B888B1DDA6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json2SharpApp", "Json2SharpApp\Json2SharpApp.csproj", "{84D287B1-1200-4732-8D35-0365A00CFF4F}"
 EndProject

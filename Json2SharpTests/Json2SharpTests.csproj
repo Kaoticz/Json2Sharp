@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Json2SharpLib\Json2SharpLib.csproj" />
+  </ItemGroup>
+
 </Project>
