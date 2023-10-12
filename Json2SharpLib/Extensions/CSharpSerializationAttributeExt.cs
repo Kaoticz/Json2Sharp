@@ -1,4 +1,5 @@
 using Json2SharpLib.Enums;
+using System.Diagnostics;
 
 namespace Json2SharpLib.Extensions;
 
@@ -10,7 +11,7 @@ internal static class CSharpSerializationAttributeExt
         {
             CSharpSerializationAttribute.SystemTextJson => "JsonPropertyName",
             CSharpSerializationAttribute.NewtonsoftJson => "JsonProperty",
-            _ => throw new NotImplementedException(),
+            _ => throw new UnreachableException($"Serialization attribute of type {serializationAttribute} is not implemented."),
         };
     }
 }

@@ -1,10 +1,10 @@
 using Json2SharpLib.Emitters;
+using Json2SharpLib.Emitters.Abstractions;
+using Json2SharpLib.Enums;
 using Json2SharpLib.Models;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace Json2SharpLib.Common;
 
@@ -13,11 +13,14 @@ public static class Json2Sharp
     private static readonly JsonDocumentOptions _jsonOptions = new() { CommentHandling = JsonCommentHandling.Skip };
 
     public static string Parse(string objectName, string rawJson)
+        => Parse(objectName, rawJson, new Json2SharpOptions());
+
+    public static string Parse(string objectName, string rawJson, Json2SharpOptions options)
+        => Parse(objectName, rawJson, GetLanguageEmitter(options));
+
+    public static string Parse(string objectName, string rawJson, ICodeEmitter emitter)
     {
-        var jsonDocument = JsonDocument.Parse(rawJson, _jsonOptions);
-
-        var emitter = new CSharpRecordEmitter();
-
+        using var jsonDocument = JsonDocument.Parse(rawJson, _jsonOptions);
         return emitter.Parse(objectName, jsonDocument.RootElement);
     }
 
@@ -57,5 +60,14 @@ public static class Json2Sharp
         }
 
         return Array.Empty<JsonClassProperty>();
+    }
+
+    private static ICodeEmitter GetLanguageEmitter(Json2SharpOptions options)
+    {
+        return options.TargetLanguage switch
+        {
+            Language.CSharp when options.CSharp.TargetType is CSharpObjectType.Record => new CSharpRecordEmitter(options.CSharp),
+            _ => throw new UnreachableException($"Emitter for language {options.TargetLanguage} was not implemented."),
+        };
     }
 }

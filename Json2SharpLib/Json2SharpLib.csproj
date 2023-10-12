@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Emitters\Abstractions\" />
     <Folder Include="Models\Abstractions\" />
   </ItemGroup>
 
