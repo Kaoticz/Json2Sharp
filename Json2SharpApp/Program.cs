@@ -54,7 +54,8 @@ internal sealed class Program
         Console.Write(Json2Sharp.Parse("Test", _rawJson, new Json2SharpOptions() { CSharp = new()
         {
             TargetType = CSharpObjectType.Record,
-            SetterType = CSharpSetterType.Set
+            SetterType = CSharpSetterType.Set,
+            SerializationAttribute = CSharpSerializationAttribute.SystemTextJson
         }}));
     }
 }

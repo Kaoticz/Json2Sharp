@@ -97,12 +97,12 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
             {
                 var child = childrenTypes.First(x => x.JsonElement.ValueKind is not JsonValueKind.Null);
                 var typeName = (childrenTypes.Length is not 1 && Utilities.TryGetAliasName(child.BclType, out var aliasName))
-                    ? aliasName
-                    : null;
+                    ? (aliasName == "object") ? property.FinalName! : aliasName
+                    : property.FinalName ?? bclTypeName;
 
-                extraTypes.Add(Parse(typeName ?? property.FinalName ?? bclTypeName, childrenTypes[0].JsonElement));
+                extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
                 stringBuilder.AppendLine(CreateMemberAttribute(_indentationPadding, _serializationAttribute, property.JsonName!));
-                stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, (typeName ?? property.FinalName) + nullableAnnotation + "[]", property.FinalName!, _setterType));
+                stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, typeName + nullableAnnotation + "[]", property.FinalName!, _setterType));
                 stringBuilder.AppendLine();
 
                 return true;
