@@ -39,7 +39,12 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
                 ? aliasName
                 : property.BclType.Name;
 
-            if (HandleCustomType(property, stringBuilder, bclTypeName, extraTypes))
+            var nullableAnnotation = (property.JsonElement.ValueKind is JsonValueKind.Null
+                || (property.JsonElement.ValueKind is JsonValueKind.Array && property.JsonElement.EnumerateArray().Any(x => x.ValueKind is JsonValueKind.Null)))
+                ? "?"
+                : string.Empty;
+
+            if (HandleCustomType(property, stringBuilder, bclTypeName, nullableAnnotation, extraTypes))
                 continue;
 
             stringBuilder.AppendLine(
@@ -47,7 +52,9 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
                     _indentationPadding,
                     _serializationAttribute,
                     property.JsonName!,
-                    bclTypeName + (property.JsonElement.ValueKind is JsonValueKind.Null ? "?" : string.Empty),
+                    (property.JsonElement.ValueKind is not JsonValueKind.Array)
+                        ? bclTypeName + nullableAnnotation
+                        : bclTypeName,
                     property.FinalName!
                 )
             );
@@ -56,10 +63,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
         stringBuilder.Append(");");
 
         if (extraTypes.Count is not 0)
-        {
-            stringBuilder.AppendLine(Environment.NewLine);
             stringBuilder.AppendJoin(Environment.NewLine + Environment.NewLine, extraTypes);
-        }
 
         var result = stringBuilder.ToString();
         stringBuilder.Clear();
@@ -67,7 +71,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
         return result;
     }
 
-    private bool HandleCustomType(JsonClassProperty property, StringBuilder stringBuilder, string bclTypeName, IList<string> extraTypes)
+    private bool HandleCustomType(JsonClassProperty property, StringBuilder stringBuilder, string bclTypeName, string nullableAnnotation, IList<string> extraTypes)
     {
         if (property.BclType == typeof(object) && property.JsonElement.ValueKind is JsonValueKind.Object)
         {
@@ -79,13 +83,18 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
         else if (property.BclType == typeof(object[]))
         {
             var childrenTypes = property.Children
-                .DistinctBy(x => x.BclType)
+                .DistinctBy(x => x.JsonElement.ValueKind)
                 .ToArray();
 
-            if (childrenTypes.Length is 1)
+            if (childrenTypes.Count(x => x.JsonElement.ValueKind is not JsonValueKind.Null) is 1)
             {
-                extraTypes.Add(Parse(property.FinalName ?? bclTypeName, childrenTypes[0].JsonElement));
-                stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, _serializationAttribute, property.JsonName!, property.FinalName + "[]", property.FinalName!));
+                var child = childrenTypes.First(x => x.JsonElement.ValueKind is not JsonValueKind.Null);
+                var typeName = (childrenTypes.Length is not 1 && Utilities.TryGetAliasName(child.BclType, out var aliasName))
+                    ? aliasName
+                    : null;
+
+                extraTypes.Add(Parse(typeName ?? property.FinalName ?? bclTypeName, child.JsonElement));
+                stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, _serializationAttribute, property.JsonName!, (typeName ?? property.FinalName) + nullableAnnotation + "[]", property.FinalName!));
 
                 return true;
             }

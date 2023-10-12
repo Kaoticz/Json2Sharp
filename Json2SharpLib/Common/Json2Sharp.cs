@@ -2,6 +2,7 @@ using Json2SharpLib.Emitters;
 using Json2SharpLib.Emitters.Abstractions;
 using Json2SharpLib.Emitters.CSharp;
 using Json2SharpLib.Enums;
+using Json2SharpLib.Extensions;
 using Json2SharpLib.Models;
 using System.Collections.Immutable;
 using System.Diagnostics;

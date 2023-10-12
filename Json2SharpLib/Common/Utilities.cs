@@ -24,6 +24,7 @@ internal static class Utilities
         [typeof(object)] = "object",
         [typeof(bool)] = "bool",
         [typeof(char)] = "char",
+
         [typeof(string[])] = "string[]",
         [typeof(int[])] = "int[]",
         [typeof(byte[])] = "byte[]",
@@ -39,6 +40,22 @@ internal static class Utilities
         [typeof(object[])] = "object[]",
         [typeof(bool[])] = "bool[]",
         [typeof(char[])] = "char[]",
+
+        [typeof(string?[])] = "string?[]",
+        [typeof(int?[])] = "int?[]",
+        [typeof(byte?[])] = "byte?[]",
+        [typeof(sbyte?[])] = "sbyte?[]",
+        [typeof(short?[])] = "short?[]",
+        [typeof(ushort?[])] = "ushort?[]",
+        [typeof(long?[])] = "long?[]",
+        [typeof(uint?[])] = "uint?[]",
+        [typeof(ulong?[])] = "ulong?[]",
+        [typeof(float?[])] = "float?[]",
+        [typeof(double?[])] = "double?[]",
+        [typeof(decimal?[])] = "decimal?[]",
+        [typeof(object?[])] = "object?[]",
+        [typeof(bool?[])] = "bool?[]",
+        [typeof(char?[])] = "char?[]",
     };
 
     public static string ToPascalCase(string text)

@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace Json2SharpLib.Common;
+namespace Json2SharpLib.Extensions;
 
 internal static class JsonElementExt
 {
@@ -24,7 +24,7 @@ internal static class JsonElementExt
             .Distinct()
             .ToArray();
 
-        return (types.Length is not 1)
+        return types.Length is not 1
             ? typeof(object[])
             : types[0].MakeArrayType();
     }

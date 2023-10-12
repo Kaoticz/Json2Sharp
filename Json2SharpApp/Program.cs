@@ -1,4 +1,6 @@
 using Json2SharpLib.Common;
+using Json2SharpLib.Enums;
+using Json2SharpLib.Models;
 
 namespace Json2SharpApp;
 
@@ -9,7 +11,7 @@ internal sealed class Program
         {
             "integer_number": 1,
             "float_number": 1.5,
-            "numbers": [ 1, 2, 3 ],
+            "numbers": [ 1, 2, 3, null ],
             "text": "Blep",
             "empty_text": "",
             "null_text": null,
@@ -31,11 +33,7 @@ internal sealed class Program
                     "blep": "sucks",
                     "random_array": [ 1, 2, 3 ]
                 },
-                {
-                    "hello": "world",
-                    "blep": "sucks",
-                    "random_array": [ 1, 2, 3 ]
-                }
+                null
             ],
             "other_things": [
                 {
@@ -45,17 +43,18 @@ internal sealed class Program
                 },
                 1,
                 "a",
-                1.4
+                1.4,
+                null
             ]
         }
         """;
 
     private static void Main(string[] args)
     {
-        Console.Write(Json2Sharp.Parse("Test", _rawJson, new Json2SharpLib.Models.Json2SharpOptions() { CSharp = new()
+        Console.Write(Json2Sharp.Parse("Test", _rawJson, new Json2SharpOptions() { CSharp = new()
         {
-            TargetType = Json2SharpLib.Enums.CSharpObjectType.Class,
-            SetterType = Json2SharpLib.Enums.CSharpSetterType.Set
+            TargetType = CSharpObjectType.Record,
+            SetterType = CSharpSetterType.Set
         }}));
     }
 }
