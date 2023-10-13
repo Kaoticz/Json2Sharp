@@ -54,12 +54,13 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
                     property.JsonName!,
                     (property.JsonElement.ValueKind is not JsonValueKind.Array)
                         ? bclTypeName + nullableAnnotation
-                        : bclTypeName,
+                        : string.IsNullOrWhiteSpace(nullableAnnotation) ? bclTypeName : bclTypeName.Insert(bclTypeName.Length - 2, nullableAnnotation),
                     property.FinalName!
                 )
             );
         }
 
+        stringBuilder.Remove(stringBuilder.Length - (Environment.NewLine.Length + 1), 1);   // Remove the last comma
         stringBuilder.Append(");");
 
         if (extraTypes.Count is not 0)
@@ -105,5 +106,5 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static string CreateMemberDeclaration(string indentationPadding, string serializationAttributeName, string jsonName, string targetTypeName, string propertyName)
-        => $"{indentationPadding}[{serializationAttributeName}(\"{jsonName}\")] {targetTypeName} {propertyName}";
+        => $"{indentationPadding}[{serializationAttributeName}(\"{jsonName}\")] {targetTypeName} {propertyName},";
 }

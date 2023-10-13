@@ -12,8 +12,8 @@ internal static class FloatTypes
 
     public const string RecordPrimaryCtorOutput = """
         public sealed record FloatTypes(
-            [JsonProperty("float_number")] float FloatNumber
-            [JsonProperty("double_number")] double DoubleNumber
+            [JsonProperty("float_number")] float FloatNumber,
+            [JsonProperty("double_number")] double DoubleNumber,
             [JsonProperty("decimal_number")] decimal DecimalNumber
         );
         """;

@@ -58,7 +58,7 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
                     _indentationPadding,
                     (property.JsonElement.ValueKind is not JsonValueKind.Array)
                         ? bclTypeName + nullableAnnotation
-                        : bclTypeName,
+                        : string.IsNullOrWhiteSpace(nullableAnnotation) ? bclTypeName : bclTypeName.Insert(bclTypeName.Length - 2, nullableAnnotation),
                     property.FinalName!,
                     _setterType
                 )

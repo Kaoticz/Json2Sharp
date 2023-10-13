@@ -11,6 +11,7 @@ internal sealed class Program
         {
             "integer_number": 1,
             "float_number": 1.5,
+            "empty_array": [],
             "numbers": [ 1, 2, 3, null ],
             "text": "Blep",
             "empty_text": "",
@@ -53,9 +54,9 @@ internal sealed class Program
     {
         Console.Write(Json2Sharp.Parse("Test", _rawJson, new Json2SharpOptions() { CSharp = new()
         {
-            TargetType = CSharpObjectType.Record,
-            SetterType = CSharpSetterType.Set,
-            SerializationAttribute = CSharpSerializationAttribute.SystemTextJson
+            TargetType = CSharpObjectType.Class,
+            SetterType = CSharpSetterType.Init,
+            SerializationAttribute = CSharpSerializationAttribute.NewtonsoftJson
         }}));
     }
 }

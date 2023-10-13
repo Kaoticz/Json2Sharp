@@ -13,9 +13,9 @@ internal static class IntegerTypes
 
     public const string RecordPrimaryCtorOutput = """
         public sealed record IntegerTypes(
-            [JsonProperty("int_number")] int IntNumber
-            [JsonProperty("uint_number")] uint UintNumber
-            [JsonProperty("long_number")] long LongNumber
+            [JsonProperty("int_number")] int IntNumber,
+            [JsonProperty("uint_number")] uint UintNumber,
+            [JsonProperty("long_number")] long LongNumber,
             [JsonProperty("ulong_number")] ulong UlongNumber
         );
         """;

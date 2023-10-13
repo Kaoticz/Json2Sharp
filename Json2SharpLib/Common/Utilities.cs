@@ -41,7 +41,7 @@ internal static class Utilities
         [typeof(bool[])] = "bool[]",
         [typeof(char[])] = "char[]",
 
-        [typeof(string?[])] = "string?[]",
+        //[typeof(string?[])] = "string?[]",
         [typeof(int?[])] = "int?[]",
         [typeof(byte?[])] = "byte?[]",
         [typeof(sbyte?[])] = "sbyte?[]",
@@ -53,7 +53,7 @@ internal static class Utilities
         [typeof(float?[])] = "float?[]",
         [typeof(double?[])] = "double?[]",
         [typeof(decimal?[])] = "decimal?[]",
-        [typeof(object?[])] = "object?[]",
+        //[typeof(object?[])] = "object?[]",
         [typeof(bool?[])] = "bool?[]",
         [typeof(char?[])] = "char?[]",
     };
