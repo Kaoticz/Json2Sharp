@@ -51,13 +51,24 @@ internal static class JsonElementExt
             return typeof(long);
         else if (jsonElement.TryGetUInt64(out _))
             return typeof(ulong);
-        else if (jsonElement.TryGetSingle(out _))
+        else if (jsonElement.TryGetSingle(out var floatValue) && !float.IsInfinity(floatValue) && !HasDecimalPrecisionOver(jsonElement, 7))
             return typeof(float);
-        else if (jsonElement.TryGetDouble(out _))
+        else if (jsonElement.TryGetDouble(out _) && !HasDecimalPrecisionOver(jsonElement, 16))
             return typeof(double);
         else if (jsonElement.TryGetDecimal(out _))
             return typeof(decimal);
         else
             throw new ArgumentException("Value is not a valid number type.", nameof(jsonElement));
+    }
+
+    private static bool HasDecimalPrecisionOver(JsonElement jsonElement, int decimalPrecision)
+    {
+        var value = jsonElement.ToString().AsSpan();
+        var endIndex = value.IndexOf('E');
+
+        if (endIndex is -1)
+            endIndex = value.Length - 1;
+
+        return value[(value.IndexOf('.') + 1)..endIndex].Length > decimalPrecision;
     }
 }
