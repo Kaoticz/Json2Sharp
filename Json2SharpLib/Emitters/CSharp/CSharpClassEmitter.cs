@@ -13,13 +13,15 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
     private readonly string _accessibility;
     private readonly string _serializationAttribute;
     private readonly string _indentationPadding;
+    private readonly string _objectType;
     private readonly string _setterType;
 
     internal CSharpClassEmitter(Json2SharpCSharpOptions options)
     {
-        _accessibility = options.AccessibilityLevel.ToCode() + (options.IsSealed ? " sealed" : string.Empty);
+        _accessibility = options.AccessibilityLevel.ToCode() + (options.IsSealed && options.TargetType is not Enums.CSharpObjectType.Struct ? " sealed" : string.Empty);
         _serializationAttribute = options.SerializationAttribute.ToCode();
         _indentationPadding = options.IndentationPadding;
+        _objectType = options.TargetType.ToString().ToLowerInvariant();
         _setterType = options.SetterType.ToCode();
     }
 
@@ -33,7 +35,7 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
         var extraTypes = new List<string>();
         var stringBuilder = new StringBuilder();
 
-        stringBuilder.AppendLine($"{_accessibility} class {objectName}");
+        stringBuilder.AppendLine($"{_accessibility} {_objectType} {objectName}");
         stringBuilder.AppendLine("{");
 
         foreach (var property in properties)
