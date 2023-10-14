@@ -8,6 +8,9 @@ using System.Text.Json;
 
 namespace Json2SharpLib.Emitters.CSharp;
 
+/// <summary>
+/// Parses JSON data into a type declaration with the base body of a class definition.
+/// </summary>
 internal sealed class CSharpClassEmitter : ICodeEmitter
 {
     private readonly string _accessibility;
@@ -16,6 +19,10 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
     private readonly string _objectType;
     private readonly string _setterType;
 
+    /// <summary>
+    /// Creates an object that parses JSON data into a type declaration with the base body of a class definition.
+    /// </summary>
+    /// <param name="options">The parsing options.</param>
     internal CSharpClassEmitter(Json2SharpCSharpOptions options)
     {
         _accessibility = options.AccessibilityLevel.ToCode() + (options.IsSealed && options.TargetType is not Enums.CSharpObjectType.Struct ? " sealed" : string.Empty);
@@ -25,6 +32,7 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
         _setterType = options.SetterType.ToCode();
     }
 
+    /// <inheritdoc />
     public string Parse(string objectName, JsonElement jsonElement)
     {
         var properties = Json2Sharp.ParseProperties(jsonElement);
@@ -78,7 +86,16 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
         return result;
     }
 
-    private bool HandleCustomType(JsonClassProperty property, StringBuilder stringBuilder, string bclTypeName, string nullableAnnotation, IList<string> extraTypes)
+    /// <summary>
+    /// Parses an <see langword="object"/> or <see langword="object[]"/> JSON <paramref name="property"/>.
+    /// </summary>
+    /// <param name="property">The property to be processed.</param>
+    /// <param name="stringBuilder">The string builder used to build the type declaration.</param>
+    /// <param name="bclTypeName">The name of the equivalent type in C#.</param>
+    /// <param name="nullableAnnotation">The symbol for null annotations.</param>
+    /// <param name="extraTypes">The list that contains the definitions of custom types in the JSON data.</param>
+    /// <returns><see langword="true"/> if <paramref name="property"/> was parsed, <see langword="false"/> otherwise.</returns>
+    private bool HandleCustomType(ParsedJsonProperty property, StringBuilder stringBuilder, string bclTypeName, string nullableAnnotation, IList<string> extraTypes)
     {
         if (property.BclType == typeof(object) && property.JsonElement.ValueKind is JsonValueKind.Object)
         {
@@ -114,12 +131,27 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
         return false;
     }
 
-
+    /// <summary>
+    /// Creates a JSON member attribute for serialization.
+    /// </summary>
+    /// <param name="indentationPadding">Text that comes before the attribute.</param>
+    /// <param name="serializationAttributeName">The name of the attribute.</param>
+    /// <param name="jsonName">The name of the JSON property.</param>
+    /// <remarks>Example: [JsonPropertyName("prop_name")]</remarks>
+    /// <returns>The attribute for serialization.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static string CreateMemberAttribute(string indentationPadding, string serializationAttributeName, string jsonName)
         => $"{indentationPadding}[{serializationAttributeName}(\"{jsonName}\")]";
 
-
+    /// <summary>
+    /// Creates a member declaration.
+    /// </summary>
+    /// <param name="indentationPadding">Text that comes before the declaration.</param>
+    /// <param name="targetTypeName">The C# type of the property.</param>
+    /// <param name="propertyName">The C# name of the property.</param>
+    /// <param name="setterType">The C# type of property setter.</param>
+    /// <remarks>Example: public int Number { get; init; }</remarks>
+    /// <returns>The member declaration.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static string CreateMemberDeclaration(string indentationPadding, string targetTypeName, string propertyName, string setterType)
         => $"{indentationPadding}public {targetTypeName} {propertyName} {{ get; {setterType}; }}";

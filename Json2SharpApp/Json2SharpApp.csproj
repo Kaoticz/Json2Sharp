@@ -1,14 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="..\BaseCsproj.props" />
+    
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Description>CLI tool to parse JSON data into C# classes.</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Json2SharpLib\Json2SharpLib.csproj" />
+    <None Include="README.md" Pack="True" PackagePath="\" />
   </ItemGroup>
 
 </Project>

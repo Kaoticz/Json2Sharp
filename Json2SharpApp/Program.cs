@@ -52,11 +52,14 @@ internal sealed class Program
 
     private static void Main(string[] args)
     {
-        Console.Write(Json2Sharp.Parse("Test", _rawJson, new Json2SharpOptions() { CSharp = new()
+        Console.Write(Json2Sharp.Parse("Test", _rawJson, new Json2SharpOptions()
         {
-            TargetType = CSharpObjectType.Class,
-            SetterType = CSharpSetterType.Init,
-            SerializationAttribute = CSharpSerializationAttribute.NewtonsoftJson
-        }}));
+            CSharp = new()
+            {
+                TargetType = CSharpObjectType.Class,
+                SetterType = CSharpSetterType.Init,
+                SerializationAttribute = CSharpSerializationAttribute.NewtonsoftJson
+            }
+        }));
     }
 }

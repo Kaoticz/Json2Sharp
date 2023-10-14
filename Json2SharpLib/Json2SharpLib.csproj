@@ -1,13 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    
+  <Import Project="..\BaseCsproj.props" />
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+      <Description>Parse JSON data into C# classes.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Abstractions\" />
+      <None Include="README.md" Pack="True" PackagePath="\" />
   </ItemGroup>
-
 </Project>

@@ -1,7 +1,17 @@
 namespace Json2SharpLib.Enums;
 
-public enum CSharpSetterType
+/// <summary>
+/// Represents the possible setter types for a C# property.
+/// </summary>
+public enum CSharpSetterType : byte
 {
+    /// <summary>
+    /// A regular setter.
+    /// </summary>
     Set,
+
+    /// <summary>
+    /// An init setter.
+    /// </summary>
     Init
 }
