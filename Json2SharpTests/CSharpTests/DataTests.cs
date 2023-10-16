@@ -50,8 +50,8 @@ public sealed class DataTests
         var actualOutput = Json2Sharp.Parse(className, input, options);
 
         Assert.Equal(
-            expectedOutput.Replace("\r", string.Empty).Replace("\n", string.Empty),
-            actualOutput.Replace("\r", string.Empty).Replace("\n", string.Empty)
+            expectedOutput.Replace("\r", string.Empty),
+            actualOutput.Replace("\r", string.Empty)
         );
     }
 }

@@ -72,7 +72,10 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
         stringBuilder.Append(");");
 
         if (extraTypes.Count is not 0)
-            stringBuilder.AppendJoin(Environment.NewLine + Environment.NewLine, extraTypes);
+        {
+            stringBuilder.AppendLine(Environment.NewLine);
+            stringBuilder.AppendJoin(Environment.NewLine + Environment.NewLine, extraTypes.Where(x => !string.IsNullOrWhiteSpace(x)));
+        }
 
         var result = stringBuilder.ToString();
         stringBuilder.Clear();
