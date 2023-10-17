@@ -3,8 +3,22 @@ using Json2SharpLib.Enums;
 
 namespace Json2SharpApp.Handlers;
 
+/// <summary>
+/// Contains methods to handle output of data.
+/// </summary>
 internal sealed class OutputHandler
 {
+    /// <summary>
+    /// Prints <paramref name="output"/> to <see cref="Console.Out"/> or a file if <paramref name="destinationPath"/> is specified.
+    /// </summary>
+    /// <param name="destinationPath">
+    /// The path where the file should be created or <see langword="null"/>
+    /// if the output should be printed to stdout.
+    /// </param>
+    /// <param name="output">The text to be output.</param>
+    /// <param name="isError">Whether the <paramref name="output"/> is an error or not.</param>
+    /// <param name="language">The language the <paramref name="output"/> is in.</param>
+    /// <returns><see langword="true"/> if data was successfully output, <see langword="false"/> otherwise.</returns>
     public static async Task<bool> HandleAsync(string? destinationPath, string output, bool isError, Language language)
     {
         if (string.IsNullOrWhiteSpace(destinationPath))
@@ -25,6 +39,11 @@ internal sealed class OutputHandler
         return await CreateFileAsync(destinationPath, output);
     }
 
+    /// <summary>
+    /// Prints a message to stderr with the specified color.
+    /// </summary>
+    /// <param name="errorMessage">The message to be printed.</param>
+    /// <param name="foregroundColor">The color to print the message with.</param>
     public static async Task StderrWriteAsync(string errorMessage, ConsoleColor foregroundColor)
     {
         var originalColor = Console.ForegroundColor;
@@ -34,10 +53,17 @@ internal sealed class OutputHandler
         Console.ForegroundColor = originalColor;
     }
 
+    /// <summary>
+    /// Creates a file in the <paramref name="destinationPath"/> with the specified <paramref name="content"/>.
+    /// </summary>
+    /// <param name="destinationPath">The path where the file should be created.</param>
+    /// <param name="content">The content of the file.</param>
+    /// <returns><see langword="true"/> if the file was successfully created, <see langword="false"/> otherwise.</returns>
     private static async Task<bool> CreateFileAsync(string destinationPath, string content)
     {
         var absolutePath = Path.GetFullPath(destinationPath);
-        var parentFolder = Path.GetDirectoryName(absolutePath) ?? Directory.GetDirectoryRoot(Path.DirectorySeparatorChar.ToString());
+        var parentFolder = Path.GetDirectoryName(absolutePath)
+            ?? Directory.GetDirectoryRoot(Path.DirectorySeparatorChar.ToString());
         
         Directory.CreateDirectory(parentFolder);
 

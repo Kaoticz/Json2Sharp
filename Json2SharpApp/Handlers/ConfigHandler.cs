@@ -3,11 +3,19 @@ using Json2SharpLib.Models;
 
 namespace Json2SharpApp.Handlers;
 
+/// <summary>
+/// Contains methods that handle parsing of <see cref="Json2SharpOptions"/>.
+/// </summary>
 internal sealed class ConfigHandler
 {
-    public static Json2SharpOptions Handle(string[]? options)
+    /// <summary>
+    /// Parses configuration options into a <see cref="Json2SharpOptions"/>.
+    /// </summary>
+    /// <param name="options">The command-line configuration options.</param>
+    /// <returns>The parsed options.</returns>
+    public static Json2SharpOptions Handle(IReadOnlyList<string> options)
     {
-        return (options is null || options.Length is 0)
+        return (options.Count is 0)
             ? new Json2SharpOptions()
             : new Json2SharpOptions()
             {
@@ -16,6 +24,11 @@ internal sealed class ConfigHandler
             };
     }
 
+    /// <summary>
+    /// Parse the language to convert to.
+    /// </summary>
+    /// <param name="configOptions">The command-line configuration options.</param>
+    /// <returns>The language to convert to.</returns>
     private static Language ParseLanguage(IReadOnlyList<string> configOptions)
     {
         if (configOptions.Any(x => x is "cs" or "csharp"))
@@ -24,6 +37,11 @@ internal sealed class ConfigHandler
         return Language.CSharp;
     }
 
+    /// <summary>
+    /// Parse the C# options.
+    /// </summary>
+    /// <param name="configOptions">The command-line configuration options.</param>
+    /// <returns>The parsed C# options.</returns>
     private static Json2SharpCSharpOptions ParseCSharpOptions(IReadOnlyList<string> configOptions)
     {
         return new()
