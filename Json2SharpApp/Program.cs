@@ -8,16 +8,20 @@ internal sealed class Program
 {
     private async static Task<int> Main(string[] args)
     {
-        var rootCommand = new RootCommand("Convert a JSON object to a language type declaration.");
         var inputOption = new Option<FileInfo?>(new[] { "--input", "-i" }, "The relative path to the JSON file in the file system.");
         var outputOption = new Option<string?>(new[] { "--output", "-o" }, "The relative path to the resulting file in the file system.");
-
-        rootCommand.AddOption(inputOption);
-        rootCommand.AddOption(outputOption);
-
-        rootCommand.SetHandler(async (inputFile, outputPath) =>
+        var configOption = new Option<string?>(new[] { "--config", "-c" }, "The conversion options.");
+        var rootCommand = new RootCommand("Convert a JSON object to a language type declaration.")
         {
-            var inputSuccessful = InputHandler.Handle(inputFile, out var typeDefinition);
+            inputOption,
+            outputOption,
+            configOption
+        };
+
+        rootCommand.SetHandler(async (inputFile, outputPath, configOptions) =>
+        {
+            var options = ConfigHandler.Handle(configOptions?.Split(' ', StringSplitOptions.TrimEntries));
+            var inputSuccessful = InputHandler.Handle(inputFile, options, out var typeDefinition);
 
             if (inputSuccessful is not null)
             {
@@ -29,7 +33,7 @@ internal sealed class Program
                 await OutputHandler.StderrWriteAsync("Error: no input was provided." + Environment.NewLine, ConsoleColor.Red);
                 await rootCommand.InvokeAsync("--help");
             }
-        }, inputOption, outputOption);
+        }, inputOption, outputOption, configOption);
 
         return await rootCommand.InvokeAsync(args);
     }

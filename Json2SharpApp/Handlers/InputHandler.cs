@@ -1,11 +1,12 @@
 using Json2SharpLib.Common;
+using Json2SharpLib.Models;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Json2SharpApp.Handlers;
 
 internal static class InputHandler
 {
-    public static bool? Handle(FileInfo? fileInfo, out string result)
+    public static bool? Handle(FileInfo? fileInfo, Json2SharpOptions options, out string result)
     {
         var objectName = fileInfo?.Name.Replace(".json", string.Empty) ?? "MyType";
         var rawJson = TryGetPipedData(out var pipedData)
@@ -21,15 +22,15 @@ internal static class InputHandler
             return null;
         }
 
-        return TryParseJson(objectName, rawJson, out result);
+        return TryParseJson(objectName, rawJson, options, out result);
     }
 
 
-    private static bool TryParseJson(string objectName, string rawJson, out string typeDefinitionOrExceptionMessage)
+    private static bool TryParseJson(string objectName, string rawJson, Json2SharpOptions options, out string typeDefinitionOrExceptionMessage)
     {
         try
         {
-            typeDefinitionOrExceptionMessage = Json2Sharp.Parse(objectName, rawJson);
+            typeDefinitionOrExceptionMessage = Json2Sharp.Parse(objectName, rawJson, options);
             return true;
         }
         catch (Exception ex)
