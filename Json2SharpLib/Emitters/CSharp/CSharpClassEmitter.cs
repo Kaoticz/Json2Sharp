@@ -74,7 +74,7 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
             stringBuilder.AppendLine();
         }
 
-        stringBuilder.Remove(stringBuilder.Length - (Environment.NewLine.Length + 1), 1);
+        stringBuilder.Remove(stringBuilder.Length - (Environment.NewLine.Length + 1), Environment.NewLine.Length); // Remove the last newline
         stringBuilder.Append('}');
 
         var sanitizedExtraTypes = extraTypes.Where(x => !string.IsNullOrWhiteSpace(x));

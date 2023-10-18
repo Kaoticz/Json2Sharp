@@ -1,4 +1,4 @@
-using Json2SharpLib.Common;
+using Json2SharpLib;
 using Json2SharpLib.Models;
 using System.Diagnostics.CodeAnalysis;
 
