@@ -5,7 +5,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <Description>CLI tool to parse JSON data into C# classes.</Description>
+    <Description>CLI tool to parse JSON data into language type declarations.</Description>
   </PropertyGroup>
 
   <ItemGroup>

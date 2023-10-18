@@ -3,7 +3,8 @@
   <Import Project="..\BaseCsproj.props" />
 
   <PropertyGroup>
-      <Description>Parse JSON data into C# classes.</Description>
+      <Description>Parse JSON data into language type declarations.</Description>
+      <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
