@@ -51,11 +51,11 @@ internal sealed class Program
         if (inputSuccessful is not null)
         {
             if (!await OutputHandler.HandleAsync(outputPath, typeDefinition, !inputSuccessful.Value, options.TargetLanguage))
-                await OutputHandler.StderrWriteAsync("No permission to write on output folder.", ConsoleColor.Red);
+                await OutputHandler.StderrWriteAsync("No permission to write to output folder.", ConsoleColor.Red);
         }
         else
         {
-            await OutputHandler.StderrWriteAsync("Error: no input was provided." + Environment.NewLine, ConsoleColor.Red);
+            await OutputHandler.StderrWriteAsync("Error: no valid input was provided." + Environment.NewLine, ConsoleColor.Red);
             await rootCommand.InvokeAsync("--help");
         }
     }

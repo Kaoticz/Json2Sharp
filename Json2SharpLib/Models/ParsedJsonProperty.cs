@@ -14,7 +14,7 @@ public sealed record ParsedJsonProperty
     public string? JsonName { get; }
 
     /// <summary>
-    /// The name of the JSON property in PascalCase or
+    /// The name of the JSON property in the target language or
     /// <see langword="null"/> if this is an array element.
     /// </summary>
     public string? FinalName { get; }
