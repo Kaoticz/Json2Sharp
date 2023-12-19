@@ -2,18 +2,18 @@ name: "Bug Report"
 description: File a bug report.
 labels: ["bug"]
 body:
-- type: dropdown
+- type: "dropdown"
   attributes:
-    label: Which version of Json2Sharp are you using?
+    label: "Which version of Json2Sharp are you using?"
     multiple: false
     options:
-      - label: Windows x64
-      - label: Windows arm64
-      - label: Linux x64
-      - label: Linux arm64
-      - label: MacOS x64
-      - label: MacOS arm64
-      - label: I compiled from source
+      - label: "Windows x64"
+      - label: "Windows arm64"
+      - label: "Linux x64"
+      - label: "Linux arm64"
+      - label: "MacOS x64"
+      - label: "MacOS arm64"
+      - label: "I compiled from source"
   validations:
     required: true
 - type: "textarea"

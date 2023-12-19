@@ -21,7 +21,7 @@ jobs:
         run: dotnet build -c Release
 
       - name: Test
-        run: dotnet test -c Release
+        run: dotnet test --no-build -c Release
 
       - name: Clean up
         run: dotnet clean -c Release
@@ -30,7 +30,7 @@ jobs:
         run: |
           mkdir build
           cd ./Json2SharpLib
-          dotnet build -c Release -p:PackageId=Json2Sharp -p:AssemblyName=Json2Sharp
+          dotnet build -p:PackageId=Json2Sharp -p:AssemblyName=Json2Sharp -c Release
           dotnet pack --include-symbols --include-source -p:SymbolPackageFormat=snupkg -p:PackageId=Json2Sharp -p:AssemblyName=Json2Sharp -p:VersionSuffix='nightly-0${{ github.run_number }}' -p:BuildNumber=0$(( ${{ github.run_number }} )) -c Release -o ../build
           cd ..
 
