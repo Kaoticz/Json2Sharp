@@ -54,7 +54,7 @@ internal sealed class Program
 
         if (inputSuccessful is not null)
         {
-            if (!await OutputHandler.HandleAsync(outputPath, typeDefinition, inputSuccessful.Value, options.TargetLanguage))
+            if (!await OutputHandler.HandleAsync(outputPath, typeDefinition, !inputSuccessful.Value, options.TargetLanguage))
                 await OutputHandler.StderrWriteAsync("No permission to write to output directory.", ConsoleColor.Red);
         }
         else
