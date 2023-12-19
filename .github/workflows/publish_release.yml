@@ -1,0 +1,185 @@
+name: "Publish Release"
+
+on:
+  release:
+    types: ["published"]
+
+jobs:
+  publish_windows:
+    
+    runs-on: windows-latest
+
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      WORK_DIR_PATH: ${{ github.RUNNER_TEMP }}
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Setup .NET"
+        uses: "actions/setup-dotnet@v3"
+        with:
+          dotnet-version: 8.x
+
+      - name: Build
+        run: dotnet build -c Release
+
+      - name: Test
+        run: dotnet test
+          
+      - name: Publish
+        run: |
+          cd .\Json2SharpApp\
+          dotnet publish -c Release -r win-x64 -o "$env:WORK_DIR_PATH\build\Json2Sharp_win-x64" --self-contained
+          dotnet publish -c Release -r win-arm64 -o "$env:WORK_DIR_PATH\build\Json2Sharp_win-arm64" --self-contained
+          cd ..\
+
+      - name: Package
+        run: |
+          New-Item -ItemType Directory -Path "$env:WORK_DIR_PATH\zips"
+          Compress-Archive -Path "$env:WORK_DIR_PATH\build\Json2Sharp_win-x64" -DestinationPath "$env:WORK_DIR_PATH\zips\Json2Sharp_win-x64.zip"
+          Compress-Archive -Path "$env:WORK_DIR_PATH\build\Json2Sharp_win-arm64" -DestinationPath "$env:WORK_DIR_PATH\zips\Json2Sharp_win-arm64.zip"
+
+      - name: "Upload Packages To Github Release"
+        uses: "ncipollo/release-action@v1.13.0"
+        with:
+          allowUpdates: true
+          artifactErrorsFailBuild: true
+          artifacts: ${{ env.WORK_DIR_PATH }}\zips\*
+          token: ${{ secrets.REPO_GITHUB_TOKEN }}
+          omitBodyDuringUpdate: true # We don't want to update the body of the release.
+          omitNameDuringUpdate: true # We don't want to update the name of the release.
+
+  publish_linux:
+
+    runs-on: ubuntu-latest
+
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Setup .NET"
+        uses: "actions/setup-dotnet@v3"
+        with:
+          dotnet-version: 7.x
+
+      - name: Build
+        run: dotnet build -c Release
+
+      - name: Test
+        run: dotnet test
+
+      - name: Publish
+        run: |
+          cd ./Json2SharpApp
+          dotnet publish -c Release -r linux-x64 -o ~/build/Json2Sharp_linux-x64 --self-contained
+          dotnet publish -c Release -r linux-arm64 -o ~/build/Json2Sharp_linux-arm64 --self-contained
+          cd ../
+
+      - name: Package
+        run: |
+          mkdir -p ~/zips
+          cd ~/build
+          zip -r9 ~/zips/Json2Sharp_linux-x64.zip ./Json2Sharp_linux-x64
+          zip -r9 ~/zips/Json2Sharp_linux-arm64.zip ./Json2Sharp_linux-arm64
+
+      - name: "Upload Packages To Github Release"
+        uses: "ncipollo/release-action@v1.13.0"
+        with:
+          allowUpdates: true
+          artifactErrorsFailBuild: true
+          artifacts: "~/zips/*"
+          token: ${{ secrets.REPO_GITHUB_TOKEN }}
+          omitBodyDuringUpdate: true # We don't want to update the body of the release.
+          omitNameDuringUpdate: true # We don't want to update the name of the release.
+
+  publish_macos:
+
+    runs-on: macos-latest
+
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Setup .NET"
+        uses: "actions/setup-dotnet@v3"
+        with:
+          dotnet-version: 7.x
+
+      - name: Build
+        run: dotnet build -c Release
+
+      - name: Test
+        run: dotnet test
+
+      - name: Publish
+        run: |
+          cd ./Json2SharpApp
+          dotnet publish -c Release -r osx-x64 -o ~/build/Json2Sharp_osx-x64 --self-contained
+          dotnet publish -c Release -r osx-arm64 -o ~/build/Json2Sharp_osx-arm64 --self-contained
+          cd ../
+
+      - name: Package
+        run: |
+          mkdir -p ~/zips
+          cd ~/build
+          zip -r9 ~/zips/Json2Sharp_osx-x64.zip ./Json2Sharp_osx-x64
+          zip -r9 ~/zips/Json2Sharp_osx-arm64.zip ./Json2Sharp_osx-arm64
+
+      - name: "Upload Packages To Github Release"
+        uses: "ncipollo/release-action@v1.13.0"
+        with:
+          allowUpdates: true
+          artifactErrorsFailBuild: true
+          artifacts: "~/zips/*"
+          token: ${{ secrets.REPO_GITHUB_TOKEN }}
+          omitBodyDuringUpdate: true # We don't want to update the body of the release.
+          omitNameDuringUpdate: true # We don't want to update the name of the release.
+
+  publish_nuget:
+    runs-on: ubuntu-latest
+    if: "!contains(format('{0} {1}', github.event.head_commit.message, github.event.pull_request.title), '[ci-skip]')"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Setup .NET"
+        uses: "actions/setup-dotnet@v2"
+        with:
+          dotnet-version: 8.x
+
+      - name: Build
+        run: dotnet build -c Release
+
+      - name: Test
+        run: dotnet test
+
+      - name: "Build Nuget Packages"
+        run: |
+          mkdir build
+          cd ./Json2SharpLib
+          dotnet pack -p:Version='${{ github.ref_name }}' -p:SymbolPackageFormat=snupkg  -p:PackageId=Json2Sharp -p:AssemblyName=Json2Sharp --include-symbols -c Release -o ../build
+          cd ..
+
+      - name: "Publish Nuget Packages"
+        run: "dotnet nuget push \"build/*\" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json"
+
+      - name: "Upload Nuget Packages To Github Release"
+        uses: "ncipollo/release-action@v1.13.0"
+        with:
+          allowUpdates: true
+          artifactErrorsFailBuild: true
+          artifacts: "build/*"
+          token: ${{ secrets.REPO_GITHUB_TOKEN }}
+          omitBodyDuringUpdate: true # We don't want to update the body of the release.
+          omitNameDuringUpdate: true # We don't want to update the name of the release.

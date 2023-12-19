@@ -1,0 +1,34 @@
+name: "Publish Nightly"
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish_nightly:
+    runs-on: ubuntu-latest
+    if: "!contains(format('{0} {1}', github.event.head_commit.message, github.event.pull_request.title), '[ci-skip]') || !contains(format('{0} {1}', github.event.head_commit.message, github.event.pull_request.title), '[nuget-skip]')"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Setup .NET"
+        uses: "actions/setup-dotnet@v2"
+        with:
+          dotnet-version: 8.x
+
+      - name: Build
+        run: dotnet build -c Release
+
+      - name: Test
+        run: dotnet test
+
+      - name: "Build Nightly Nuget Package"
+        run: |
+          mkdir build
+          cd ./Json2SharpLib
+          dotnet pack -p:SymbolPackageFormat=snupkg -p:PackageId=Json2Sharp -p:AssemblyName=Json2Sharp --include-symbols --include-source -o ../build -p:VersionSuffix='nightly-0${{ github.run_number }}' -p:BuildNumber=0$(( ${{ github.run_number }} ))
+          cd ..
+
+      - name: "Publish Nightly Nuget Package"
+        run: "dotnet nuget push \"build/*\" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json" # If the package version does not comply with SemVer, it will be set as a pre-release version automatically.

@@ -1,0 +1,56 @@
+name: "Bug Report"
+description: File a bug report.
+labels: ["bug"]
+body:
+- type: dropdown
+  attributes:
+    label: Which version of Json2Sharp are you using?
+    multiple: false
+    options:
+      - label: Windows x64
+      - label: Windows arm64
+      - label: Linux x64
+      - label: Linux arm64
+      - label: MacOS x64
+      - label: MacOS arm64
+      - label: I compiled from source
+  validations:
+    required: true
+- type: "textarea"
+  attributes:
+    label: "Description"
+    description: "Give a concise description of the problem"
+  validations:
+    required: true
+- type: "textarea"
+  attributes:
+    label: "Reproduction Steps"
+    description: "Enumerate the steps needed to reproduce the behavior"
+    value: "1. Go to '...'\n2. Click on '....'\n3. Scroll down to '....'\n4. See error"
+  validations:
+    required: true
+- type: "textarea"
+  attributes:
+    label: "Expected Behavior"
+    description: "Describe what you expected to happen"
+  validations:
+    required: true
+- type: "textarea"
+  attributes:
+    label: "Actual Behavior"
+    description: "Describe what actually happened"
+  validations:
+    required: false
+- type: "textarea"
+  attributes:
+    label: "Screenshots"
+    description: "If applicable, add screenshots to help explain your problem"
+  validations:
+    required: false
+- type: "textarea"
+  attributes:
+    label: "Notes"
+    description: "Add any other context about the problem here"
+    placeholder: "eg. OS version, etc"
+  validations:
+    required: false

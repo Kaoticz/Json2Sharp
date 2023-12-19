@@ -3,7 +3,6 @@
   <Import Project="..\BaseCsproj.props" />
 
   <PropertyGroup>
-      <PackageId>Json2Sharp</PackageId>
       <Description>Parse JSON data into language type declarations.</Description>
       <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
