@@ -40,6 +40,7 @@ public sealed class DataTests
     {
         var options = new Json2SharpOptions()
         {
+            TargetLanguage = Language.CSharp,
             CSharp = new()
             {
                 TargetType = targetType,

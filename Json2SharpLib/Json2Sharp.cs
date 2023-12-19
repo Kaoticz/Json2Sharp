@@ -222,7 +222,7 @@ public static class Json2Sharp
     /// </summary>
     /// <param name="jsonElement">The JSON object to be parsed.</param>
     /// <returns>The properties of the JSON object.</returns>
-    public static IReadOnlyList<ParsedJsonProperty> ParseProperties(JsonElement jsonElement)
+    internal static IReadOnlyList<ParsedJsonProperty> ParseProperties(JsonElement jsonElement)
     {
         if (jsonElement.ValueKind is JsonValueKind.Object)
         {
