@@ -13,6 +13,7 @@ internal static class InputHandler
     /// Converts JSON data into a language type declaration specified by <paramref name="options"/>.
     /// </summary>
     /// <param name="fileInfo">The file that contains the JSON data or <see langword="null"/> if data is being piped instead.</param>
+    /// <param name="objectName">The name of the root object.</param>
     /// <param name="options">The parsing options.</param>
     /// <param name="result">
     /// The language type declaration if <see langword="true"/>,
@@ -25,9 +26,8 @@ internal static class InputHandler
     /// <see langword="false"/> if conversion failed and
     /// <see langword="null"/> if there was no JSON data to be converted.
     /// </returns>
-    public static bool? Handle(FileInfo? fileInfo, Json2SharpOptions options, out string result)
+    public static bool? Handle(FileInfo? fileInfo, string objectName, Json2SharpOptions options, out string result)
     {
-        var objectName = fileInfo?.Name.Replace(".json", string.Empty) ?? "MyType";
         var rawJson = TryGetPipedData(out var pipedData)
             ? pipedData
             : (fileInfo is null)

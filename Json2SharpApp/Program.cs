@@ -17,17 +17,19 @@ internal sealed class Program
     {
         var inputOption = new Option<FileInfo?>(new[] { "--input", "-i" }, "The relative path to the JSON file in the file system.");
         var outputOption = new Option<string?>(new[] { "--output", "-o" }, "The relative path to the resulting file in the file system.");
+        var nameOption = new Option<string?>(new[] { "--name", "-n" }, "The name of the root object.");
         var configOption = new Option<string?>(new[] { "--config", "-c" }, "The conversion options.");
         var rootCommand = new RootCommand("Convert a JSON object to a language type declaration.")
         {
             inputOption,
             outputOption,
+            nameOption,
             configOption
         };
 
         rootCommand.SetHandler(
-            async (inputFile, outputPath, configOptions) => await RootHandlerAsync(rootCommand, inputFile, outputPath, configOptions),
-            inputOption, outputOption, configOption
+            async (inputFile, outputPath, nameOption, configOptions) => await RootHandlerAsync(rootCommand, inputFile, outputPath, nameOption, configOptions),
+            inputOption, outputOption, nameOption, configOption
         );
 
         return await rootCommand.InvokeAsync(args);
@@ -42,16 +44,18 @@ internal sealed class Program
     /// The path where the file should be created or <see langword="null"/>
     /// if the output should be printed to stdout.
     /// </param>
+    /// <param name="rootObjectName">The name of the root object or <see langword="null"/> if it was not provided.</param>
     /// <param name="configOptions">The command-line configuration options.</param>
-    private async static Task RootHandlerAsync(RootCommand rootCommand, FileInfo? inputFile, string? outputPath, string? configOptions)
+    private async static Task RootHandlerAsync(RootCommand rootCommand, FileInfo? inputFile, string? outputPath, string? rootObjectName, string? configOptions)
     {
+        rootObjectName ??= Path.GetFileNameWithoutExtension(outputPath ?? inputFile?.Name) ?? "MyType";
         var options = ConfigHandler.Handle(configOptions?.Split(' ', StringSplitOptions.TrimEntries) ?? Array.Empty<string>());
-        var inputSuccessful = InputHandler.Handle(inputFile, options, out var typeDefinition);
+        var inputSuccessful = InputHandler.Handle(inputFile, rootObjectName, options, out var typeDefinition);
 
         if (inputSuccessful is not null)
         {
-            if (!await OutputHandler.HandleAsync(outputPath, typeDefinition, !inputSuccessful.Value, options.TargetLanguage))
-                await OutputHandler.StderrWriteAsync("No permission to write to output folder.", ConsoleColor.Red);
+            if (!await OutputHandler.HandleAsync(outputPath, typeDefinition, inputSuccessful.Value, options.TargetLanguage))
+                await OutputHandler.StderrWriteAsync("No permission to write to output directory.", ConsoleColor.Red);
         }
         else
         {
