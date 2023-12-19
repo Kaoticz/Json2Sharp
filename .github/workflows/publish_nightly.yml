@@ -18,20 +18,20 @@ jobs:
           dotnet-version: 8.x
 
       - name: Build
-        run: dotnet build
+        run: dotnet build -c Release
 
       - name: Test
-        run: dotnet test
+        run: dotnet test -c Release
 
       - name: Clean up
-        run: dotnet clean
+        run: dotnet clean -c Release
 
       - name: "Build Nightly Nuget Package"
         run: |
           mkdir build
           cd ./Json2SharpLib
-          dotnet build -p:PackageId=Json2Sharp -p:AssemblyName=Json2Sharp
-          dotnet pack --include-symbols --include-source -p:SymbolPackageFormat=snupkg -p:PackageId=Json2Sharp -p:AssemblyName=Json2Sharp -p:VersionSuffix='nightly-0${{ github.run_number }}' -p:BuildNumber=0$(( ${{ github.run_number }} )) -o ../build
+          dotnet build -c Release -p:PackageId=Json2Sharp -p:AssemblyName=Json2Sharp
+          dotnet pack --include-symbols --include-source -p:SymbolPackageFormat=snupkg -p:PackageId=Json2Sharp -p:AssemblyName=Json2Sharp -p:VersionSuffix='nightly-0${{ github.run_number }}' -p:BuildNumber=0$(( ${{ github.run_number }} )) -c Release -o ../build
           cd ..
 
       - name: "Publish Nightly Nuget Package"
