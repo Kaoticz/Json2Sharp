@@ -41,7 +41,7 @@ public sealed class DataTests
         var options = new Json2SharpOptions()
         {
             TargetLanguage = Language.CSharp,
-            CSharp = new()
+            CSharpOptions = new()
             {
                 TargetType = targetType,
                 SerializationAttribute = serializationAttribute

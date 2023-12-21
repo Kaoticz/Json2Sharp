@@ -43,7 +43,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
 
         foreach (var property in properties)
         {
-            var bclTypeName = Utilities.TryGetAliasName(property.BclType, out var aliasName)
+            var bclTypeName = J2SUtils.TryGetAliasName(property.BclType, out var aliasName)
                 ? aliasName
                 : property.BclType.Name;
 
@@ -63,7 +63,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
                     (property.JsonElement.ValueKind is not JsonValueKind.Array)
                         ? bclTypeName + nullableAnnotation
                         : string.IsNullOrWhiteSpace(nullableAnnotation) ? bclTypeName : bclTypeName.Insert(bclTypeName.Length - 2, nullableAnnotation),
-                    property.FinalName!
+                    J2SUtils.ToPascalCase(property.JsonName!)
                 )
             );
         }
@@ -98,8 +98,10 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
     {
         if (property.BclType == typeof(object) && property.JsonElement.ValueKind is JsonValueKind.Object)
         {
-            extraTypes.Add(Parse(property.FinalName ?? property.BclType.Name, property.JsonElement));
-            stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, _serializationAttribute, property.JsonName!, property.FinalName!, property.FinalName!));
+            var finalName = J2SUtils.ToPascalCase(property.JsonName);
+
+            extraTypes.Add(Parse(finalName ?? property.BclType.Name, property.JsonElement));
+            stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, _serializationAttribute, property.JsonName!, finalName!, finalName!));
 
             return true;
         }
@@ -111,13 +113,14 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
 
             if (childrenTypes.Count(x => x.JsonElement.ValueKind is not JsonValueKind.Null) is 1)
             {
+                var finalName = J2SUtils.ToPascalCase(property.JsonName);
                 var child = childrenTypes.First(x => x.JsonElement.ValueKind is not JsonValueKind.Null);
-                var typeName = (childrenTypes.Length is not 1 && Utilities.TryGetAliasName(child.BclType, out var aliasName))
-                    ? (aliasName == "object") ? property.FinalName! : aliasName
-                    : property.FinalName ?? bclTypeName;
+                var typeName = (childrenTypes.Length is not 1 && J2SUtils.TryGetAliasName(child.BclType, out var aliasName))
+                    ? (aliasName == "object") ? finalName! : aliasName
+                    : finalName ?? bclTypeName;
 
                 extraTypes.Add(Parse(typeName, child.JsonElement));
-                stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, _serializationAttribute, property.JsonName!, typeName + nullableAnnotation + "[]", property.FinalName!));
+                stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, _serializationAttribute, property.JsonName!, typeName + nullableAnnotation + "[]", finalName!));
 
                 return true;
             }
@@ -127,7 +130,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
     }
 
     /// <summary>
-    /// Creates a member declaration in a primary constructor
+    /// Creates a member declaration in a primary constructor.
     /// </summary>
     /// <param name="indentationPadding">Text that comes before the declaration.</param>
     /// <param name="serializationAttributeName">The name of the attribute.</param>

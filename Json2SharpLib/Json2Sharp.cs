@@ -222,7 +222,7 @@ public static class Json2Sharp
     /// </summary>
     /// <param name="jsonElement">The JSON object to be parsed.</param>
     /// <returns>The properties of the JSON object.</returns>
-    internal static IReadOnlyList<ParsedJsonProperty> ParseProperties(JsonElement jsonElement)
+    public static IReadOnlyList<ParsedJsonProperty> ParseProperties(JsonElement jsonElement)
     {
         if (jsonElement.ValueKind is JsonValueKind.Object)
         {
@@ -230,7 +230,6 @@ public static class Json2Sharp
                 .Select(jsonProperty =>
                     new ParsedJsonProperty(
                         jsonProperty.Name,
-                        Utilities.ToPascalCase(jsonProperty.Name),
                         jsonProperty.Value,
                         jsonProperty.Value.ToBclType(),
                         jsonProperty.Value.ValueKind is JsonValueKind.Array or JsonValueKind.Object
@@ -243,9 +242,8 @@ public static class Json2Sharp
         else if (jsonElement.ValueKind is JsonValueKind.Array)
         {
             return jsonElement.EnumerateArray()
-                .Select((jsonElem, index) =>
+                .Select(jsonElem =>
                     new ParsedJsonProperty(
-                        null,
                         null,
                         jsonElem,
                         jsonElem.ToBclType(),
@@ -270,9 +268,9 @@ public static class Json2Sharp
     {
         return options.TargetLanguage switch
         {
-            Language.CSharp when options.CSharp.TargetType is CSharpObjectType.Record
-                && options.CSharp.SerializationAttribute is CSharpSerializationAttribute.NewtonsoftJson => new CSharpRecordEmitter(options.CSharp),
-            Language.CSharp => new CSharpClassEmitter(options.CSharp),
+            Language.CSharp when options.CSharpOptions.TargetType is CSharpObjectType.Record
+                && options.CSharpOptions.SerializationAttribute is CSharpSerializationAttribute.NewtonsoftJson => new CSharpRecordEmitter(options.CSharpOptions),
+            Language.CSharp => new CSharpClassEmitter(options.CSharpOptions),
             _ => throw new UnreachableException($"Emitter for language {options.TargetLanguage} was not implemented."),
         };
     }

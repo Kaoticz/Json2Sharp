@@ -20,7 +20,7 @@ internal sealed class ConfigHandler
             : new Json2SharpOptions()
             {
                 TargetLanguage = ParseLanguage(options),
-                CSharp = ParseCSharpOptions(options),
+                CSharpOptions = ParseCSharpOptions(options),
             };
     }
 

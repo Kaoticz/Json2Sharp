@@ -5,9 +5,9 @@ using System.Text;
 namespace Json2SharpLib.Common;
 
 /// <summary>
-/// Utility methods.
+/// Json2Sharp utility methods.
 /// </summary>
-internal static class Utilities
+internal static class J2SUtils
 {
     /// <summary>
     /// Maps CLR types to their corresponding language aliases.
@@ -66,7 +66,8 @@ internal static class Utilities
     /// </summary>
     /// <param name="text">The string to be converted.</param>
     /// <returns>The <paramref name="text"/> in PascalCase format.</returns>
-    internal static string ToPascalCase(string text)
+    [return: NotNullIfNotNull(nameof(text))]
+    internal static string? ToPascalCase(string? text)
     {
         if (string.IsNullOrWhiteSpace(text))
             return text;

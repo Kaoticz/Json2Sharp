@@ -16,5 +16,5 @@ public sealed record Json2SharpOptions
     /// <summary>
     /// Parsing options for the C# language.
     /// </summary>
-    public Json2SharpCSharpOptions CSharp { get; init; } = new();
+    public Json2SharpCSharpOptions CSharpOptions { get; init; } = new();
 }
