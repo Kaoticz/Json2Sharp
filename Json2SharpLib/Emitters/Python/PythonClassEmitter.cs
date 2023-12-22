@@ -97,10 +97,11 @@ internal sealed class PythonClassEmitter : ICodeEmitter
 
             if (namespaces.Count is not 0)
                 stringBuilder.Insert(0, "from typing import " + string.Join(", ", namespaces) + Environment.NewLine + Environment.NewLine);
-
-            // Remove the last newline
-            stringBuilder.Remove(stringBuilder.Length - Environment.NewLine.Length, Environment.NewLine.Length);
         }
+
+        // Remove the last newline
+        if (_stackCounter == default)
+            stringBuilder.Remove(stringBuilder.Length - Environment.NewLine.Length, Environment.NewLine.Length);
 
         var result = stringBuilder.ToString();
         stringBuilder.Clear();

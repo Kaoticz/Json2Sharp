@@ -21,4 +21,16 @@ internal static class FloatTypes
                 self.double_number = double_number
                 self.decimal_number = decimal_number
         """;
+
+    public const string OutputNoTypeHints = """
+        class FloatTypes:
+            def __init__(
+                float_number,
+                double_number,
+                decimal_number
+            ):
+                self.float_number = float_number
+                self.double_number = double_number
+                self.decimal_number = decimal_number
+        """;
 }

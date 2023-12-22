@@ -34,4 +34,24 @@ internal static class ObjectTypes
                 self.null_thing = null_thing
                 self.thing = thing
         """;
+
+    public const string OutputNoTypeHints = """
+        class Thing:
+            def __init__(
+                text,
+                number,
+                int_array
+            ):
+                self.text = text
+                self.number = number
+                self.int_array = int_array
+
+        class ObjectTypes:
+            def __init__(
+                null_thing,
+                thing
+            ):
+                self.null_thing = null_thing
+                self.thing = thing
+        """;
 }

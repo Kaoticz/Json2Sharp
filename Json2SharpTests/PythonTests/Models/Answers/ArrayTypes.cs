@@ -59,4 +59,44 @@ internal static class ArrayTypes
                 self.thing_array = thing_array
                 self.nullable_thing_array = nullable_thing_array
         """;
+
+    public const string OutputNoTypeHints = """
+        class NullableThingArray:
+            def __init__(
+                text
+            ):
+                self.text = text
+
+        class ThingArray:
+            def __init__(
+                text
+            ):
+                self.text = text
+
+        class ArrayTypes:
+            def __init__(
+                empty_array,
+                int_array,
+                nullable_int_array,
+                float_array,
+                nullable_float_array,
+                string_array,
+                nullable_string_array,
+                mixed_array,
+                nullable_mixed_array,
+                thing_array,
+                nullable_thing_array
+            ):
+                self.empty_array = empty_array
+                self.int_array = int_array
+                self.nullable_int_array = nullable_int_array
+                self.float_array = float_array
+                self.nullable_float_array = nullable_float_array
+                self.string_array = string_array
+                self.nullable_string_array = nullable_string_array
+                self.mixed_array = mixed_array
+                self.nullable_mixed_array = nullable_mixed_array
+                self.thing_array = thing_array
+                self.nullable_thing_array = nullable_thing_array
+        """;
 }

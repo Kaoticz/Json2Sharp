@@ -18,4 +18,14 @@ internal static class TextTypes
                 self.text = text
                 self.empty_text = empty_text
         """;
+
+    public const string OutputNoTypeHints = """
+        class TextTypes:
+            def __init__(
+                text,
+                empty_text
+            ):
+                self.text = text
+                self.empty_text = empty_text
+        """;
 }

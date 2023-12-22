@@ -24,4 +24,18 @@ internal static class IntegerTypes
                 self.long_number = long_number
                 self.ulong_number = ulong_number
         """;
+
+    public const string OutputNoTypeHints = """
+        class IntegerTypes:
+            def __init__(
+                int_number,
+                uint_number,
+                long_number,
+                ulong_number
+            ):
+                self.int_number = int_number
+                self.uint_number = uint_number
+                self.long_number = long_number
+                self.ulong_number = ulong_number
+        """;
 }

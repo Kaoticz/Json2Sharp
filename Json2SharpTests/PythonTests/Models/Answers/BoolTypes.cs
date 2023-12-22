@@ -18,4 +18,14 @@ internal static class BoolTypes
                 self.true_bool = true_bool
                 self.false_bool = false_bool
         """;
+
+    public const string OutputNoTypeHints = """
+        class BoolTypes:
+            def __init__(
+                true_bool,
+                false_bool
+            ):
+                self.true_bool = true_bool
+                self.false_bool = false_bool
+        """;
 }
