@@ -64,7 +64,7 @@ internal sealed class OutputHandler
         var absolutePath = Path.GetFullPath(destinationPath);
         var parentFolder = Path.GetDirectoryName(absolutePath)
             ?? Directory.GetDirectoryRoot(Path.DirectorySeparatorChar.ToString());
-        
+
         Directory.CreateDirectory(parentFolder);
 
         if (!CanWriteTo(parentFolder))

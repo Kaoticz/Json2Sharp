@@ -1,6 +1,9 @@
+using Json2SharpLib.Enums;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
 
 namespace Json2SharpLib.Common;
 
@@ -9,58 +12,6 @@ namespace Json2SharpLib.Common;
 /// </summary>
 internal static class J2SUtils
 {
-    /// <summary>
-    /// Maps CLR types to their corresponding language aliases.
-    /// </summary>
-    private static readonly IReadOnlyDictionary<Type, string> _csharpAliasTypes = new Dictionary<Type, string>()
-    {
-        [typeof(string)] = "string",
-        [typeof(int)] = "int",
-        [typeof(byte)] = "byte",
-        [typeof(sbyte)] = "sbyte",
-        [typeof(short)] = "short",
-        [typeof(ushort)] = "ushort",
-        [typeof(long)] = "long",
-        [typeof(uint)] = "uint",
-        [typeof(ulong)] = "ulong",
-        [typeof(float)] = "float",
-        [typeof(double)] = "double",
-        [typeof(decimal)] = "decimal",
-        [typeof(object)] = "object",
-        [typeof(bool)] = "bool",
-        [typeof(char)] = "char",
-
-        [typeof(string[])] = "string[]",
-        [typeof(int[])] = "int[]",
-        [typeof(byte[])] = "byte[]",
-        [typeof(sbyte[])] = "sbyte[]",
-        [typeof(short[])] = "short[]",
-        [typeof(ushort[])] = "ushort[]",
-        [typeof(long[])] = "long[]",
-        [typeof(uint[])] = "uint[]",
-        [typeof(ulong[])] = "ulong[]",
-        [typeof(float[])] = "float[]",
-        [typeof(double[])] = "double[]",
-        [typeof(decimal[])] = "decimal[]",
-        [typeof(object[])] = "object[]",
-        [typeof(bool[])] = "bool[]",
-        [typeof(char[])] = "char[]",
-
-        [typeof(int?[])] = "int?[]",
-        [typeof(byte?[])] = "byte?[]",
-        [typeof(sbyte?[])] = "sbyte?[]",
-        [typeof(short?[])] = "short?[]",
-        [typeof(ushort?[])] = "ushort?[]",
-        [typeof(long?[])] = "long?[]",
-        [typeof(uint?[])] = "uint?[]",
-        [typeof(ulong?[])] = "ulong?[]",
-        [typeof(float?[])] = "float?[]",
-        [typeof(double?[])] = "double?[]",
-        [typeof(decimal?[])] = "decimal?[]",
-        [typeof(bool?[])] = "bool?[]",
-        [typeof(char?[])] = "char?[]",
-    };
-
     /// <summary>
     /// Converts a string to the PascalCase format.
     /// </summary>
@@ -85,14 +36,26 @@ internal static class J2SUtils
     /// Attempts to get the alias for the given <paramref name="type"/>.
     /// </summary>
     /// <param name="type">The type to get the alias name from.</param>
+    /// <param name="language">The programming language to get the alias from.</param>
     /// <param name="aliasName">The alias name of <paramref name="type"/>.</param>
     /// <returns><see langword="true"/> if the alias was successfully found, <see langword="false"/> otherwise.</returns>
-    internal static bool TryGetAliasName(Type type, [MaybeNullWhen(false)] out string aliasName)
+    internal static bool TryGetAliasName(Type type, Language language, [MaybeNullWhen(false)] out string aliasName)
     {
-        if (_csharpAliasTypes.TryGetValue(type, out aliasName))
+        if ((language is Language.CSharp && TypeAliases.CSharpAliasTypes.TryGetValue(type, out aliasName))
+            || (language is Language.Python && TypeAliases.PythonAliasTypes.TryGetValue(type, out aliasName)))
             return true;
 
         aliasName = default;
         return false;
     }
+
+    /// <summary>
+    /// Checks if the specified <paramref name="jsonElement"/> can be <see langword="null"/>.
+    /// </summary>
+    /// <param name="jsonElement">The Json element to check.</param>
+    /// <returns><see langword="true"/> if <paramref name="jsonElement"/> can be <see langword="null"/>, <see langword="false"/> otherwise.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static bool IsPropertyNullable(JsonElement jsonElement)
+        => (jsonElement.ValueKind is JsonValueKind.Null
+            || (jsonElement.ValueKind is JsonValueKind.Array && jsonElement.EnumerateArray().Any(x => x.ValueKind is JsonValueKind.Null)));
 }

@@ -1,5 +1,6 @@
 using Json2SharpLib.Enums;
 using Json2SharpLib.Models;
+using Json2SharpLib.Models.LanguageOptions;
 
 namespace Json2SharpApp.Handlers;
 
@@ -15,12 +16,15 @@ internal sealed class ConfigHandler
     /// <returns>The parsed options.</returns>
     public static Json2SharpOptions Handle(IReadOnlyList<string> options)
     {
+        var targetLanguage = ParseLanguage(options);
+
         return (options.Count is 0)
             ? new Json2SharpOptions()
             : new Json2SharpOptions()
             {
-                TargetLanguage = ParseLanguage(options),
-                CSharpOptions = ParseCSharpOptions(options),
+                TargetLanguage = targetLanguage,
+                CSharpOptions = (targetLanguage is Language.CSharp) ? ParseCSharpOptions(options) : new(),
+                PythonOptions = (targetLanguage is Language.Python) ? ParsePythonOptions(options) : new(),
             };
     }
 
@@ -31,8 +35,8 @@ internal sealed class ConfigHandler
     /// <returns>The language to convert to.</returns>
     private static Language ParseLanguage(IReadOnlyList<string> configOptions)
     {
-        if (configOptions.Any(x => x is "cs" or "csharp"))
-            return Language.CSharp;
+        if (configOptions.Any(x => x is "py" or "python"))
+            return Language.Python;
 
         return Language.CSharp;
     }
@@ -70,6 +74,29 @@ internal sealed class ConfigHandler
             IndentationPadding = configOptions.Any(x => x is "tab")
                 ? "\t"
                 : "    ",
+        };
+    }
+
+    /// <summary>
+    /// Parse the Python options.
+    /// </summary>
+    /// <param name="configOptions">The command-line configuration options.</param>
+    /// <returns>The parsed Python options.</returns>
+    private static Json2SharpPythonOptions ParsePythonOptions(IReadOnlyList<string> configOptions)
+    {
+        var indentationAmountOption = configOptions.FirstOrDefault(x => x.StartsWith("ind"))?[3..];
+
+        return new()
+        {
+            AddTypeHints = !configOptions.Any(x => x is "nth" or "notypehint"),
+
+            IndentationCharacterAmount = int.TryParse(indentationAmountOption, out var indentationAmount)
+                ? indentationAmount
+                : 4,
+
+            IndentationPaddingCharacter = configOptions.Any(x => x is "tab")
+                ? Json2SharpLib.IndentationCharacterType.Tab
+                : Json2SharpLib.IndentationCharacterType.Space
         };
     }
 }

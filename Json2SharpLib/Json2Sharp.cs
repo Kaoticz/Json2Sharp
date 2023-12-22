@@ -1,6 +1,6 @@
-using Json2SharpLib.Common;
 using Json2SharpLib.Emitters.Abstractions;
 using Json2SharpLib.Emitters.CSharp;
+using Json2SharpLib.Emitters.Python;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Extensions;
 using Json2SharpLib.Models;
@@ -271,6 +271,7 @@ public static class Json2Sharp
             Language.CSharp when options.CSharpOptions.TargetType is CSharpObjectType.Record
                 && options.CSharpOptions.SerializationAttribute is CSharpSerializationAttribute.NewtonsoftJson => new CSharpRecordEmitter(options.CSharpOptions),
             Language.CSharp => new CSharpClassEmitter(options.CSharpOptions),
+            Language.Python => new PythonClassEmitter(options.PythonOptions),
             _ => throw new UnreachableException($"Emitter for language {options.TargetLanguage} was not implemented."),
         };
     }

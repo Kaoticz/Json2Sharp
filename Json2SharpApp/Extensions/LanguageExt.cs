@@ -19,6 +19,7 @@ internal static class LanguageExt
         return language switch
         {
             Language.CSharp => ".cs",
+            Language.Python => ".py",
             _ => throw new UnreachableException($"Extension for language {language} has not been implemented."),
         };
     }

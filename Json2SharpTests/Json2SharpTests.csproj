@@ -26,4 +26,9 @@
     <ProjectReference Include="..\Json2SharpLib\Json2SharpLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PythonTests/Models/" />
+    <Folder Include="PythonTests/Models/Answers/" />
+  </ItemGroup>
+
 </Project>

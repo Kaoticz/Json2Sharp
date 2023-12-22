@@ -1,7 +1,9 @@
 using Json2SharpLib.Common;
 using Json2SharpLib.Emitters.Abstractions;
+using Json2SharpLib.Enums;
 using Json2SharpLib.Extensions;
 using Json2SharpLib.Models;
+using Json2SharpLib.Models.LanguageOptions;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
@@ -9,7 +11,7 @@ using System.Text.Json;
 namespace Json2SharpLib.Emitters.CSharp;
 
 /// <summary>
-/// Parses JSON data into a type declaration with the base body of a record definition using a primary constructor.
+/// Parses JSON data into a C# type declaration with the base body of a record definition using a primary constructor.
 /// </summary>
 internal sealed class CSharpRecordEmitter : ICodeEmitter
 {
@@ -18,7 +20,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
     private readonly string _indentationPadding;
 
     /// <summary>
-    /// Creates an object that parses JSON data into a type declaration with the base body of a record definition using a primary constructor.
+    /// Creates an object that parses JSON data into a C# type declaration with the base body of a record definition using a primary constructor.
     /// </summary>
     /// <param name="options">The parsing options.</param>
     internal CSharpRecordEmitter(Json2SharpCSharpOptions options)
@@ -43,12 +45,11 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
 
         foreach (var property in properties)
         {
-            var bclTypeName = J2SUtils.TryGetAliasName(property.BclType, out var aliasName)
+            var bclTypeName = J2SUtils.TryGetAliasName(property.BclType, Language.CSharp, out var aliasName)
                 ? aliasName
                 : property.BclType.Name;
 
-            var nullableAnnotation = (property.JsonElement.ValueKind is JsonValueKind.Null
-                || (property.JsonElement.ValueKind is JsonValueKind.Array && property.JsonElement.EnumerateArray().Any(x => x.ValueKind is JsonValueKind.Null)))
+            var nullableAnnotation = (J2SUtils.IsPropertyNullable(property.JsonElement))
                 ? "?"
                 : string.Empty;
 
@@ -94,7 +95,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
     /// <param name="nullableAnnotation">The symbol for null annotations.</param>
     /// <param name="extraTypes">The list that contains the definitions of custom types in the JSON data.</param>
     /// <returns><see langword="true"/> if <paramref name="property"/> was parsed, <see langword="false"/> otherwise.</returns>
-    private bool HandleCustomType(ParsedJsonProperty property, StringBuilder stringBuilder, string bclTypeName, string nullableAnnotation, IList<string> extraTypes)
+    private bool HandleCustomType(ParsedJsonProperty property, StringBuilder stringBuilder, string bclTypeName, string nullableAnnotation, List<string> extraTypes)
     {
         if (property.BclType == typeof(object) && property.JsonElement.ValueKind is JsonValueKind.Object)
         {
@@ -115,7 +116,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
             {
                 var finalName = J2SUtils.ToPascalCase(property.JsonName);
                 var child = childrenTypes.First(x => x.JsonElement.ValueKind is not JsonValueKind.Null);
-                var typeName = (childrenTypes.Length is not 1 && J2SUtils.TryGetAliasName(child.BclType, out var aliasName))
+                var typeName = (childrenTypes.Length is not 1 && J2SUtils.TryGetAliasName(child.BclType, Language.CSharp, out var aliasName))
                     ? (aliasName == "object") ? finalName! : aliasName
                     : finalName ?? bclTypeName;
 

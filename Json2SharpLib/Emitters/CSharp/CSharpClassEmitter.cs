@@ -1,7 +1,9 @@
 using Json2SharpLib.Common;
 using Json2SharpLib.Emitters.Abstractions;
+using Json2SharpLib.Enums;
 using Json2SharpLib.Extensions;
 using Json2SharpLib.Models;
+using Json2SharpLib.Models.LanguageOptions;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
@@ -9,7 +11,7 @@ using System.Text.Json;
 namespace Json2SharpLib.Emitters.CSharp;
 
 /// <summary>
-/// Parses JSON data into a type declaration with the base body of a class definition.
+/// Parses JSON data into a C# type declaration with the base body of a class definition.
 /// </summary>
 internal sealed class CSharpClassEmitter : ICodeEmitter
 {
@@ -20,7 +22,7 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
     private readonly string _setterType;
 
     /// <summary>
-    /// Creates an object that parses JSON data into a type declaration with the base body of a class definition.
+    /// Creates an object that parses JSON data into a C# type declaration with the base body of a class definition.
     /// </summary>
     /// <param name="options">The parsing options.</param>
     internal CSharpClassEmitter(Json2SharpCSharpOptions options)
@@ -48,12 +50,11 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
 
         foreach (var property in properties)
         {
-            var bclTypeName = J2SUtils.TryGetAliasName(property.BclType, out var aliasName)
+            var bclTypeName = J2SUtils.TryGetAliasName(property.BclType, Language.CSharp, out var aliasName)
                 ? aliasName
                 : property.BclType.Name;
 
-            var nullableAnnotation = (property.JsonElement.ValueKind is JsonValueKind.Null
-                || (property.JsonElement.ValueKind is JsonValueKind.Array && property.JsonElement.EnumerateArray().Any(x => x.ValueKind is JsonValueKind.Null)))
+            var nullableAnnotation = (J2SUtils.IsPropertyNullable(property.JsonElement))
                 ? "?"
                 : string.Empty;
 
@@ -100,7 +101,7 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
     /// <param name="nullableAnnotation">The symbol for null annotations.</param>
     /// <param name="extraTypes">The list that contains the definitions of custom types in the JSON data.</param>
     /// <returns><see langword="true"/> if <paramref name="property"/> was parsed, <see langword="false"/> otherwise.</returns>
-    private bool HandleCustomType(ParsedJsonProperty property, StringBuilder stringBuilder, string bclTypeName, string nullableAnnotation, IList<string> extraTypes)
+    private bool HandleCustomType(ParsedJsonProperty property, StringBuilder stringBuilder, string bclTypeName, string nullableAnnotation, List<string> extraTypes)
     {
         if (property.BclType == typeof(object) && property.JsonElement.ValueKind is JsonValueKind.Object)
         {
@@ -121,11 +122,11 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
 
             if (childrenTypes.Count(x => x.JsonElement.ValueKind is not JsonValueKind.Null) is 1)
             {
-                var finalName = J2SUtils.ToPascalCase(property.JsonName);
+                var finalName = J2SUtils.ToPascalCase(property.JsonName!);
                 var child = childrenTypes.First(x => x.JsonElement.ValueKind is not JsonValueKind.Null);
-                var typeName = (childrenTypes.Length is not 1 && J2SUtils.TryGetAliasName(child.BclType, out var aliasName))
-                    ? (aliasName == "object") ? finalName! : aliasName
-                    : finalName ?? bclTypeName;
+                var typeName = (childrenTypes.Length is not 1 && J2SUtils.TryGetAliasName(child.BclType, Language.CSharp, out var aliasName))
+                    ? (aliasName == "object") ? finalName : aliasName  // CustomType or alias
+                    : finalName ?? bclTypeName;                        // CustomType or Int32 (fallback)
 
                 extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
                 stringBuilder.AppendLine(CreateMemberAttribute(_indentationPadding, _serializationAttribute, property.JsonName!));

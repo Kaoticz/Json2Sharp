@@ -1,6 +1,6 @@
 using Json2SharpLib.Enums;
 
-namespace Json2SharpLib.Models;
+namespace Json2SharpLib.Models.LanguageOptions;
 
 /// <summary>
 /// The parsing options for C# types.

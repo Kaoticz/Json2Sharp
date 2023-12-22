@@ -8,5 +8,10 @@ public enum Language : byte
     /// <summary>
     /// The C# language.
     /// </summary>
-    CSharp
+    CSharp,
+
+    /// <summary>
+    /// The Python language.
+    /// </summary>
+    Python
 }

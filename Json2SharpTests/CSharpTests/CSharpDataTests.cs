@@ -5,7 +5,7 @@ using Json2SharpTests.CSharpTests.Models.Answers;
 
 namespace Json2SharpTests.CSharpTests;
 
-public sealed class DataTests
+public sealed class CSharpDataTests
 {
     [Theory]
     [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.RecordPrimaryCtorOutput, CSharpObjectType.Record, CSharpSerializationAttribute.NewtonsoftJson)]
