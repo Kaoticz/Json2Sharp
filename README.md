@@ -8,7 +8,7 @@
 
 Json2Sharp is a CLI application that converts JSON data into a programming language type declaration (i.e. a class).
 
-At the moment, C# is the only supported programming language, but contributions to support more languages is welcome.
+Currently, C# and Python are supported. Contributions to support more languages are welcome.
 
 ## Quick start
 

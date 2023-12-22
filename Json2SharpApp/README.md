@@ -1,1 +1,50 @@
 # Json2SharpApp
+
+Json2Sharp is a CLI application that converts JSON data into a programming language type declaration (i.e. a class).
+
+## Quick start
+
+Pipe JSON data directly into Json2Sharp.
+
+```bash
+$ curl -s https://api.isevenapi.xyz/api/iseven/6 | json2sharp
+public sealed record MyType
+{
+    [JsonPropertyName("ad")]
+    public string Ad { get; init; }
+
+    [JsonPropertyName("iseven")]
+    public bool Iseven { get; init; }
+}
+```
+
+Or tell it to use a file as input.
+
+```bash
+$ json2sharp -i IsEven.json
+public sealed record IsEven
+{
+    [JsonPropertyName("ad")]
+    public string Ad { get; init; }
+
+    [JsonPropertyName("iseven")]
+    public bool Iseven { get; init; }
+}
+```
+
+You can also save the result to a file.
+
+```bash
+$ curl -s https://api.isevenapi.xyz/api/iseven/6 | json2sharp -o IsEven.cs
+$ cat IsEven.cs
+public sealed record IsEven
+{
+    [JsonPropertyName("ad")]
+    public string Ad { get; init; }
+
+    [JsonPropertyName("iseven")]
+    public bool Iseven { get; init; }
+}
+```
+
+For additional options, please visit the [wiki](https://github.com/Kaoticz/Json2Sharp/wiki).

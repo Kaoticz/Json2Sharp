@@ -88,7 +88,7 @@ internal sealed class ConfigHandler
 
         return new()
         {
-            AddTypeHints = !configOptions.Any(x => x is "nth" or "notypehint"),
+            AddTypeHints = !configOptions.Any(x => x is "nth" or "notypehints"),
 
             IndentationCharacterAmount = int.TryParse(indentationAmountOption, out var indentationAmount)
                 ? indentationAmount
