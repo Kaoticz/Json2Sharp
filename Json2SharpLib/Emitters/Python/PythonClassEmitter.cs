@@ -41,9 +41,38 @@ internal sealed class PythonClassEmitter : ICodeEmitter
 
         _stackCounter++;
 
-        var extraTypes = new List<string>();
-        var stringBuilder = new StringBuilder();
+        var stringBuilder = BuildConstructorSignature(objectName, properties, out var extraTypes);
 
+        // Build the body of the constructor
+        foreach (var property in properties)
+            stringBuilder.AppendIndentedLine($"self.{property.JsonName} = {property.JsonName}", _indentationPadding, 2);
+
+        // Add extra types at the top
+        AddCustomTypes(stringBuilder, extraTypes);
+
+        // Add the imports
+        AddImports(stringBuilder);
+
+        // Remove the last newline
+        if (_stackCounter == default)
+            stringBuilder.Remove(stringBuilder.Length - Environment.NewLine.Length, Environment.NewLine.Length);
+
+        return stringBuilder.ToStringAndClear();
+    }
+
+    /// <summary>
+    /// Builds the signature of the constructor.
+    /// </summary>
+    /// <param name="objectName">The name of the class.</param>
+    /// <param name="properties">The properties of the class.</param>
+    /// <param name="extraTypes">Types that this class depends on.</param>
+    /// <returns>A <see cref="StringBuilder"/> with the constructor's signature in it. </returns>
+    private StringBuilder BuildConstructorSignature(string objectName, IReadOnlyList<ParsedJsonProperty> properties, out List<string> extraTypes)
+    {
+        var stringBuilder = new StringBuilder();
+        extraTypes = [];
+
+        // Class declaration
         stringBuilder.AppendLine($"class {objectName}:");
 
         // Build the signature of the constructor
@@ -66,10 +95,17 @@ internal sealed class PythonClassEmitter : ICodeEmitter
         stringBuilder.Remove(stringBuilder.Length - (Environment.NewLine.Length + 1), 1);   // Remove the last comma
         stringBuilder.AppendIndentedLine($"){((_addTypeHint) ? " -> None" : string.Empty)}:", _indentationPadding, 1);
 
-        // Build the body of the constructor
-        foreach (var property in properties)
-            stringBuilder.AppendIndentedLine($"self.{property.JsonName} = {property.JsonName}", _indentationPadding, 2);
+        return stringBuilder;
+    }
 
+    /// <summary>
+    /// Adds custom types at the top of the class definition.
+    /// </summary>
+    /// <param name="stringBuilder">The string builder with the class definition.</param>
+    /// <param name="extraTypes">The types the class in <paramref name="stringBuilder"/> depends on.</param>
+    /// <returns><see langword="true"/> if custom types were added, <see langword="false"/> otherwise.</returns>
+    private static bool AddCustomTypes(StringBuilder stringBuilder, List<string> extraTypes)
+    {
         var sanitizedExtraTypes = extraTypes
             .Where(x => !string.IsNullOrWhiteSpace(x))
             .Reverse();
@@ -79,34 +115,38 @@ internal sealed class PythonClassEmitter : ICodeEmitter
         {
             stringBuilder.Insert(0, Environment.NewLine);
             stringBuilder.Insert(0, string.Join(Environment.NewLine, sanitizedExtraTypes));
+
+            return true;
         }
 
-        // Add the imports
-        if (--_stackCounter == default && _addTypeHint)
-        {
-            var namespaces = new List<string>(3);
+        return false;
+    }
 
-            if (stringBuilder.Contains("Any"))
-                namespaces.Add("Any");
+    /// <summary>
+    /// Adds imports to the top of the class definition.
+    /// </summary>
+    /// <param name="stringBuilder">The string builder that contains the class definition.</param>
+    /// <returns><see langword="true"/> if imports were added, <see langword="false"/> otherwise.</returns>
+    private bool AddImports(StringBuilder stringBuilder)
+    {
+        if (--_stackCounter != default || !_addTypeHint)
+            return false;
 
-            if (stringBuilder.Contains("List["))
-                namespaces.Add("List");
+        var namespaces = new List<string>(3);
 
-            if (stringBuilder.Contains("Optional["))
-                namespaces.Add("Optional");
+        if (stringBuilder.Contains("Any"))
+            namespaces.Add("Any");
 
-            if (namespaces.Count is not 0)
-                stringBuilder.Insert(0, "from typing import " + string.Join(", ", namespaces) + Environment.NewLine + Environment.NewLine);
-        }
+        if (stringBuilder.Contains("List["))
+            namespaces.Add("List");
 
-        // Remove the last newline
-        if (_stackCounter == default)
-            stringBuilder.Remove(stringBuilder.Length - Environment.NewLine.Length, Environment.NewLine.Length);
+        if (stringBuilder.Contains("Optional["))
+            namespaces.Add("Optional");
 
-        var result = stringBuilder.ToString();
-        stringBuilder.Clear();
+        if (namespaces.Count is not 0)
+            stringBuilder.Insert(0, "from typing import " + string.Join(", ", namespaces) + Environment.NewLine + Environment.NewLine);
 
-        return result;
+        return namespaces.Count is not 0;
     }
 
     /// <summary>

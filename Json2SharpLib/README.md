@@ -1,6 +1,6 @@
 # Json2Sharp
 
-Json2Sharp is a library that converts JSON data into a programming language type declaration (i.e. a class).
+Json2Sharp is a library that converts a JSON object to a programming language type definition (i.e. a class).
 
 To perform a conversion, call the `Parse` method from the `Json2Sharp` class.
 
@@ -18,7 +18,7 @@ string code = Json2Sharp.Parse("Person", """{ "id": 1, "name": "John" }""");
  */
 ```
 
-You can customize the conversion by initializing a `Json2SharpOptions` object and populating its members to suit your needs.
+You can also customize the conversion by initializing a `Json2SharpOptions` object and populating its members to suit your needs.
 
 ```cs
 Json2SharpOptions options = new()

@@ -45,12 +45,31 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
         var extraTypes = new List<string>();
         var stringBuilder = new StringBuilder();
 
+        // Class declaration
         stringBuilder.AppendLine($"{_accessibility} {_objectType} {objectName}");
         stringBuilder.AppendLine("{");
 
+        BuildClassMembers(stringBuilder, extraTypes, properties);
+
+        stringBuilder.Append('}');
+
+        AddCustomTypes(stringBuilder, extraTypes);
+
+        return stringBuilder.ToStringAndClear();
+    }
+
+    /// <summary>
+    /// Builds the class members in the class definition.
+    /// </summary>
+    /// <param name="stringBuilder">The string builder that contains the class definition.</param>
+    /// <param name="extraTypes">Custom type that this class depends on.</param>
+    /// <param name="properties">The properties of the class.</param>
+    /// <returns><paramref name="stringBuilder"/> with the class' members added to it.</returns>
+    private StringBuilder BuildClassMembers(StringBuilder stringBuilder, List<string> extraTypes, IReadOnlyList<ParsedJsonProperty> properties)
+    {
         foreach (var property in properties)
         {
-            var bclTypeName = J2SUtils.TryGetAliasName(property.BclType, Language.CSharp, out var aliasName)
+            var bclTypeName = (J2SUtils.TryGetAliasName(property.BclType, Language.CSharp, out var aliasName))
                 ? aliasName
                 : property.BclType.Name;
 
@@ -67,7 +86,7 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
                     _indentationPadding,
                     (property.JsonElement.ValueKind is not JsonValueKind.Array)
                         ? bclTypeName + nullableAnnotation
-                        : string.IsNullOrWhiteSpace(nullableAnnotation) ? bclTypeName : bclTypeName.Insert(bclTypeName.Length - 2, nullableAnnotation),
+                        : (string.IsNullOrWhiteSpace(nullableAnnotation)) ? bclTypeName : bclTypeName.Insert(bclTypeName.Length - 2, nullableAnnotation),
                     J2SUtils.ToPascalCase(property.JsonName!),
                     _setterType
                 )
@@ -76,20 +95,27 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
         }
 
         stringBuilder.Remove(stringBuilder.Length - (Environment.NewLine.Length + 1), Environment.NewLine.Length); // Remove the last newline
-        stringBuilder.Append('}');
 
+        return stringBuilder;
+    }
+
+    /// <summary>
+    /// Adds custom types at the top of the class definition.
+    /// </summary>
+    /// <param name="stringBuilder">The string builder with the class definition.</param>
+    /// <param name="extraTypes">The types the class in <paramref name="stringBuilder"/> depends on.</param>
+    /// <returns><see langword="true"/> if custom types were added, <see langword="false"/> otherwise.</returns>
+    private static bool AddCustomTypes(StringBuilder stringBuilder, List<string> extraTypes)
+    {
         var sanitizedExtraTypes = extraTypes.Where(x => !string.IsNullOrWhiteSpace(x));
 
-        if (sanitizedExtraTypes.Any())
-        {
-            stringBuilder.AppendLine(Environment.NewLine);
-            stringBuilder.AppendJoin(Environment.NewLine + Environment.NewLine, sanitizedExtraTypes);
-        }
+        if (!sanitizedExtraTypes.Any())
+            return false;
 
-        var result = stringBuilder.ToString();
-        stringBuilder.Clear();
+        stringBuilder.AppendLine(Environment.NewLine);
+        stringBuilder.AppendJoin(Environment.NewLine + Environment.NewLine, sanitizedExtraTypes);
 
-        return result;
+        return true;
     }
 
     /// <summary>

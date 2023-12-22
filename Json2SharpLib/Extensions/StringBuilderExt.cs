@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Json2SharpLib.Extensions;
@@ -49,5 +50,20 @@ internal static class StringBuilderExt
         }
 
         return false;
+    }
+
+
+    /// <summary>
+    /// Converts the value of this instance to a <see langword="string"/>, then clears its buffer.
+    /// </summary>
+    /// <param name="stringBuilder">This builder.</param>
+    /// <returns>A string whose value is the same as this instance.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static string ToStringAndClear(this StringBuilder stringBuilder)
+    {
+        var result = stringBuilder.ToString();
+        stringBuilder.Clear();
+
+        return result;
     }
 }

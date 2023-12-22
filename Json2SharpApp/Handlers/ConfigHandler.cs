@@ -50,28 +50,28 @@ internal sealed class ConfigHandler
     {
         return new()
         {
-            TargetType = configOptions.Any(x => x is "class") ? CSharpObjectType.Class
-                : configOptions.Any(x => x is "struct") ? CSharpObjectType.Struct
+            TargetType = (configOptions.Any(x => x is "class")) ? CSharpObjectType.Class
+                : (configOptions.Any(x => x is "struct")) ? CSharpObjectType.Struct
                 : CSharpObjectType.Record,
 
-            AccessibilityLevel = configOptions.Any(x => x is "protected") ? CSharpAccessibilityLevel.Protected
-                : configOptions.Any(x => x is "internal") ? CSharpAccessibilityLevel.Internal
-                : configOptions.Any(x => x is "protectedinternal") ? CSharpAccessibilityLevel.ProtectedInternal
-                : configOptions.Any(x => x is "privateprotected") ? CSharpAccessibilityLevel.PrivateProtected
-                : configOptions.Any(x => x is "private") ? CSharpAccessibilityLevel.Private
+            AccessibilityLevel = (configOptions.Any(x => x is "protected")) ? CSharpAccessibilityLevel.Protected
+                : (configOptions.Any(x => x is "internal")) ? CSharpAccessibilityLevel.Internal
+                : (configOptions.Any(x => x is "protectedinternal")) ? CSharpAccessibilityLevel.ProtectedInternal
+                : (configOptions.Any(x => x is "privateprotected")) ? CSharpAccessibilityLevel.PrivateProtected
+                : (configOptions.Any(x => x is "private")) ? CSharpAccessibilityLevel.Private
                 : CSharpAccessibilityLevel.Public,
 
-            SerializationAttribute = configOptions.Any(x => x is "ntj" or "newtonsoft" or "newtonsoftjson")
+            SerializationAttribute = (configOptions.Any(x => x is "ntj" or "newtonsoft" or "newtonsoftjson"))
                 ? CSharpSerializationAttribute.NewtonsoftJson
                 : CSharpSerializationAttribute.SystemTextJson,
 
-            SetterType = configOptions.Any(x => x is "set")
+            SetterType = (configOptions.Any(x => x is "set"))
                 ? CSharpSetterType.Set
                 : CSharpSetterType.Init,
 
             IsSealed = !configOptions.Any(x => x is "notsealed"),
 
-            IndentationPadding = configOptions.Any(x => x is "tab")
+            IndentationPadding = (configOptions.Any(x => x is "tab"))
                 ? "\t"
                 : "    ",
         };
@@ -90,11 +90,11 @@ internal sealed class ConfigHandler
         {
             AddTypeHints = !configOptions.Any(x => x is "nth" or "notypehints"),
 
-            IndentationCharacterAmount = int.TryParse(indentationAmountOption, out var indentationAmount)
+            IndentationCharacterAmount = (int.TryParse(indentationAmountOption, out var indentationAmount))
                 ? indentationAmount
                 : 4,
 
-            IndentationPaddingCharacter = configOptions.Any(x => x is "tab")
+            IndentationPaddingCharacter = (configOptions.Any(x => x is "tab"))
                 ? Json2SharpLib.IndentationCharacterType.Tab
                 : Json2SharpLib.IndentationCharacterType.Space
         };
