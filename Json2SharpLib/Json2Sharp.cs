@@ -269,6 +269,7 @@ public static class Json2Sharp
         return options.TargetLanguage switch
         {
             Language.CSharp when options.CSharpOptions.TargetType is CSharpObjectType.Record
+                && options.CSharpOptions.SetterType is CSharpSetterType.Init
                 && options.CSharpOptions.SerializationAttribute is CSharpSerializationAttribute.NoAttribute
                 or CSharpSerializationAttribute.NewtonsoftJson => new CSharpRecordEmitter(options.CSharpOptions),
             Language.CSharp => new CSharpClassEmitter(options.CSharpOptions),
