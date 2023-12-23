@@ -16,6 +16,13 @@ internal static class TextTypes
         );
         """;
 
+    public const string RecordPrimaryCtorOutputNoAtt = """
+        public sealed record TextTypes(
+            string Text,
+            string EmptyText
+        );
+        """;
+
     public const string RecordOutput = """
         public sealed record TextTypes
         {
@@ -34,6 +41,15 @@ internal static class TextTypes
             public string Text { get; init; }
         
             [JsonPropertyName("empty_text")]
+            public string EmptyText { get; init; }
+        }
+        """;
+
+    public const string ClassOutputNoAtt = """
+        public sealed class TextTypes
+        {
+            public string Text { get; init; }
+        
             public string EmptyText { get; init; }
         }
         """;

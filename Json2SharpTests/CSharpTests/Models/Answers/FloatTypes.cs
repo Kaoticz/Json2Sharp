@@ -18,6 +18,14 @@ internal static class FloatTypes
         );
         """;
 
+    public const string RecordPrimaryCtorOutputNoAtt = """
+        public sealed record FloatTypes(
+            float FloatNumber,
+            double DoubleNumber,
+            decimal DecimalNumber
+        );
+        """;
+
     public const string RecordOutput = """
         public sealed record FloatTypes
         {
@@ -42,6 +50,17 @@ internal static class FloatTypes
             public double DoubleNumber { get; init; }
         
             [JsonPropertyName("decimal_number")]
+            public decimal DecimalNumber { get; init; }
+        }
+        """;
+
+    public const string ClassOutputNoAtt = """
+        public sealed class FloatTypes
+        {
+            public float FloatNumber { get; init; }
+        
+            public double DoubleNumber { get; init; }
+        
             public decimal DecimalNumber { get; init; }
         }
         """;

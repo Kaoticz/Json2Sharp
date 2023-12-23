@@ -80,7 +80,9 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
             if (HandleCustomType(property, stringBuilder, bclTypeName, nullableAnnotation, extraTypes))
                 continue;
 
-            stringBuilder.AppendLine(CreateMemberAttribute(_indentationPadding, _serializationAttribute, property.JsonName!));
+            if (!string.IsNullOrWhiteSpace(_serializationAttribute))
+                stringBuilder.AppendLine(CreateMemberAttribute(_indentationPadding, _serializationAttribute, property.JsonName!));
+
             stringBuilder.AppendLine(
                 CreateMemberDeclaration(
                     _indentationPadding,
@@ -134,7 +136,10 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
             var finalName = J2SUtils.ToPascalCase(property.JsonName);
 
             extraTypes.Add(Parse(finalName ?? property.BclType.Name, property.JsonElement));
-            stringBuilder.AppendLine(CreateMemberAttribute(_indentationPadding, _serializationAttribute, property.JsonName!));
+
+            if (!string.IsNullOrWhiteSpace(_serializationAttribute))
+                stringBuilder.AppendLine(CreateMemberAttribute(_indentationPadding, _serializationAttribute, property.JsonName!));
+
             stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, finalName!, finalName!, _setterType));
             stringBuilder.AppendLine();
 
@@ -155,7 +160,10 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
                     : finalName ?? bclTypeName;                        // CustomType or Int32 (fallback)
 
                 extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
-                stringBuilder.AppendLine(CreateMemberAttribute(_indentationPadding, _serializationAttribute, property.JsonName!));
+
+                if (!string.IsNullOrWhiteSpace(_serializationAttribute))
+                    stringBuilder.AppendLine(CreateMemberAttribute(_indentationPadding, _serializationAttribute, property.JsonName!));
+                    
                 stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, typeName + nullableAnnotation + "[]", finalName!, _setterType));
                 stringBuilder.AppendLine();
 

@@ -20,6 +20,15 @@ internal static class IntegerTypes
         );
         """;
 
+    public const string RecordPrimaryCtorOutputNoAtt = """
+        public sealed record IntegerTypes(
+            int IntNumber,
+            uint UintNumber,
+            long LongNumber,
+            ulong UlongNumber
+        );
+        """;
+
     public const string RecordOutput = """
         public sealed record IntegerTypes
         {
@@ -50,6 +59,19 @@ internal static class IntegerTypes
             public long LongNumber { get; init; }
         
             [JsonPropertyName("ulong_number")]
+            public ulong UlongNumber { get; init; }
+        }
+        """;
+
+    public const string ClassOutputNoAtt = """
+        public sealed class IntegerTypes
+        {
+            public int IntNumber { get; init; }
+        
+            public uint UintNumber { get; init; }
+        
+            public long LongNumber { get; init; }
+        
             public ulong UlongNumber { get; init; }
         }
         """;

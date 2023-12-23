@@ -16,6 +16,13 @@ internal static class BoolTypes
         );
         """;
 
+    public const string RecordPrimaryCtorOutputNoAtt = """
+        public sealed record BoolTypes(
+            bool TrueBool,
+            bool FalseBool
+        );
+        """;
+
     public const string RecordOutput = """
         public sealed record BoolTypes
         {
@@ -34,6 +41,15 @@ internal static class BoolTypes
             public bool TrueBool { get; init; }
         
             [JsonPropertyName("false_bool")]
+            public bool FalseBool { get; init; }
+        }
+        """;
+
+    public const string ClassOutputNoAtt = """
+        public sealed class BoolTypes
+        {
+            public bool TrueBool { get; init; }
+        
             public bool FalseBool { get; init; }
         }
         """;

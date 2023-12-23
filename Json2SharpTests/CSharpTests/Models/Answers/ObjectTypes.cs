@@ -26,6 +26,19 @@ internal static class ObjectTypes
         );
         """;
 
+    public const string RecordPrimaryCtorOutputNoAtt = """
+        public sealed record ObjectTypes(
+            object? NullThing,
+            Thing Thing
+        );
+
+        public sealed record Thing(
+            string Text,
+            int Number,
+            int[] IntArray
+        );
+        """;
+
     public const string RecordOutput = """
         public sealed record ObjectTypes
         {
@@ -68,6 +81,24 @@ internal static class ObjectTypes
             public int Number { get; init; }
         
             [JsonPropertyName("int_array")]
+            public int[] IntArray { get; init; }
+        }
+        """;
+
+    public const string ClassOutputNoAtt = """
+        public sealed class ObjectTypes
+        {
+            public object? NullThing { get; init; }
+        
+            public Thing Thing { get; init; }
+        }
+
+        public sealed class Thing
+        {
+            public string Text { get; init; }
+        
+            public int Number { get; init; }
+        
             public int[] IntArray { get; init; }
         }
         """;

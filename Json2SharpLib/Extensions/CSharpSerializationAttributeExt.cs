@@ -18,6 +18,7 @@ internal static class CSharpSerializationAttributeExt
     {
         return serializationAttribute switch
         {
+            CSharpSerializationAttribute.NoAttribute => string.Empty,
             CSharpSerializationAttribute.SystemTextJson => "JsonPropertyName",
             CSharpSerializationAttribute.NewtonsoftJson => "JsonProperty",
             _ => throw new UnreachableException($"Serialization attribute of type {serializationAttribute} is not implemented."),

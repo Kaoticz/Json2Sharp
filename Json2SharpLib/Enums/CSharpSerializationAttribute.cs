@@ -7,6 +7,11 @@ namespace Json2SharpLib.Enums;
 public enum CSharpSerializationAttribute : byte
 {
     /// <summary>
+    /// No serialization attribute.
+    /// </summary>
+    NoAttribute,
+
+    /// <summary>
     /// System.Text.Json - JsonPropertyName
     /// </summary>
     SystemTextJson,

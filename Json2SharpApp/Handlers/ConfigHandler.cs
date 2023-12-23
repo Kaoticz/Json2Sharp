@@ -61,8 +61,8 @@ internal sealed class ConfigHandler
                 : (configOptions.Any(x => x is "private")) ? CSharpAccessibilityLevel.Private
                 : CSharpAccessibilityLevel.Public,
 
-            SerializationAttribute = (configOptions.Any(x => x is "ntj" or "newtonsoft" or "newtonsoftjson"))
-                ? CSharpSerializationAttribute.NewtonsoftJson
+            SerializationAttribute = (configOptions.Any(x => x is "noatt" or "noattribute")) ? CSharpSerializationAttribute.NoAttribute
+                : (configOptions.Any(x => x is "ntj" or "newtonsoft" or "newtonsoftjson")) ? CSharpSerializationAttribute.NewtonsoftJson
                 : CSharpSerializationAttribute.SystemTextJson,
 
             SetterType = (configOptions.Any(x => x is "set"))

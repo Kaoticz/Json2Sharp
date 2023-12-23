@@ -42,6 +42,30 @@ internal static class ArrayTypes
         );
         """;
 
+    public const string RecordPrimaryCtorOutputNoAtt = """
+        public sealed record ArrayTypes(
+            object[] EmptyArray,
+            int[] IntArray,
+            int?[] NullableIntArray,
+            float[] FloatArray,
+            float?[] NullableFloatArray,
+            string[] StringArray,
+            string?[] NullableStringArray,
+            object[] MixedArray,
+            object?[] NullableMixedArray,
+            ThingArray[] ThingArray,
+            NullableThingArray?[] NullableThingArray
+        );
+
+        public sealed record ThingArray(
+            string Text
+        );
+
+        public sealed record NullableThingArray(
+            string Text
+        );
+        """;
+
     public const string RecordOutput = """
         public sealed record ArrayTypes
         {
@@ -138,6 +162,43 @@ internal static class ArrayTypes
         public sealed class NullableThingArray
         {
             [JsonPropertyName("text")]
+            public string Text { get; init; }
+        }
+        """;
+
+    public const string ClassOutputNoAtt = """
+        public sealed class ArrayTypes
+        {
+            public object[] EmptyArray { get; init; }
+        
+            public int[] IntArray { get; init; }
+        
+            public int?[] NullableIntArray { get; init; }
+        
+            public float[] FloatArray { get; init; }
+        
+            public float?[] NullableFloatArray { get; init; }
+        
+            public string[] StringArray { get; init; }
+        
+            public string?[] NullableStringArray { get; init; }
+        
+            public object[] MixedArray { get; init; }
+        
+            public object?[] NullableMixedArray { get; init; }
+        
+            public ThingArray[] ThingArray { get; init; }
+        
+            public NullableThingArray?[] NullableThingArray { get; init; }
+        }
+
+        public sealed class ThingArray
+        {
+            public string Text { get; init; }
+        }
+
+        public sealed class NullableThingArray
+        {
             public string Text { get; init; }
         }
         """;
