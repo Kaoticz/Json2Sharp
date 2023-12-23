@@ -12,7 +12,7 @@ internal static class CSharpSerializationAttributeExt
     /// Gets the code representation of a library serialization attribute.
     /// </summary>
     /// <param name="serializationAttribute">The serialization library.</param>
-    /// <returns>The serialization attribute's name.</returns>
+    /// <returns>The serialization attribute's name or <see cref="string.Empty"/> if <see cref="CSharpSerializationAttribute.NoAttribute"/>.</returns>
     /// <exception cref="UnreachableException">Occurs when a serialization library is not implemented.</exception>
     internal static string ToCode(this CSharpSerializationAttribute serializationAttribute)
     {

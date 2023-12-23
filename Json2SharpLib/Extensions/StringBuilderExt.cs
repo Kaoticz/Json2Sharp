@@ -39,10 +39,9 @@ internal static class StringBuilderExt
         {
             for (var chunkIndex = 0; chunkIndex < chunk.Span.Length; chunkIndex++)
             {
-                if (chunk.Span[chunkIndex] == text[textIndex])
-                    textIndex++;
-                else
-                    textIndex = 0;
+                textIndex = (chunk.Span[chunkIndex] == text[textIndex])
+                    ? textIndex + 1
+                    : 0;
 
                 if (textIndex == text.Length)
                     return true;
@@ -51,7 +50,6 @@ internal static class StringBuilderExt
 
         return false;
     }
-
 
     /// <summary>
     /// Converts the value of this instance to a <see langword="string"/>, then clears its buffer.

@@ -163,7 +163,7 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
 
                 if (!string.IsNullOrWhiteSpace(_serializationAttribute))
                     stringBuilder.AppendLine(CreateMemberAttribute(_indentationPadding, _serializationAttribute, property.JsonName!));
-                    
+
                 stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, typeName + nullableAnnotation + "[]", finalName!, _setterType));
                 stringBuilder.AppendLine();
 
