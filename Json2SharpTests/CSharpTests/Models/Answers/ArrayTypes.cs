@@ -19,6 +19,8 @@ internal static class ArrayTypes
         """;
 
     public const string RecordPrimaryCtorOutput = """
+        using Newtonsoft.Json;
+
         public sealed record ArrayTypes(
             [JsonProperty("empty_array")] object[] EmptyArray,
             [JsonProperty("int_array")] int[] IntArray,
@@ -67,6 +69,8 @@ internal static class ArrayTypes
         """;
 
     public const string RecordOutput = """
+        using System.Text.Json.Serialization;
+
         public sealed record ArrayTypes
         {
             [JsonPropertyName("empty_array")]
@@ -117,6 +121,8 @@ internal static class ArrayTypes
         """;
 
     public const string ClassOutput = """
+        using System.Text.Json.Serialization;
+        
         public sealed class ArrayTypes
         {
             [JsonPropertyName("empty_array")]
@@ -204,6 +210,8 @@ internal static class ArrayTypes
         """;
 
     public const string StructOutput = """
+        using System.Text.Json.Serialization;
+        
         public struct ArrayTypes
         {
             [JsonPropertyName("empty_array")]

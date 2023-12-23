@@ -10,6 +10,8 @@ internal static class BoolTypes
         """;
 
     public const string RecordPrimaryCtorOutput = """
+        using Newtonsoft.Json;
+
         public sealed record BoolTypes(
             [JsonProperty("true_bool")] bool TrueBool,
             [JsonProperty("false_bool")] bool FalseBool
@@ -24,6 +26,8 @@ internal static class BoolTypes
         """;
 
     public const string RecordOutput = """
+        using System.Text.Json.Serialization;
+        
         public sealed record BoolTypes
         {
             [JsonPropertyName("true_bool")]
@@ -35,6 +39,8 @@ internal static class BoolTypes
         """;
 
     public const string ClassOutput = """
+        using System.Text.Json.Serialization;
+        
         public sealed class BoolTypes
         {
             [JsonPropertyName("true_bool")]
@@ -55,6 +61,8 @@ internal static class BoolTypes
         """;
 
     public const string StructOutput = """
+        using System.Text.Json.Serialization;
+        
         public struct BoolTypes
         {
             [JsonPropertyName("true_bool")]

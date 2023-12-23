@@ -18,6 +18,8 @@ Pipe JSON data directly into Json2Sharp.
 
 ```bash
 $ curl -s https://api.isevenapi.xyz/api/iseven/6 | json2sharp
+using System.Text.Json.Serialization;
+
 public sealed record MyType
 {
     [JsonPropertyName("ad")]
@@ -32,6 +34,8 @@ Or tell it to use a file as input.
 
 ```bash
 $ json2sharp -i IsEven.json
+using System.Text.Json.Serialization;
+
 public sealed record IsEven
 {
     [JsonPropertyName("ad")]
@@ -47,6 +51,8 @@ You can also save the result to a file.
 ```bash
 $ curl -s https://api.isevenapi.xyz/api/iseven/6 | json2sharp -o IsEven.cs
 $ cat IsEven.cs
+using System.Text.Json.Serialization;
+
 public sealed record IsEven
 {
     [JsonPropertyName("ad")]
@@ -72,6 +78,8 @@ To perform a conversion, call the `Parse` method from the `Json2Sharp` class.
 ```cs
 string code = Json2Sharp.Parse("Person", """{ "id": 1, "name": "John" }""");
 /*
+ * using System.Text.Json.Serialization;
+ *
  * public sealed record Person
  * {
  *     [JsonPropertyName("id")]
@@ -99,6 +107,8 @@ Json2SharpOptions options = new()
 
 string code = Json2Sharp.Parse(className, rawJson, options);
 /*
+ * using Newtonsoft.Json;
+ *
  * public record Person(
  *     [JsonProperty("id")] int Id,
  *     [JsonProperty("name")] string Name

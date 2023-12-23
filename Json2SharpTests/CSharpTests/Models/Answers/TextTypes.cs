@@ -10,6 +10,8 @@ internal static class TextTypes
         """;
 
     public const string RecordPrimaryCtorOutput = """
+        using Newtonsoft.Json;
+
         public sealed record TextTypes(
             [JsonProperty("text")] string Text,
             [JsonProperty("empty_text")] string EmptyText
@@ -24,6 +26,8 @@ internal static class TextTypes
         """;
 
     public const string RecordOutput = """
+        using System.Text.Json.Serialization;
+        
         public sealed record TextTypes
         {
             [JsonPropertyName("text")]
@@ -35,6 +39,8 @@ internal static class TextTypes
         """;
 
     public const string ClassOutput = """
+        using System.Text.Json.Serialization;
+        
         public sealed class TextTypes
         {
             [JsonPropertyName("text")]
@@ -55,6 +61,8 @@ internal static class TextTypes
         """;
 
     public const string StructOutput = """
+        using System.Text.Json.Serialization;
+        
         public struct TextTypes
         {
             [JsonPropertyName("text")]

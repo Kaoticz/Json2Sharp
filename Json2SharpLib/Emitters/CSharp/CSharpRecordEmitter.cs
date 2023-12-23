@@ -15,7 +15,9 @@ namespace Json2SharpLib.Emitters.CSharp;
 /// </summary>
 internal sealed class CSharpRecordEmitter : ICodeEmitter
 {
+    private int _stackCounter = 0;
     private readonly string _accessibility;
+    private readonly CSharpSerializationAttribute _serializationAttributeType;
     private readonly string _serializationAttribute;
     private readonly string _indentationPadding;
 
@@ -26,6 +28,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
     internal CSharpRecordEmitter(Json2SharpCSharpOptions options)
     {
         _accessibility = options.AccessibilityLevel.ToCode() + (options.IsSealed ? " sealed" : string.Empty);
+        _serializationAttributeType = options.SerializationAttribute;
         _serializationAttribute = options.SerializationAttribute.ToCode();
         _indentationPadding = options.IndentationPadding;
     }
@@ -38,8 +41,16 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
         if (properties.Count is 0)
             return string.Empty;
 
+        _stackCounter++;
+
         var extraTypes = new List<string>();
         var stringBuilder = new StringBuilder();
+
+        // Namespace declaration
+        if (_stackCounter is 1 && _serializationAttributeType is CSharpSerializationAttribute.SystemTextJson)
+            stringBuilder.AppendLine("using System.Text.Json.Serialization;" + Environment.NewLine);
+        else if (_stackCounter is 1 && _serializationAttributeType is CSharpSerializationAttribute.NewtonsoftJson)
+            stringBuilder.AppendLine("using Newtonsoft.Json;" + Environment.NewLine);
 
         stringBuilder.AppendLine($"{_accessibility} record {objectName}(");
 
@@ -48,6 +59,8 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
         stringBuilder.Append(");");
 
         AddCustomTypes(stringBuilder, extraTypes);
+
+        _stackCounter--;
 
         return stringBuilder.ToStringAndClear();
     }

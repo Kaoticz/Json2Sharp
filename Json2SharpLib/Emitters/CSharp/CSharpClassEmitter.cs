@@ -15,7 +15,9 @@ namespace Json2SharpLib.Emitters.CSharp;
 /// </summary>
 internal sealed class CSharpClassEmitter : ICodeEmitter
 {
+    private int _stackCounter = 0;
     private readonly string _accessibility;
+    private readonly CSharpSerializationAttribute _serializationAttributeType;
     private readonly string _serializationAttribute;
     private readonly string _indentationPadding;
     private readonly string _objectType;
@@ -28,6 +30,7 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
     internal CSharpClassEmitter(Json2SharpCSharpOptions options)
     {
         _accessibility = options.AccessibilityLevel.ToCode() + (options.IsSealed && options.TargetType is not Enums.CSharpObjectType.Struct ? " sealed" : string.Empty);
+        _serializationAttributeType = options.SerializationAttribute;
         _serializationAttribute = options.SerializationAttribute.ToCode();
         _indentationPadding = options.IndentationPadding;
         _objectType = options.TargetType.ToString().ToLowerInvariant();
@@ -42,8 +45,16 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
         if (properties.Count is 0)
             return string.Empty;
 
+        _stackCounter++;
+
         var extraTypes = new List<string>();
         var stringBuilder = new StringBuilder();
+
+        // Namespace declaration
+        if (_stackCounter is 1 && _serializationAttributeType is CSharpSerializationAttribute.SystemTextJson)
+            stringBuilder.AppendLine("using System.Text.Json.Serialization;" + Environment.NewLine);
+        else if (_stackCounter is 1 && _serializationAttributeType is CSharpSerializationAttribute.NewtonsoftJson)
+            stringBuilder.AppendLine("using Newtonsoft.Json;" + Environment.NewLine);
 
         // Class declaration
         stringBuilder.AppendLine($"{_accessibility} {_objectType} {objectName}");
@@ -54,6 +65,8 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
         stringBuilder.Append('}');
 
         AddCustomTypes(stringBuilder, extraTypes);
+
+        _stackCounter--;
 
         return stringBuilder.ToStringAndClear();
     }

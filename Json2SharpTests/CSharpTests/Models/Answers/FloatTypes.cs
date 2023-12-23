@@ -11,6 +11,8 @@ internal static class FloatTypes
         """;
 
     public const string RecordPrimaryCtorOutput = """
+        using Newtonsoft.Json;
+
         public sealed record FloatTypes(
             [JsonProperty("float_number")] float FloatNumber,
             [JsonProperty("double_number")] double DoubleNumber,
@@ -27,6 +29,8 @@ internal static class FloatTypes
         """;
 
     public const string RecordOutput = """
+        using System.Text.Json.Serialization;
+        
         public sealed record FloatTypes
         {
             [JsonPropertyName("float_number")]
@@ -41,6 +45,8 @@ internal static class FloatTypes
         """;
 
     public const string ClassOutput = """
+        using System.Text.Json.Serialization;
+        
         public sealed class FloatTypes
         {
             [JsonPropertyName("float_number")]
@@ -66,6 +72,8 @@ internal static class FloatTypes
         """;
 
     public const string StructOutput = """
+        using System.Text.Json.Serialization;
+        
         public struct FloatTypes
         {
             [JsonPropertyName("float_number")]

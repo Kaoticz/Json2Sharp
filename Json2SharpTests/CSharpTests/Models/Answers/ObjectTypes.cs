@@ -14,6 +14,8 @@ internal static class ObjectTypes
         """;
 
     public const string RecordPrimaryCtorOutput = """
+        using Newtonsoft.Json;
+
         public sealed record ObjectTypes(
             [JsonProperty("null_thing")] object? NullThing,
             [JsonProperty("thing")] Thing Thing
@@ -40,6 +42,8 @@ internal static class ObjectTypes
         """;
 
     public const string RecordOutput = """
+        using System.Text.Json.Serialization;
+        
         public sealed record ObjectTypes
         {
             [JsonPropertyName("null_thing")]
@@ -63,6 +67,8 @@ internal static class ObjectTypes
         """;
 
     public const string ClassOutput = """
+        using System.Text.Json.Serialization;
+        
         public sealed class ObjectTypes
         {
             [JsonPropertyName("null_thing")]
@@ -104,6 +110,8 @@ internal static class ObjectTypes
         """;
 
     public const string StructOutput = """
+        using System.Text.Json.Serialization;
+        
         public struct ObjectTypes
         {
             [JsonPropertyName("null_thing")]

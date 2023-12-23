@@ -12,6 +12,8 @@ internal static class IntegerTypes
         """;
 
     public const string RecordPrimaryCtorOutput = """
+        using Newtonsoft.Json;
+
         public sealed record IntegerTypes(
             [JsonProperty("int_number")] int IntNumber,
             [JsonProperty("uint_number")] uint UintNumber,
@@ -30,6 +32,8 @@ internal static class IntegerTypes
         """;
 
     public const string RecordOutput = """
+        using System.Text.Json.Serialization;
+        
         public sealed record IntegerTypes
         {
             [JsonPropertyName("int_number")]
@@ -47,6 +51,8 @@ internal static class IntegerTypes
         """;
 
     public const string ClassOutput = """
+        using System.Text.Json.Serialization;
+        
         public sealed class IntegerTypes
         {
             [JsonPropertyName("int_number")]
@@ -77,6 +83,8 @@ internal static class IntegerTypes
         """;
 
     public const string StructOutput = """
+        using System.Text.Json.Serialization;
+        
         public struct IntegerTypes
         {
             [JsonPropertyName("int_number")]
