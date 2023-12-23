@@ -49,6 +49,7 @@ jobs:
           artifactErrorsFailBuild: true
           artifacts: ${{ env.WORK_DIR_PATH }}\zips\*
           token: ${{ secrets.REPO_GITHUB_TOKEN }}
+          tag: ${{ github.event.release.tag_name }}
           omitBodyDuringUpdate: true # We don't want to update the body of the release.
           omitNameDuringUpdate: true # We don't want to update the name of the release.
 
@@ -96,6 +97,7 @@ jobs:
           artifactErrorsFailBuild: true
           artifacts: "~/zips/*"
           token: ${{ secrets.REPO_GITHUB_TOKEN }}
+          tag: ${{ github.event.release.tag_name }}
           omitBodyDuringUpdate: true # We don't want to update the body of the release.
           omitNameDuringUpdate: true # We don't want to update the name of the release.
 
@@ -143,6 +145,7 @@ jobs:
           artifactErrorsFailBuild: true
           artifacts: "~/zips/*"
           token: ${{ secrets.REPO_GITHUB_TOKEN }}
+          tag: ${{ github.event.release.tag_name }}
           omitBodyDuringUpdate: true # We don't want to update the body of the release.
           omitNameDuringUpdate: true # We don't want to update the name of the release.
 
@@ -171,7 +174,7 @@ jobs:
           mkdir build
           cd ./Json2SharpLib
           dotnet build -p:PackageId=Json2Sharp -p:AssemblyName=Json2Sharp -c Release
-          dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg  -p:PackageId=Json2Sharp -p:AssemblyName=Json2Sharp -p:Version='${{ github.ref_name }}' -c Release -o ../build
+          dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg  -p:PackageId=Json2Sharp -p:AssemblyName=Json2Sharp -p:Version='${{ github.event.release.tag_name }}' -c Release -o ../build
           cd ..
 
       - name: "Publish Nuget Packages"
@@ -184,5 +187,6 @@ jobs:
           artifactErrorsFailBuild: true
           artifacts: "build/*"
           token: ${{ secrets.REPO_GITHUB_TOKEN }}
+          tag: ${{ github.event.release.tag_name }}
           omitBodyDuringUpdate: true # We don't want to update the body of the release.
           omitNameDuringUpdate: true # We don't want to update the name of the release.
