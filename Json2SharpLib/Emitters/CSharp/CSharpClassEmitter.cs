@@ -52,9 +52,9 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
 
         // Namespace declaration
         if (_stackCounter is 1 && _serializationAttributeType is CSharpSerializationAttribute.SystemTextJson)
-            stringBuilder.AppendLine("using System.Text.Json.Serialization;" + Environment.NewLine);
+            stringBuilder.AppendLine(Constants.StjUsing + Environment.NewLine);
         else if (_stackCounter is 1 && _serializationAttributeType is CSharpSerializationAttribute.NewtonsoftJson)
-            stringBuilder.AppendLine("using Newtonsoft.Json;" + Environment.NewLine);
+            stringBuilder.AppendLine(Constants.NewtonsoftUsing + Environment.NewLine);
 
         // Class declaration
         stringBuilder.AppendLine($"{_accessibility} {_objectType} {objectName}");

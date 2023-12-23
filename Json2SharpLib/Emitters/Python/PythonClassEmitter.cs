@@ -144,7 +144,7 @@ internal sealed class PythonClassEmitter : ICodeEmitter
             namespaces.Add("Optional");
 
         if (namespaces.Count is not 0)
-            stringBuilder.Insert(0, "from typing import " + string.Join(", ", namespaces) + Environment.NewLine + Environment.NewLine);
+            stringBuilder.Insert(0, Constants.PythonTypeImportBase + string.Join(", ", namespaces) + Environment.NewLine + Environment.NewLine);
 
         return namespaces.Count is not 0;
     }
