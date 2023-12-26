@@ -48,7 +48,7 @@ internal sealed class Program
     /// <param name="configOptions">The command-line configuration options.</param>
     private async static Task RootHandlerAsync(RootCommand rootCommand, FileInfo? inputFile, string? outputPath, string? rootObjectName, string? configOptions)
     {
-        rootObjectName ??= Path.GetFileNameWithoutExtension(outputPath ?? inputFile?.Name) ?? "MyType";
+        rootObjectName ??= Path.GetFileNameWithoutExtension(outputPath ?? inputFile?.Name) ?? "Root";
         var options = ConfigHandler.Handle(configOptions?.Split(' ', StringSplitOptions.TrimEntries) ?? Array.Empty<string>());
         var inputSuccessful = InputHandler.Handle(inputFile, rootObjectName, options, out var typeDefinition);
 

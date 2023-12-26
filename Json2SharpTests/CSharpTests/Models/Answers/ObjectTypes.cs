@@ -5,6 +5,7 @@ internal static class ObjectTypes
     public const string Input = """
         {
             "null_thing": null,
+            "empty_thing": {},
             "thing": {
                 "text": "hello world",
                 "number": 1,
@@ -18,6 +19,7 @@ internal static class ObjectTypes
 
         public sealed record ObjectTypes(
             [JsonProperty("null_thing")] object? NullThing,
+            [JsonProperty("empty_thing")] object EmptyThing,
             [JsonProperty("thing")] Thing Thing
         );
 
@@ -31,6 +33,7 @@ internal static class ObjectTypes
     public const string RecordPrimaryCtorOutputNoAtt = """
         public sealed record ObjectTypes(
             object? NullThing,
+            object EmptyThing,
             Thing Thing
         );
 
@@ -48,6 +51,9 @@ internal static class ObjectTypes
         {
             [JsonPropertyName("null_thing")]
             public object? NullThing { get; init; }
+
+            [JsonPropertyName("empty_thing")]
+            public object EmptyThing { get; init; }
         
             [JsonPropertyName("thing")]
             public Thing Thing { get; init; }
@@ -73,6 +79,9 @@ internal static class ObjectTypes
         {
             [JsonPropertyName("null_thing")]
             public object? NullThing { get; init; }
+
+            [JsonPropertyName("empty_thing")]
+            public object EmptyThing { get; init; }
         
             [JsonPropertyName("thing")]
             public Thing Thing { get; init; }
@@ -95,6 +104,8 @@ internal static class ObjectTypes
         public sealed class ObjectTypes
         {
             public object? NullThing { get; init; }
+
+            public object EmptyThing { get; init; }
         
             public Thing Thing { get; init; }
         }
@@ -116,6 +127,9 @@ internal static class ObjectTypes
         {
             [JsonPropertyName("null_thing")]
             public object? NullThing { get; init; }
+
+            [JsonPropertyName("empty_thing")]
+            public object EmptyThing { get; init; }
         
             [JsonPropertyName("thing")]
             public Thing Thing { get; init; }

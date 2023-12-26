@@ -140,7 +140,15 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
             var finalName = J2SUtils.ToPascalCase(property.JsonName);
 
             extraTypes.Add(Parse(finalName ?? property.BclType.Name, property.JsonElement));
-            stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, _serializationAttribute, property.JsonName!, finalName!, finalName!));
+            stringBuilder.AppendLine(
+                CreateMemberDeclaration(
+                    _indentationPadding,
+                    _serializationAttribute,
+                    property.JsonName!,
+                    (property.JsonElement.EnumerateObject().Any()) ? finalName! : "object",
+                    finalName!
+                )
+            );
 
             return true;
         }
