@@ -137,6 +137,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
     {
         if (property.BclType == typeof(object) && property.JsonElement.ValueKind is JsonValueKind.Object)
         {
+            using var jsonEnumerator = property.JsonElement.EnumerateObject();
             var finalName = J2SUtils.ToPascalCase(property.JsonName);
 
             extraTypes.Add(Parse(finalName ?? property.BclType.Name, property.JsonElement));
@@ -145,7 +146,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
                     _indentationPadding,
                     _serializationAttribute,
                     property.JsonName!,
-                    (property.JsonElement.EnumerateObject().Any()) ? finalName! : "object",
+                    (jsonEnumerator.Any()) ? finalName! : "object",
                     finalName!
                 )
             );

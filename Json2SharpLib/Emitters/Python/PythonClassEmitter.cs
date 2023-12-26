@@ -161,8 +161,9 @@ internal sealed class PythonClassEmitter : ICodeEmitter
     {
         if (property.BclType == typeof(object) && property.JsonElement.ValueKind is JsonValueKind.Object)
         {
+            using var jsonEnumerator = property.JsonElement.EnumerateObject();
             var typeName = (_addTypeHint)
-                ? ": " + ((property.JsonElement.EnumerateObject().Any()) ? J2SUtils.ToPascalCase(property.JsonName) : "Any")
+                ? ": " + ((jsonEnumerator.Any()) ? J2SUtils.ToPascalCase(property.JsonName) : "Any")
                 : string.Empty;
 
             extraTypes.Add(Parse(J2SUtils.ToPascalCase(property.JsonName!), property.JsonElement));

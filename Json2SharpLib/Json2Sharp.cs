@@ -226,7 +226,9 @@ public static class Json2Sharp
     {
         if (jsonElement.ValueKind is JsonValueKind.Object)
         {
-            return jsonElement.EnumerateObject()
+            using var jsonEnumerator = jsonElement.EnumerateObject();
+
+            return jsonEnumerator
                 .Select(jsonProperty =>
                     new ParsedJsonProperty(
                         jsonProperty.Name,
@@ -241,7 +243,9 @@ public static class Json2Sharp
         }
         else if (jsonElement.ValueKind is JsonValueKind.Array)
         {
-            return jsonElement.EnumerateArray()
+            using var jsonEnumerator = jsonElement.EnumerateArray();
+
+            return jsonEnumerator
                 .Select(jsonElem =>
                     new ParsedJsonProperty(
                         null,

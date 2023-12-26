@@ -30,9 +30,11 @@ internal static class JsonElementExt
     /// </summary>
     /// <param name="jsonElement">The JSON element to be processed.</param>
     /// <returns>The BCL type that represents the <paramref name="jsonElement"/>.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when <paramref name="jsonElement"/> is not an array.</exception>
     private static Type GetArrayType(JsonElement jsonElement)
     {
-        var types = jsonElement.EnumerateArray()
+        using var jsonEnumerator = jsonElement.EnumerateArray();
+        var types = jsonEnumerator
             .Select(ToBclType)
             .Distinct()
             .ToArray();

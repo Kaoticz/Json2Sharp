@@ -56,6 +56,15 @@ internal static class J2SUtils
     /// <returns><see langword="true"/> if <paramref name="jsonElement"/> can be <see langword="null"/>, <see langword="false"/> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static bool IsPropertyNullable(JsonElement jsonElement)
-        => (jsonElement.ValueKind is JsonValueKind.Null
-            || (jsonElement.ValueKind is JsonValueKind.Array && jsonElement.EnumerateArray().Any(x => x.ValueKind is JsonValueKind.Null)));
+    {
+        if (jsonElement.ValueKind is JsonValueKind.Null)
+            return true;
+        else if (jsonElement.ValueKind is JsonValueKind.Array)
+        {
+            using var jsonEnumerator = jsonElement.EnumerateArray();
+            return jsonEnumerator.Any(x => x.ValueKind is JsonValueKind.Null);
+        }
+
+        return false;
+    }
 }
