@@ -4,6 +4,7 @@ using Json2SharpLib.Enums;
 using Json2SharpLib.Extensions;
 using Json2SharpLib.Models;
 using Json2SharpLib.Models.LanguageOptions;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Text.Json;
 
@@ -51,7 +52,8 @@ internal sealed class PythonClassEmitter : ICodeEmitter
         AddCustomTypes(stringBuilder, extraTypes);
 
         // Add the imports
-        AddImports(stringBuilder);
+        if (--_stackCounter == default && _addTypeHint && stringBuilder.Contains("Optional["))
+            stringBuilder.Insert(0, "from typing import Optional" + Environment.NewLine + Environment.NewLine);
 
         // Remove the last newline
         if (_stackCounter == default)
@@ -123,33 +125,6 @@ internal sealed class PythonClassEmitter : ICodeEmitter
     }
 
     /// <summary>
-    /// Adds imports to the top of the class definition.
-    /// </summary>
-    /// <param name="stringBuilder">The string builder that contains the class definition.</param>
-    /// <returns><see langword="true"/> if imports were added, <see langword="false"/> otherwise.</returns>
-    private bool AddImports(StringBuilder stringBuilder)
-    {
-        if (--_stackCounter != default || !_addTypeHint)
-            return false;
-
-        var namespaces = new List<string>(3);
-
-        if (stringBuilder.Contains("Any"))
-            namespaces.Add("Any");
-
-        if (stringBuilder.Contains("List["))
-            namespaces.Add("List");
-
-        if (stringBuilder.Contains("Optional["))
-            namespaces.Add("Optional");
-
-        if (namespaces.Count is not 0)
-            stringBuilder.Insert(0, Constants.PythonTypeImportBase + string.Join(", ", namespaces) + Environment.NewLine + Environment.NewLine);
-
-        return namespaces.Count is not 0;
-    }
-
-    /// <summary>
     /// Parses an <see langword="object"/> or <see langword="object[]"/> JSON <paramref name="property"/>.
     /// </summary>
     /// <param name="property">The property to be processed.</param>
@@ -182,15 +157,15 @@ internal sealed class PythonClassEmitter : ICodeEmitter
                 var className = J2SUtils.ToPascalCase(property.JsonName!);
                 var child = childrenTypes.First(x => x.JsonElement.ValueKind is not JsonValueKind.Null);
                 var typeName = (childrenTypes.Length is not 1 && J2SUtils.TryGetAliasName(child.BclType, Language.Python, out var aliasName))
-                    ? (aliasName is "Any") ? className : aliasName  // CustomType or alias
-                    : className ?? "Any";                           // CustomType or Any
+                    ? (aliasName is "object") ? className : aliasName  // CustomType or alias
+                    : className ?? "object";                           // CustomType or Any
 
                 var finalName = (isNullable)
                     ? $"Optional[{typeName}]"
                     : typeName;
 
                 extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
-                stringBuilder.AppendIndentedLine($"{property.JsonName}{((_addTypeHint) ? $": List[{finalName}]" : string.Empty)},", _indentationPadding, 2);
+                stringBuilder.AppendIndentedLine($"{property.JsonName}{((_addTypeHint) ? $": list[{finalName}]" : string.Empty)},", _indentationPadding, 2);
 
                 return true;
             }

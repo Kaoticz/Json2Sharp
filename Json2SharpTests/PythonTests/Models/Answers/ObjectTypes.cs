@@ -14,13 +14,13 @@ internal static class ObjectTypes
         """;
 
     public const string Output = """
-        from typing import Any, List, Optional
+        from typing import Optional
 
         class Thing:
             def __init__(
                 text: str,
                 number: int,
-                int_array: List[int]
+                int_array: list[int]
             ) -> None:
                 self.text = text
                 self.number = number
@@ -28,7 +28,7 @@ internal static class ObjectTypes
 
         class ObjectTypes:
             def __init__(
-                null_thing: Optional[Any],
+                null_thing: Optional[object],
                 thing: Thing
             ) -> None:
                 self.null_thing = null_thing

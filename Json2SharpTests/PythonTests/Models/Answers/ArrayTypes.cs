@@ -19,7 +19,7 @@ internal static class ArrayTypes
         """;
 
     public const string Output = """
-        from typing import Any, List, Optional
+        from typing import Optional
 
         class NullableThingArray:
             def __init__(
@@ -35,17 +35,17 @@ internal static class ArrayTypes
 
         class ArrayTypes:
             def __init__(
-                empty_array: List[Any],
-                int_array: List[int],
-                nullable_int_array: List[Optional[int]],
-                float_array: List[float],
-                nullable_float_array: List[Optional[float]],
-                string_array: List[str],
-                nullable_string_array: List[Optional[str]],
-                mixed_array: List[Any],
-                nullable_mixed_array: Optional[List[Any]],
-                thing_array: List[ThingArray],
-                nullable_thing_array: List[Optional[NullableThingArray]]
+                empty_array: list[object],
+                int_array: list[int],
+                nullable_int_array: list[Optional[int]],
+                float_array: list[float],
+                nullable_float_array: list[Optional[float]],
+                string_array: list[str],
+                nullable_string_array: list[Optional[str]],
+                mixed_array: list[object],
+                nullable_mixed_array: Optional[list[object]],
+                thing_array: list[ThingArray],
+                nullable_thing_array: list[Optional[NullableThingArray]]
             ) -> None:
                 self.empty_array = empty_array
                 self.int_array = int_array

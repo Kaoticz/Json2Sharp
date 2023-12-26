@@ -14,9 +14,4 @@ internal static class Constants
     /// C# using for Newtonsoft Json.
     /// </summary>
     public const string NewtonsoftUsing = "using Newtonsoft.Json;";
-
-    /// <summary>
-    /// Python import base for type hints.
-    /// </summary>
-    public const string PythonTypeImportBase = "from typing import ";
 }
