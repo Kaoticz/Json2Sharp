@@ -273,9 +273,7 @@ public static class Json2Sharp
         return options.TargetLanguage switch
         {
             Language.CSharp when options.CSharpOptions.TargetType is CSharpObjectType.Record
-                && options.CSharpOptions.SetterType is CSharpSetterType.Init
-                && options.CSharpOptions.SerializationAttribute is CSharpSerializationAttribute.NoAttribute
-                or CSharpSerializationAttribute.NewtonsoftJson => new CSharpRecordEmitter(options.CSharpOptions),
+                && options.CSharpOptions.SetterType is CSharpSetterType.Init => new CSharpRecordEmitter(options.CSharpOptions),
             Language.CSharp => new CSharpClassEmitter(options.CSharpOptions),
             Language.Python => new PythonClassEmitter(options.PythonOptions),
             _ => throw new UnreachableException($"Emitter for language {options.TargetLanguage} was not implemented."),

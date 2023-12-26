@@ -28,14 +28,10 @@ internal static class BoolTypes
     public const string RecordOutput = """
         using System.Text.Json.Serialization;
         
-        public sealed record BoolTypes
-        {
-            [JsonPropertyName("true_bool")]
-            public bool TrueBool { get; init; }
-        
-            [JsonPropertyName("false_bool")]
-            public bool FalseBool { get; init; }
-        }
+        public sealed record BoolTypes(
+            [property: JsonPropertyName("true_bool")] bool TrueBool,
+            [property: JsonPropertyName("false_bool")] bool FalseBool
+        );
         """;
 
     public const string ClassOutput = """

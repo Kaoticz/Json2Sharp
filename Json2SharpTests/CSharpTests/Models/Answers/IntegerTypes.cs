@@ -34,20 +34,12 @@ internal static class IntegerTypes
     public const string RecordOutput = """
         using System.Text.Json.Serialization;
         
-        public sealed record IntegerTypes
-        {
-            [JsonPropertyName("int_number")]
-            public int IntNumber { get; init; }
-        
-            [JsonPropertyName("uint_number")]
-            public uint UintNumber { get; init; }
-        
-            [JsonPropertyName("long_number")]
-            public long LongNumber { get; init; }
-        
-            [JsonPropertyName("ulong_number")]
-            public ulong UlongNumber { get; init; }
-        }
+        public sealed record IntegerTypes(
+            [property: JsonPropertyName("int_number")] int IntNumber,
+            [property: JsonPropertyName("uint_number")] uint UintNumber,
+            [property: JsonPropertyName("long_number")] long LongNumber,
+            [property: JsonPropertyName("ulong_number")] ulong UlongNumber
+        );
         """;
 
     public const string ClassOutput = """

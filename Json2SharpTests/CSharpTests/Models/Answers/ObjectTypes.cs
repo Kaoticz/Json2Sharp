@@ -47,29 +47,17 @@ internal static class ObjectTypes
     public const string RecordOutput = """
         using System.Text.Json.Serialization;
         
-        public sealed record ObjectTypes
-        {
-            [JsonPropertyName("null_thing")]
-            public object? NullThing { get; init; }
+        public sealed record ObjectTypes(
+            [property: JsonPropertyName("null_thing")] object? NullThing,
+            [property: JsonPropertyName("empty_thing")] object EmptyThing,
+            [property: JsonPropertyName("thing")] Thing Thing
+        );
 
-            [JsonPropertyName("empty_thing")]
-            public object EmptyThing { get; init; }
-        
-            [JsonPropertyName("thing")]
-            public Thing Thing { get; init; }
-        }
-
-        public sealed record Thing
-        {
-            [JsonPropertyName("text")]
-            public string Text { get; init; }
-        
-            [JsonPropertyName("number")]
-            public int Number { get; init; }
-        
-            [JsonPropertyName("int_array")]
-            public int[] IntArray { get; init; }
-        }
+        public sealed record Thing(
+            [property: JsonPropertyName("text")] string Text,
+            [property: JsonPropertyName("number")] int Number,
+            [property: JsonPropertyName("int_array")] int[] IntArray
+        );
         """;
 
     public const string ClassOutput = """

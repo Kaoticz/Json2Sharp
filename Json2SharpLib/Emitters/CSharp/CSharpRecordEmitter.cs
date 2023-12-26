@@ -20,6 +20,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
     private readonly CSharpSerializationAttribute _serializationAttributeType;
     private readonly string _serializationAttribute;
     private readonly string _indentationPadding;
+    private readonly string _propertyAttributePrepend;
 
     /// <summary>
     /// Creates an object that parses JSON data into a C# type declaration with the base body of a record definition using a primary constructor.
@@ -31,6 +32,9 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
         _serializationAttributeType = options.SerializationAttribute;
         _serializationAttribute = options.SerializationAttribute.ToCode();
         _indentationPadding = options.IndentationPadding;
+        _propertyAttributePrepend = options.SerializationAttribute is CSharpSerializationAttribute.SystemTextJson
+            ? "property: "
+            : string.Empty;
     }
 
     /// <inheritdoc />
@@ -90,7 +94,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
             stringBuilder.AppendLine(
                 CreateMemberDeclaration(
                     _indentationPadding,
-                    _serializationAttribute,
+                    _propertyAttributePrepend + _serializationAttribute,
                     property.JsonName!,
                     (property.JsonElement.ValueKind is not JsonValueKind.Array)
                         ? bclTypeName + nullableAnnotation
@@ -144,7 +148,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
             stringBuilder.AppendLine(
                 CreateMemberDeclaration(
                     _indentationPadding,
-                    _serializationAttribute,
+                    _propertyAttributePrepend + _serializationAttribute,
                     property.JsonName!,
                     (jsonEnumerator.Any()) ? finalName! : "object",
                     finalName!
@@ -168,7 +172,15 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
                     : finalName ?? bclTypeName;
 
                 extraTypes.Add(Parse(typeName, child.JsonElement));
-                stringBuilder.AppendLine(CreateMemberDeclaration(_indentationPadding, _serializationAttribute, property.JsonName!, typeName + nullableAnnotation + "[]", finalName!));
+                stringBuilder.AppendLine(
+                    CreateMemberDeclaration(
+                        _indentationPadding,
+                        _propertyAttributePrepend + _serializationAttribute,
+                        property.JsonName!,
+                        typeName + nullableAnnotation + "[]",
+                        finalName!
+                    )
+                );
 
                 return true;
             }

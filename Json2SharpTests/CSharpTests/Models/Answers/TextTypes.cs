@@ -28,14 +28,10 @@ internal static class TextTypes
     public const string RecordOutput = """
         using System.Text.Json.Serialization;
         
-        public sealed record TextTypes
-        {
-            [JsonPropertyName("text")]
-            public string Text { get; init; }
-        
-            [JsonPropertyName("empty_text")]
-            public string EmptyText { get; init; }
-        }
+        public sealed record TextTypes(
+            [property: JsonPropertyName("text")] string Text,
+            [property: JsonPropertyName("empty_text")] string EmptyText
+        );
         """;
 
     public const string ClassOutput = """

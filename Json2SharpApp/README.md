@@ -10,14 +10,10 @@ Pipe JSON data directly into Json2Sharp.
 $ curl -s https://api.isevenapi.xyz/api/iseven/6 | json2sharp
 using System.Text.Json.Serialization;
 
-public sealed record MyType
-{
-    [JsonPropertyName("ad")]
-    public string Ad { get; init; }
-
-    [JsonPropertyName("iseven")]
-    public bool Iseven { get; init; }
-}
+public sealed record Root(
+    [property: JsonPropertyName("ad")] string Ad,
+    [property: JsonPropertyName("iseven")] bool Iseven
+);
 ```
 
 Or tell it to use a file as input.
@@ -26,14 +22,10 @@ Or tell it to use a file as input.
 $ json2sharp -i IsEven.json
 using System.Text.Json.Serialization;
 
-public sealed record IsEven
-{
-    [JsonPropertyName("ad")]
-    public string Ad { get; init; }
-
-    [JsonPropertyName("iseven")]
-    public bool Iseven { get; init; }
-}
+public sealed record Root(
+    [property: JsonPropertyName("ad")] string Ad,
+    [property: JsonPropertyName("iseven")] bool Iseven
+);
 ```
 
 You can also save the result to a file.
@@ -43,14 +35,10 @@ $ curl -s https://api.isevenapi.xyz/api/iseven/6 | json2sharp -o IsEven.cs
 $ cat IsEven.cs
 using System.Text.Json.Serialization;
 
-public sealed record IsEven
-{
-    [JsonPropertyName("ad")]
-    public string Ad { get; init; }
-
-    [JsonPropertyName("iseven")]
-    public bool Iseven { get; init; }
-}
+public sealed record Root(
+    [property: JsonPropertyName("ad")] string Ad,
+    [property: JsonPropertyName("iseven")] bool Iseven
+);
 ```
 
 For additional options, please visit the [wiki](https://github.com/Kaoticz/Json2Sharp/wiki).

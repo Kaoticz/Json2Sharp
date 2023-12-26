@@ -31,17 +31,11 @@ internal static class FloatTypes
     public const string RecordOutput = """
         using System.Text.Json.Serialization;
         
-        public sealed record FloatTypes
-        {
-            [JsonPropertyName("float_number")]
-            public float FloatNumber { get; init; }
-        
-            [JsonPropertyName("double_number")]
-            public double DoubleNumber { get; init; }
-        
-            [JsonPropertyName("decimal_number")]
-            public decimal DecimalNumber { get; init; }
-        }
+        public sealed record FloatTypes(
+            [property: JsonPropertyName("float_number")] float FloatNumber,
+            [property: JsonPropertyName("double_number")] double DoubleNumber,
+            [property: JsonPropertyName("decimal_number")] decimal DecimalNumber
+        );
         """;
 
     public const string ClassOutput = """

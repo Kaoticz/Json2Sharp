@@ -71,53 +71,27 @@ internal static class ArrayTypes
     public const string RecordOutput = """
         using System.Text.Json.Serialization;
 
-        public sealed record ArrayTypes
-        {
-            [JsonPropertyName("empty_array")]
-            public object[] EmptyArray { get; init; }
-        
-            [JsonPropertyName("int_array")]
-            public int[] IntArray { get; init; }
-        
-            [JsonPropertyName("nullable_int_array")]
-            public int?[] NullableIntArray { get; init; }
-        
-            [JsonPropertyName("float_array")]
-            public float[] FloatArray { get; init; }
-        
-            [JsonPropertyName("nullable_float_array")]
-            public float?[] NullableFloatArray { get; init; }
-        
-            [JsonPropertyName("string_array")]
-            public string[] StringArray { get; init; }
-        
-            [JsonPropertyName("nullable_string_array")]
-            public string?[] NullableStringArray { get; init; }
-        
-            [JsonPropertyName("mixed_array")]
-            public object[] MixedArray { get; init; }
-        
-            [JsonPropertyName("nullable_mixed_array")]
-            public object?[] NullableMixedArray { get; init; }
-        
-            [JsonPropertyName("thing_array")]
-            public ThingArray[] ThingArray { get; init; }
-        
-            [JsonPropertyName("nullable_thing_array")]
-            public NullableThingArray?[] NullableThingArray { get; init; }
-        }
+        public sealed record ArrayTypes(
+            [property: JsonPropertyName("empty_array")] object[] EmptyArray,
+            [property: JsonPropertyName("int_array")] int[] IntArray,
+            [property: JsonPropertyName("nullable_int_array")] int?[] NullableIntArray,
+            [property: JsonPropertyName("float_array")] float[] FloatArray,
+            [property: JsonPropertyName("nullable_float_array")] float?[] NullableFloatArray,
+            [property: JsonPropertyName("string_array")] string[] StringArray,
+            [property: JsonPropertyName("nullable_string_array")] string?[] NullableStringArray,
+            [property: JsonPropertyName("mixed_array")] object[] MixedArray,
+            [property: JsonPropertyName("nullable_mixed_array")] object?[] NullableMixedArray,
+            [property: JsonPropertyName("thing_array")] ThingArray[] ThingArray,
+            [property: JsonPropertyName("nullable_thing_array")] NullableThingArray?[] NullableThingArray
+        );
 
-        public sealed record ThingArray
-        {
-            [JsonPropertyName("text")]
-            public string Text { get; init; }
-        }
+        public sealed record ThingArray(
+            [property: JsonPropertyName("text")] string Text
+        );
 
-        public sealed record NullableThingArray
-        {
-            [JsonPropertyName("text")]
-            public string Text { get; init; }
-        }
+        public sealed record NullableThingArray(
+            [property: JsonPropertyName("text")] string Text
+        );
         """;
 
     public const string ClassOutput = """
