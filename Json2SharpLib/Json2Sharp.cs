@@ -232,7 +232,7 @@ public static class Json2Sharp
                         jsonProperty.Name,
                         jsonProperty.Value,
                         jsonProperty.Value.ToBclType(),
-                        jsonProperty.Value.ValueKind is JsonValueKind.Array or JsonValueKind.Object
+                        (jsonProperty.Value.ValueKind is JsonValueKind.Array or JsonValueKind.Object)
                             ? ParseProperties(jsonProperty.Value)
                             : Array.Empty<ParsedJsonProperty>()
                     )
@@ -247,7 +247,7 @@ public static class Json2Sharp
                         null,
                         jsonElem,
                         jsonElem.ToBclType(),
-                        jsonElem.ValueKind is JsonValueKind.Array or JsonValueKind.Object
+                        (jsonElem.ValueKind is JsonValueKind.Array or JsonValueKind.Object)
                             ? ParseProperties(jsonElem)
                             : Array.Empty<ParsedJsonProperty>()
                     )

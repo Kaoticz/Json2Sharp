@@ -19,7 +19,7 @@ internal sealed class Program
         var outputOption = new Option<string?>(new[] { "--output", "-o" }, "The relative path to the resulting file in the file system.");
         var nameOption = new Option<string?>(new[] { "--name", "-n" }, "The name of the root object.");
         var configOption = new Option<string?>(new[] { "--config", "-c" }, "The conversion options.");
-        var rootCommand = new RootCommand("Convert a JSON object to a language type declaration.")
+        var rootCommand = new RootCommand("Convert a JSON object to a language type definition.")
         {
             inputOption,
             outputOption,

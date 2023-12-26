@@ -84,7 +84,7 @@ internal sealed class ConfigHandler
     /// <returns>The parsed Python options.</returns>
     private static Json2SharpPythonOptions ParsePythonOptions(IReadOnlyList<string> configOptions)
     {
-        var indentationAmountOption = configOptions.FirstOrDefault(x => x.StartsWith("ind"))?[3..];
+        var indentationAmountOption = configOptions.FirstOrDefault(x => x.StartsWith("ind:"))?[4..];
 
         return new()
         {
