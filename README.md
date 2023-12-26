@@ -26,6 +26,18 @@ public sealed record Root(
 );
 ```
 
+Or pass the JSON data to the `--json`/`-j` option.
+
+```bash
+$ json2sharp -j "{ \"ad\": \"Some ad here\", \"iseven\": false }"
+using System.Text.Json.Serialization;
+
+public sealed record Root(
+    [property: JsonPropertyName("ad")] string Ad,
+    [property: JsonPropertyName("iseven")] bool Iseven
+);
+```
+
 Or tell it to use a file as input.
 
 ```bash
@@ -68,14 +80,10 @@ string code = Json2Sharp.Parse("Person", """{ "id": 1, "name": "John" }""");
 /*
  * using System.Text.Json.Serialization;
  *
- * public sealed record Person
- * {
- *     [JsonPropertyName("id")]
- *     public int Id { get; init; }
- * 
- *     [JsonPropertyName("name")]
- *     public string Name { get; init; }
- * }
+ * public sealed record Person(
+ *     [property: JsonPropertyName("id")] int Id,
+ *     [property: JsonPropertyName("name")] bool Name
+ * );
  */
 ```
 

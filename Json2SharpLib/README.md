@@ -13,14 +13,10 @@ string code = Json2Sharp.Parse("Person", """{ "id": 1, "name": "John" }""");
 /*
  * using System.Text.Json.Serialization;
  *
- * public sealed record Person
- * {
- *     [JsonPropertyName("id")]
- *     public int Id { get; init; }
- * 
- *     [JsonPropertyName("name")]
- *     public string Name { get; init; }
- * }
+ * public sealed record Person(
+ *     [property: JsonPropertyName("id")] int Id,
+ *     [property: JsonPropertyName("name")] bool Name
+ * );
  */
 ```
 

@@ -6,6 +6,7 @@
     <OutputType>Exe</OutputType>
     <AssemblyName>json2sharp</AssemblyName>
     <Description>CLI tool to parse JSON data into language type declarations.</Description>
+    <DebugType>embedded</DebugType>
     <PublishSingleFile>true</PublishSingleFile>
     <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
