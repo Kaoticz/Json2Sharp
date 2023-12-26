@@ -26,7 +26,7 @@ You can also customize the conversion by initializing a `Json2SharpOptions` obje
 Json2SharpOptions options = new()
 {
     TargetLanguage = Language.CSharp,
-    CSharp = new()
+    CSharpOptions = new()
     {
         IsSealed = false,
         TargetType = CSharpObjectType.Record,
