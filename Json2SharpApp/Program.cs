@@ -18,18 +18,20 @@ internal sealed class Program
         var inputOption = new Option<FileInfo?>(new[] { "--input", "-i" }, "The relative path to the JSON file in the file system.");
         var outputOption = new Option<string?>(new[] { "--output", "-o" }, "The relative path to the resulting file in the file system.");
         var nameOption = new Option<string?>(new[] { "--name", "-n" }, "The name of the root object.");
+        var jsonOption = new Option<string?>(new[] { "--json", "-j" }, "The JSON object to convert.");
         var configOption = new Option<string?>(new[] { "--config", "-c" }, "The conversion options.");
         var rootCommand = new RootCommand("Convert a JSON object to a language type definition.")
         {
             inputOption,
             outputOption,
             nameOption,
+            jsonOption,
             configOption
         };
 
         rootCommand.SetHandler(
-            async (inputFile, outputPath, nameOption, configOptions) => await RootHandlerAsync(rootCommand, inputFile, outputPath, nameOption, configOptions),
-            inputOption, outputOption, nameOption, configOption
+            async (inputFile, outputPath, nameOption, jsonOption, configOptions) => await RootHandlerAsync(rootCommand, inputFile, outputPath, nameOption, jsonOption, configOptions),
+            inputOption, outputOption, nameOption, jsonOption, configOption
         );
 
         return await rootCommand.InvokeAsync(args);
@@ -45,12 +47,13 @@ internal sealed class Program
     /// if the output should be printed to stdout.
     /// </param>
     /// <param name="rootObjectName">The name of the root object or <see langword="null"/> if it was not provided.</param>
+    /// <param name="jsonString">The raw JSON data or <see langword="null"/> if it was not provided.</param>
     /// <param name="configOptions">The command-line configuration options.</param>
-    private async static Task RootHandlerAsync(RootCommand rootCommand, FileInfo? inputFile, string? outputPath, string? rootObjectName, string? configOptions)
+    private async static Task RootHandlerAsync(RootCommand rootCommand, FileInfo? inputFile, string? outputPath, string? rootObjectName, string? jsonString, string? configOptions)
     {
         rootObjectName ??= Path.GetFileNameWithoutExtension(outputPath ?? inputFile?.Name) ?? "Root";
         var options = ConfigHandler.Handle(configOptions?.Split(' ', StringSplitOptions.TrimEntries) ?? Array.Empty<string>());
-        var inputSuccessful = InputHandler.Handle(inputFile, rootObjectName, options, out var typeDefinition);
+        var inputSuccessful = InputHandler.Handle(inputFile, rootObjectName, jsonString, options, out var typeDefinition);
 
         if (inputSuccessful is not null)
         {

@@ -10,13 +10,14 @@ namespace Json2SharpApp.Handlers;
 internal static class InputHandler
 {
     /// <summary>
-    /// Converts JSON data into a language type declaration specified by <paramref name="options"/>.
+    /// Converts JSON data into a language type definition specified by <paramref name="options"/>.
     /// </summary>
     /// <param name="fileInfo">The file that contains the JSON data or <see langword="null"/> if data is being piped instead.</param>
     /// <param name="objectName">The name of the root object.</param>
+    /// <param name="jsonString">The raw JSON data or <see langword="null"/> if it was not provided.</param>
     /// <param name="options">The parsing options.</param>
     /// <param name="result">
-    /// The language type declaration if <see langword="true"/>,
+    /// The language type definition if <see langword="true"/>,
     /// an error message if <see langword="false"/>,
     /// or an empty string if <see langword="null"/>.
     /// </param>
@@ -26,13 +27,12 @@ internal static class InputHandler
     /// <see langword="false"/> if conversion failed and
     /// <see langword="null"/> if there was no JSON data to be converted.
     /// </returns>
-    public static bool? Handle(FileInfo? fileInfo, string objectName, Json2SharpOptions options, out string result)
+    public static bool? Handle(FileInfo? fileInfo, string objectName, string? jsonString, Json2SharpOptions options, out string result)
     {
-        var rawJson = TryGetPipedData(out var pipedData)
-            ? pipedData
-            : (fileInfo is null)
-                ? null
-                : File.ReadAllText(fileInfo.FullName);
+        var rawJson = (TryGetPipedData(out var pipedData)) ? pipedData
+            : (!string.IsNullOrWhiteSpace(jsonString)) ? jsonString
+            : (fileInfo is null) ? null
+            : File.ReadAllText(fileInfo.FullName);
 
         // If no data was provided, abort.
         if (rawJson is null)
