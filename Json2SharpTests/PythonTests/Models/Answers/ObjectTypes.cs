@@ -5,6 +5,7 @@ internal static class ObjectTypes
     public const string Input = """
         {
             "null_thing": null,
+            "empty_thing": {},
             "thing": {
                 "text": "hello world",
                 "number": 1,
@@ -29,9 +30,11 @@ internal static class ObjectTypes
         class ObjectTypes:
             def __init__(
                 null_thing: Optional[object],
+                empty_thing: object,
                 thing: Thing
             ) -> None:
                 self.null_thing = null_thing
+                self.empty_thing = empty_thing
                 self.thing = thing
         """;
 
@@ -49,9 +52,11 @@ internal static class ObjectTypes
         class ObjectTypes:
             def __init__(
                 null_thing,
+                empty_thing,
                 thing
             ):
                 self.null_thing = null_thing
+                self.empty_thing = empty_thing
                 self.thing = thing
         """;
 }
