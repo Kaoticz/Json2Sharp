@@ -33,6 +33,20 @@ internal static class J2SUtils
     }
 
     /// <summary>
+    /// Gets the alias for the given <paramref name="type"/>.
+    /// </summary>
+    /// <param name="type">The type to get the alias name from.</param>
+    /// <param name="language">The programming language to get the alias from.</param>
+    /// <returns>The alias name of <paramref name="type"/>.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the alias is not found.</exception>
+    internal static string GetAliasName(Type type, Language language)
+    {
+        return (TryGetAliasName(type, language, out var aliasName))
+            ? aliasName
+            : throw new InvalidOperationException($"There is no alias associated with the {type.Name} BCL type for the {language} language.");
+    }
+
+    /// <summary>
     /// Attempts to get the alias for the given <paramref name="type"/>.
     /// </summary>
     /// <param name="type">The type to get the alias name from.</param>

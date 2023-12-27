@@ -157,7 +157,7 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
             stringBuilder.AppendLine(
                 CreateMemberDeclaration(
                     _indentationPadding,
-                    (jsonEnumerator.Any()) ? finalName! : "object",
+                    (jsonEnumerator.Any()) ? finalName! : J2SUtils.GetAliasName(typeof(object), Language.CSharp),
                     finalName!,
                     _setterType
                 )
@@ -178,8 +178,10 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
                 var finalName = J2SUtils.ToPascalCase(property.JsonName!);
                 var child = childrenTypes.First(x => x.JsonElement.ValueKind is not JsonValueKind.Null);
                 var typeName = (childrenTypes.Length is not 1 && J2SUtils.TryGetAliasName(child.BclType, Language.CSharp, out var aliasName))
-                    ? (aliasName == "object") ? finalName : aliasName  // CustomType or alias
-                    : finalName ?? bclTypeName;                        // CustomType or Int32 (fallback)
+                    ? (aliasName.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp)))
+                        ? finalName
+                        : aliasName             // CustomType or alias
+                    : finalName ?? bclTypeName; // CustomType or Int32 (fallback)
 
                 extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
 
