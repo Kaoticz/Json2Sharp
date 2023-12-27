@@ -138,7 +138,7 @@ internal sealed class PythonClassEmitter : ICodeEmitter
         {
             using var jsonEnumerator = property.JsonElement.EnumerateObject();
             var typeName = (_addTypeHint)
-                ? ": " + ((jsonEnumerator.Any()) ? J2SUtils.ToPascalCase(property.JsonName) : "Any")
+                ? ": " + ((jsonEnumerator.Any()) ? J2SUtils.ToPascalCase(property.JsonName) : "any")
                 : string.Empty;
 
             extraTypes.Add(Parse(J2SUtils.ToPascalCase(property.JsonName!), property.JsonElement));
@@ -158,7 +158,7 @@ internal sealed class PythonClassEmitter : ICodeEmitter
                 var child = childrenTypes.First(x => x.JsonElement.ValueKind is not JsonValueKind.Null);
                 var typeName = (childrenTypes.Length is not 1 && J2SUtils.TryGetAliasName(child.BclType, Language.Python, out var aliasName))
                     ? (aliasName is "object") ? className : aliasName  // CustomType or alias
-                    : className ?? "object";                           // CustomType or Any
+                    : className ?? "object";                           // CustomType or any
 
                 var finalName = (isNullable)
                     ? $"Optional[{typeName}]"
