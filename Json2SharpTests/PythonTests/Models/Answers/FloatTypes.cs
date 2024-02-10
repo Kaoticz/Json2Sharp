@@ -19,6 +19,7 @@ internal static class FloatTypes
             float_number: float
             double_number: float
             decimal_number: float
+
         """;
 
     public const string Output = """
@@ -31,6 +32,7 @@ internal static class FloatTypes
                 self.float_number = float_number
                 self.double_number = double_number
                 self.decimal_number = decimal_number
+
         """;
 
     public const string OutputNoTypeHints = """
@@ -43,5 +45,6 @@ internal static class FloatTypes
                 self.float_number = float_number
                 self.double_number = double_number
                 self.decimal_number = decimal_number
+
         """;
 }

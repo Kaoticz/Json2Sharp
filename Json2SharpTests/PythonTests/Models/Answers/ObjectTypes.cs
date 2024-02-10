@@ -31,6 +31,7 @@ internal static class ObjectTypes
             null_thing: Optional[object]
             empty_thing: object
             thing: Thing
+
         """;
 
     public const string Output = """
@@ -57,6 +58,7 @@ internal static class ObjectTypes
                 self.null_thing = null_thing
                 self.empty_thing = empty_thing
                 self.thing = thing
+
         """;
 
     public const string OutputNoTypeHints = """
@@ -80,5 +82,6 @@ internal static class ObjectTypes
                 self.null_thing = null_thing
                 self.empty_thing = empty_thing
                 self.thing = thing
+
         """;
 }

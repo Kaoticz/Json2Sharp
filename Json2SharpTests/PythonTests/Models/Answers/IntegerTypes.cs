@@ -21,6 +21,7 @@ internal static class IntegerTypes
             uint_number: int
             long_number: int
             ulong_number: int
+
         """;
 
     public const string Output = """
@@ -35,6 +36,7 @@ internal static class IntegerTypes
                 self.uint_number = uint_number
                 self.long_number = long_number
                 self.ulong_number = ulong_number
+
         """;
 
     public const string OutputNoTypeHints = """
@@ -49,5 +51,6 @@ internal static class IntegerTypes
                 self.uint_number = uint_number
                 self.long_number = long_number
                 self.ulong_number = ulong_number
+
         """;
 }

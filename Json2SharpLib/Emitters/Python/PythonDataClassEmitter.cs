@@ -50,10 +50,6 @@ internal sealed class PythonDataClassEmitter : ICodeEmitter
                 stringBuilder.Insert(0, "from typing import Optional" + Environment.NewLine);
         }
 
-        // Remove the last newline
-        if (_stackCounter == default)
-            stringBuilder.Remove(stringBuilder.Length - Environment.NewLine.Length, Environment.NewLine.Length);
-
         return stringBuilder.ToStringAndClear();
     }
 

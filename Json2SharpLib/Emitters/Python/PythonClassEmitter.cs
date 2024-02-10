@@ -54,10 +54,6 @@ internal sealed class PythonClassEmitter : ICodeEmitter
         if (--_stackCounter == default && _addTypeHint && stringBuilder.Contains("Optional["))
             stringBuilder.Insert(0, "from typing import Optional" + Environment.NewLine + Environment.NewLine + Environment.NewLine);
 
-        // Remove the last newline
-        if (_stackCounter == default)
-            stringBuilder.Remove(stringBuilder.Length - Environment.NewLine.Length, Environment.NewLine.Length);
-
         return stringBuilder.ToStringAndClear();
     }
 

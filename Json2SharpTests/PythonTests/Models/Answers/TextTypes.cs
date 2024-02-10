@@ -17,6 +17,7 @@ internal static class TextTypes
         class TextTypes:
             text: str
             empty_text: str
+
         """;
 
     public const string Output = """
@@ -27,6 +28,7 @@ internal static class TextTypes
             ) -> None:
                 self.text = text
                 self.empty_text = empty_text
+
         """;
 
     public const string OutputNoTypeHints = """
@@ -37,5 +39,6 @@ internal static class TextTypes
             ):
                 self.text = text
                 self.empty_text = empty_text
+
         """;
 }

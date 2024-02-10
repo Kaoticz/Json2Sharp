@@ -46,6 +46,7 @@ internal static class ArrayTypes
             nullable_mixed_array: Optional[list[object]]
             thing_array: list[ThingArray]
             nullable_thing_array: list[Optional[NullableThingArray]]
+
         """;
 
     public const string Output = """
@@ -91,6 +92,7 @@ internal static class ArrayTypes
                 self.nullable_mixed_array = nullable_mixed_array
                 self.thing_array = thing_array
                 self.nullable_thing_array = nullable_thing_array
+
         """;
 
     public const string OutputNoTypeHints = """
@@ -133,5 +135,6 @@ internal static class ArrayTypes
                 self.nullable_mixed_array = nullable_mixed_array
                 self.thing_array = thing_array
                 self.nullable_thing_array = nullable_thing_array
+
         """;
 }

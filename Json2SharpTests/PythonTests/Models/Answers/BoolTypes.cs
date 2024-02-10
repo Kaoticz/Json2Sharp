@@ -17,6 +17,7 @@ internal static class BoolTypes
         class BoolTypes:
             true_bool: bool
             false_bool: bool
+
         """;
 
     public const string Output = """
@@ -27,6 +28,7 @@ internal static class BoolTypes
             ) -> None:
                 self.true_bool = true_bool
                 self.false_bool = false_bool
+
         """;
 
     public const string OutputNoTypeHints = """
@@ -37,5 +39,6 @@ internal static class BoolTypes
             ):
                 self.true_bool = true_bool
                 self.false_bool = false_bool
+
         """;
 }
