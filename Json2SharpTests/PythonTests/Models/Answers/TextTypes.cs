@@ -9,6 +9,16 @@ internal static class TextTypes
         }
         """;
 
+    public const string DataClassOutput = """
+        from dataclasses import dataclass
+
+
+        @dataclass
+        class TextTypes:
+            text: str
+            empty_text: str
+        """;
+
     public const string Output = """
         class TextTypes:
             def __init__(

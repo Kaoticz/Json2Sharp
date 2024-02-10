@@ -10,6 +10,17 @@ internal static class FloatTypes
         }
         """;
 
+    public const string DataClassOutput = """
+        from dataclasses import dataclass
+
+
+        @dataclass
+        class FloatTypes:
+            float_number: float
+            double_number: float
+            decimal_number: float
+        """;
+
     public const string Output = """
         class FloatTypes:
             def __init__(

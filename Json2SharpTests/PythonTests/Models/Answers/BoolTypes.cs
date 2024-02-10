@@ -9,6 +9,16 @@ internal static class BoolTypes
         }
         """;
 
+    public const string DataClassOutput = """
+        from dataclasses import dataclass
+
+
+        @dataclass
+        class BoolTypes:
+            true_bool: bool
+            false_bool: bool
+        """;
+
     public const string Output = """
         class BoolTypes:
             def __init__(

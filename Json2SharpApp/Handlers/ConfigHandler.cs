@@ -89,6 +89,7 @@ internal sealed class ConfigHandler
         return new()
         {
             AddTypeHints = !configOptions.Any(x => x is "nth" or "notypehints"),
+            UseDataClass = !configOptions.Any(x => x is "ndc" or "nodataclass"),
 
             IndentationCharacterAmount = (int.TryParse(indentationAmountOption, out var indentationAmount))
                 ? indentationAmount
@@ -96,7 +97,7 @@ internal sealed class ConfigHandler
 
             IndentationPaddingCharacter = (configOptions.Any(x => x is "tab"))
                 ? Json2SharpLib.IndentationCharacterType.Tab
-                : Json2SharpLib.IndentationCharacterType.Space
+                : Json2SharpLib.IndentationCharacterType.Space,
         };
     }
 }

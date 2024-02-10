@@ -24,4 +24,10 @@ public sealed record Json2SharpPythonOptions
     /// Default is <see langword="true"/>.
     /// </summary>
     public bool AddTypeHints { get; init; } = true;
+
+    /// <summary>
+    /// Defines whether the emitted class should be a Python data class. 
+    /// Default is <see langword="true"/>.
+    /// </summary>
+    public bool UseDataClass { get; init; } = true;
 }

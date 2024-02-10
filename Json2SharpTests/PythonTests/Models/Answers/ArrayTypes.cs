@@ -18,8 +18,39 @@ internal static class ArrayTypes
         }
         """;
 
+    public const string DataClassOutput = """
+        from typing import Optional
+        from dataclasses import dataclass
+        
+        
+        @dataclass
+        class NullableThingArray:
+            text: str
+
+
+        @dataclass
+        class ThingArray:
+            text: str
+
+
+        @dataclass
+        class ArrayTypes:
+            empty_array: list[object]
+            int_array: list[int]
+            nullable_int_array: list[Optional[int]]
+            float_array: list[float]
+            nullable_float_array: list[Optional[float]]
+            string_array: list[str]
+            nullable_string_array: list[Optional[str]]
+            mixed_array: list[object]
+            nullable_mixed_array: Optional[list[object]]
+            thing_array: list[ThingArray]
+            nullable_thing_array: list[Optional[NullableThingArray]]
+        """;
+
     public const string Output = """
         from typing import Optional
+
 
         class NullableThingArray:
             def __init__(
@@ -27,11 +58,13 @@ internal static class ArrayTypes
             ) -> None:
                 self.text = text
 
+
         class ThingArray:
             def __init__(
                 text: str
             ) -> None:
                 self.text = text
+
 
         class ArrayTypes:
             def __init__(
@@ -67,11 +100,13 @@ internal static class ArrayTypes
             ):
                 self.text = text
 
+
         class ThingArray:
             def __init__(
                 text
             ):
                 self.text = text
+
 
         class ArrayTypes:
             def __init__(

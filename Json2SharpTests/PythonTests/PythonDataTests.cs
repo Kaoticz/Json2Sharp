@@ -8,28 +8,42 @@ namespace Json2SharpTests.PythonTests;
 public sealed class PythonDataTests
 {
     [Theory]
-    [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.Output, true)]
-    [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.OutputNoTypeHints, false)]
-    [InlineData(nameof(FloatTypes), FloatTypes.Input, FloatTypes.Output, true)]
-    [InlineData(nameof(FloatTypes), FloatTypes.Input, FloatTypes.OutputNoTypeHints, false)]
-    [InlineData(nameof(TextTypes), TextTypes.Input, TextTypes.Output, true)]
-    [InlineData(nameof(TextTypes), TextTypes.Input, TextTypes.OutputNoTypeHints, false)]
-    [InlineData(nameof(BoolTypes), BoolTypes.Input, BoolTypes.Output, true)]
-    [InlineData(nameof(BoolTypes), BoolTypes.Input, BoolTypes.OutputNoTypeHints, false)]
-    [InlineData(nameof(ObjectTypes), ObjectTypes.Input, ObjectTypes.Output, true)]
-    [InlineData(nameof(ObjectTypes), ObjectTypes.Input, ObjectTypes.OutputNoTypeHints, false)]
-    [InlineData(nameof(ArrayTypes), ArrayTypes.Input, ArrayTypes.Output, true)]
-    [InlineData(nameof(ArrayTypes), ArrayTypes.Input, ArrayTypes.OutputNoTypeHints, false)]
-    [InlineData("EmptyObject", "{}", "", true)]
-    [InlineData("EmptyObject", "{}", "", false)]
-    internal void OutputTest(string className, string input, string expectedOutput, bool addTypeHints)
+    [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.Output, true, false)]
+    [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.OutputNoTypeHints, false, false)]
+    [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.OutputNoTypeHints, false, true)]
+    [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.DataClassOutput, true, true)]
+    [InlineData(nameof(FloatTypes), FloatTypes.Input, FloatTypes.Output, true, false)]
+    [InlineData(nameof(FloatTypes), FloatTypes.Input, FloatTypes.OutputNoTypeHints, false, false)]
+    [InlineData(nameof(FloatTypes), FloatTypes.Input, FloatTypes.OutputNoTypeHints, false, true)]
+    [InlineData(nameof(FloatTypes), FloatTypes.Input, FloatTypes.DataClassOutput, true, true)]
+    [InlineData(nameof(TextTypes), TextTypes.Input, TextTypes.Output, true, false)]
+    [InlineData(nameof(TextTypes), TextTypes.Input, TextTypes.OutputNoTypeHints, false, false)]
+    [InlineData(nameof(TextTypes), TextTypes.Input, TextTypes.OutputNoTypeHints, false, true)]
+    [InlineData(nameof(TextTypes), TextTypes.Input, TextTypes.DataClassOutput, true, true)]
+    [InlineData(nameof(BoolTypes), BoolTypes.Input, BoolTypes.Output, true, false)]
+    [InlineData(nameof(BoolTypes), BoolTypes.Input, BoolTypes.OutputNoTypeHints, false, false)]
+    [InlineData(nameof(BoolTypes), BoolTypes.Input, BoolTypes.OutputNoTypeHints, false, true)]
+    [InlineData(nameof(BoolTypes), BoolTypes.Input, BoolTypes.DataClassOutput, true, true)]
+    [InlineData(nameof(ObjectTypes), ObjectTypes.Input, ObjectTypes.Output, true, false)]
+    [InlineData(nameof(ObjectTypes), ObjectTypes.Input, ObjectTypes.OutputNoTypeHints, false, false)]
+    [InlineData(nameof(ObjectTypes), ObjectTypes.Input, ObjectTypes.OutputNoTypeHints, false, true)]
+    [InlineData(nameof(ObjectTypes), ObjectTypes.Input, ObjectTypes.DataClassOutput, true, true)]
+    [InlineData(nameof(ArrayTypes), ArrayTypes.Input, ArrayTypes.Output, true, false)]
+    [InlineData(nameof(ArrayTypes), ArrayTypes.Input, ArrayTypes.OutputNoTypeHints, false, false)]
+    [InlineData(nameof(ArrayTypes), ArrayTypes.Input, ArrayTypes.OutputNoTypeHints, false, true)]
+    [InlineData(nameof(ArrayTypes), ArrayTypes.Input, ArrayTypes.DataClassOutput, true, true)]
+    [InlineData("EmptyObject", "{}", "", true, false)]
+    [InlineData("EmptyObject", "{}", "", false, false)]
+    [InlineData("EmptyObject", "{}", "", true, true)]
+    internal void OutputTest(string className, string input, string expectedOutput, bool addTypeHints, bool useDataClass)
     {
         var options = new Json2SharpOptions()
         {
             TargetLanguage = Language.Python,
             PythonOptions = new()
             {
-                AddTypeHints = addTypeHints
+                AddTypeHints = addTypeHints,
+                UseDataClass = useDataClass
             }
         };
 

@@ -275,6 +275,8 @@ public static class Json2Sharp
             Language.CSharp when options.CSharpOptions.TargetType is CSharpObjectType.Record
                 && options.CSharpOptions.SetterType is CSharpSetterType.Init => new CSharpRecordEmitter(options.CSharpOptions),
             Language.CSharp => new CSharpClassEmitter(options.CSharpOptions),
+            Language.Python when options.PythonOptions.UseDataClass
+                && options.PythonOptions.AddTypeHints => new PythonDataClassEmitter(options.PythonOptions),
             Language.Python => new PythonClassEmitter(options.PythonOptions),
             _ => throw new UnreachableException($"Emitter for language {options.TargetLanguage} was not implemented."),
         };

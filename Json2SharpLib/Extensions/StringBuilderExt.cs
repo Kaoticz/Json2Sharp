@@ -26,7 +26,7 @@ internal static class StringBuilderExt
     }
 
     /// <summary>
-    /// Checks if <paramref name="text"/> is present in this string builder.
+    /// Checks if the specified <paramref name="text"/> is present in this string builder.
     /// </summary>
     /// <param name="stringBuilder">This string builder.</param>
     /// <param name="text">The text to check for.</param>

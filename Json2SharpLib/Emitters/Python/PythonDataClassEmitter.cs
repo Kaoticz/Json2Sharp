@@ -1,4 +1,4 @@
-using Json2SharpLib.Common;
+﻿using Json2SharpLib.Common;
 using Json2SharpLib.Emitters.Abstractions;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Extensions;
@@ -7,29 +7,24 @@ using Json2SharpLib.Models.LanguageOptions;
 using System.Text;
 using System.Text.Json;
 
-namespace Json2SharpLib.Emitters.Python;
+namespace Json2SharpLib;
 
 /// <summary>
-/// Parses JSON data into a Python type declaration.
+/// Parses JSON data into a Python data class declaration.
 /// </summary>
-internal sealed class PythonClassEmitter : ICodeEmitter
+internal sealed class PythonDataClassEmitter : ICodeEmitter
 {
     private int _stackCounter;
-    private readonly bool _addTypeHint;
     private readonly string _indentationPadding;
 
-    /// <summary>
-    /// Creates an object that parses JSON data into a Python type declaration.
-    /// </summary>
-    /// <param name="options">The parsing options.</param>
-    internal PythonClassEmitter(Json2SharpPythonOptions options)
+    internal PythonDataClassEmitter(Json2SharpPythonOptions options)
     {
-        _addTypeHint = options.AddTypeHints;
         _indentationPadding = new string(
             options.IndentationPaddingCharacter is IndentationCharacterType.Space ? ' ' : '\t',
             options.IndentationCharacterAmount
         );
     }
+
 
     /// <inheritdoc />
     public string Parse(string objectName, JsonElement jsonElement)
@@ -41,18 +36,19 @@ internal sealed class PythonClassEmitter : ICodeEmitter
 
         _stackCounter++;
 
-        var stringBuilder = BuildConstructorSignature(objectName, properties, out var extraTypes);
-
-        // Build the body of the constructor
-        foreach (var property in properties)
-            stringBuilder.AppendIndentedLine($"self.{property.JsonName} = {property.JsonName}", _indentationPadding, 2);
+        var stringBuilder = BuildDataClass(objectName, properties, out var extraTypes);
 
         // Add extra types at the top
         AddCustomTypes(stringBuilder, extraTypes);
 
         // Add the imports
-        if (--_stackCounter == default && _addTypeHint && stringBuilder.Contains("Optional["))
-            stringBuilder.Insert(0, "from typing import Optional" + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+        if (--_stackCounter == default)
+        {
+            stringBuilder.Insert(0, "from dataclasses import dataclass" + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+
+            if (stringBuilder.Contains("Optional["))
+                stringBuilder.Insert(0, "from typing import Optional" + Environment.NewLine);
+        }
 
         // Remove the last newline
         if (_stackCounter == default)
@@ -61,6 +57,7 @@ internal sealed class PythonClassEmitter : ICodeEmitter
         return stringBuilder.ToStringAndClear();
     }
 
+
     /// <summary>
     /// Builds the signature of the constructor.
     /// </summary>
@@ -68,16 +65,15 @@ internal sealed class PythonClassEmitter : ICodeEmitter
     /// <param name="properties">The properties of the class.</param>
     /// <param name="extraTypes">Types that this class depends on.</param>
     /// <returns>A <see cref="StringBuilder"/> with the constructor's signature in it. </returns>
-    private StringBuilder BuildConstructorSignature(string objectName, IReadOnlyList<ParsedJsonProperty> properties, out List<string> extraTypes)
+    /// <exception cref="InvalidOperationException">Occurs when no suitable type alias is found.</exception>
+    private StringBuilder BuildDataClass(string objectName, IReadOnlyList<ParsedJsonProperty> properties, out List<string> extraTypes)
     {
         var stringBuilder = new StringBuilder();
         extraTypes = [];
 
         // Class declaration
+        stringBuilder.AppendLine("@dataclass");
         stringBuilder.AppendLine($"class {objectName}:");
-
-        // Build the signature of the constructor
-        stringBuilder.AppendIndentedLine("def __init__(", _indentationPadding, 1);
 
         foreach (var property in properties)
         {
@@ -86,18 +82,16 @@ internal sealed class PythonClassEmitter : ICodeEmitter
             if (HandleCustomType(property, stringBuilder, isNullable, extraTypes))
                 continue;
 
-            var type = (_addTypeHint && J2SUtils.TryGetAliasName(property.BclType, Language.Python, out var aliasName))
-                ? ": " + ((isNullable) ? $"Optional[{aliasName}]" : aliasName)
-                : string.Empty;
+            var type = (J2SUtils.TryGetAliasName(property.BclType, Language.Python, out var aliasName))
+                ? (isNullable) ? $"Optional[{aliasName}]" : aliasName
+                : throw new InvalidOperationException("Could not get alias for " + property.BclType.Name);
 
-            stringBuilder.AppendIndentedLine($"{property.JsonName}{type},", _indentationPadding, 2);
+            stringBuilder.AppendIndentedLine($"{property.JsonName}: {type}", _indentationPadding, 1);
         }
-
-        stringBuilder.Remove(stringBuilder.Length - (Environment.NewLine.Length + 1), 1);   // Remove the last comma
-        stringBuilder.AppendIndentedLine($"){((_addTypeHint) ? " -> None" : string.Empty)}:", _indentationPadding, 1);
 
         return stringBuilder;
     }
+
 
     /// <summary>
     /// Adds custom types at the top of the class definition.
@@ -136,12 +130,12 @@ internal sealed class PythonClassEmitter : ICodeEmitter
         if (property.BclType == typeof(object) && property.JsonElement.ValueKind is JsonValueKind.Object)
         {
             using var jsonEnumerator = property.JsonElement.EnumerateObject();
-            var typeName = (_addTypeHint)
-                ? ": " + ((jsonEnumerator.Any()) ? J2SUtils.ToPascalCase(property.JsonName) : J2SUtils.GetAliasName(typeof(object), Language.Python))
-                : string.Empty;
+            var typeName = (jsonEnumerator.Any())
+                ? J2SUtils.ToPascalCase(property.JsonName)
+                : J2SUtils.GetAliasName(typeof(object), Language.Python);
 
             extraTypes.Add(Parse(J2SUtils.ToPascalCase(property.JsonName!), property.JsonElement));
-            stringBuilder.AppendIndentedLine($"{property.JsonName}{typeName},", _indentationPadding, 2);
+            stringBuilder.AppendIndentedLine($"{property.JsonName}: {typeName}", _indentationPadding, 1);
 
             return true;
         }
@@ -166,7 +160,7 @@ internal sealed class PythonClassEmitter : ICodeEmitter
                     : typeName;
 
                 extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
-                stringBuilder.AppendIndentedLine($"{property.JsonName}{((_addTypeHint) ? $": list[{finalName}]" : string.Empty)},", _indentationPadding, 2);
+                stringBuilder.AppendIndentedLine($"{property.JsonName}{$": list[{finalName}]"}", _indentationPadding, 1);
 
                 return true;
             }

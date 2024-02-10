@@ -11,6 +11,18 @@ internal static class IntegerTypes
         }
         """;
 
+    public const string DataClassOutput = """
+        from dataclasses import dataclass
+
+
+        @dataclass
+        class IntegerTypes:
+            int_number: int
+            uint_number: int
+            long_number: int
+            ulong_number: int
+        """;
+
     public const string Output = """
         class IntegerTypes:
             def __init__(

@@ -14,8 +14,28 @@ internal static class ObjectTypes
         }
         """;
 
+    public const string DataClassOutput = """
+        from typing import Optional
+        from dataclasses import dataclass
+
+        
+        @dataclass
+        class Thing:
+            text: str
+            number: int
+            int_array: list[int]
+
+        
+        @dataclass
+        class ObjectTypes:
+            null_thing: Optional[object]
+            empty_thing: object
+            thing: Thing
+        """;
+
     public const string Output = """
         from typing import Optional
+
 
         class Thing:
             def __init__(
@@ -26,6 +46,7 @@ internal static class ObjectTypes
                 self.text = text
                 self.number = number
                 self.int_array = int_array
+
 
         class ObjectTypes:
             def __init__(
@@ -48,6 +69,7 @@ internal static class ObjectTypes
                 self.text = text
                 self.number = number
                 self.int_array = int_array
+
 
         class ObjectTypes:
             def __init__(
