@@ -2,6 +2,7 @@
 [![CodeQL][CodeQL-Badge]][CodeQL-Url]
 [![CodeFactor][CodeFactor-Badge]][CodeFactor-Url]
 [![NuGet Badge][Nuget-Badge]][Nuget-Url]
+[![NuGet Downloads][Nuget-Downloads]][Nuget-Url]
 [![NuGet Nightly Badge][Nuget-Nightly-Badge]][Nuget-Url]
 
 # Json2Sharp
@@ -136,5 +137,6 @@ limitations under the License.
 [CodeQL-Url]: ../../actions/workflows/codeql.yml
 [CodeQL-Badge]: ../../actions/workflows/codeql.yml/badge.svg
 [Nuget-Badge]: https://img.shields.io/nuget/v/Json2Sharp.svg?label=NuGet
+[Nuget-Downloads]: https://img.shields.io/nuget/dt/Json2Sharp
 [Nuget-Nightly-Badge]: https://img.shields.io/nuget/vpre/Json2Sharp?color=00007f&label=NuGet%20Nightly
 [Nuget-Url]: https://www.nuget.org/packages/Json2Sharp
