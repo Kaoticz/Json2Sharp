@@ -52,7 +52,7 @@ internal sealed class Program
     private async static Task RootHandlerAsync(RootCommand rootCommand, FileInfo? inputFile, string? outputPath, string? rootObjectName, string? jsonString, string? configOptions)
     {
         rootObjectName ??= Path.GetFileNameWithoutExtension(outputPath ?? inputFile?.Name) ?? "Root";
-        var options = ConfigHandler.Handle(configOptions?.Split(' ', StringSplitOptions.TrimEntries) ?? Array.Empty<string>());
+        var options = ConfigHandler.Handle(configOptions?.ToLowerInvariant().Split(' ', StringSplitOptions.TrimEntries) ?? []);
         var inputSuccessful = InputHandler.Handle(inputFile, rootObjectName, jsonString, options, out var typeDefinition);
 
         if (inputSuccessful is not null)

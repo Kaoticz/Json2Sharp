@@ -1,3 +1,5 @@
+using Json2SharpApp.Common;
+using Json2SharpLib;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Models;
 using Json2SharpLib.Models.LanguageOptions;
@@ -50,28 +52,25 @@ internal sealed class ConfigHandler
     {
         return new()
         {
-            TargetType = (configOptions.Any(x => x is "class")) ? CSharpObjectType.Class
-                : (configOptions.Any(x => x is "struct")) ? CSharpObjectType.Struct
-                : CSharpObjectType.Record,
+            TargetType = CSharpStatics.ObjectTypes.GetValueOrDefault(
+                configOptions.FirstOrDefault(x => CSharpStatics.ObjectTypes.ContainsKey(x)) ?? "record"
+            ),
 
-            AccessibilityLevel = (configOptions.Any(x => x is "protected")) ? CSharpAccessibilityLevel.Protected
-                : (configOptions.Any(x => x is "internal")) ? CSharpAccessibilityLevel.Internal
-                : (configOptions.Any(x => x is "protectedinternal")) ? CSharpAccessibilityLevel.ProtectedInternal
-                : (configOptions.Any(x => x is "privateprotected")) ? CSharpAccessibilityLevel.PrivateProtected
-                : (configOptions.Any(x => x is "private")) ? CSharpAccessibilityLevel.Private
-                : CSharpAccessibilityLevel.Public,
+            AccessibilityLevel = CSharpStatics.AccessibilityLevels.GetValueOrDefault(
+                configOptions.FirstOrDefault(x => CSharpStatics.AccessibilityLevels.ContainsKey(x)) ?? "public"
+            ),
 
-            SerializationAttribute = (configOptions.Any(x => x is "noatt" or "noattribute")) ? CSharpSerializationAttribute.NoAttribute
-                : (configOptions.Any(x => x is "ntj" or "newtonsoft" or "newtonsoftjson")) ? CSharpSerializationAttribute.NewtonsoftJson
-                : CSharpSerializationAttribute.SystemTextJson,
+            SerializationAttribute = CSharpStatics.SerializationAttributes.GetValueOrDefault(
+                configOptions.FirstOrDefault(x => CSharpStatics.SerializationAttributes.ContainsKey(x)) ?? "systemtextjson"
+            ),
 
-            SetterType = (configOptions.Any(x => x is "set"))
+            SetterType = (configOptions.Contains("set"))
                 ? CSharpSetterType.Set
                 : CSharpSetterType.Init,
 
-            IsSealed = !configOptions.Any(x => x is "notsealed"),
+            IsSealed = !configOptions.Contains("notsealed"),
 
-            IndentationPadding = (configOptions.Any(x => x is "tab"))
+            IndentationPadding = (configOptions.Contains("tab"))
                 ? "\t"
                 : "    ",
         };
@@ -95,9 +94,9 @@ internal sealed class ConfigHandler
                 ? indentationAmount
                 : 4,
 
-            IndentationPaddingCharacter = (configOptions.Any(x => x is "tab"))
-                ? Json2SharpLib.IndentationCharacterType.Tab
-                : Json2SharpLib.IndentationCharacterType.Space,
+            IndentationPaddingCharacter = (configOptions.Contains("tab"))
+                ? IndentationCharacterType.Tab
+                : IndentationCharacterType.Space,
         };
     }
 }

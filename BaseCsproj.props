@@ -10,7 +10,7 @@
     <WarningsAsErrors>Nullable</WarningsAsErrors>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <VersionPrefix>1.1.7.0</VersionPrefix>
+    <VersionPrefix>1.1.8.0</VersionPrefix>
     <Authors>Kotz</Authors>
     <Copyright>Copyright © Kotz 2023</Copyright>
     <PackageProjectUrl>https://github.com/Kaoticz/Json2Sharp</PackageProjectUrl>
@@ -22,7 +22,7 @@
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
