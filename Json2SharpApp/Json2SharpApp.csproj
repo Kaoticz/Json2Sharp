@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\BaseCsproj.props" />
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <AssemblyName>json2sharp</AssemblyName>

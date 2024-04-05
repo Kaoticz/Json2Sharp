@@ -484,17 +484,14 @@ dotnet_naming_symbols.type_parameters_symbols.applicable_kinds = type_parameter
 
 #### Visual Studio Specific Rules ####
 
-# CA1822: Mark members as static
-dotnet_diagnostic.CA1822.severity = none
-
 # IDE0004: Cast is redundant
 dotnet_diagnostic.IDE0004.severity = error
 
-# IDE0058: Expression value is never used
-dotnet_diagnostic.IDE0058.severity = none
-
 # IDE0011: Add braces to 'if'/'else' statement
 dotnet_diagnostic.IDE0011.severity = none
+
+# IDE0058: Expression value is never used
+dotnet_diagnostic.IDE0058.severity = none
 
 # IDE0290: Use primary constructor
 dotnet_diagnostic.IDE0290.severity = none

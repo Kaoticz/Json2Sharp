@@ -1,6 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    
-  <Import Project="..\BaseCsproj.props" />
 
   <PropertyGroup>
       <Description>Parse JSON data into language type declarations.</Description>
