@@ -1,5 +1,4 @@
 using Json2SharpApp.Common;
-using Json2SharpLib;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Models;
 using Json2SharpLib.Models.LanguageOptions;
@@ -53,15 +52,15 @@ internal sealed class ConfigHandler
         return new()
         {
             TargetType = CSharpStatics.ObjectTypes.GetValueOrDefault(
-                configOptions.FirstOrDefault(x => CSharpStatics.ObjectTypes.ContainsKey(x)) ?? "record"
+                configOptions.FirstOrDefault(CSharpStatics.ObjectTypes.ContainsKey) ?? "record"
             ),
 
             AccessibilityLevel = CSharpStatics.AccessibilityLevels.GetValueOrDefault(
-                configOptions.FirstOrDefault(x => CSharpStatics.AccessibilityLevels.ContainsKey(x)) ?? "public"
+                configOptions.FirstOrDefault(CSharpStatics.AccessibilityLevels.ContainsKey) ?? "public"
             ),
 
             SerializationAttribute = CSharpStatics.SerializationAttributes.GetValueOrDefault(
-                configOptions.FirstOrDefault(x => CSharpStatics.SerializationAttributes.ContainsKey(x)) ?? "systemtextjson"
+                configOptions.FirstOrDefault(CSharpStatics.SerializationAttributes.ContainsKey) ?? "systemtextjson"
             ),
 
             SetterType = (configOptions.Contains("set"))
@@ -83,7 +82,7 @@ internal sealed class ConfigHandler
     /// <returns>The parsed Python options.</returns>
     private static Json2SharpPythonOptions ParsePythonOptions(IReadOnlyList<string> configOptions)
     {
-        var indentationAmountOption = configOptions.FirstOrDefault(x => x.StartsWith("ind:"))?[4..];
+        var indentationAmountOption = configOptions.FirstOrDefault(x => x.StartsWith("ind:", StringComparison.Ordinal))?[4..];
 
         return new()
         {

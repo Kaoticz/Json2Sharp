@@ -7,7 +7,7 @@ using Json2SharpLib.Models.LanguageOptions;
 using System.Text;
 using System.Text.Json;
 
-namespace Json2SharpLib;
+namespace Json2SharpLib.Emitters.Python;
 
 /// <summary>
 /// Parses JSON data into a Python data class declaration.

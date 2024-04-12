@@ -1,4 +1,4 @@
-namespace Json2SharpLib;
+namespace Json2SharpLib.Enums;
 
 /// <summary>
 /// Represents the characters that can be used for indentation.
