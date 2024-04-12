@@ -2,8 +2,8 @@
 [![CodeQL][CodeQL-Badge]][CodeQL-Url]
 [![CodeFactor][CodeFactor-Badge]][CodeFactor-Url]
 [![NuGet Badge][Nuget-Badge]][Nuget-Url]
-[![NuGet Downloads][Nuget-Downloads]][Nuget-Url]
 [![NuGet Nightly Badge][Nuget-Nightly-Badge]][Nuget-Url]
+[![NuGet Downloads][Nuget-Downloads]][Nuget-Url]
 
 # Json2Sharp
 

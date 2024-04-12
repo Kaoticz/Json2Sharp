@@ -25,7 +25,6 @@ internal sealed class PythonDataClassEmitter : ICodeEmitter
         );
     }
 
-
     /// <inheritdoc />
     public string Parse(string objectName, JsonElement jsonElement)
     {
@@ -52,7 +51,6 @@ internal sealed class PythonDataClassEmitter : ICodeEmitter
 
         return stringBuilder.ToStringAndClear();
     }
-
 
     /// <summary>
     /// Builds the signature of the constructor.
@@ -87,7 +85,6 @@ internal sealed class PythonDataClassEmitter : ICodeEmitter
 
         return stringBuilder;
     }
-
 
     /// <summary>
     /// Adds custom types at the top of the class definition.
