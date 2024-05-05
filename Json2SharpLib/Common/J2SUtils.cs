@@ -13,6 +13,20 @@ namespace Json2SharpLib.Common;
 internal static class J2SUtils
 {
     /// <summary>
+    /// Removes illegal characters from a object name.
+    /// </summary>
+    /// <param name="objectName">The name of the object.</param>
+    /// <returns>The sanitized object name.</returns>
+    [return: NotNullIfNotNull(nameof(objectName))]
+    internal static string? SanitizeObjectName(string? objectName)
+    {
+        if (string.IsNullOrWhiteSpace(objectName))
+            return objectName;
+
+        return objectName.Replace(":", string.Empty);
+    }
+
+    /// <summary>
     /// Converts a string to the PascalCase format.
     /// </summary>
     /// <param name="text">The string to be converted.</param>

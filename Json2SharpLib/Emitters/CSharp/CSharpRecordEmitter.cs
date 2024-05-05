@@ -38,6 +38,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
     /// <inheritdoc />
     public string Parse(string objectName, JsonElement jsonElement)
     {
+        objectName = J2SUtils.SanitizeObjectName(objectName);
         var properties = Json2Sharp.ParseProperties(jsonElement);
 
         if (properties.Count is 0)

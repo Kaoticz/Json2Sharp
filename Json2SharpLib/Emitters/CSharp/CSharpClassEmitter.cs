@@ -15,7 +15,7 @@ namespace Json2SharpLib.Emitters.CSharp;
 /// </summary>
 internal sealed class CSharpClassEmitter : ICodeEmitter
 {
-    private int _stackCounter = 0;
+    private int _stackCounter;
     private readonly string _accessibility;
     private readonly CSharpSerializationAttribute _serializationAttributeType;
     private readonly string _serializationAttribute;
@@ -40,6 +40,7 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
     /// <inheritdoc />
     public string Parse(string objectName, JsonElement jsonElement)
     {
+        objectName = J2SUtils.SanitizeObjectName(objectName);
         var properties = Json2Sharp.ParseProperties(jsonElement);
 
         if (properties.Count is 0)
