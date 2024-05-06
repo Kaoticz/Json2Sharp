@@ -13,7 +13,7 @@ namespace Json2SharpLib.Emitters.CSharp;
 /// <summary>
 /// Parses JSON data into a C# type declaration with the base body of a record definition using a primary constructor.
 /// </summary>
-internal sealed class CSharpRecordEmitter : ICodeEmitter
+internal sealed class CSharpRecordEmitter : CodeEmitter
 {
     private int _stackCounter = 0;
     private readonly string _accessibility;
@@ -36,7 +36,7 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
     }
 
     /// <inheritdoc />
-    public string Parse(string objectName, JsonElement jsonElement)
+    public override string Parse(string objectName, JsonElement jsonElement)
     {
         objectName = J2SUtils.SanitizeObjectName(objectName);
         var properties = Json2Sharp.ParseProperties(jsonElement);
@@ -61,11 +61,43 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
 
         stringBuilder.Append(");");
 
+        // Add extra classes above the root class
         AddCustomTypes(stringBuilder, extraTypes);
 
         _stackCounter--;
 
         return stringBuilder.ToStringAndClear();
+    }
+
+    /// <inheritdoc />
+    protected override string ParseCustomType(ParsedJsonProperty property)
+    {
+        var propertyName = J2SUtils.ToPascalCase(property.JsonName) ?? property.BclType.Name;
+
+        return CreateMemberDeclaration(
+            _indentationPadding,
+            _serializationAttribute,
+            property.JsonName!,
+            GetObjectTypeName(property, Language.CSharp),
+            propertyName
+        );
+    }
+
+    /// <inheritdoc />
+    protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
+    {
+        var finalName = J2SUtils.ToPascalCase(property.JsonName) ?? property.BclType.Name;
+        var propertyType = (IsArrayOfNullableType(property, Language.CSharp, childrenTypes, out typeName))
+            ? typeName + "?[]"
+            : typeName + "[]";
+
+        return CreateMemberDeclaration(
+            _indentationPadding,
+            _serializationAttribute,
+            property.JsonName!,
+            propertyType,
+            finalName
+        );
     }
 
     /// <summary>
@@ -79,6 +111,9 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
     {
         foreach (var property in properties)
         {
+            if (HandleCustomType(property, stringBuilder, extraTypes))
+                continue;
+
             var bclTypeName = J2SUtils.TryGetAliasName(property.BclType, Language.CSharp, out var aliasName)
                 ? aliasName
                 : property.BclType.Name;
@@ -86,9 +121,6 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
             var nullableAnnotation = (J2SUtils.IsPropertyNullable(property.JsonElement))
                 ? "?"
                 : string.Empty;
-
-            if (HandleCustomType(property, stringBuilder, bclTypeName, nullableAnnotation, extraTypes))
-                continue;
 
             stringBuilder.AppendLine(
                 CreateMemberDeclaration(
@@ -132,60 +164,33 @@ internal sealed class CSharpRecordEmitter : ICodeEmitter
     /// </summary>
     /// <param name="property">The property to be processed.</param>
     /// <param name="stringBuilder">The string builder used to build the type declaration.</param>
-    /// <param name="bclTypeName">The name of the equivalent type in C#.</param>
-    /// <param name="nullableAnnotation">The symbol for null annotations.</param>
     /// <param name="extraTypes">The list that contains the definitions of custom types in the JSON data.</param>
     /// <returns><see langword="true"/> if <paramref name="property"/> was parsed, <see langword="false"/> otherwise.</returns>
-    private bool HandleCustomType(ParsedJsonProperty property, StringBuilder stringBuilder, string bclTypeName, string nullableAnnotation, List<string> extraTypes)
+    private bool HandleCustomType(ParsedJsonProperty property, StringBuilder stringBuilder, List<string> extraTypes)
     {
-        if (property.BclType == typeof(object) && property.JsonElement.ValueKind is JsonValueKind.Object)
+        switch (property.JsonElement.ValueKind)
         {
-            using var jsonEnumerator = property.JsonElement.EnumerateObject();
-            var finalName = J2SUtils.ToPascalCase(property.JsonName);
-
-            extraTypes.Add(Parse(finalName ?? property.BclType.Name, property.JsonElement));
-            stringBuilder.AppendLine(
-                CreateMemberDeclaration(
-                    _indentationPadding,
-                    _serializationAttribute,
-                    property.JsonName!,
-                    (jsonEnumerator.Any()) ? finalName! : "object",
-                    finalName!
-                )
-            );
-
-            return true;
-        }
-        else if (property.BclType == typeof(object[]))
-        {
-            var childrenTypes = property.Children
-                .DistinctBy(x => x.JsonElement.ValueKind)
-                .ToArray();
-
-            if (childrenTypes.Count(x => x.JsonElement.ValueKind is not JsonValueKind.Null) is 1)
-            {
-                var finalName = J2SUtils.ToPascalCase(property.JsonName);
-                var child = childrenTypes.First(x => x.JsonElement.ValueKind is not JsonValueKind.Null);
-                var typeName = (childrenTypes.Length is not 1 && J2SUtils.TryGetAliasName(child.BclType, Language.CSharp, out var aliasName))
-                    ? (aliasName == "object") ? finalName! : aliasName
-                    : finalName ?? bclTypeName;
-
-                extraTypes.Add(Parse(typeName, child.JsonElement));
-                stringBuilder.AppendLine(
-                    CreateMemberDeclaration(
-                        _indentationPadding,
-                        _serializationAttribute,
-                        property.JsonName!,
-                        typeName + nullableAnnotation + "[]",
-                        finalName!
-                    )
-                );
+            case JsonValueKind.Object:
+                var propertyName = J2SUtils.ToPascalCase(property.JsonName) ?? property.BclType.Name;
+                extraTypes.Add(Parse(propertyName, property.JsonElement));
+                stringBuilder.AppendLine(ParseCustomType(property));
 
                 return true;
-            }
-        }
+            case JsonValueKind.Array:
+                var childrenTypes = J2SUtils.GetArrayTypes(property);
 
-        return false;
+                if (childrenTypes.Count is 0)
+                    return false;
+
+                stringBuilder.AppendLine(ParseArrayType(property, childrenTypes, out var typeName));
+
+                if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp), StringComparison.Ordinal))
+                    extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
+
+                return true;
+            default:
+                return false;
+        };
     }
 
     /// <summary>

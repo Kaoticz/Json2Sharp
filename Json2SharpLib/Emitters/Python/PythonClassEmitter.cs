@@ -48,7 +48,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
         foreach (var property in properties)
             stringBuilder.AppendIndentedLine($"self.{property.JsonName} = {property.JsonName}", _indentationPadding, 2);
 
-        // Add extra types at the top
+        // Add extra classes above the root class
         AddCustomTypes(stringBuilder, extraTypes);
 
         // Add the imports
@@ -61,21 +61,21 @@ internal sealed class PythonClassEmitter : CodeEmitter
     /// <inheritdoc />
     protected override string ParseCustomType(ParsedJsonProperty property)
     {
-        var typeName = (_addTypeHint)
+        var propertyType = (_addTypeHint)
             ? ": " + GetObjectTypeName(property, Language.Python)
             : string.Empty;
 
-        return $"{property.JsonName}{typeName},";
+        return $"{property.JsonName}{propertyType},";
     }
 
     /// <inheritdoc />
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
     {
-        var finalName = (IsArrayOfNullableType(property, Language.Python, childrenTypes, out typeName))
+        var propertyType = (IsArrayOfNullableType(property, Language.Python, childrenTypes, out typeName))
             ? $"Optional[{typeName}]"
             : typeName;
 
-        return $"{property.JsonName}{((_addTypeHint) ? $": list[{finalName}]" : string.Empty)},";
+        return $"{property.JsonName}{((_addTypeHint) ? $": list[{propertyType}]" : string.Empty)},";
     }
 
     /// <summary>

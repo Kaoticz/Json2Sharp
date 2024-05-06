@@ -38,7 +38,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
 
         var stringBuilder = BuildDataClass(objectName, properties, out var extraTypes);
 
-        // Add extra types at the top
+        // Add extra classes above the root class
         AddCustomTypes(stringBuilder, extraTypes);
 
         // Add the imports
@@ -86,11 +86,10 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
 
         foreach (var property in properties)
         {
-            var isNullable = J2SUtils.IsPropertyNullable(property.JsonElement);
-
             if (HandleCustomType(property, stringBuilder, extraTypes))
                 continue;
 
+            var isNullable = J2SUtils.IsPropertyNullable(property.JsonElement);
             var type = (J2SUtils.TryGetAliasName(property.BclType, Language.Python, out var aliasName))
                 ? (isNullable) ? $"Optional[{aliasName}]" : aliasName
                 : throw new InvalidOperationException("Could not get alias for " + property.BclType.Name);
