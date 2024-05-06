@@ -184,7 +184,7 @@ internal sealed class CSharpClassEmitter : ICodeEmitter
                         : aliasName             // CustomType or alias
                     : finalName ?? bclTypeName; // CustomType or Int32 (fallback)
 
-                extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
+                extraTypes.Add(Parse(typeName, child.JsonElement));
 
                 if (!string.IsNullOrWhiteSpace(_serializationAttribute))
                     stringBuilder.AppendLine(CreateMemberAttribute(_indentationPadding, _serializationAttribute, property.JsonName!));

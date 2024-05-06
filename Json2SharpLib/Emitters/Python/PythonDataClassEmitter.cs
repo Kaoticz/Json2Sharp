@@ -12,7 +12,7 @@ namespace Json2SharpLib.Emitters.Python;
 /// <summary>
 /// Parses JSON data into a Python data class declaration.
 /// </summary>
-internal sealed class PythonDataClassEmitter : ICodeEmitter
+internal sealed class PythonDataClassEmitter : CodeEmitter
 {
     private int _stackCounter;
     private readonly string _indentationPadding;
@@ -26,7 +26,7 @@ internal sealed class PythonDataClassEmitter : ICodeEmitter
     }
 
     /// <inheritdoc />
-    public string Parse(string objectName, JsonElement jsonElement)
+    public override string Parse(string objectName, JsonElement jsonElement)
     {
         objectName = J2SUtils.SanitizeObjectName(objectName);
         var properties = Json2Sharp.ParseProperties(jsonElement);
@@ -53,6 +53,20 @@ internal sealed class PythonDataClassEmitter : ICodeEmitter
         return stringBuilder.ToStringAndClear();
     }
 
+    /// <inheritdoc />
+    protected override string ParseCustomType(ParsedJsonProperty property)
+        => $"{property.JsonName}: {GetObjectTypeName(property, Language.Python)}";
+
+    /// <inheritdoc />
+    protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
+    {
+        var finalName = (IsArrayOfNullableType(property, Language.Python, childrenTypes, out typeName))
+            ? $"Optional[{typeName}]"
+            : typeName;
+
+        return $"{property.JsonName}: list[{finalName}]";
+    }
+
     /// <summary>
     /// Builds the signature of the constructor.
     /// </summary>
@@ -74,7 +88,7 @@ internal sealed class PythonDataClassEmitter : ICodeEmitter
         {
             var isNullable = J2SUtils.IsPropertyNullable(property.JsonElement);
 
-            if (HandleCustomType(property, stringBuilder, isNullable, extraTypes))
+            if (HandleCustomType(property, stringBuilder, extraTypes))
                 continue;
 
             var type = (J2SUtils.TryGetAliasName(property.BclType, Language.Python, out var aliasName))
@@ -116,50 +130,31 @@ internal sealed class PythonDataClassEmitter : ICodeEmitter
     /// </summary>
     /// <param name="property">The property to be processed.</param>
     /// <param name="stringBuilder">The string builder used to build the type declaration.</param>
-    /// <param name="isNullable">Determines whether the <paramref name="property"/> is nullable or not.</param>
     /// <param name="extraTypes">The list that contains the definitions of custom types in the JSON data.</param>
     /// <returns><see langword="true"/> if <paramref name="property"/> was parsed, <see langword="false"/> otherwise.</returns>
-    private bool HandleCustomType(ParsedJsonProperty property, StringBuilder stringBuilder, bool isNullable, List<string> extraTypes)
+    private bool HandleCustomType(ParsedJsonProperty property, StringBuilder stringBuilder, List<string> extraTypes)
     {
-        if (property.BclType == typeof(object) && property.JsonElement.ValueKind is JsonValueKind.Object)
+        switch (property.JsonElement.ValueKind)
         {
-            using var jsonEnumerator = property.JsonElement.EnumerateObject();
-            var typeName = (jsonEnumerator.Any())
-                ? J2SUtils.ToPascalCase(property.JsonName)
-                : J2SUtils.GetAliasName(typeof(object), Language.Python);
-
-            extraTypes.Add(Parse(J2SUtils.ToPascalCase(property.JsonName!), property.JsonElement));
-            stringBuilder.AppendIndentedLine($"{property.JsonName}: {typeName}", _indentationPadding, 1);
-
-            return true;
-        }
-        else if (property.BclType == typeof(object[]))
-        {
-            var childrenTypes = property.Children
-                .DistinctBy(x => x.JsonElement.ValueKind)
-                .ToArray();
-
-            if (childrenTypes.Count(x => x.JsonElement.ValueKind is not JsonValueKind.Null) is 1)
-            {
-                var className = J2SUtils.ToPascalCase(property.JsonName!);
-                var child = childrenTypes.First(x => x.JsonElement.ValueKind is not JsonValueKind.Null);
-                var typeName = (childrenTypes.Length is not 1 && J2SUtils.TryGetAliasName(child.BclType, Language.Python, out var aliasName))
-                    ? (aliasName.Equals(J2SUtils.GetAliasName(typeof(object), Language.Python), StringComparison.Ordinal))
-                        ? className
-                        : aliasName  // CustomType or alias
-                    : className;     // CustomType or any
-
-                var finalName = (isNullable)
-                    ? $"Optional[{typeName}]"
-                    : typeName;
-
-                extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
-                stringBuilder.AppendIndentedLine($"{property.JsonName}{$": list[{finalName}]"}", _indentationPadding, 1);
+            case JsonValueKind.Object:
+                stringBuilder.AppendIndentedLine(ParseCustomType(property), _indentationPadding, 1);
+                extraTypes.Add(Parse(J2SUtils.ToPascalCase(property.JsonName!), property.JsonElement));
 
                 return true;
-            }
-        }
+            case JsonValueKind.Array:
+                var childrenTypes = J2SUtils.GetArrayTypes(property);
 
-        return false;
+                if (childrenTypes.Count is 0)
+                    return false;
+
+                stringBuilder.AppendIndentedLine(ParseArrayType(property, childrenTypes, out var typeName), _indentationPadding, 1);
+
+                if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.Python), StringComparison.Ordinal))
+                    extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
+
+                return true;
+            default:
+                return false;
+        };
     }
 }

@@ -9,7 +9,7 @@ public sealed record ParsedJsonProperty
 {
     /// <summary>
     /// The original name of the JSON property or
-    /// <see langword="null"/> if this is an array element.
+    /// <see langword="null"/> if this is a root array element.
     /// </summary>
     public string? JsonName { get; }
 

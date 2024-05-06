@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-      <Description>Parse JSON data into language type declarations.</Description>
-      <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Parse JSON data into language type declarations.</Description>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
-
   <ItemGroup>
-      <None Include="README.md" Pack="True" PackagePath="\" />
+    <None Include="README.md" Pack="True" PackagePath="\" />
   </ItemGroup>
 </Project>

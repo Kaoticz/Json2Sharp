@@ -43,7 +43,7 @@ internal static class ArrayTypes
             string_array: list[str]
             nullable_string_array: list[Optional[str]]
             mixed_array: list[object]
-            nullable_mixed_array: Optional[list[object]]
+            nullable_mixed_array: list[Optional[object]]
             thing_array: list[ThingArray]
             nullable_thing_array: list[Optional[NullableThingArray]]
 
@@ -77,7 +77,7 @@ internal static class ArrayTypes
                 string_array: list[str],
                 nullable_string_array: list[Optional[str]],
                 mixed_array: list[object],
-                nullable_mixed_array: Optional[list[object]],
+                nullable_mixed_array: list[Optional[object]],
                 thing_array: list[ThingArray],
                 nullable_thing_array: list[Optional[NullableThingArray]]
             ) -> None:

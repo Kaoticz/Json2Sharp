@@ -1,4 +1,6 @@
 using Json2SharpLib.Enums;
+using Json2SharpLib.Models;
+using System.Collections.Frozen;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -12,6 +14,8 @@ namespace Json2SharpLib.Common;
 /// </summary>
 internal static class J2SUtils
 {
+    private static readonly FrozenDictionary<Type, string> _emptyAliasTypes = new Dictionary<Type, string>(0).ToFrozenDictionary();
+
     /// <summary>
     /// Removes illegal characters from a object name.
     /// </summary>
@@ -69,12 +73,14 @@ internal static class J2SUtils
     /// <returns><see langword="true"/> if the alias was successfully found, <see langword="false"/> otherwise.</returns>
     internal static bool TryGetAliasName(Type type, Language language, [MaybeNullWhen(false)] out string aliasName)
     {
-        if ((language is Language.CSharp && TypeAliases.CSharpAliasTypes.TryGetValue(type, out aliasName))
-            || (language is Language.Python && TypeAliases.PythonAliasTypes.TryGetValue(type, out aliasName)))
-            return true;
+        var aliases = language switch
+        {
+            Language.CSharp => TypeAliases.CSharpAliasTypes,
+            Language.Python => TypeAliases.PythonAliasTypes,
+            _ => _emptyAliasTypes
+        };
 
-        aliasName = default;
-        return false;
+        return aliases.TryGetValue(type, out aliasName);
     }
 
     /// <summary>
@@ -94,5 +100,19 @@ internal static class J2SUtils
         }
 
         return false;
+    }
+
+    /// <summary>
+    /// Gets the unique types in the specified array <paramref name="property"/>.
+    /// </summary>
+    /// <param name="property">The property to get the types from.</param>
+    /// <returns>The unique types of properties in this Json array, or an empty collection if this property is not an array or empty.</returns>
+    internal static IReadOnlyList<ParsedJsonProperty> GetArrayTypes(ParsedJsonProperty property)
+    {
+        return (property.BclType != typeof(object[]) || property.Children.Count is 0)
+            ? []
+            : property.Children
+                .DistinctBy(x => x.JsonElement.ValueKind)
+                .ToArray();
     }
 }
