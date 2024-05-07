@@ -15,6 +15,7 @@ internal static class ArrayTypes
             "nullable_mixed_array": [ 1, "a", 2.1, null ],
             "thing_array": [ { "text": "hello" } ],
             "nullable_thing_array": [ { "text": "hello" }, null ],
+            "null_array": [ null ],
             "objects_array": [
                 { "text": "hello" },
                 { "id": 1 }
@@ -55,6 +56,7 @@ internal static class ArrayTypes
             nullable_mixed_array: list[Optional[object]]
             thing_array: list[ThingArray]
             nullable_thing_array: list[Optional[NullableThingArray]]
+            null_array: list[Optional[object]]
             objects_array: list[object]
             nullable_objects_array: list[Optional[object]]
 
@@ -91,6 +93,7 @@ internal static class ArrayTypes
                 nullable_mixed_array: list[Optional[object]],
                 thing_array: list[ThingArray],
                 nullable_thing_array: list[Optional[NullableThingArray]],
+                null_array: list[Optional[object]],
                 objects_array: list[object],
                 nullable_objects_array: list[Optional[object]]
             ) -> None:
@@ -105,6 +108,7 @@ internal static class ArrayTypes
                 self.nullable_mixed_array = nullable_mixed_array
                 self.thing_array = thing_array
                 self.nullable_thing_array = nullable_thing_array
+                self.null_array = null_array
                 self.objects_array = objects_array
                 self.nullable_objects_array = nullable_objects_array
 
@@ -138,6 +142,7 @@ internal static class ArrayTypes
                 nullable_mixed_array,
                 thing_array,
                 nullable_thing_array,
+                null_array,
                 objects_array,
                 nullable_objects_array
             ):
@@ -152,6 +157,7 @@ internal static class ArrayTypes
                 self.nullable_mixed_array = nullable_mixed_array
                 self.thing_array = thing_array
                 self.nullable_thing_array = nullable_thing_array
+                self.null_array = null_array
                 self.objects_array = objects_array
                 self.nullable_objects_array = nullable_objects_array
 

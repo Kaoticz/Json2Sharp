@@ -2,7 +2,6 @@ using Json2SharpLib.Common;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Extensions;
 using Json2SharpLib.Models;
-using System.Security.Cryptography;
 using System.Text.Json;
 
 namespace Json2SharpLib.Emitters.Abstractions;
@@ -71,7 +70,11 @@ internal abstract class CodeEmitter : ICodeEmitter
             ? J2SUtils.GetAliasName(typeof(object), language)   // Array type is object language type
             : (
                 TypeAmount: typeAmount,
-                HasLanguageAlias: J2SUtils.TryGetAliasName(childrenTypes.First(x => x.JsonElement.ValueKind is not JsonValueKind.Null).BclType, language, out var aliasName),
+                HasLanguageAlias: J2SUtils.TryGetAliasName(
+                    (childrenTypes.FirstOrDefault(x => x.JsonElement.ValueKind is not JsonValueKind.Null) ?? childrenTypes[0]).BclType,
+                    language,
+                    out var aliasName
+                ),
                 IsCustomType: aliasName?.Equals(J2SUtils.GetAliasName(typeof(object), language), StringComparison.Ordinal)
             ) switch    // Else
             {
@@ -95,9 +98,9 @@ internal abstract class CodeEmitter : ICodeEmitter
             return false;
 
         var objectTypes = property.Children
-            .Where(x => x.JsonElement.ValueKind is JsonValueKind.Object)
+            .Where(x => x.JsonElement.ValueKind is JsonValueKind.Object and not JsonValueKind.Null)
             .ToArray();
 
-        return objectTypes.Count(x => objectTypes.Where(y => y != x).All(y => y.JsonElement.SameTypeAs(x.JsonElement))) != objectTypes.Length;
+        return objectTypes.Length is not 0 && !objectTypes.All(x => objectTypes.Where(y => y != x).All(y => y.JsonElement.SameTypeAs(x.JsonElement)));
     }
 }

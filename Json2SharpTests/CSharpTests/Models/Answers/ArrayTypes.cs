@@ -15,6 +15,7 @@ internal static class ArrayTypes
             "nullable_mixed_array": [ 1, "a", 2.1, null ],
             "thing_array": [ { "text": "hello" } ],
             "nullable_thing_array": [ { "text": "hello" }, null ],
+            "null_array": [ null ],
             "objects_array": [
                 { "text": "hello" },
                 { "id": 1 }
@@ -42,6 +43,7 @@ internal static class ArrayTypes
             [JsonProperty("nullable_mixed_array")] object?[] NullableMixedArray,
             [JsonProperty("thing_array")] ThingArray[] ThingArray,
             [JsonProperty("nullable_thing_array")] NullableThingArray?[] NullableThingArray,
+            [JsonProperty("null_array")] object?[] NullArray,
             [JsonProperty("objects_array")] object[] ObjectsArray,
             [JsonProperty("nullable_objects_array")] object?[] NullableObjectsArray
         );
@@ -68,6 +70,7 @@ internal static class ArrayTypes
             object?[] NullableMixedArray,
             ThingArray[] ThingArray,
             NullableThingArray?[] NullableThingArray,
+            object?[] NullArray,
             object[] ObjectsArray,
             object?[] NullableObjectsArray
         );
@@ -96,6 +99,7 @@ internal static class ArrayTypes
             [property: JsonPropertyName("nullable_mixed_array")] object?[] NullableMixedArray,
             [property: JsonPropertyName("thing_array")] ThingArray[] ThingArray,
             [property: JsonPropertyName("nullable_thing_array")] NullableThingArray?[] NullableThingArray,
+            [property: JsonPropertyName("null_array")] object?[] NullArray,
             [property: JsonPropertyName("objects_array")] object[] ObjectsArray,
             [property: JsonPropertyName("nullable_objects_array")] object?[] NullableObjectsArray
         );
@@ -147,6 +151,9 @@ internal static class ArrayTypes
             [JsonPropertyName("nullable_thing_array")]
             public NullableThingArray?[] NullableThingArray { get; init; }
 
+            [JsonPropertyName("null_array")]
+            public object?[] NullArray { get; init; }
+
             [JsonPropertyName("objects_array")]
             public object[] ObjectsArray { get; init; }
 
@@ -191,6 +198,8 @@ internal static class ArrayTypes
             public ThingArray[] ThingArray { get; init; }
         
             public NullableThingArray?[] NullableThingArray { get; init; }
+
+            public object?[] NullArray { get; init; }
 
             public object[] ObjectsArray { get; init; }
 
@@ -245,6 +254,9 @@ internal static class ArrayTypes
         
             [JsonPropertyName("nullable_thing_array")]
             public NullableThingArray?[] NullableThingArray { get; init; }
+
+            [JsonPropertyName("null_array")]
+            public object?[] NullArray { get; init; }
 
             [JsonPropertyName("objects_array")]
             public object[] ObjectsArray { get; init; }
