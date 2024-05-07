@@ -1,3 +1,5 @@
+using Json2SharpApp.Enums;
+using Json2SharpApp.Extensions;
 using Json2SharpApp.Handlers;
 using System.CommandLine;
 
@@ -52,18 +54,32 @@ internal sealed class Program
     private async static Task RootHandlerAsync(RootCommand rootCommand, FileInfo? inputFile, string? outputPath, string? rootObjectName, string? jsonString, string? configOptions)
     {
         rootObjectName ??= Path.GetFileNameWithoutExtension(outputPath ?? inputFile?.Name) ?? "Root";
-        var options = ConfigHandler.Handle(configOptions?.ToLowerInvariant().Split(' ', StringSplitOptions.TrimEntries) ?? []);
+        
+        if (!Utilities.TryCreate(
+                () => ConfigHandler.Handle(configOptions?.ToLowerInvariant().Split(' ', StringSplitOptions.TrimEntries) ?? []),
+                out var options,
+                out var optionsException)
+            )
+        {
+            await OutputHandler.StderrWriteAsync(optionsException.Message, ConsoleColor.Red);
+            Environment.Exit((int)ExitCode.OptionError);
+        }
+
         var inputSuccessful = InputHandler.Handle(inputFile, rootObjectName, jsonString, options, out var typeDefinition);
 
         if (inputSuccessful is not null)
         {
             if (!await OutputHandler.HandleAsync(outputPath, typeDefinition, !inputSuccessful.Value, options.TargetLanguage))
+            {
                 await OutputHandler.StderrWriteAsync("No permission to write to output directory.", ConsoleColor.Red);
+                Environment.Exit((int)ExitCode.NoWritePermission);
+            }
         }
         else
         {
             await OutputHandler.StderrWriteAsync("Error: no valid input was provided." + Environment.NewLine, ConsoleColor.Red);
             await rootCommand.InvokeAsync("--help");
+            Environment.Exit((int)ExitCode.InvalidInput);
         }
     }
 }

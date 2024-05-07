@@ -32,7 +32,10 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
         _serializationAttribute = (options.SerializationAttribute is CSharpSerializationAttribute.SystemTextJson)
             ? "property: " + options.SerializationAttribute.ToCode()
             : options.SerializationAttribute.ToCode();
-        _indentationPadding = options.IndentationPadding;
+        _indentationPadding = new string(
+            options.IndentationPaddingCharacter is IndentationCharacterType.Space ? ' ' : '\t',
+            options.IndentationCharacterAmount
+        );
     }
 
     /// <inheritdoc />

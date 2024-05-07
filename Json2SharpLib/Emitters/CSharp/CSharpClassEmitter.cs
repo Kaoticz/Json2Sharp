@@ -32,7 +32,10 @@ internal sealed class CSharpClassEmitter : CodeEmitter
         _accessibility = options.AccessibilityLevel.ToCode() + (options.IsSealed && options.TargetType is not Enums.CSharpObjectType.Struct ? " sealed" : string.Empty);
         _serializationAttributeType = options.SerializationAttribute;
         _serializationAttribute = options.SerializationAttribute.ToCode();
-        _indentationPadding = options.IndentationPadding;
+        _indentationPadding = new string(
+           options.IndentationPaddingCharacter is IndentationCharacterType.Space ? ' ' : '\t',
+           options.IndentationCharacterAmount
+        );
         _objectType = options.TargetType.ToString().ToLowerInvariant();
         _setterType = options.SetterType.ToCode();
     }

@@ -49,6 +49,8 @@ internal sealed class ConfigHandler
     /// <returns>The parsed C# options.</returns>
     private static Json2SharpCSharpOptions ParseCSharpOptions(IReadOnlyList<string> configOptions)
     {
+        var indentationAmountOption = configOptions.FirstOrDefault(x => x.StartsWith("ind:", StringComparison.Ordinal))?[4..];
+
         return new()
         {
             TargetType = CSharpStatics.ObjectTypes.GetValueOrDefault(
@@ -69,9 +71,13 @@ internal sealed class ConfigHandler
 
             IsSealed = !configOptions.Contains("notsealed"),
 
-            IndentationPadding = (configOptions.Contains("tab"))
-                ? "\t"
-                : "    ",
+            IndentationCharacterAmount = (int.TryParse(indentationAmountOption, out var indentationAmount))
+                ? indentationAmount
+                : 4,
+
+            IndentationPaddingCharacter = (configOptions.Contains("tab"))
+                ? IndentationCharacterType.Tab
+                : IndentationCharacterType.Space,
         };
     }
 

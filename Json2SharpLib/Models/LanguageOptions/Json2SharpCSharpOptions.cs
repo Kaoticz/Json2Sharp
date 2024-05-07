@@ -1,11 +1,12 @@
 using Json2SharpLib.Enums;
+using Json2SharpLib.Models.LanguageOptions.Abstractions;
 
 namespace Json2SharpLib.Models.LanguageOptions;
 
 /// <summary>
 /// The parsing options for C# types.
 /// </summary>
-public sealed class Json2SharpCSharpOptions
+public sealed record Json2SharpCSharpOptions : BaseLanguageOptions
 {
     /// <summary>
     /// The type definition to generate in the output.
@@ -36,10 +37,4 @@ public sealed class Json2SharpCSharpOptions
     /// Default is <see langword="true"/>.
     /// </summary>
     public bool IsSealed { get; init; } = true;
-
-    /// <summary>
-    /// Defines the string that should prepend member declarations.
-    /// Default is 4 spaces.
-    /// </summary>
-    public string IndentationPadding { get; init; } = "    ";
 }
