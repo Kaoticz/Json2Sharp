@@ -14,7 +14,16 @@ internal static class ArrayTypes
             "mixed_array": [ 1, "a", 2.1 ],
             "nullable_mixed_array": [ 1, "a", 2.1, null ],
             "thing_array": [ { "text": "hello" } ],
-            "nullable_thing_array": [ { "text": "hello" }, null ]
+            "nullable_thing_array": [ { "text": "hello" }, null ],
+            "objects_array": [
+                { "text": "hello" },
+                { "id": 1 }
+            ],
+            "nullable_objects_array": [
+                { "text": "hello" },
+                { "id": 1 },
+                null
+            ]
         }
         """;
 
@@ -46,6 +55,8 @@ internal static class ArrayTypes
             nullable_mixed_array: list[Optional[object]]
             thing_array: list[ThingArray]
             nullable_thing_array: list[Optional[NullableThingArray]]
+            objects_array: list[object]
+            nullable_objects_array: list[Optional[object]]
 
         """;
 
@@ -79,7 +90,9 @@ internal static class ArrayTypes
                 mixed_array: list[object],
                 nullable_mixed_array: list[Optional[object]],
                 thing_array: list[ThingArray],
-                nullable_thing_array: list[Optional[NullableThingArray]]
+                nullable_thing_array: list[Optional[NullableThingArray]],
+                objects_array: list[object],
+                nullable_objects_array: list[Optional[object]]
             ) -> None:
                 self.empty_array = empty_array
                 self.int_array = int_array
@@ -92,6 +105,8 @@ internal static class ArrayTypes
                 self.nullable_mixed_array = nullable_mixed_array
                 self.thing_array = thing_array
                 self.nullable_thing_array = nullable_thing_array
+                self.objects_array = objects_array
+                self.nullable_objects_array = nullable_objects_array
 
         """;
 
@@ -122,7 +137,9 @@ internal static class ArrayTypes
                 mixed_array,
                 nullable_mixed_array,
                 thing_array,
-                nullable_thing_array
+                nullable_thing_array,
+                objects_array,
+                nullable_objects_array
             ):
                 self.empty_array = empty_array
                 self.int_array = int_array
@@ -135,6 +152,8 @@ internal static class ArrayTypes
                 self.nullable_mixed_array = nullable_mixed_array
                 self.thing_array = thing_array
                 self.nullable_thing_array = nullable_thing_array
+                self.objects_array = objects_array
+                self.nullable_objects_array = nullable_objects_array
 
         """;
 }

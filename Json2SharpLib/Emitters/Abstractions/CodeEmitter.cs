@@ -1,6 +1,8 @@
 using Json2SharpLib.Common;
 using Json2SharpLib.Enums;
+using Json2SharpLib.Extensions;
 using Json2SharpLib.Models;
+using System.Security.Cryptography;
 using System.Text.Json;
 
 namespace Json2SharpLib.Emitters.Abstractions;
@@ -63,14 +65,39 @@ internal abstract class CodeEmitter : ICodeEmitter
 
         var className = J2SUtils.ToPascalCase(property.JsonName!);
         var typeAmount = childrenTypes.Count(x => x.JsonElement.ValueKind is not JsonValueKind.Null);
-        typeName = (typeAmount is 1 && J2SUtils.TryGetAliasName(childrenTypes[0].BclType, language, out var aliasName))
-            ? (aliasName.Equals(J2SUtils.GetAliasName(typeof(object), language), StringComparison.Ordinal))  // CustomType or language alias
-                ? className
-                : aliasName
-            : (typeAmount is 1)    // CustomType or any
-                ? className
-                : J2SUtils.GetAliasName(typeof(object), language);
+
+        // If there is more than 1 type in the array
+        typeName = (typeAmount > 1 || IsArrayOfMultipleObjects(property))
+            ? J2SUtils.GetAliasName(typeof(object), language)   // Array type is object language type
+            : (
+                TypeAmount: typeAmount,
+                HasLanguageAlias: J2SUtils.TryGetAliasName(childrenTypes.First(x => x.JsonElement.ValueKind is not JsonValueKind.Null).BclType, language, out var aliasName),
+                IsCustomType: aliasName?.Equals(J2SUtils.GetAliasName(typeof(object), language), StringComparison.Ordinal)
+            ) switch    // Else
+            {
+                (1, true, true) => className,   // Array type is custom type
+                (1, true, false) => aliasName,  // Array type is non-object language type
+                (1, false, _) => className,     // Array type is custom type
+                _ => J2SUtils.GetAliasName(typeof(object), language),   // Array type is object language type
+            };
 
         return childrenTypes.Any(x => x.JsonElement.ValueKind is JsonValueKind.Null);
+    }
+
+    /// <summary>
+    /// Checks if the specified <paramref name="property"/> is an array that contains objects of different types.
+    /// </summary>
+    /// <param name="property">The Json property.</param>
+    /// <returns><see langword="true"/> if there are objects of different types, <see langword="false"/> otherwise.</returns>
+    private static bool IsArrayOfMultipleObjects(ParsedJsonProperty property)
+    {
+        if (property.JsonElement.ValueKind is not JsonValueKind.Array)
+            return false;
+
+        var objectTypes = property.Children
+            .Where(x => x.JsonElement.ValueKind is JsonValueKind.Object)
+            .ToArray();
+
+        return objectTypes.Count(x => objectTypes.Where(y => y != x).All(y => y.JsonElement.SameTypeAs(x.JsonElement))) != objectTypes.Length;
     }
 }

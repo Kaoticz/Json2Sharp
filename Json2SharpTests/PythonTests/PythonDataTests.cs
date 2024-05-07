@@ -2,6 +2,7 @@ using Json2SharpLib;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Models;
 using Json2SharpTests.PythonTests.Models.Answers;
+using System.Diagnostics;
 
 namespace Json2SharpTests.PythonTests;
 
@@ -48,6 +49,8 @@ public sealed class PythonDataTests
         };
 
         var actualOutput = Json2Sharp.Parse(className, input, options);
+
+        Debug.WriteLine(actualOutput);
 
         Assert.Equal(
             expectedOutput.Replace("\r", string.Empty),

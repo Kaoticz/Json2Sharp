@@ -26,6 +26,36 @@ internal static class JsonElementExt
     }
 
     /// <summary>
+    /// Checks if the current Json element is the same type as the <paramref name="target"/> Json element.
+    /// </summary>
+    /// <param name="source">This Json element.</param>
+    /// <param name="target">The target Json element.</param>
+    /// <returns><see langword="true"/> if the elements are of the same type, <see langword="false"/> otherwise.</returns>
+    public static bool SameTypeAs(this JsonElement source, JsonElement target)
+    {
+        if (source.ValueKind != target.ValueKind)
+            return false;
+        else if (source.ValueKind is JsonValueKind.Object)
+        {
+            using var sourceEnumerator = source.EnumerateObject();
+            using var targetEnumerator = target.EnumerateObject();
+
+            return sourceEnumerator
+                .Select(x => x.Name)
+                .All(x => targetEnumerator.Select(y => y.Name).Contains(x));
+        }
+        else if (source.ValueKind is JsonValueKind.Array)
+        {
+            using var sourceEnumerator = source.EnumerateArray();
+            using var targetEnumerator = target.EnumerateArray();
+
+            return sourceEnumerator.All(x => targetEnumerator.Any(y => y.SameTypeAs(x)));
+        }
+        
+        return true;
+    }
+
+    /// <summary>
     /// Gets the C# BCL array type that represents the specified <paramref name="jsonElement"/>.
     /// </summary>
     /// <param name="jsonElement">The JSON element to be processed.</param>
