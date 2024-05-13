@@ -13,6 +13,16 @@ Json2Sharp is a CLI application that converts a JSON object to a programming lan
 
 Currently, C# and Python are supported. Contributions to support more languages are welcome.
 
+## Installation
+
+If you have `dotnet` installed, you can install Json2Sharp as a NuGet tool.
+
+```bash
+dotnet tool install -g json2sharp-cli
+```
+
+Other packaging options are listed in the [wiki][GithubWiki].
+
 ## Quick start
 
 Pipe JSON data directly into Json2Sharp.
