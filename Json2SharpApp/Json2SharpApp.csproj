@@ -2,13 +2,19 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <AssemblyName>json2sharp</AssemblyName>
-    <Description>CLI tool to parse JSON data into language type declarations.</Description>
+    <Description>CLI tool to convert JSON data to class definitions.</Description>
     <DebugType>embedded</DebugType>
     <PublishSingleFile>true</PublishSingleFile>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <PublishTrimmed>true</PublishTrimmed>
+
+    <!-- NuGet Packaging -->
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>json2charp</ToolCommandName>
+    <ToolCommandName>json2sharp</ToolCommandName>
+    <PackageTags>console cli tool json csharp python</PackageTags>
+    <PackageProjectUrl>https://github.com/Kaoticz/Json2Sharp</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/Kaoticz/Json2Sharp/releases/latest</PackageReleaseNotes>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Json2SharpLib\Json2SharpLib.csproj" />
