@@ -16,6 +16,7 @@ namespace Json2SharpLib;
 /// </summary>
 public static class Json2Sharp
 {
+    private const string _parsingErrorMessage = "Input must contain a JSON object or a single-type JSON array.";
     private static readonly JsonDocumentOptions _jsonOptions = new()
     {
         AllowTrailingCommas = true,
@@ -30,6 +31,7 @@ public static class Json2Sharp
     /// <param name="objectName">The name of the record.</param>
     /// <param name="rawJson">The raw JSON data.</param>
     /// <returns>A C# record declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, string rawJson)
         => Parse(objectName, rawJson, new Json2SharpOptions());
@@ -41,6 +43,7 @@ public static class Json2Sharp
     /// <param name="rawJson">The raw JSON data.</param>
     /// <param name="options">The parsing options.</param>
     /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, string rawJson, Json2SharpOptions options)
         => Parse(objectName, rawJson, GetLanguageEmitter(options));
@@ -52,11 +55,14 @@ public static class Json2Sharp
     /// <param name="rawJson">The raw JSON data.</param>
     /// <param name="emitter">An object that converts JSON data into a language type definition.</param>
     /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, string rawJson, ICodeEmitter emitter)
     {
         using var jsonDocument = JsonDocument.Parse(rawJson, _jsonOptions);
-        return emitter.Parse(objectName, jsonDocument.RootElement);
+        return (IsJsonValid(jsonDocument, out var jsonElement))
+            ? emitter.Parse(objectName, jsonElement)
+            : throw new InvalidOperationException(_parsingErrorMessage);
     }
 
     #endregion
@@ -69,6 +75,7 @@ public static class Json2Sharp
     /// <param name="objectName">The name of the record.</param>
     /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
     /// <returns>A C# record declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, Stream utf8Json)
         => Parse(objectName, utf8Json, new Json2SharpOptions());
@@ -80,6 +87,7 @@ public static class Json2Sharp
     /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
     /// <param name="options">The parsing options.</param>
     /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, Stream utf8Json, Json2SharpOptions options)
         => Parse(objectName, utf8Json, GetLanguageEmitter(options));
@@ -91,11 +99,14 @@ public static class Json2Sharp
     /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
     /// <param name="emitter">An object that converts JSON data into a language type definition.</param>
     /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, Stream utf8Json, ICodeEmitter emitter)
     {
         using var jsonDocument = JsonDocument.Parse(utf8Json, _jsonOptions);
-        return emitter.Parse(objectName, jsonDocument.RootElement);
+        return (IsJsonValid(jsonDocument, out var jsonElement))
+            ? emitter.Parse(objectName, jsonElement)
+            : throw new InvalidOperationException(_parsingErrorMessage);
     }
 
     #endregion
@@ -108,6 +119,7 @@ public static class Json2Sharp
     /// <param name="objectName">The name of the record.</param>
     /// <param name="rawJson">The raw JSON data.</param>
     /// <returns>A C# record declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, ReadOnlyMemory<char> rawJson)
         => Parse(objectName, rawJson, new Json2SharpOptions());
@@ -119,6 +131,7 @@ public static class Json2Sharp
     /// <param name="rawJson">The raw JSON data.</param>
     /// <param name="options">The parsing options.</param>
     /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, ReadOnlyMemory<char> rawJson, Json2SharpOptions options)
         => Parse(objectName, rawJson, GetLanguageEmitter(options));
@@ -130,11 +143,14 @@ public static class Json2Sharp
     /// <param name="rawJson">The raw JSON data.</param>
     /// <param name="emitter">An object that converts JSON data into a language type definition.</param>
     /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, ReadOnlyMemory<char> rawJson, ICodeEmitter emitter)
     {
         using var jsonDocument = JsonDocument.Parse(rawJson, _jsonOptions);
-        return emitter.Parse(objectName, jsonDocument.RootElement);
+        return (IsJsonValid(jsonDocument, out var jsonElement))
+            ? emitter.Parse(objectName, jsonElement)
+            : throw new InvalidOperationException(_parsingErrorMessage);
     }
 
     #endregion
@@ -147,6 +163,7 @@ public static class Json2Sharp
     /// <param name="objectName">The name of the record.</param>
     /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
     /// <returns>A C# record declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, ReadOnlyMemory<byte> utf8Json)
         => Parse(objectName, utf8Json, new Json2SharpOptions());
@@ -158,6 +175,7 @@ public static class Json2Sharp
     /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
     /// <param name="options">The parsing options.</param>
     /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, ReadOnlyMemory<byte> utf8Json, Json2SharpOptions options)
         => Parse(objectName, utf8Json, GetLanguageEmitter(options));
@@ -169,11 +187,14 @@ public static class Json2Sharp
     /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
     /// <param name="emitter">An object that converts JSON data into a language type definition.</param>
     /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, ReadOnlyMemory<byte> utf8Json, ICodeEmitter emitter)
     {
         using var jsonDocument = JsonDocument.Parse(utf8Json, _jsonOptions);
-        return emitter.Parse(objectName, jsonDocument.RootElement);
+        return (IsJsonValid(jsonDocument, out var jsonElement))
+            ? emitter.Parse(objectName, jsonElement)
+            : throw new InvalidOperationException(_parsingErrorMessage);
     }
 
     #endregion
@@ -186,6 +207,7 @@ public static class Json2Sharp
     /// <param name="objectName">The name of the record.</param>
     /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
     /// <returns>A C# record declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, ReadOnlySequence<byte> utf8Json)
         => Parse(objectName, utf8Json, new Json2SharpOptions());
@@ -197,6 +219,7 @@ public static class Json2Sharp
     /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
     /// <param name="options">The parsing options.</param>
     /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, ReadOnlySequence<byte> utf8Json, Json2SharpOptions options)
         => Parse(objectName, utf8Json, GetLanguageEmitter(options));
@@ -208,11 +231,14 @@ public static class Json2Sharp
     /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
     /// <param name="emitter">An object that converts JSON data into a language type definition.</param>
     /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
     /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, ReadOnlySequence<byte> utf8Json, ICodeEmitter emitter)
     {
         using var jsonDocument = JsonDocument.Parse(utf8Json, _jsonOptions);
-        return emitter.Parse(objectName, jsonDocument.RootElement);
+        return (IsJsonValid(jsonDocument, out var jsonElement))
+            ? emitter.Parse(objectName, jsonElement)
+            : throw new InvalidOperationException(_parsingErrorMessage);
     }
 
     #endregion
@@ -262,6 +288,33 @@ public static class Json2Sharp
         return Array.Empty<ParsedJsonProperty>();
     }
 
+    /// <summary>
+    /// Checks if a given Json object is valid for parsing.
+    /// </summary>
+    /// <param name="jsonDocument">The Json document that contains the Json object to be parsed.</param>
+    /// <param name="toParse">The Json element to be parsed.</param>
+    /// <returns><see langword="true"/> if the Json object can be parsed, <see langword="false"/> otherwise.</returns>
+    private static bool IsJsonValid(JsonDocument jsonDocument, out JsonElement toParse)
+    {
+        if (jsonDocument.RootElement.ValueKind is JsonValueKind.Object)
+        {
+            toParse = jsonDocument.RootElement;
+            return true;
+        }
+
+        if (jsonDocument.RootElement.ValueKind is not JsonValueKind.Array)
+        {
+            toParse = default;  // This will be an "Undefined" Json object.
+            return false;
+        }
+
+        using var arrayElements = jsonDocument.RootElement.EnumerateArray();
+        toParse = arrayElements.FirstOrDefault();
+        var elementCopy = toParse;
+
+        return toParse.ValueKind is JsonValueKind.Object && arrayElements.Skip(1).All(x => x.SameTypeAs(elementCopy));
+    }
+    
     /// <summary>
     /// Gets the appropriate emitter for the given parsing <paramref name="options"/>.
     /// </summary>

@@ -44,6 +44,12 @@ public sealed class CSharpDataTests
     [InlineData(nameof(ArrayTypes), ArrayTypes.Input, ArrayTypes.ClassOutputNoAtt, CSharpObjectType.Class, CSharpSerializationAttribute.NoAttribute)]
     [InlineData(nameof(ArrayTypes), ArrayTypes.Input, ArrayTypes.ClassOutput, CSharpObjectType.Class, CSharpSerializationAttribute.SystemTextJson)]
     [InlineData(nameof(ArrayTypes), ArrayTypes.Input, ArrayTypes.StructOutput, CSharpObjectType.Struct, CSharpSerializationAttribute.SystemTextJson)]
+    [InlineData(nameof(ArrayRoot), ArrayRoot.Input, ArrayRoot.RecordPrimaryCtorOutputNoAtt, CSharpObjectType.Record, CSharpSerializationAttribute.NoAttribute)]
+    [InlineData(nameof(ArrayRoot), ArrayRoot.Input, ArrayRoot.RecordPrimaryCtorOutput, CSharpObjectType.Record, CSharpSerializationAttribute.NewtonsoftJson)]
+    [InlineData(nameof(ArrayRoot), ArrayRoot.Input, ArrayRoot.RecordOutput, CSharpObjectType.Record, CSharpSerializationAttribute.SystemTextJson)]
+    [InlineData(nameof(ArrayRoot), ArrayRoot.Input, ArrayRoot.ClassOutputNoAtt, CSharpObjectType.Class, CSharpSerializationAttribute.NoAttribute)]
+    [InlineData(nameof(ArrayRoot), ArrayRoot.Input, ArrayRoot.ClassOutput, CSharpObjectType.Class, CSharpSerializationAttribute.SystemTextJson)]
+    [InlineData(nameof(ArrayRoot), ArrayRoot.Input, ArrayRoot.StructOutput, CSharpObjectType.Struct, CSharpSerializationAttribute.SystemTextJson)]
     [InlineData("EmptyObject", "{}", "", CSharpObjectType.Record, CSharpSerializationAttribute.NoAttribute)]
     [InlineData("EmptyObject", "{}", "", CSharpObjectType.Record, CSharpSerializationAttribute.NewtonsoftJson)]
     [InlineData("EmptyObject", "{}", "", CSharpObjectType.Record, CSharpSerializationAttribute.SystemTextJson)]
@@ -68,4 +74,12 @@ public sealed class CSharpDataTests
             actualOutput.Replace("\r", string.Empty)
         );
     }
+
+    [Theory]
+    [InlineData(ArrayRoot.BadInput1)]
+    [InlineData(ArrayRoot.BadInput2)]
+    [InlineData(ArrayRoot.BadInput3)]
+    [InlineData(ArrayRoot.BadInput4)]
+    internal void FailTest(string input)
+        => Assert.Throws<InvalidOperationException>(() => Json2Sharp.Parse("Root", input));
 }
