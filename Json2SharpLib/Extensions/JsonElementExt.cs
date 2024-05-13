@@ -51,7 +51,7 @@ internal static class JsonElementExt
 
             return sourceEnumerator.All(x => targetEnumerator.Any(y => y.SameTypeAs(x)));
         }
-        
+
         return true;
     }
 

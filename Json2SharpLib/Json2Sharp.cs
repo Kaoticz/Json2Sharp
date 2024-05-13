@@ -314,7 +314,7 @@ public static class Json2Sharp
 
         return toParse.ValueKind is JsonValueKind.Object && arrayElements.Skip(1).All(x => x.SameTypeAs(elementCopy));
     }
-    
+
     /// <summary>
     /// Gets the appropriate emitter for the given parsing <paramref name="options"/>.
     /// </summary>

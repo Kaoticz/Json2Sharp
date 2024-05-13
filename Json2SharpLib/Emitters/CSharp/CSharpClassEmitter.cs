@@ -94,7 +94,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
 
         return result;
     }
-    
+
     /// <inheritdoc />
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
     {
@@ -207,7 +207,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
                 return true;
             default:
                 return false;
-        };
+        }
     }
 
     /// <summary>

@@ -170,6 +170,6 @@ internal sealed class PythonClassEmitter : CodeEmitter
                 return true;
             default:
                 return false;
-        };
+        }
     }
 }

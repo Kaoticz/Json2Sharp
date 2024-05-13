@@ -1,4 +1,4 @@
-﻿using Json2SharpLib.Common;
+using Json2SharpLib.Common;
 using Json2SharpLib.Emitters.Abstractions;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Extensions;
@@ -154,6 +154,6 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
                 return true;
             default:
                 return false;
-        };
+        }
     }
 }

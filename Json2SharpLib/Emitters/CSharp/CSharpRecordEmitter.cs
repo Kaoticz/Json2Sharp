@@ -193,7 +193,7 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
                 return true;
             default:
                 return false;
-        };
+        }
     }
 
     /// <summary>
