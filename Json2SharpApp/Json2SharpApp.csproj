@@ -7,6 +7,8 @@
     <PublishSingleFile>true</PublishSingleFile>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <PublishTrimmed>true</PublishTrimmed>
+    <PackAsTool>true</PackAsTool>    
+    <ToolCommandName>json2charp</ToolCommandName>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Json2SharpLib\Json2SharpLib.csproj" />

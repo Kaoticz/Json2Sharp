@@ -10,7 +10,7 @@
     <WarningsAsErrors>Nullable</WarningsAsErrors>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <VersionPrefix>1.1.8.0</VersionPrefix>
+    <VersionPrefix>1.1.9.0</VersionPrefix>
     <Authors>Kotz</Authors>
     <Copyright>Copyright © Kotz 2023</Copyright>
     <PackageProjectUrl>https://github.com/Kaoticz/Json2Sharp</PackageProjectUrl>
