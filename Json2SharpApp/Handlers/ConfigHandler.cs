@@ -2,6 +2,7 @@ using Json2SharpApp.Common;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Models;
 using Json2SharpLib.Models.LanguageOptions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Json2SharpApp.Handlers;
 
@@ -14,19 +15,32 @@ internal sealed class ConfigHandler
     /// Parses configuration options into a <see cref="Json2SharpOptions"/>.
     /// </summary>
     /// <param name="options">The command-line configuration options.</param>
-    /// <returns>The parsed options.</returns>
-    public static Json2SharpOptions Handle(IReadOnlyList<string> options)
+    /// <param name="result">The parsed options or <see langword="null"/> if parsing failed.</param>
+    /// <param name="exception">The exception thrown during parsing or <see langword="null"/> if parsing was successfull.</param>
+    /// <returns><see langword="true"/> if the options were parsed successfully, <see langword="false"/> otherwise.</returns>
+    public static bool Handle(IReadOnlyList<string> options, [MaybeNullWhen(false)] out Json2SharpOptions result, [MaybeNullWhen(true)] out Exception exception)
     {
-        var targetLanguage = ParseLanguage(options);
+        try
+        {
+            var targetLanguage = ParseLanguage(options);
+            exception = default;
+            result = (options.Count is 0)
+                ? new Json2SharpOptions()
+                : new Json2SharpOptions()
+                {
+                    TargetLanguage = targetLanguage,
+                    CSharpOptions = (targetLanguage is Language.CSharp) ? ParseCSharpOptions(options) : new(),
+                    PythonOptions = (targetLanguage is Language.Python) ? ParsePythonOptions(options) : new(),
+                };
 
-        return (options.Count is 0)
-            ? new Json2SharpOptions()
-            : new Json2SharpOptions()
-            {
-                TargetLanguage = targetLanguage,
-                CSharpOptions = (targetLanguage is Language.CSharp) ? ParseCSharpOptions(options) : new(),
-                PythonOptions = (targetLanguage is Language.Python) ? ParsePythonOptions(options) : new(),
-            };
+            return true;
+        }
+        catch (Exception ex)
+        {
+            exception = ex;
+            result = default;
+            return false;
+        }
     }
 
     /// <summary>

@@ -7,7 +7,7 @@
     <PublishSingleFile>true</PublishSingleFile>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <PublishTrimmed>true</PublishTrimmed>
-    <PackAsTool>true</PackAsTool>    
+    <PackAsTool>true</PackAsTool>
     <ToolCommandName>json2charp</ToolCommandName>
   </PropertyGroup>
   <ItemGroup>

@@ -1,5 +1,4 @@
 using Json2SharpApp.Enums;
-using Json2SharpApp.Extensions;
 using Json2SharpApp.Handlers;
 using System.CommandLine;
 
@@ -54,12 +53,9 @@ internal sealed class Program
     private async static Task RootHandlerAsync(RootCommand rootCommand, FileInfo? inputFile, string? outputPath, string? rootObjectName, string? jsonString, string? configOptions)
     {
         rootObjectName ??= Path.GetFileNameWithoutExtension(outputPath ?? inputFile?.Name) ?? "Root";
-        
-        if (!Utilities.TryCreate(
-                () => ConfigHandler.Handle(configOptions?.ToLowerInvariant().Split(' ', StringSplitOptions.TrimEntries) ?? []),
-                out var options,
-                out var optionsException)
-            )
+        var rawOptions = configOptions?.ToLowerInvariant().Split(' ', StringSplitOptions.TrimEntries) ?? [];
+
+        if (!ConfigHandler.Handle(rawOptions, out var options, out var optionsException))
         {
             await OutputHandler.StderrWriteAsync(optionsException.Message, ConsoleColor.Red);
             Environment.Exit((int)ExitCode.OptionError);
