@@ -79,6 +79,9 @@ internal static class TypeAliases
         [typeof(object)] = "object",
         [typeof(bool)] = "bool",
         [typeof(char)] = "str",
+        [typeof(DateTime)] = "datetime",
+        [typeof(DateTimeOffset)] = "datetime",
+        [typeof(Guid)] = "uuid",
 
         [typeof(string[])] = "list[str]",
         [typeof(int[])] = "list[int]",
@@ -95,6 +98,9 @@ internal static class TypeAliases
         [typeof(object[])] = "list[object]",
         [typeof(bool[])] = "list[bool]",
         [typeof(char[])] = "list[str]",
+        [typeof(DateTime[])] = "list[datetime]",
+        [typeof(DateTimeOffset[])] = "list[datetime]",
+        [typeof(Guid[])] = "list[uuid]",
 
         [typeof(int?[])] = "Optional[list[int]]",
         [typeof(byte?[])] = "Optional[bytes]",
@@ -109,5 +115,8 @@ internal static class TypeAliases
         [typeof(decimal?[])] = "Optional[list[float]]",
         [typeof(bool?[])] = "Optional[list[bool]]",
         [typeof(char?[])] = "Optional[list[str]]",
+        [typeof(DateTime?[])] = "Optional[list[datetime]]",
+        [typeof(DateTimeOffset?[])] = "Optional[list[datetime]]",
+        [typeof(Guid?[])] = "Optional[list[uuid]]",
     }.ToFrozenDictionary();
 }

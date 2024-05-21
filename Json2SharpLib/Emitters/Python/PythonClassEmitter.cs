@@ -52,8 +52,24 @@ internal sealed class PythonClassEmitter : CodeEmitter
         AddCustomTypes(stringBuilder, extraTypes);
 
         // Add the imports
-        if (--_stackCounter == default && _addTypeHint && stringBuilder.Contains("Optional["))
-            stringBuilder.Insert(0, "from typing import Optional" + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+        if (--_stackCounter == default && _addTypeHint)
+        {
+            var hasUuid = stringBuilder.Contains(": uuid");
+            var hasDatetime = stringBuilder.Contains(": datetime");
+            var hasNullable = stringBuilder.Contains("Optional[");
+
+            if (hasUuid || hasDatetime || hasNullable)
+                stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
+
+            if (hasUuid)
+                stringBuilder.Insert(0, "import uuid" + Environment.NewLine);
+
+            if (hasDatetime)
+                stringBuilder.Insert(0, "from datetime import datetime" + Environment.NewLine);
+
+            if (hasNullable)
+                stringBuilder.Insert(0, "from typing import Optional" + Environment.NewLine);
+        }
 
         return stringBuilder.ToStringAndClear();
     }

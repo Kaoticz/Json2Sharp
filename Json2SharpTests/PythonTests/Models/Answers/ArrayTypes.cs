@@ -29,8 +29,8 @@ internal static class ArrayTypes
         """;
 
     public const string DataClassOutput = """
-        from typing import Optional
         from dataclasses import dataclass
+        from typing import Optional
         
         
         @dataclass

@@ -44,10 +44,18 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         // Add the imports
         if (--_stackCounter == default)
         {
-            stringBuilder.Insert(0, "from dataclasses import dataclass" + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+            stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
+
+            if (stringBuilder.Contains(": uuid"))
+                stringBuilder.Insert(0, "import uuid" + Environment.NewLine);
+
+            if (stringBuilder.Contains(": datetime"))
+                stringBuilder.Insert(0, "from datetime import datetime" + Environment.NewLine);
 
             if (stringBuilder.Contains("Optional["))
                 stringBuilder.Insert(0, "from typing import Optional" + Environment.NewLine);
+
+            stringBuilder.Insert(0, "from dataclasses import dataclass" + Environment.NewLine);
         }
 
         return stringBuilder.ToStringAndClear();

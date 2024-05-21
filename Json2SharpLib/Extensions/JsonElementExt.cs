@@ -83,10 +83,10 @@ internal static class JsonElementExt
     {
         if (jsonElement.TryGetGuid(out _))
             return typeof(Guid);
-        else if (jsonElement.TryGetDateTime(out _))
-            return typeof(DateTime);
         else if (jsonElement.TryGetDateTimeOffset(out _))
             return typeof(DateTimeOffset);
+        else if (jsonElement.TryGetDateTime(out _))
+            return typeof(DateTime);
         else
             return typeof(string);
     }
