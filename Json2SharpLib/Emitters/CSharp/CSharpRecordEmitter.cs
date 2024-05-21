@@ -209,6 +209,6 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static string CreateMemberDeclaration(string indentationPadding, string serializationAttributeName, string jsonName, string targetTypeName, string propertyName)
         => (string.IsNullOrWhiteSpace(serializationAttributeName))
-            ? $"{indentationPadding}{targetTypeName} {propertyName},"
-            : $"{indentationPadding}[{serializationAttributeName}(\"{jsonName}\")] {targetTypeName} {propertyName},";
+            ? $"{indentationPadding}{targetTypeName} {J2SUtils.SanitizeObjectName(propertyName)},"
+            : $"{indentationPadding}[{serializationAttributeName}(\"{jsonName}\")] {targetTypeName} {J2SUtils.SanitizeObjectName(propertyName)},";
 }

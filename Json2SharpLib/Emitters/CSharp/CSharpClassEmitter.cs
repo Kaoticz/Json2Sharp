@@ -233,5 +233,5 @@ internal sealed class CSharpClassEmitter : CodeEmitter
     /// <returns>The member declaration.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static string CreateMemberDeclaration(string indentationPadding, string targetTypeName, string propertyName, string setterType)
-        => $"{indentationPadding}public {targetTypeName} {propertyName} {{ get; {setterType}; }}";
+        => $"{indentationPadding}public {targetTypeName} {J2SUtils.SanitizeObjectName(propertyName)} {{ get; {setterType}; }}";
 }

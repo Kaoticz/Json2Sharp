@@ -20,14 +20,17 @@ internal static class J2SUtils
     /// Removes illegal characters from a object name.
     /// </summary>
     /// <param name="objectName">The name of the object.</param>
+    /// <param name="replacement">The string to replace bad characters with.</param>
     /// <returns>The sanitized object name.</returns>
     [return: NotNullIfNotNull(nameof(objectName))]
-    internal static string? SanitizeObjectName(string? objectName)
+    internal static string? SanitizeObjectName(string? objectName, string replacement = "")
     {
         if (string.IsNullOrWhiteSpace(objectName))
             return objectName;
 
-        return objectName.Replace(":", string.Empty);
+        return objectName
+            .Replace(":", replacement)
+            .Replace(".", replacement);
     }
 
     /// <summary>
@@ -44,7 +47,7 @@ internal static class J2SUtils
         var stringBuilder = new StringBuilder(CultureInfo.InvariantCulture.TextInfo.ToTitleCase(text))
             .Replace("_", string.Empty);
 
-        var result = stringBuilder.ToString();
+        var result = SanitizeObjectName(stringBuilder.ToString());
         stringBuilder.Clear();
 
         return result;

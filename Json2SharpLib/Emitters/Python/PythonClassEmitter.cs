@@ -46,7 +46,10 @@ internal sealed class PythonClassEmitter : CodeEmitter
 
         // Build the body of the constructor
         foreach (var property in properties)
-            stringBuilder.AppendIndentedLine($"self.{property.JsonName} = {property.JsonName}", _indentationPadding, 2);
+        {
+            var sanitizedJsonName = J2SUtils.SanitizeObjectName(property.JsonName, "_");
+            stringBuilder.AppendIndentedLine($"self.{sanitizedJsonName} = {sanitizedJsonName}", _indentationPadding, 2);
+        }
 
         // Add extra classes above the root class
         AddCustomTypes(stringBuilder, extraTypes);
@@ -81,7 +84,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
             ? ": " + GetObjectTypeName(property, Language.Python)
             : string.Empty;
 
-        return $"{property.JsonName}{propertyType},";
+        return $"{J2SUtils.SanitizeObjectName(property.JsonName, "_")}{propertyType},";
     }
 
     /// <inheritdoc />
@@ -91,7 +94,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
             ? $"Optional[{typeName}]"
             : typeName;
 
-        return $"{property.JsonName}{((_addTypeHint) ? $": list[{propertyType}]" : string.Empty)},";
+        return $"{J2SUtils.SanitizeObjectName(property.JsonName, "_")}{((_addTypeHint) ? $": list[{propertyType}]" : string.Empty)},";
     }
 
     /// <summary>
@@ -123,7 +126,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
                 ? ": " + ((isNullable) ? $"Optional[{aliasName}]" : aliasName)
                 : string.Empty;
 
-            stringBuilder.AppendIndentedLine($"{property.JsonName}{type},", _indentationPadding, 2);
+            stringBuilder.AppendIndentedLine($"{J2SUtils.SanitizeObjectName(property.JsonName, "_")}{type},", _indentationPadding, 2);
         }
 
         stringBuilder.Remove(stringBuilder.Length - (Environment.NewLine.Length + 1), 1);   // Remove the last comma

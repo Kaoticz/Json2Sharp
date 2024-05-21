@@ -9,7 +9,9 @@ internal static class ObjectTypes
             "thing": {
                 "text": "hello world",
                 "number": 1,
-                "int_array": [ 1, 2, 3 ]
+                "int_array": [ 1, 2, 3 ],
+                "prop_base:colon": 2,
+                "prop_custom:colon": { "blep": "nested" }
             }
         }
         """;
@@ -26,7 +28,13 @@ internal static class ObjectTypes
         public sealed record Thing(
             [JsonProperty("text")] string Text,
             [JsonProperty("number")] int Number,
-            [JsonProperty("int_array")] int[] IntArray
+            [JsonProperty("int_array")] int[] IntArray,
+            [JsonProperty("prop_base:colon")] int PropBaseColon,
+            [JsonProperty("prop_custom:colon")] PropCustomColon PropCustomColon
+        );
+
+        public sealed record PropCustomColon(
+            [JsonProperty("blep")] string Blep
         );
         """;
 
@@ -40,7 +48,13 @@ internal static class ObjectTypes
         public sealed record Thing(
             string Text,
             int Number,
-            int[] IntArray
+            int[] IntArray,
+            int PropBaseColon,
+            PropCustomColon PropCustomColon
+        );
+
+        public sealed record PropCustomColon(
+            string Blep
         );
         """;
 
@@ -56,7 +70,13 @@ internal static class ObjectTypes
         public sealed record Thing(
             [property: JsonPropertyName("text")] string Text,
             [property: JsonPropertyName("number")] int Number,
-            [property: JsonPropertyName("int_array")] int[] IntArray
+            [property: JsonPropertyName("int_array")] int[] IntArray,
+            [property: JsonPropertyName("prop_base:colon")] int PropBaseColon,
+            [property: JsonPropertyName("prop_custom:colon")] PropCustomColon PropCustomColon
+        );
+
+        public sealed record PropCustomColon(
+            [property: JsonPropertyName("blep")] string Blep
         );
         """;
 
@@ -85,6 +105,18 @@ internal static class ObjectTypes
         
             [JsonPropertyName("int_array")]
             public int[] IntArray { get; init; }
+
+            [JsonPropertyName("prop_base:colon")]
+            public int PropBaseColon { get; init; }
+
+            [JsonPropertyName("prop_custom:colon")]
+            public PropCustomColon PropCustomColon { get; init; }
+        }
+
+        public sealed class PropCustomColon
+        {
+            [JsonPropertyName("blep")]
+            public string Blep { get; init; }
         }
         """;
 
@@ -105,6 +137,15 @@ internal static class ObjectTypes
             public int Number { get; init; }
         
             public int[] IntArray { get; init; }
+
+            public int PropBaseColon { get; init; }
+
+            public PropCustomColon PropCustomColon { get; init; }
+        }
+
+        public sealed class PropCustomColon
+        {
+            public string Blep { get; init; }
         }
         """;
 
@@ -133,6 +174,18 @@ internal static class ObjectTypes
         
             [JsonPropertyName("int_array")]
             public int[] IntArray { get; init; }
+
+            [JsonPropertyName("prop_base:colon")]
+            public int PropBaseColon { get; init; }
+
+            [JsonPropertyName("prop_custom:colon")]
+            public PropCustomColon PropCustomColon { get; init; }
+        }
+
+        public struct PropCustomColon
+        {
+            [JsonPropertyName("blep")]
+            public string Blep { get; init; }
         }
         """;
 }
