@@ -34,7 +34,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
     /// <inheritdoc />
     public override string Parse(string objectName, JsonElement jsonElement)
     {
-        objectName = J2SUtils.SanitizeObjectName(objectName);
+        objectName = J2SUtils.SanitizeObjectName(objectName, "_");
         var properties = Json2Sharp.ParseProperties(jsonElement);
 
         if (properties.Count is 0)
@@ -47,7 +47,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
         // Build the body of the constructor
         foreach (var property in properties)
         {
-            var sanitizedJsonName = J2SUtils.SanitizeObjectName(property.JsonName, "_");
+            var sanitizedJsonName = J2SUtils.ToSnakeCase(property.JsonName);
             stringBuilder.AppendIndentedLine($"self.{sanitizedJsonName} = {sanitizedJsonName}", _indentationPadding, 2);
         }
 
@@ -84,7 +84,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
             ? ": " + GetObjectTypeName(property, Language.Python)
             : string.Empty;
 
-        return $"{J2SUtils.SanitizeObjectName(property.JsonName, "_")}{propertyType},";
+        return $"{J2SUtils.ToSnakeCase(property.JsonName)}{propertyType},";
     }
 
     /// <inheritdoc />
@@ -94,7 +94,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
             ? $"Optional[{typeName}]"
             : typeName;
 
-        return $"{J2SUtils.SanitizeObjectName(property.JsonName, "_")}{((_addTypeHint) ? $": list[{propertyType}]" : string.Empty)},";
+        return $"{J2SUtils.ToSnakeCase(property.JsonName)}{((_addTypeHint) ? $": list[{propertyType}]" : string.Empty)},";
     }
 
     /// <summary>
@@ -126,7 +126,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
                 ? ": " + ((isNullable) ? $"Optional[{aliasName}]" : aliasName)
                 : string.Empty;
 
-            stringBuilder.AppendIndentedLine($"{J2SUtils.SanitizeObjectName(property.JsonName, "_")}{type},", _indentationPadding, 2);
+            stringBuilder.AppendIndentedLine($"{J2SUtils.ToSnakeCase(property.JsonName)}{type},", _indentationPadding, 2);
         }
 
         stringBuilder.Remove(stringBuilder.Length - (Environment.NewLine.Length + 1), 1);   // Remove the last comma

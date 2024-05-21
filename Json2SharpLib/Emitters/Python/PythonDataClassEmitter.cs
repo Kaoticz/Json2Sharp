@@ -28,7 +28,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
     /// <inheritdoc />
     public override string Parse(string objectName, JsonElement jsonElement)
     {
-        objectName = J2SUtils.SanitizeObjectName(objectName);
+        objectName = J2SUtils.SanitizeObjectName(objectName, "_");
         var properties = Json2Sharp.ParseProperties(jsonElement);
 
         if (properties.Count is 0)
@@ -63,7 +63,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
 
     /// <inheritdoc />
     protected override string ParseCustomType(ParsedJsonProperty property)
-        => $"{J2SUtils.SanitizeObjectName(property.JsonName, "_")}: {GetObjectTypeName(property, Language.Python)}";
+        => $"{J2SUtils.ToSnakeCase(property.JsonName)}: {GetObjectTypeName(property, Language.Python)}";
 
     /// <inheritdoc />
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
@@ -72,7 +72,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
             ? $"Optional[{typeName}]"
             : typeName;
 
-        return $"{J2SUtils.SanitizeObjectName(property.JsonName, "_")}: list[{finalName}]";
+        return $"{J2SUtils.ToSnakeCase(property.JsonName)}: list[{finalName}]";
     }
 
     /// <summary>
@@ -102,7 +102,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
                 ? (isNullable) ? $"Optional[{aliasName}]" : aliasName
                 : throw new InvalidOperationException("Could not get alias for " + property.BclType.Name);
 
-            stringBuilder.AppendIndentedLine($"{J2SUtils.SanitizeObjectName(property.JsonName, "_")}: {type}", _indentationPadding, 1);
+            stringBuilder.AppendIndentedLine($"{J2SUtils.ToSnakeCase(property.JsonName)}: {type}", _indentationPadding, 1);
         }
 
         return stringBuilder;
