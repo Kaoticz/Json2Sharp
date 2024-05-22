@@ -79,7 +79,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
     /// <inheritdoc />
     protected override string ParseCustomType(ParsedJsonProperty property)
     {
-        var propertyName = J2SUtils.ToPascalCase(property.JsonName) ?? property.BclType.Name;
+        var propertyName = property.JsonName.ToPascalCase() ?? property.BclType.Name;
         var result = string.Empty;
 
         if (!string.IsNullOrWhiteSpace(_serializationAttribute))
@@ -98,7 +98,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
     /// <inheritdoc />
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
     {
-        var propertyName = J2SUtils.ToPascalCase(property.JsonName!) ?? property.BclType.Name;
+        var propertyName = property.JsonName.ToPascalCase() ?? property.BclType.Name;
         var result = string.Empty;
         var propertyType = (IsArrayOfNullableType(property, Language.CSharp, childrenTypes, out typeName))
             ? typeName + "?[]"
@@ -145,7 +145,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
                     (property.JsonElement.ValueKind is not JsonValueKind.Array)
                         ? bclTypeName + nullableAnnotation
                         : (string.IsNullOrWhiteSpace(nullableAnnotation)) ? bclTypeName : bclTypeName.Insert(bclTypeName.Length - 2, nullableAnnotation),
-                    J2SUtils.ToPascalCase(property.JsonName!),
+                    property.JsonName!.ToPascalCase(),
                     _setterType
                 )
             );
@@ -188,7 +188,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
         switch (property.JsonElement.ValueKind)
         {
             case JsonValueKind.Object:
-                var propertyName = J2SUtils.ToPascalCase(property.JsonName) ?? property.BclType.Name;
+                var propertyName = property.JsonName.ToPascalCase() ?? property.BclType.Name;
                 extraTypes.Add(Parse(propertyName, property.JsonElement));
                 stringBuilder.AppendLine(ParseCustomType(property));
 
@@ -233,5 +233,5 @@ internal sealed class CSharpClassEmitter : CodeEmitter
     /// <returns>The member declaration.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static string CreateMemberDeclaration(string indentationPadding, string targetTypeName, string propertyName, string setterType)
-        => $"{indentationPadding}public {targetTypeName} {J2SUtils.SanitizeObjectName(propertyName)} {{ get; {setterType}; }}";
+        => $"{indentationPadding}public {targetTypeName} {propertyName} {{ get; {setterType}; }}";
 }

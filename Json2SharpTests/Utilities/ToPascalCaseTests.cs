@@ -1,4 +1,5 @@
 using Json2SharpLib.Common;
+using Json2SharpLib.Extensions;
 
 namespace Json2SharpTests.Utilities;
 
@@ -27,5 +28,5 @@ public sealed class ToPascalCaseTests
     [InlineData("snake*asterisk", "SnakeAsterisk")]
     [InlineData("_private_stuff", "PrivateStuff")]
     internal void ToPascalCaseSuccessTest(string input, string expected)
-        => Assert.Equal(expected, J2SUtils.ToPascalCase(input));
+        => Assert.Equal(expected, input.ToPascalCase());
 }

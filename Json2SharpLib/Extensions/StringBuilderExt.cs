@@ -101,6 +101,49 @@ internal static class StringBuilderExt
     }
 
     /// <summary>
+    /// Removes all leading and trailing instances of a character from the current string builder.
+    /// </summary>
+    /// <param name="stringBuilder">This string builder.</param>
+    /// <param name="trimChar">A Unicode character to remove.</param>
+    /// <returns>This string builder with all leading and trailing instances of <paramref name="trimChar"/> removed.</returns>
+    internal static StringBuilder Trim(this StringBuilder stringBuilder, char trimChar = ' ')
+        => stringBuilder.TrimStart(trimChar).TrimEnd(trimChar);
+
+    /// <summary>
+    /// Removes all leading instances of a character from the current string builder.
+    /// </summary>
+    /// <param name="stringBuilder">This string builder.</param>
+    /// <param name="trimChar">A Unicode character to remove.</param>
+    /// <returns>This string builder with all leading instances of <paramref name="trimChar"/> removed.</returns>
+    internal static StringBuilder TrimStart(this StringBuilder stringBuilder, char trimChar = ' ')
+    {
+        if (stringBuilder.Length is 0)
+            return stringBuilder;
+
+        while (stringBuilder.Length is not 0 && stringBuilder[0] == trimChar)
+            stringBuilder.Remove(0, 1);
+
+        return stringBuilder;
+    }
+
+    /// <summary>
+    /// Removes all trailing instances of a character from the current string builder.
+    /// </summary>
+    /// <param name="stringBuilder">This string builder.</param>
+    /// <param name="trimChar">A Unicode character to remove.</param>
+    /// <returns>This string builder with all trailing instances of <paramref name="trimChar"/> removed.</returns>
+    internal static StringBuilder TrimEnd(this StringBuilder stringBuilder, char trimChar = ' ')
+    {
+        if (stringBuilder.Length is 0)
+            return stringBuilder;
+
+        while (stringBuilder.Length is not 0 && stringBuilder[^1] == trimChar)
+            stringBuilder.Remove(stringBuilder.Length - 1, 1);
+
+        return stringBuilder;
+    }
+
+    /// <summary>
     /// Converts the value of this instance to a <see langword="string"/>, then clears its buffer.
     /// </summary>
     /// <param name="stringBuilder">This builder.</param>

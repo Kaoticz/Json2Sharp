@@ -43,7 +43,7 @@ internal abstract class CodeEmitter : ICodeEmitter
     {
         using var jsonEnumerator = property.JsonElement.EnumerateObject();
         return (jsonEnumerator.Any())
-            ? J2SUtils.ToPascalCase(property.JsonName!)
+            ? property.JsonName!.ToPascalCase()
             : J2SUtils.GetAliasName(typeof(object), language);
     }
 
@@ -62,7 +62,7 @@ internal abstract class CodeEmitter : ICodeEmitter
         if (childrenTypes.Count is 0)
             throw new ArgumentException("Collection cannot be empty.", nameof(childrenTypes));
 
-        var className = J2SUtils.ToPascalCase(property.JsonName!);
+        var className = property.JsonName!.ToPascalCase();
         var typeAmount = childrenTypes.Count(x => x.JsonElement.ValueKind is not JsonValueKind.Null);
 
         // If there is more than 1 type in the array

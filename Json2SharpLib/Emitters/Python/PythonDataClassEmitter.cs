@@ -63,7 +63,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
 
     /// <inheritdoc />
     protected override string ParseCustomType(ParsedJsonProperty property)
-        => $"{J2SUtils.ToSnakeCase(property.JsonName)}: {GetObjectTypeName(property, Language.Python)}";
+        => $"{property.JsonName.ToSnakeCase()}: {GetObjectTypeName(property, Language.Python)}";
 
     /// <inheritdoc />
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
@@ -72,7 +72,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
             ? $"Optional[{typeName}]"
             : typeName;
 
-        return $"{J2SUtils.ToSnakeCase(property.JsonName)}: list[{finalName}]";
+        return $"{property.JsonName.ToSnakeCase()}: list[{finalName}]";
     }
 
     /// <summary>
@@ -102,7 +102,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
                 ? (isNullable) ? $"Optional[{aliasName}]" : aliasName
                 : throw new InvalidOperationException("Could not get alias for " + property.BclType.Name);
 
-            stringBuilder.AppendIndentedLine($"{J2SUtils.ToSnakeCase(property.JsonName)}: {type}", _indentationPadding, 1);
+            stringBuilder.AppendIndentedLine($"{property.JsonName.ToSnakeCase()}: {type}", _indentationPadding, 1);
         }
 
         return stringBuilder;
@@ -145,7 +145,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         {
             case JsonValueKind.Object:
                 stringBuilder.AppendIndentedLine(ParseCustomType(property), _indentationPadding, 1);
-                extraTypes.Add(Parse(J2SUtils.ToPascalCase(property.JsonName!), property.JsonElement));
+                extraTypes.Add(Parse(property.JsonName!.ToPascalCase(), property.JsonElement));
 
                 return true;
             case JsonValueKind.Array:

@@ -47,7 +47,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
         // Build the body of the constructor
         foreach (var property in properties)
         {
-            var sanitizedJsonName = J2SUtils.ToSnakeCase(property.JsonName);
+            var sanitizedJsonName = property.JsonName.ToSnakeCase();
             stringBuilder.AppendIndentedLine($"self.{sanitizedJsonName} = {sanitizedJsonName}", _indentationPadding, 2);
         }
 
@@ -84,7 +84,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
             ? ": " + GetObjectTypeName(property, Language.Python)
             : string.Empty;
 
-        return $"{J2SUtils.ToSnakeCase(property.JsonName)}{propertyType},";
+        return $"{property.JsonName.ToSnakeCase()}{propertyType},";
     }
 
     /// <inheritdoc />
@@ -94,7 +94,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
             ? $"Optional[{typeName}]"
             : typeName;
 
-        return $"{J2SUtils.ToSnakeCase(property.JsonName)}{((_addTypeHint) ? $": list[{propertyType}]" : string.Empty)},";
+        return $"{property.JsonName.ToSnakeCase()}{((_addTypeHint) ? $": list[{propertyType}]" : string.Empty)},";
     }
 
     /// <summary>
@@ -126,7 +126,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
                 ? ": " + ((isNullable) ? $"Optional[{aliasName}]" : aliasName)
                 : string.Empty;
 
-            stringBuilder.AppendIndentedLine($"{J2SUtils.ToSnakeCase(property.JsonName)}{type},", _indentationPadding, 2);
+            stringBuilder.AppendIndentedLine($"{property.JsonName.ToSnakeCase()}{type},", _indentationPadding, 2);
         }
 
         stringBuilder.Remove(stringBuilder.Length - (Environment.NewLine.Length + 1), 1);   // Remove the last comma
@@ -172,7 +172,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
         {
             case JsonValueKind.Object:
                 stringBuilder.AppendIndentedLine(ParseCustomType(property), _indentationPadding, 2);
-                extraTypes.Add(Parse(J2SUtils.ToPascalCase(property.JsonName!), property.JsonElement));
+                extraTypes.Add(Parse(property.JsonName!.ToPascalCase(), property.JsonElement));
 
                 return true;
             case JsonValueKind.Array:

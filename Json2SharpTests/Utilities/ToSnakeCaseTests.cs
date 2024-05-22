@@ -1,4 +1,5 @@
 using Json2SharpLib.Common;
+using Json2SharpLib.Extensions;
 
 namespace Json2SharpTests.Utilities;
 
@@ -29,5 +30,5 @@ public sealed class ToSnakeCaseTests
     [InlineData("snake*asterisk", "snake_asterisk")]
     [InlineData("_private_stuff", "private_stuff")]
     internal void ToSnakeCaseSuccessTest(string input, string expected)
-        => Assert.Equal(expected, J2SUtils.ToSnakeCase(input));
+        => Assert.Equal(expected, input.ToSnakeCase());
 }
