@@ -15,7 +15,7 @@ namespace Json2SharpLib.Emitters.CSharp;
 /// </summary>
 internal sealed class CSharpRecordEmitter : CodeEmitter
 {
-    private int _stackCounter = 0;
+    private int _stackCounter;
     private readonly string _accessibility;
     private readonly CSharpSerializationAttribute _serializationAttributeType;
     private readonly string _serializationAttribute;
@@ -41,7 +41,7 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
     /// <inheritdoc />
     public override string Parse(string objectName, JsonElement jsonElement)
     {
-        objectName = J2SUtils.SanitizeObjectName(objectName);
+        objectName = objectName.ToPascalCase();
         var properties = Json2Sharp.ParseProperties(jsonElement);
 
         if (properties.Count is 0)
@@ -174,7 +174,7 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
         switch (property.JsonElement.ValueKind)
         {
             case JsonValueKind.Object:
-                var propertyName = property.JsonName.ToPascalCase() ?? property.BclType.Name;
+                var propertyName = property.JsonName ?? property.BclType.Name;
                 extraTypes.Add(Parse(propertyName, property.JsonElement));
                 stringBuilder.AppendLine(ParseCustomType(property));
 
@@ -188,7 +188,7 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
                 stringBuilder.AppendLine(ParseArrayType(property, childrenTypes, out var typeName));
 
                 if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp), StringComparison.Ordinal))
-                    extraTypes.Add(Parse(typeName.ToPascalCase(), childrenTypes[0].JsonElement));
+                    extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
 
                 return true;
             default:

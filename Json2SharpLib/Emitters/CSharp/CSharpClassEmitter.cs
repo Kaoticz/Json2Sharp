@@ -43,7 +43,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
     /// <inheritdoc />
     public override string Parse(string objectName, JsonElement jsonElement)
     {
-        objectName = J2SUtils.SanitizeObjectName(objectName);
+        objectName = objectName.ToPascalCase();
         var properties = Json2Sharp.ParseProperties(jsonElement);
 
         if (properties.Count is 0)
@@ -188,7 +188,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
         switch (property.JsonElement.ValueKind)
         {
             case JsonValueKind.Object:
-                var propertyName = property.JsonName.ToPascalCase() ?? property.BclType.Name;
+                var propertyName = property.JsonName ?? property.BclType.Name;
                 extraTypes.Add(Parse(propertyName, property.JsonElement));
                 stringBuilder.AppendLine(ParseCustomType(property));
 

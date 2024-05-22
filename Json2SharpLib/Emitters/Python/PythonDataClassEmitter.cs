@@ -28,7 +28,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
     /// <inheritdoc />
     public override string Parse(string objectName, JsonElement jsonElement)
     {
-        objectName = J2SUtils.SanitizeObjectName(objectName, "_");
+        objectName = objectName.ToPascalCase();
         var properties = Json2Sharp.ParseProperties(jsonElement);
 
         if (properties.Count is 0)
@@ -145,7 +145,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         {
             case JsonValueKind.Object:
                 stringBuilder.AppendIndentedLine(ParseCustomType(property), _indentationPadding, 1);
-                extraTypes.Add(Parse(property.JsonName!.ToPascalCase(), property.JsonElement));
+                extraTypes.Add(Parse(property.JsonName!, property.JsonElement));
 
                 return true;
             case JsonValueKind.Array:

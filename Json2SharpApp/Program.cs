@@ -1,5 +1,6 @@
 using Json2SharpApp.Enums;
 using Json2SharpApp.Handlers;
+using Json2SharpLib;
 using System.CommandLine;
 
 namespace Json2SharpApp;
@@ -16,11 +17,11 @@ internal sealed class Program
     /// <returns>Exit code.</returns>
     private async static Task<int> Main(string[] args)
     {
-        var inputOption = new Option<FileInfo?>(new[] { "--input", "-i" }, "The relative path to the JSON file in the file system.");
-        var outputOption = new Option<string?>(new[] { "--output", "-o" }, "The relative path to the resulting file in the file system.");
-        var nameOption = new Option<string?>(new[] { "--name", "-n" }, "The name of the root object.");
-        var jsonOption = new Option<string?>(new[] { "--json", "-j" }, "The JSON object to convert.");
-        var configOption = new Option<string?>(new[] { "--config", "-c" }, "The conversion options.");
+        var inputOption = new Option<FileInfo?>(["--input", "-i"], "The relative path to the JSON file in the file system.");
+        var outputOption = new Option<string?>(["--output", "-o"], "The relative path to the resulting file in the file system.");
+        var nameOption = new Option<string?>(["--name", "-n"], "The name of the root object.");
+        var jsonOption = new Option<string?>(["--json", "-j"], "The JSON object to convert.");
+        var configOption = new Option<string?>(["--config", "-c"], "The conversion options.");
         var rootCommand = new RootCommand("Convert a JSON object to a language type definition.")
         {
             inputOption,
@@ -31,7 +32,8 @@ internal sealed class Program
         };
 
         rootCommand.SetHandler(
-            async (inputFile, outputPath, nameOption, jsonOption, configOptions) => await RootHandlerAsync(rootCommand, inputFile, outputPath, nameOption, jsonOption, configOptions),
+            async (inputFile, outputPath, nameOption, jsonOption, configOptions)
+                => await RootHandlerAsync(rootCommand, inputFile, outputPath, nameOption, jsonOption, configOptions),
             inputOption, outputOption, nameOption, jsonOption, configOption
         );
 
