@@ -188,7 +188,7 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
                 stringBuilder.AppendLine(ParseArrayType(property, childrenTypes, out var typeName));
 
                 if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp), StringComparison.Ordinal))
-                    extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
+                    extraTypes.Add(Parse(typeName.ToPascalCase(), childrenTypes[0].JsonElement));
 
                 return true;
             default:
