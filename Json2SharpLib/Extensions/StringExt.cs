@@ -97,7 +97,6 @@ internal static class StringExt
         return buffer.ToStringAndClear();
     }
 
-
     /// <summary>
     /// Returns the length of an "ALL CAPS" substring in the specified span.
     /// </summary>

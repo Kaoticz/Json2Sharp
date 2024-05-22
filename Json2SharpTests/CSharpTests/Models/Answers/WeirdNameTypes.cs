@@ -32,7 +32,6 @@ internal static class WeirdNameTypes
         }
         """;
 
-
     public const string RecordPrimaryCtorOutput = """
         using Newtonsoft.Json;
 
