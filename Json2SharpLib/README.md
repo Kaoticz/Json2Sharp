@@ -29,7 +29,7 @@ Json2SharpOptions options = new()
     CSharpOptions = new()
     {
         IsSealed = false,
-        TargetType = CSharpObjectType.Record,
+        TargetType = CSharpObjectType.Class,
         SerializationAttribute = CSharpSerializationAttribute.NewtonsoftJson
     }
 };
@@ -38,10 +38,14 @@ string code = Json2Sharp.Parse(className, rawJson, options);
 /*
  * using Newtonsoft.Json;
  *
- * public record Person(
- *     [JsonProperty("id")] int Id,
- *     [JsonProperty("name")] string Name
- * );
+ * public sealed class Person
+ * {
+ *     [JsonProperty("id")]
+ *     public int Id { get; init; }
+ *
+ *     [JsonProperty("name")]
+ *     public string Name { get; init; }
+ * }
  */
 ```
 
