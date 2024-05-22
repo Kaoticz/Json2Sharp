@@ -3,6 +3,9 @@ using System.Text;
 
 namespace Json2SharpLib.Extensions;
 
+/// <summary>
+/// Defines extension methods for <see langword="string"/>.
+/// </summary>
 internal static class StringExt
 {
     /// <summary>
@@ -11,7 +14,7 @@ internal static class StringExt
     /// <param name="text">The string to be converted.</param>
     /// <returns>The <paramref name="text"/> in PascalCase format.</returns>
     [return: NotNullIfNotNull(nameof(text))]
-    internal static string? ToPascalCase(this string? text)
+    public static string? ToPascalCase(this string? text)
     {
         if (string.IsNullOrWhiteSpace(text))
             return text;

@@ -14,7 +14,7 @@ internal static class CSharpSerializationAttributeExt
     /// <param name="serializationAttribute">The serialization library.</param>
     /// <returns>The serialization attribute's name or <see cref="string.Empty"/> if <see cref="CSharpSerializationAttribute.NoAttribute"/>.</returns>
     /// <exception cref="UnreachableException">Occurs when a serialization library is not implemented.</exception>
-    internal static string ToCode(this CSharpSerializationAttribute serializationAttribute)
+    public static string ToCode(this CSharpSerializationAttribute serializationAttribute)
     {
         return serializationAttribute switch
         {

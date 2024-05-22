@@ -10,7 +10,7 @@ internal static class TypeAliases
     /// <summary>
     /// Maps C# CLR types to their corresponding C# aliases.
     /// </summary>
-    internal static FrozenDictionary<Type, string> CSharpAliasTypes { get; } = new Dictionary<Type, string>()
+    public static FrozenDictionary<Type, string> CSharpAliasTypes { get; } = new Dictionary<Type, string>()
     {
         [typeof(string)] = "string",
         [typeof(int)] = "int",
@@ -62,7 +62,7 @@ internal static class TypeAliases
     /// <summary>
     /// Maps C# CLR types to their corresponding Python aliases.
     /// </summary>
-    internal static FrozenDictionary<Type, string> PythonAliasTypes { get; } = new Dictionary<Type, string>()
+    public static FrozenDictionary<Type, string> PythonAliasTypes { get; } = new Dictionary<Type, string>()
     {
         [typeof(string)] = "str",
         [typeof(int)] = "int",

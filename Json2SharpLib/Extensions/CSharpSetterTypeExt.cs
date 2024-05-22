@@ -14,7 +14,7 @@ internal static class CSharpSetterTypeExt
     /// <param name="setterType">This setter type.</param>
     /// <returns>The property setter as valid C# code.</returns>
     /// <exception cref="UnreachableException">Occurs when a property setter is not implemented.</exception>
-    internal static string ToCode(this CSharpSetterType setterType)
+    public static string ToCode(this CSharpSetterType setterType)
     {
         return setterType switch
         {

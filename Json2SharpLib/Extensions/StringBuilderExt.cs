@@ -66,7 +66,7 @@ internal static class StringBuilderExt
     /// <param name="indentationPadding">The text to be prepended to <paramref name="text"/>.</param>
     /// <param name="indentationLevel">How many times <paramref name="indentationPadding"/> should be prepended.</param>
     /// <returns>This <see cref="StringBuilder"/>.</returns>
-    internal static StringBuilder AppendIndentedLine(this StringBuilder stringBuilder, string text, string indentationPadding, int indentationLevel)
+    public static StringBuilder AppendIndentedLine(this StringBuilder stringBuilder, string text, string indentationPadding, int indentationLevel)
     {
         for (var amount = 0; amount < indentationLevel; amount++)
             stringBuilder.Append(indentationPadding);
@@ -80,7 +80,7 @@ internal static class StringBuilderExt
     /// <param name="stringBuilder">This string builder.</param>
     /// <param name="text">The text to check for.</param>
     /// <returns><see langword="true"/> if <paramref name="text"/> is present, <see langword="false"/> otherwise.</returns>
-    internal static bool Contains(this StringBuilder stringBuilder, ReadOnlySpan<char> text)
+    public static bool Contains(this StringBuilder stringBuilder, ReadOnlySpan<char> text)
     {
         var textIndex = 0;
 
@@ -106,7 +106,7 @@ internal static class StringBuilderExt
     /// <param name="stringBuilder">This string builder.</param>
     /// <param name="trimChar">A Unicode character to remove.</param>
     /// <returns>This string builder with all leading and trailing instances of <paramref name="trimChar"/> removed.</returns>
-    internal static StringBuilder Trim(this StringBuilder stringBuilder, char trimChar = ' ')
+    public static StringBuilder Trim(this StringBuilder stringBuilder, char trimChar = ' ')
         => stringBuilder.TrimStart(trimChar).TrimEnd(trimChar);
 
     /// <summary>
@@ -115,7 +115,7 @@ internal static class StringBuilderExt
     /// <param name="stringBuilder">This string builder.</param>
     /// <param name="trimChar">A Unicode character to remove.</param>
     /// <returns>This string builder with all leading instances of <paramref name="trimChar"/> removed.</returns>
-    internal static StringBuilder TrimStart(this StringBuilder stringBuilder, char trimChar = ' ')
+    public static StringBuilder TrimStart(this StringBuilder stringBuilder, char trimChar = ' ')
     {
         if (stringBuilder.Length is 0)
             return stringBuilder;
@@ -132,7 +132,7 @@ internal static class StringBuilderExt
     /// <param name="stringBuilder">This string builder.</param>
     /// <param name="trimChar">A Unicode character to remove.</param>
     /// <returns>This string builder with all trailing instances of <paramref name="trimChar"/> removed.</returns>
-    internal static StringBuilder TrimEnd(this StringBuilder stringBuilder, char trimChar = ' ')
+    public static StringBuilder TrimEnd(this StringBuilder stringBuilder, char trimChar = ' ')
     {
         if (stringBuilder.Length is 0)
             return stringBuilder;
@@ -149,7 +149,7 @@ internal static class StringBuilderExt
     /// <param name="stringBuilder">This builder.</param>
     /// <returns>A string whose value is the same as this instance.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static string ToStringAndClear(this StringBuilder stringBuilder)
+    public static string ToStringAndClear(this StringBuilder stringBuilder)
     {
         var result = stringBuilder.ToString();
         stringBuilder.Clear();

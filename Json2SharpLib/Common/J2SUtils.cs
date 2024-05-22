@@ -24,7 +24,7 @@ internal static class J2SUtils
     /// <returns>The sanitized object name.</returns>
     /// <exception cref="ArgumentNullException">Occurs when <paramref name="replacement"/> is <see langword="null"/>.</exception>
     [return: NotNullIfNotNull(nameof(objectName))]
-    internal static string? SanitizeObjectName(string? objectName, string replacement = "")
+    public static string? SanitizeObjectName(string? objectName, string replacement = "")
     {
         ArgumentNullException.ThrowIfNull(replacement, nameof(replacement));
 
@@ -59,7 +59,7 @@ internal static class J2SUtils
     /// <param name="language">The programming language to get the alias from.</param>
     /// <returns>The alias name of <paramref name="type"/>.</returns>
     /// <exception cref="InvalidOperationException">Occurs when the alias is not found.</exception>
-    internal static string GetAliasName(Type type, Language language)
+    public static string GetAliasName(Type type, Language language)
     {
         return (TryGetAliasName(type, language, out var aliasName))
             ? aliasName
@@ -73,7 +73,7 @@ internal static class J2SUtils
     /// <param name="language">The programming language to get the alias from.</param>
     /// <param name="aliasName">The alias name of <paramref name="type"/>.</param>
     /// <returns><see langword="true"/> if the alias was successfully found, <see langword="false"/> otherwise.</returns>
-    internal static bool TryGetAliasName(Type type, Language language, [MaybeNullWhen(false)] out string aliasName)
+    public static bool TryGetAliasName(Type type, Language language, [MaybeNullWhen(false)] out string aliasName)
     {
         var aliases = language switch
         {
@@ -91,7 +91,7 @@ internal static class J2SUtils
     /// <param name="jsonElement">The Json element to check.</param>
     /// <returns><see langword="true"/> if <paramref name="jsonElement"/> can be <see langword="null"/>, <see langword="false"/> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static bool IsPropertyNullable(JsonElement jsonElement)
+    public static bool IsPropertyNullable(JsonElement jsonElement)
     {
         if (jsonElement.ValueKind is JsonValueKind.Null)
             return true;
@@ -109,7 +109,7 @@ internal static class J2SUtils
     /// </summary>
     /// <param name="property">The property to get the types from.</param>
     /// <returns>The unique types of properties in this Json array, or an empty collection if this property is not an array or empty.</returns>
-    internal static IReadOnlyList<ParsedJsonProperty> GetArrayTypes(ParsedJsonProperty property)
+    public static IReadOnlyList<ParsedJsonProperty> GetArrayTypes(ParsedJsonProperty property)
     {
         return (property.BclType != typeof(object[]) || property.Children.Count is 0)
             ? []
