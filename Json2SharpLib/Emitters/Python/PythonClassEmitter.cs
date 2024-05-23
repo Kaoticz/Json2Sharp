@@ -10,16 +10,15 @@ using System.Text.Json;
 namespace Json2SharpLib.Emitters.Python;
 
 /// <summary>
-/// Parses JSON data into a Python type declaration.
+/// Parses JSON data into a Python class.
 /// </summary>
 internal sealed class PythonClassEmitter : CodeEmitter
 {
-    private int _stackCounter;
     private readonly bool _addTypeHint;
     private readonly string _indentationPadding;
 
     /// <summary>
-    /// Creates an object that parses JSON data into a Python type declaration.
+    /// Creates an object that parses JSON data into a Python class.
     /// </summary>
     /// <param name="options">The parsing options.</param>
     internal PythonClassEmitter(Json2SharpPythonOptions options)
@@ -33,14 +32,22 @@ internal sealed class PythonClassEmitter : CodeEmitter
 
     /// <inheritdoc />
     public override string Parse(string objectName, JsonElement jsonElement)
+        => InternalParse(objectName, jsonElement, true);
+
+    /// <summary>
+    /// Parse JSON data into a Python class.
+    /// </summary>
+    /// <param name="objectName">The name of the type.</param>
+    /// <param name="jsonElement">The JSON element to be processed.</param>
+    /// <param name="emitHeaders"><see langword="true"/> to include the "imports" at the beginning, <see langword="false"/> otherwise.</param>
+    /// <returns>The Python class.</returns>
+    private string InternalParse(string objectName, JsonElement jsonElement, bool emitHeaders)
     {
         objectName = objectName.ToPascalCase();
         var properties = Json2Sharp.ParseProperties(jsonElement);
 
         if (properties.Count is 0)
             return string.Empty;
-
-        _stackCounter++;
 
         var stringBuilder = BuildConstructorSignature(objectName, properties, out var extraTypes);
 
@@ -55,7 +62,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
         AddCustomTypes(stringBuilder, extraTypes);
 
         // Add the imports
-        if (--_stackCounter == default && _addTypeHint)
+        if (emitHeaders && _addTypeHint)
         {
             var hasUuid = stringBuilder.Contains(": uuid");
             var hasDatetime = stringBuilder.Contains(": datetime");
@@ -172,7 +179,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
         {
             case JsonValueKind.Object:
                 stringBuilder.AppendIndentedLine(ParseCustomType(property), _indentationPadding, 2);
-                extraTypes.Add(Parse(property.JsonName!, property.JsonElement));
+                extraTypes.Add(InternalParse(property.JsonName!, property.JsonElement, false));
 
                 return true;
             case JsonValueKind.Array:
@@ -184,7 +191,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
                 stringBuilder.AppendIndentedLine(ParseArrayType(property, childrenTypes, out var typeName), _indentationPadding, 2);
 
                 if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.Python), StringComparison.Ordinal))
-                    extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
+                    extraTypes.Add(InternalParse(typeName, childrenTypes[0].JsonElement, false));
 
                 return true;
             default:

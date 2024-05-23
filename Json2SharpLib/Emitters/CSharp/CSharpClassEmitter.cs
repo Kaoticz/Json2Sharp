@@ -11,11 +11,10 @@ using System.Text.Json;
 namespace Json2SharpLib.Emitters.CSharp;
 
 /// <summary>
-/// Parses JSON data into a C# type declaration with the base body of a class definition.
+/// Parses JSON data into a C# struct, class, or record with the base body of a class.
 /// </summary>
 internal sealed class CSharpClassEmitter : CodeEmitter
 {
-    private int _stackCounter;
     private readonly string _accessibility;
     private readonly CSharpSerializationAttribute _serializationAttributeType;
     private readonly string _serializationAttribute;
@@ -24,7 +23,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
     private readonly string _setterType;
 
     /// <summary>
-    /// Creates an object that parses JSON data into a C# type declaration with the base body of a class definition.
+    /// Parses JSON data into a C# struct, class, or record with the base body of a class.
     /// </summary>
     /// <param name="options">The parsing options.</param>
     internal CSharpClassEmitter(Json2SharpCSharpOptions options)
@@ -42,6 +41,16 @@ internal sealed class CSharpClassEmitter : CodeEmitter
 
     /// <inheritdoc />
     public override string Parse(string objectName, JsonElement jsonElement)
+        => InternalParse(objectName, jsonElement, true);
+
+    /// <summary>
+    /// Parse JSON data into a C# struct, class, or record.
+    /// </summary>
+    /// <param name="objectName">The name of the type.</param>
+    /// <param name="jsonElement">The JSON element to be processed.</param>
+    /// <param name="emitHeaders"><see langword="true"/> to include the "usings" at the beginning, <see langword="false"/> otherwise.</param>
+    /// <returns>The C# struct, class, or record.</returns>
+    private string InternalParse(string objectName, JsonElement jsonElement, bool emitHeaders)
     {
         objectName = objectName.ToPascalCase();
         var properties = Json2Sharp.ParseProperties(jsonElement);
@@ -49,15 +58,13 @@ internal sealed class CSharpClassEmitter : CodeEmitter
         if (properties.Count is 0)
             return string.Empty;
 
-        _stackCounter++;
-
         var extraTypes = new List<string>();
         var stringBuilder = new StringBuilder();
 
         // Namespace declaration
-        if (_stackCounter is 1 && _serializationAttributeType is CSharpSerializationAttribute.SystemTextJson)
+        if (emitHeaders && _serializationAttributeType is CSharpSerializationAttribute.SystemTextJson)
             stringBuilder.AppendLine(Constants.StjUsing + Environment.NewLine);
-        else if (_stackCounter is 1 && _serializationAttributeType is CSharpSerializationAttribute.NewtonsoftJson)
+        else if (emitHeaders && _serializationAttributeType is CSharpSerializationAttribute.NewtonsoftJson)
             stringBuilder.AppendLine(Constants.NewtonsoftUsing + Environment.NewLine);
 
         // Class declaration
@@ -70,8 +77,6 @@ internal sealed class CSharpClassEmitter : CodeEmitter
 
         // Add extra classes above the root class
         AddCustomTypes(stringBuilder, extraTypes);
-
-        _stackCounter--;
 
         return stringBuilder.ToStringAndClear();
     }
@@ -189,7 +194,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
         {
             case JsonValueKind.Object:
                 var propertyName = property.JsonName ?? property.BclType.Name;
-                extraTypes.Add(Parse(propertyName, property.JsonElement));
+                extraTypes.Add(InternalParse(propertyName, property.JsonElement, false));
                 stringBuilder.AppendLine(ParseCustomType(property));
 
                 return true;
@@ -202,7 +207,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
                 stringBuilder.AppendLine(ParseArrayType(property, childrenTypes, out var typeName));
 
                 if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp), StringComparison.Ordinal))
-                    extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
+                    extraTypes.Add(InternalParse(typeName, childrenTypes[0].JsonElement, false));
 
                 return true;
             default:

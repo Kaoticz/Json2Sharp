@@ -10,13 +10,16 @@ using System.Text.Json;
 namespace Json2SharpLib.Emitters.Python;
 
 /// <summary>
-/// Parses JSON data into a Python data class declaration.
+/// Parses JSON data into a Python data class.
 /// </summary>
 internal sealed class PythonDataClassEmitter : CodeEmitter
 {
-    private int _stackCounter;
     private readonly string _indentationPadding;
 
+    /// <summary>
+    /// Creates an object that parses JSON data into a Python data class.
+    /// </summary>
+    /// <param name="options">The parsing options.</param>
     internal PythonDataClassEmitter(Json2SharpPythonOptions options)
     {
         _indentationPadding = new string(
@@ -27,6 +30,16 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
 
     /// <inheritdoc />
     public override string Parse(string objectName, JsonElement jsonElement)
+        => InternalParse(objectName, jsonElement, true);
+
+    /// <summary>
+    /// Parse JSON data into a Python data class.
+    /// </summary>
+    /// <param name="objectName">The name of the type.</param>
+    /// <param name="jsonElement">The JSON element to be processed.</param>
+    /// <param name="emitHeaders"><see langword="true"/> to include the "imports" at the beginning, <see langword="false"/> otherwise.</param>
+    /// <returns>The Python data class.</returns>
+    private string InternalParse(string objectName, JsonElement jsonElement, bool emitHeaders)
     {
         objectName = objectName.ToPascalCase();
         var properties = Json2Sharp.ParseProperties(jsonElement);
@@ -34,15 +47,13 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         if (properties.Count is 0)
             return string.Empty;
 
-        _stackCounter++;
-
         var stringBuilder = BuildDataClass(objectName, properties, out var extraTypes);
 
         // Add extra classes above the root class
         AddCustomTypes(stringBuilder, extraTypes);
 
         // Add the imports
-        if (--_stackCounter == default)
+        if (emitHeaders)
         {
             stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
 
@@ -145,7 +156,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         {
             case JsonValueKind.Object:
                 stringBuilder.AppendIndentedLine(ParseCustomType(property), _indentationPadding, 1);
-                extraTypes.Add(Parse(property.JsonName!, property.JsonElement));
+                extraTypes.Add(InternalParse(property.JsonName!, property.JsonElement, false));
 
                 return true;
             case JsonValueKind.Array:
@@ -157,7 +168,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
                 stringBuilder.AppendIndentedLine(ParseArrayType(property, childrenTypes, out var typeName), _indentationPadding, 1);
 
                 if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.Python), StringComparison.Ordinal))
-                    extraTypes.Add(Parse(typeName, childrenTypes[0].JsonElement));
+                    extraTypes.Add(InternalParse(typeName, childrenTypes[0].JsonElement, false));
 
                 return true;
             default:
