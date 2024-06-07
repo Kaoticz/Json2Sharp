@@ -48,29 +48,29 @@ internal static class IntegerTypes
         public sealed class IntegerTypes
         {
             [JsonPropertyName("int_number")]
-            public int IntNumber { get; init; }
+            public required int IntNumber { get; init; }
         
             [JsonPropertyName("uint_number")]
-            public uint UintNumber { get; init; }
+            public required uint UintNumber { get; init; }
         
             [JsonPropertyName("long_number")]
-            public long LongNumber { get; init; }
+            public required long LongNumber { get; init; }
         
             [JsonPropertyName("ulong_number")]
-            public ulong UlongNumber { get; init; }
+            public required ulong UlongNumber { get; init; }
         }
         """;
 
     public const string ClassOutputNoAtt = """
         public sealed class IntegerTypes
         {
-            public int IntNumber { get; init; }
+            public required int IntNumber { get; init; }
         
-            public uint UintNumber { get; init; }
+            public required uint UintNumber { get; init; }
         
-            public long LongNumber { get; init; }
+            public required long LongNumber { get; init; }
         
-            public ulong UlongNumber { get; init; }
+            public required ulong UlongNumber { get; init; }
         }
         """;
 
@@ -80,16 +80,16 @@ internal static class IntegerTypes
         public readonly struct IntegerTypes
         {
             [JsonPropertyName("int_number")]
-            public int IntNumber { get; init; }
+            public required int IntNumber { get; init; }
         
             [JsonPropertyName("uint_number")]
-            public uint UintNumber { get; init; }
+            public required uint UintNumber { get; init; }
         
             [JsonPropertyName("long_number")]
-            public long LongNumber { get; init; }
+            public required long LongNumber { get; init; }
         
             [JsonPropertyName("ulong_number")]
-            public ulong UlongNumber { get; init; }
+            public required ulong UlongNumber { get; init; }
         }
         """;
 }

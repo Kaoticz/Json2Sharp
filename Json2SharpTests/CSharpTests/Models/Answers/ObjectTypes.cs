@@ -86,66 +86,66 @@ internal static class ObjectTypes
         public sealed class ObjectTypes
         {
             [JsonPropertyName("null_thing")]
-            public object? NullThing { get; init; }
+            public required object? NullThing { get; init; }
 
             [JsonPropertyName("empty_thing")]
-            public object EmptyThing { get; init; }
+            public required object EmptyThing { get; init; }
         
             [JsonPropertyName("thing")]
-            public Thing Thing { get; init; }
+            public required Thing Thing { get; init; }
         }
 
         public sealed class Thing
         {
             [JsonPropertyName("text")]
-            public string Text { get; init; }
+            public required string Text { get; init; }
         
             [JsonPropertyName("number")]
-            public int Number { get; init; }
+            public required int Number { get; init; }
         
             [JsonPropertyName("int_array")]
-            public int[] IntArray { get; init; }
+            public required int[] IntArray { get; init; }
 
             [JsonPropertyName("prop_base:colon")]
-            public int PropBaseColon { get; init; }
+            public required int PropBaseColon { get; init; }
 
             [JsonPropertyName("prop_custom:colon")]
-            public PropCustomColon PropCustomColon { get; init; }
+            public required PropCustomColon PropCustomColon { get; init; }
         }
 
         public sealed class PropCustomColon
         {
             [JsonPropertyName("blep")]
-            public string Blep { get; init; }
+            public required string Blep { get; init; }
         }
         """;
 
     public const string ClassOutputNoAtt = """
         public sealed class ObjectTypes
         {
-            public object? NullThing { get; init; }
+            public required object? NullThing { get; init; }
 
-            public object EmptyThing { get; init; }
+            public required object EmptyThing { get; init; }
         
-            public Thing Thing { get; init; }
+            public required Thing Thing { get; init; }
         }
 
         public sealed class Thing
         {
-            public string Text { get; init; }
+            public required string Text { get; init; }
         
-            public int Number { get; init; }
+            public required int Number { get; init; }
         
-            public int[] IntArray { get; init; }
+            public required int[] IntArray { get; init; }
 
-            public int PropBaseColon { get; init; }
+            public required int PropBaseColon { get; init; }
 
-            public PropCustomColon PropCustomColon { get; init; }
+            public required PropCustomColon PropCustomColon { get; init; }
         }
 
         public sealed class PropCustomColon
         {
-            public string Blep { get; init; }
+            public required string Blep { get; init; }
         }
         """;
 
@@ -155,37 +155,37 @@ internal static class ObjectTypes
         public readonly struct ObjectTypes
         {
             [JsonPropertyName("null_thing")]
-            public object? NullThing { get; init; }
+            public required object? NullThing { get; init; }
 
             [JsonPropertyName("empty_thing")]
-            public object EmptyThing { get; init; }
+            public required object EmptyThing { get; init; }
         
             [JsonPropertyName("thing")]
-            public Thing Thing { get; init; }
+            public required Thing Thing { get; init; }
         }
 
         public readonly struct Thing
         {
             [JsonPropertyName("text")]
-            public string Text { get; init; }
+            public required string Text { get; init; }
         
             [JsonPropertyName("number")]
-            public int Number { get; init; }
+            public required int Number { get; init; }
         
             [JsonPropertyName("int_array")]
-            public int[] IntArray { get; init; }
+            public required int[] IntArray { get; init; }
 
             [JsonPropertyName("prop_base:colon")]
-            public int PropBaseColon { get; init; }
+            public required int PropBaseColon { get; init; }
 
             [JsonPropertyName("prop_custom:colon")]
-            public PropCustomColon PropCustomColon { get; init; }
+            public required PropCustomColon PropCustomColon { get; init; }
         }
 
         public readonly struct PropCustomColon
         {
             [JsonPropertyName("blep")]
-            public string Blep { get; init; }
+            public required string Blep { get; init; }
         }
         """;
 }

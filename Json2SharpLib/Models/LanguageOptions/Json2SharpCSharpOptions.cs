@@ -37,4 +37,10 @@ public sealed record Json2SharpCSharpOptions : BaseLanguageOptions
     /// Default is <see langword="true"/>.
     /// </summary>
     public bool IsSealed { get; init; } = true;
+
+    /// <summary>
+    /// Determines whether the type properties should be required or not.
+    /// Default is <see langword="true"/>.
+    /// </summary>
+    public bool IsPropertyRequired { get; init; } = true;
 }

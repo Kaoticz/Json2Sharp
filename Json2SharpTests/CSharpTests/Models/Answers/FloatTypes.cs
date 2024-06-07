@@ -44,24 +44,24 @@ internal static class FloatTypes
         public sealed class FloatTypes
         {
             [JsonPropertyName("float_number")]
-            public float FloatNumber { get; init; }
+            public required float FloatNumber { get; init; }
         
             [JsonPropertyName("double_number")]
-            public double DoubleNumber { get; init; }
+            public required double DoubleNumber { get; init; }
         
             [JsonPropertyName("decimal_number")]
-            public decimal DecimalNumber { get; init; }
+            public required decimal DecimalNumber { get; init; }
         }
         """;
 
     public const string ClassOutputNoAtt = """
         public sealed class FloatTypes
         {
-            public float FloatNumber { get; init; }
+            public required float FloatNumber { get; init; }
         
-            public double DoubleNumber { get; init; }
+            public required double DoubleNumber { get; init; }
         
-            public decimal DecimalNumber { get; init; }
+            public required decimal DecimalNumber { get; init; }
         }
         """;
 
@@ -71,13 +71,13 @@ internal static class FloatTypes
         public readonly struct FloatTypes
         {
             [JsonPropertyName("float_number")]
-            public float FloatNumber { get; init; }
+            public required float FloatNumber { get; init; }
         
             [JsonPropertyName("double_number")]
-            public double DoubleNumber { get; init; }
+            public required double DoubleNumber { get; init; }
         
             [JsonPropertyName("decimal_number")]
-            public decimal DecimalNumber { get; init; }
+            public required decimal DecimalNumber { get; init; }
         }
         """;
 }

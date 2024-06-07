@@ -119,101 +119,101 @@ internal static class ArrayTypes
         public sealed class ArrayTypes
         {
             [JsonPropertyName("empty_array")]
-            public object[] EmptyArray { get; init; }
+            public required object[] EmptyArray { get; init; }
         
             [JsonPropertyName("int_array")]
-            public int[] IntArray { get; init; }
+            public required int[] IntArray { get; init; }
         
             [JsonPropertyName("nullable_int_array")]
-            public int?[] NullableIntArray { get; init; }
+            public required int?[] NullableIntArray { get; init; }
         
             [JsonPropertyName("float_array")]
-            public float[] FloatArray { get; init; }
+            public required float[] FloatArray { get; init; }
         
             [JsonPropertyName("nullable_float_array")]
-            public float?[] NullableFloatArray { get; init; }
+            public required float?[] NullableFloatArray { get; init; }
         
             [JsonPropertyName("string_array")]
-            public string[] StringArray { get; init; }
+            public required string[] StringArray { get; init; }
         
             [JsonPropertyName("nullable_string_array")]
-            public string?[] NullableStringArray { get; init; }
+            public required string?[] NullableStringArray { get; init; }
         
             [JsonPropertyName("mixed_array")]
-            public object[] MixedArray { get; init; }
+            public required object[] MixedArray { get; init; }
         
             [JsonPropertyName("nullable_mixed_array")]
-            public object?[] NullableMixedArray { get; init; }
+            public required object?[] NullableMixedArray { get; init; }
         
             [JsonPropertyName("thing_array")]
-            public ThingArray[] ThingArray { get; init; }
+            public required ThingArray[] ThingArray { get; init; }
         
             [JsonPropertyName("nullable_thing_array")]
-            public NullableThingArray?[] NullableThingArray { get; init; }
+            public required NullableThingArray?[] NullableThingArray { get; init; }
 
             [JsonPropertyName("null_array")]
-            public object?[] NullArray { get; init; }
+            public required object?[] NullArray { get; init; }
 
             [JsonPropertyName("objects_array")]
-            public object[] ObjectsArray { get; init; }
+            public required object[] ObjectsArray { get; init; }
 
             [JsonPropertyName("nullable_objects_array")]
-            public object?[] NullableObjectsArray { get; init; }
+            public required object?[] NullableObjectsArray { get; init; }
         }
 
         public sealed class ThingArray
         {
             [JsonPropertyName("text")]
-            public string Text { get; init; }
+            public required string Text { get; init; }
         }
 
         public sealed class NullableThingArray
         {
             [JsonPropertyName("text")]
-            public string Text { get; init; }
+            public required string Text { get; init; }
         }
         """;
 
     public const string ClassOutputNoAtt = """
         public sealed class ArrayTypes
         {
-            public object[] EmptyArray { get; init; }
+            public required object[] EmptyArray { get; init; }
         
-            public int[] IntArray { get; init; }
+            public required int[] IntArray { get; init; }
         
-            public int?[] NullableIntArray { get; init; }
+            public required int?[] NullableIntArray { get; init; }
         
-            public float[] FloatArray { get; init; }
+            public required float[] FloatArray { get; init; }
         
-            public float?[] NullableFloatArray { get; init; }
+            public required float?[] NullableFloatArray { get; init; }
         
-            public string[] StringArray { get; init; }
+            public required string[] StringArray { get; init; }
         
-            public string?[] NullableStringArray { get; init; }
+            public required string?[] NullableStringArray { get; init; }
         
-            public object[] MixedArray { get; init; }
+            public required object[] MixedArray { get; init; }
         
-            public object?[] NullableMixedArray { get; init; }
+            public required object?[] NullableMixedArray { get; init; }
         
-            public ThingArray[] ThingArray { get; init; }
+            public required ThingArray[] ThingArray { get; init; }
         
-            public NullableThingArray?[] NullableThingArray { get; init; }
+            public required NullableThingArray?[] NullableThingArray { get; init; }
 
-            public object?[] NullArray { get; init; }
+            public required object?[] NullArray { get; init; }
 
-            public object[] ObjectsArray { get; init; }
+            public required object[] ObjectsArray { get; init; }
 
-            public object?[] NullableObjectsArray { get; init; }
+            public required object?[] NullableObjectsArray { get; init; }
         }
 
         public sealed class ThingArray
         {
-            public string Text { get; init; }
+            public required string Text { get; init; }
         }
 
         public sealed class NullableThingArray
         {
-            public string Text { get; init; }
+            public required string Text { get; init; }
         }
         """;
 
@@ -223,58 +223,58 @@ internal static class ArrayTypes
         public readonly struct ArrayTypes
         {
             [JsonPropertyName("empty_array")]
-            public object[] EmptyArray { get; init; }
+            public required object[] EmptyArray { get; init; }
         
             [JsonPropertyName("int_array")]
-            public int[] IntArray { get; init; }
+            public required int[] IntArray { get; init; }
         
             [JsonPropertyName("nullable_int_array")]
-            public int?[] NullableIntArray { get; init; }
+            public required int?[] NullableIntArray { get; init; }
         
             [JsonPropertyName("float_array")]
-            public float[] FloatArray { get; init; }
+            public required float[] FloatArray { get; init; }
         
             [JsonPropertyName("nullable_float_array")]
-            public float?[] NullableFloatArray { get; init; }
+            public required float?[] NullableFloatArray { get; init; }
         
             [JsonPropertyName("string_array")]
-            public string[] StringArray { get; init; }
+            public required string[] StringArray { get; init; }
         
             [JsonPropertyName("nullable_string_array")]
-            public string?[] NullableStringArray { get; init; }
+            public required string?[] NullableStringArray { get; init; }
         
             [JsonPropertyName("mixed_array")]
-            public object[] MixedArray { get; init; }
+            public required object[] MixedArray { get; init; }
         
             [JsonPropertyName("nullable_mixed_array")]
-            public object?[] NullableMixedArray { get; init; }
+            public required object?[] NullableMixedArray { get; init; }
         
             [JsonPropertyName("thing_array")]
-            public ThingArray[] ThingArray { get; init; }
+            public required ThingArray[] ThingArray { get; init; }
         
             [JsonPropertyName("nullable_thing_array")]
-            public NullableThingArray?[] NullableThingArray { get; init; }
+            public required NullableThingArray?[] NullableThingArray { get; init; }
 
             [JsonPropertyName("null_array")]
-            public object?[] NullArray { get; init; }
+            public required object?[] NullArray { get; init; }
 
             [JsonPropertyName("objects_array")]
-            public object[] ObjectsArray { get; init; }
+            public required object[] ObjectsArray { get; init; }
 
             [JsonPropertyName("nullable_objects_array")]
-            public object?[] NullableObjectsArray { get; init; }
+            public required object?[] NullableObjectsArray { get; init; }
         }
 
         public readonly struct ThingArray
         {
             [JsonPropertyName("text")]
-            public string Text { get; init; }
+            public required string Text { get; init; }
         }
 
         public readonly struct NullableThingArray
         {
             [JsonPropertyName("text")]
-            public string Text { get; init; }
+            public required string Text { get; init; }
         }
         """;
 }

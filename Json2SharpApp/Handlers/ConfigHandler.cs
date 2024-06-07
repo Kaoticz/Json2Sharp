@@ -83,8 +83,6 @@ internal sealed class ConfigHandler
                 ? CSharpSetterType.Set
                 : CSharpSetterType.Init,
 
-            IsSealed = !configOptions.Contains("notsealed"),
-
             IndentationCharacterAmount = (int.TryParse(indentationAmountOption, out var indentationAmount))
                 ? indentationAmount
                 : 4,
@@ -92,6 +90,10 @@ internal sealed class ConfigHandler
             IndentationPaddingCharacter = (configOptions.Contains("tab"))
                 ? IndentationCharacterType.Tab
                 : IndentationCharacterType.Space,
+
+            IsSealed = !configOptions.Contains("notsealed"),
+
+            IsPropertyRequired = !configOptions.Contains("notrequired")
         };
     }
 

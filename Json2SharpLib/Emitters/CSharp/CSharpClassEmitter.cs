@@ -21,6 +21,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
     private readonly string _indentationPadding;
     private readonly string _objectType;
     private readonly string _setterType;
+    private readonly string _propertyAccessor;
 
     /// <summary>
     /// Parses JSON data into a C# struct, class, or record with the base body of a class.
@@ -31,7 +32,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
         _accessibility = options.AccessibilityLevel.ToCode() + options.TargetType switch
         {
             CSharpObjectType.Struct when options.SetterType is CSharpSetterType.Init => " readonly",
-            _ when options.IsSealed => " sealed",
+            not CSharpObjectType.Struct when options.IsSealed => " sealed",
             _ => string.Empty
         };
     
@@ -43,6 +44,10 @@ internal sealed class CSharpClassEmitter : CodeEmitter
         );
         _objectType = options.TargetType.ToString().ToLowerInvariant();
         _setterType = options.SetterType.ToCode();
+        _propertyAccessor = "public" +
+            ((options.IsPropertyRequired)
+                ? " required"
+                : string.Empty);
     }
 
     /// <inheritdoc />
@@ -240,9 +245,9 @@ internal sealed class CSharpClassEmitter : CodeEmitter
     /// <param name="targetTypeName">The C# type of the property.</param>
     /// <param name="propertyName">The C# name of the property.</param>
     /// <param name="setterType">The C# type of property setter.</param>
-    /// <remarks>Example: public int Number { get; init; }</remarks>
+    /// <remarks>Example: public required int Number { get; init; }</remarks>
     /// <returns>The member declaration.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static string CreateMemberDeclaration(string indentationPadding, string targetTypeName, string propertyName, string setterType)
-        => $"{indentationPadding}public {targetTypeName} {propertyName} {{ get; {setterType}; }}";
+    private string CreateMemberDeclaration(string indentationPadding, string targetTypeName, string propertyName, string setterType)
+        => $"{indentationPadding}{_propertyAccessor} {targetTypeName} {propertyName} {{ get; {setterType}; }}";
 }

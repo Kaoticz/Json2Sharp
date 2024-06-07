@@ -40,19 +40,19 @@ internal static class BoolTypes
         public sealed class BoolTypes
         {
             [JsonPropertyName("true_bool")]
-            public bool TrueBool { get; init; }
+            public required bool TrueBool { get; init; }
         
             [JsonPropertyName("false_bool")]
-            public bool FalseBool { get; init; }
+            public required bool FalseBool { get; init; }
         }
         """;
 
     public const string ClassOutputNoAtt = """
         public sealed class BoolTypes
         {
-            public bool TrueBool { get; init; }
+            public required bool TrueBool { get; init; }
         
-            public bool FalseBool { get; init; }
+            public required bool FalseBool { get; init; }
         }
         """;
 
@@ -62,10 +62,10 @@ internal static class BoolTypes
         public readonly struct BoolTypes
         {
             [JsonPropertyName("true_bool")]
-            public bool TrueBool { get; init; }
+            public required bool TrueBool { get; init; }
         
             [JsonPropertyName("false_bool")]
-            public bool FalseBool { get; init; }
+            public required bool FalseBool { get; init; }
         }
         """;
 }

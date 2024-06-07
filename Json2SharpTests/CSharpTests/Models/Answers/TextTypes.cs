@@ -48,29 +48,29 @@ internal static class TextTypes
         public sealed class TextTypes
         {
             [JsonPropertyName("text")]
-            public string Text { get; init; }
+            public required string Text { get; init; }
         
             [JsonPropertyName("empty_text")]
-            public string EmptyText { get; init; }
+            public required string EmptyText { get; init; }
 
             [JsonPropertyName("date_time_offset")]
-            public DateTimeOffset DateTimeOffset { get; init; }
+            public required DateTimeOffset DateTimeOffset { get; init; }
 
             [JsonPropertyName("id")]
-            public Guid Id { get; init; }
+            public required Guid Id { get; init; }
         }
         """;
 
     public const string ClassOutputNoAtt = """
         public sealed class TextTypes
         {
-            public string Text { get; init; }
+            public required string Text { get; init; }
         
-            public string EmptyText { get; init; }
+            public required string EmptyText { get; init; }
 
-            public DateTimeOffset DateTimeOffset { get; init; }
+            public required DateTimeOffset DateTimeOffset { get; init; }
 
-            public Guid Id { get; init; }
+            public required Guid Id { get; init; }
         }
         """;
 
@@ -80,16 +80,16 @@ internal static class TextTypes
         public readonly struct TextTypes
         {
             [JsonPropertyName("text")]
-            public string Text { get; init; }
+            public required string Text { get; init; }
         
             [JsonPropertyName("empty_text")]
-            public string EmptyText { get; init; }
+            public required string EmptyText { get; init; }
 
             [JsonPropertyName("date_time_offset")]
-            public DateTimeOffset DateTimeOffset { get; init; }
+            public required DateTimeOffset DateTimeOffset { get; init; }
 
             [JsonPropertyName("id")]
-            public Guid Id { get; init; }
+            public required Guid Id { get; init; }
         }
         """;
 }

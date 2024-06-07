@@ -138,135 +138,135 @@ internal static class WeirdNameTypes
         public sealed class WeirdNameTypes
         {
             [JsonPropertyName("snake_case")]
-            public int SnakeCase { get; init; }
+            public required int SnakeCase { get; init; }
 
             [JsonPropertyName("camelCase")]
-            public int CamelCase { get; init; }
+            public required int CamelCase { get; init; }
 
             [JsonPropertyName("PascalCase")]
-            public int PascalCase { get; init; }
+            public required int PascalCase { get; init; }
 
             [JsonPropertyName("SCREAMINGCASE")]
-            public int Screamingcase { get; init; }
+            public required int Screamingcase { get; init; }
 
             [JsonPropertyName("SCREAMING_SNAKE")]
-            public int ScreamingSnake { get; init; }
+            public required int ScreamingSnake { get; init; }
 
             [JsonPropertyName("kebab-case")]
-            public int KebabCase { get; init; }
+            public required int KebabCase { get; init; }
 
             [JsonPropertyName("Pascal_Snake")]
-            public int PascalSnake { get; init; }
+            public required int PascalSnake { get; init; }
 
             [JsonPropertyName("snake_case:colon")]
-            public int SnakeCaseColon { get; init; }
+            public required int SnakeCaseColon { get; init; }
 
             [JsonPropertyName("camelCase:colon")]
-            public int CamelCaseColon { get; init; }
+            public required int CamelCaseColon { get; init; }
 
             [JsonPropertyName("PascalCase:Colon")]
-            public int PascalCaseColon { get; init; }
+            public required int PascalCaseColon { get; init; }
 
             [JsonPropertyName("SCREAMINGCASE:COLON")]
-            public int ScreamingcaseColon { get; init; }
+            public required int ScreamingcaseColon { get; init; }
 
             [JsonPropertyName("SCREAMING_SNAKE:COLON")]
-            public int ScreamingSnakeColon { get; init; }
+            public required int ScreamingSnakeColon { get; init; }
 
             [JsonPropertyName("kebab-case:colon")]
-            public int KebabCaseColon { get; init; }
+            public required int KebabCaseColon { get; init; }
 
             [JsonPropertyName("Pascal_Snake:Colon")]
-            public int PascalSnakeColon { get; init; }
+            public required int PascalSnakeColon { get; init; }
 
             [JsonPropertyName("colon:object")]
-            public ColonObject ColonObject { get; init; }
+            public required ColonObject ColonObject { get; init; }
 
             [JsonPropertyName("snake.dot")]
-            public int SnakeDot { get; init; }
+            public required int SnakeDot { get; init; }
 
             [JsonPropertyName("snake@at")]
-            public int SnakeAt { get; init; }
+            public required int SnakeAt { get; init; }
 
             [JsonPropertyName("snake#hash")]
-            public int SnakeHash { get; init; }
+            public required int SnakeHash { get; init; }
 
             [JsonPropertyName("snake$dollar")]
-            public int SnakeDollar { get; init; }
+            public required int SnakeDollar { get; init; }
 
             [JsonPropertyName("snake%percentage")]
-            public int SnakePercentage { get; init; }
+            public required int SnakePercentage { get; init; }
 
             [JsonPropertyName("snake&ampersand")]
-            public int SnakeAmpersand { get; init; }
+            public required int SnakeAmpersand { get; init; }
 
             [JsonPropertyName("snake*asterisk")]
-            public int SnakeAsterisk { get; init; }
+            public required int SnakeAsterisk { get; init; }
         }
 
         public sealed class ColonObject
         {
             [JsonPropertyName("normal_prop")]
-            public int NormalProp { get; init; }
+            public required int NormalProp { get; init; }
         
             [JsonPropertyName("nested:colon")]
-            public int NestedColon { get; init; }
+            public required int NestedColon { get; init; }
         }
         """;
 
     public const string ClassOutputNoAtt = """
         public sealed class WeirdNameTypes
         {
-            public int SnakeCase { get; init; }
+            public required int SnakeCase { get; init; }
 
-            public int CamelCase { get; init; }
+            public required int CamelCase { get; init; }
 
-            public int PascalCase { get; init; }
+            public required int PascalCase { get; init; }
 
-            public int Screamingcase { get; init; }
+            public required int Screamingcase { get; init; }
 
-            public int ScreamingSnake { get; init; }
+            public required int ScreamingSnake { get; init; }
 
-            public int KebabCase { get; init; }
+            public required int KebabCase { get; init; }
 
-            public int PascalSnake { get; init; }
+            public required int PascalSnake { get; init; }
 
-            public int SnakeCaseColon { get; init; }
+            public required int SnakeCaseColon { get; init; }
 
-            public int CamelCaseColon { get; init; }
+            public required int CamelCaseColon { get; init; }
 
-            public int PascalCaseColon { get; init; }
+            public required int PascalCaseColon { get; init; }
 
-            public int ScreamingcaseColon { get; init; }
+            public required int ScreamingcaseColon { get; init; }
 
-            public int ScreamingSnakeColon { get; init; }
+            public required int ScreamingSnakeColon { get; init; }
 
-            public int KebabCaseColon { get; init; }
+            public required int KebabCaseColon { get; init; }
 
-            public int PascalSnakeColon { get; init; }
+            public required int PascalSnakeColon { get; init; }
 
-            public ColonObject ColonObject { get; init; }
+            public required ColonObject ColonObject { get; init; }
 
-            public int SnakeDot { get; init; }
+            public required int SnakeDot { get; init; }
 
-            public int SnakeAt { get; init; }
+            public required int SnakeAt { get; init; }
 
-            public int SnakeHash { get; init; }
+            public required int SnakeHash { get; init; }
 
-            public int SnakeDollar { get; init; }
+            public required int SnakeDollar { get; init; }
 
-            public int SnakePercentage { get; init; }
+            public required int SnakePercentage { get; init; }
 
-            public int SnakeAmpersand { get; init; }
+            public required int SnakeAmpersand { get; init; }
 
-            public int SnakeAsterisk { get; init; }
+            public required int SnakeAsterisk { get; init; }
         }
 
         public sealed class ColonObject
         {
-            public int NormalProp { get; init; }
+            public required int NormalProp { get; init; }
         
-            public int NestedColon { get; init; }
+            public required int NestedColon { get; init; }
         }
         """;
 
@@ -276,79 +276,79 @@ internal static class WeirdNameTypes
         public readonly struct WeirdNameTypes
         {
             [JsonPropertyName("snake_case")]
-            public int SnakeCase { get; init; }
+            public required int SnakeCase { get; init; }
 
             [JsonPropertyName("camelCase")]
-            public int CamelCase { get; init; }
+            public required int CamelCase { get; init; }
 
             [JsonPropertyName("PascalCase")]
-            public int PascalCase { get; init; }
+            public required int PascalCase { get; init; }
 
             [JsonPropertyName("SCREAMINGCASE")]
-            public int Screamingcase { get; init; }
+            public required int Screamingcase { get; init; }
 
             [JsonPropertyName("SCREAMING_SNAKE")]
-            public int ScreamingSnake { get; init; }
+            public required int ScreamingSnake { get; init; }
 
             [JsonPropertyName("kebab-case")]
-            public int KebabCase { get; init; }
+            public required int KebabCase { get; init; }
 
             [JsonPropertyName("Pascal_Snake")]
-            public int PascalSnake { get; init; }
+            public required int PascalSnake { get; init; }
 
             [JsonPropertyName("snake_case:colon")]
-            public int SnakeCaseColon { get; init; }
+            public required int SnakeCaseColon { get; init; }
 
             [JsonPropertyName("camelCase:colon")]
-            public int CamelCaseColon { get; init; }
+            public required int CamelCaseColon { get; init; }
 
             [JsonPropertyName("PascalCase:Colon")]
-            public int PascalCaseColon { get; init; }
+            public required int PascalCaseColon { get; init; }
 
             [JsonPropertyName("SCREAMINGCASE:COLON")]
-            public int ScreamingcaseColon { get; init; }
+            public required int ScreamingcaseColon { get; init; }
 
             [JsonPropertyName("SCREAMING_SNAKE:COLON")]
-            public int ScreamingSnakeColon { get; init; }
+            public required int ScreamingSnakeColon { get; init; }
 
             [JsonPropertyName("kebab-case:colon")]
-            public int KebabCaseColon { get; init; }
+            public required int KebabCaseColon { get; init; }
 
             [JsonPropertyName("Pascal_Snake:Colon")]
-            public int PascalSnakeColon { get; init; }
+            public required int PascalSnakeColon { get; init; }
 
             [JsonPropertyName("colon:object")]
-            public ColonObject ColonObject { get; init; }
+            public required ColonObject ColonObject { get; init; }
 
             [JsonPropertyName("snake.dot")]
-            public int SnakeDot { get; init; }
+            public required int SnakeDot { get; init; }
 
             [JsonPropertyName("snake@at")]
-            public int SnakeAt { get; init; }
+            public required int SnakeAt { get; init; }
 
             [JsonPropertyName("snake#hash")]
-            public int SnakeHash { get; init; }
+            public required int SnakeHash { get; init; }
 
             [JsonPropertyName("snake$dollar")]
-            public int SnakeDollar { get; init; }
+            public required int SnakeDollar { get; init; }
 
             [JsonPropertyName("snake%percentage")]
-            public int SnakePercentage { get; init; }
+            public required int SnakePercentage { get; init; }
 
             [JsonPropertyName("snake&ampersand")]
-            public int SnakeAmpersand { get; init; }
+            public required int SnakeAmpersand { get; init; }
 
             [JsonPropertyName("snake*asterisk")]
-            public int SnakeAsterisk { get; init; }
+            public required int SnakeAsterisk { get; init; }
         }
 
         public readonly struct ColonObject
         {
             [JsonPropertyName("normal_prop")]
-            public int NormalProp { get; init; }
+            public required int NormalProp { get; init; }
         
             [JsonPropertyName("nested:colon")]
-            public int NestedColon { get; init; }
+            public required int NestedColon { get; init; }
         }
         """;
 }

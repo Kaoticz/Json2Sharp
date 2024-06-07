@@ -63,14 +63,14 @@ internal static class ArrayRoot
         public sealed class ArrayRoot
         {
             [JsonPropertyName("id")]
-            public int Id { get; init; }
+            public required int Id { get; init; }
         }
         """;
 
     public const string ClassOutputNoAtt = """
         public sealed class ArrayRoot
         {
-            public int Id { get; init; }
+            public required int Id { get; init; }
         }
         """;
 
@@ -80,7 +80,7 @@ internal static class ArrayRoot
         public readonly struct ArrayRoot
         {
             [JsonPropertyName("id")]
-            public int Id { get; init; }
+            public required int Id { get; init; }
         }
         """;
 }
