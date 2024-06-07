@@ -77,7 +77,7 @@ internal static class TextTypes
     public const string StructOutput = """
         using System.Text.Json.Serialization;
         
-        public struct TextTypes
+        public readonly struct TextTypes
         {
             [JsonPropertyName("text")]
             public string Text { get; init; }

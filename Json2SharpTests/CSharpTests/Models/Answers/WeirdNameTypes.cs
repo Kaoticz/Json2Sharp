@@ -273,7 +273,7 @@ internal static class WeirdNameTypes
     public const string StructOutput = """
         using System.Text.Json.Serialization;
         
-        public struct WeirdNameTypes
+        public readonly struct WeirdNameTypes
         {
             [JsonPropertyName("snake_case")]
             public int SnakeCase { get; init; }
@@ -342,7 +342,7 @@ internal static class WeirdNameTypes
             public int SnakeAsterisk { get; init; }
         }
 
-        public struct ColonObject
+        public readonly struct ColonObject
         {
             [JsonPropertyName("normal_prop")]
             public int NormalProp { get; init; }

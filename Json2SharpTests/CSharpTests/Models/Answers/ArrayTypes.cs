@@ -220,7 +220,7 @@ internal static class ArrayTypes
     public const string StructOutput = """
         using System.Text.Json.Serialization;
         
-        public struct ArrayTypes
+        public readonly struct ArrayTypes
         {
             [JsonPropertyName("empty_array")]
             public object[] EmptyArray { get; init; }
@@ -265,13 +265,13 @@ internal static class ArrayTypes
             public object?[] NullableObjectsArray { get; init; }
         }
 
-        public struct ThingArray
+        public readonly struct ThingArray
         {
             [JsonPropertyName("text")]
             public string Text { get; init; }
         }
 
-        public struct NullableThingArray
+        public readonly struct NullableThingArray
         {
             [JsonPropertyName("text")]
             public string Text { get; init; }

@@ -152,7 +152,7 @@ internal static class ObjectTypes
     public const string StructOutput = """
         using System.Text.Json.Serialization;
         
-        public struct ObjectTypes
+        public readonly struct ObjectTypes
         {
             [JsonPropertyName("null_thing")]
             public object? NullThing { get; init; }
@@ -164,7 +164,7 @@ internal static class ObjectTypes
             public Thing Thing { get; init; }
         }
 
-        public struct Thing
+        public readonly struct Thing
         {
             [JsonPropertyName("text")]
             public string Text { get; init; }
@@ -182,7 +182,7 @@ internal static class ObjectTypes
             public PropCustomColon PropCustomColon { get; init; }
         }
 
-        public struct PropCustomColon
+        public readonly struct PropCustomColon
         {
             [JsonPropertyName("blep")]
             public string Blep { get; init; }

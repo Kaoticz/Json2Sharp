@@ -77,7 +77,7 @@ internal static class IntegerTypes
     public const string StructOutput = """
         using System.Text.Json.Serialization;
         
-        public struct IntegerTypes
+        public readonly struct IntegerTypes
         {
             [JsonPropertyName("int_number")]
             public int IntNumber { get; init; }

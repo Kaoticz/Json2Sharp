@@ -28,7 +28,13 @@ internal sealed class CSharpClassEmitter : CodeEmitter
     /// <param name="options">The parsing options.</param>
     internal CSharpClassEmitter(Json2SharpCSharpOptions options)
     {
-        _accessibility = options.AccessibilityLevel.ToCode() + (options.IsSealed && options.TargetType is not Enums.CSharpObjectType.Struct ? " sealed" : string.Empty);
+        _accessibility = options.AccessibilityLevel.ToCode() + options.TargetType switch
+        {
+            CSharpObjectType.Struct when options.SetterType is CSharpSetterType.Init => " readonly",
+            _ when options.IsSealed => " sealed",
+            _ => string.Empty
+        };
+    
         _serializationAttributeType = options.SerializationAttribute;
         _serializationAttribute = options.SerializationAttribute.ToCode();
         _indentationPadding = new string(

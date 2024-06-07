@@ -59,7 +59,7 @@ internal static class BoolTypes
     public const string StructOutput = """
         using System.Text.Json.Serialization;
         
-        public struct BoolTypes
+        public readonly struct BoolTypes
         {
             [JsonPropertyName("true_bool")]
             public bool TrueBool { get; init; }

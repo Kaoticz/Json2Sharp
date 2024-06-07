@@ -68,7 +68,7 @@ internal static class FloatTypes
     public const string StructOutput = """
         using System.Text.Json.Serialization;
         
-        public struct FloatTypes
+        public readonly struct FloatTypes
         {
             [JsonPropertyName("float_number")]
             public float FloatNumber { get; init; }

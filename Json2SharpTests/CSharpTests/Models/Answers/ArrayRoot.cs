@@ -77,7 +77,7 @@ internal static class ArrayRoot
     public const string StructOutput = """
         using System.Text.Json.Serialization;
 
-        public struct ArrayRoot
+        public readonly struct ArrayRoot
         {
             [JsonPropertyName("id")]
             public int Id { get; init; }
