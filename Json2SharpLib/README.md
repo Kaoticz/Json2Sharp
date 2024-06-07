@@ -29,6 +29,7 @@ Json2SharpOptions options = new()
     CSharpOptions = new()
     {
         IsSealed = false,
+        IsPropertyRequired = false,
         TargetType = CSharpObjectType.Class,
         SerializationAttribute = CSharpSerializationAttribute.NewtonsoftJson
     }

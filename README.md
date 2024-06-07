@@ -11,7 +11,7 @@
 
 Json2Sharp is a CLI application that converts a JSON object to a programming language type definition (i.e. a class).
 
-Currently, C# and Python are supported. Contributions to support more languages are welcome.
+Currently, C# and Python are supported. We're open to contributions. If you'd like to add your favorite language to the mix, feel free to open a pull request!
 
 ## Installation
 
@@ -107,6 +107,7 @@ Json2SharpOptions options = new()
     CSharpOptions = new()
     {
         IsSealed = false,
+        IsPropertyRequired = false,
         TargetType = CSharpObjectType.Class,
         SerializationAttribute = CSharpSerializationAttribute.NewtonsoftJson
     }
