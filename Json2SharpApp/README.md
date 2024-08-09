@@ -1,6 +1,6 @@
 # Json2SharpApp
 
-Json2Sharp is a CLI application that converts a JSON object to a programming language type definition (i.e. a class).
+Json2Sharp is a CLI application that converts a JSON object to a class definition (or an equivalent for the target language).
 
 ## Quick start
 

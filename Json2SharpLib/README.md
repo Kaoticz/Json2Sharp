@@ -4,7 +4,7 @@
 
 # Json2Sharp
 
-Json2Sharp is a library that converts a JSON object to a programming language type definition (i.e. a class).
+Json2Sharp is a library that converts a JSON object to a class definition (or an equivalent for the target language).
 
 To perform a conversion, call the `Parse` method from the `Json2Sharp` class.
 

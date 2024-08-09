@@ -1,9 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Description>Parse JSON data into language type declarations.</Description>
+    <Description>Parse JSON data into class definitions.</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <None Include="README.md" Pack="True" PackagePath="\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Kotz.Extensions" Version="2.3.2">
+      <PrivateAssets>compile;analysers</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>
