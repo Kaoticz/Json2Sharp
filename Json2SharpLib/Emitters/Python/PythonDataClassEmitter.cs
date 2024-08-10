@@ -15,6 +15,7 @@ namespace Json2SharpLib.Emitters.Python;
 internal sealed class PythonDataClassEmitter : CodeEmitter
 {
     private readonly string _indentationPadding;
+    private readonly string _typeHintNoneTemplate;
 
     /// <summary>
     /// Creates an object that parses JSON data into a Python data class.
@@ -26,6 +27,10 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
             options.IndentationPaddingCharacter is IndentationCharacterType.Space ? ' ' : '\t',
             options.IndentationCharacterAmount
         );
+
+        _typeHintNoneTemplate = (options.UseOptional)
+            ? "Optional[{0}]"
+            : "{0} | None";
     }
 
     /// <inheritdoc />
@@ -80,7 +85,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
     {
         var finalName = (IsArrayOfNullableType(property, Language.Python, childrenTypes, out typeName))
-            ? $"Optional[{typeName}]"
+            ? string.Format(_typeHintNoneTemplate, typeName)
             : typeName;
 
         return $"{property.JsonName.ToSnakeCase()}: list[{finalName}]";
@@ -110,7 +115,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
 
             var isNullable = J2SUtils.IsPropertyNullable(property.JsonElement);
             var type = (J2SUtils.TryGetAliasName(property.BclType, Language.Python, out var aliasName))
-                ? (isNullable) ? $"Optional[{aliasName}]" : aliasName
+                ? (isNullable) ? string.Format(_typeHintNoneTemplate, aliasName) : aliasName
                 : throw new InvalidOperationException("Could not get alias for " + property.BclType.Name);
 
             stringBuilder.AppendIndentedLine($"{property.JsonName.ToSnakeCase()}: {type}", _indentationPadding, 1);

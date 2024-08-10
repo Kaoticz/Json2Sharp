@@ -9,7 +9,7 @@ namespace Json2SharpLib.Models;
 public sealed record Json2SharpOptions
 {
     /// <summary>
-    /// The language the type declaration should be output to.
+    /// The language the type declaration should be output to. <br />
     /// Default is <see cref="Language.CSharp"/>.
     /// </summary>
     public Language TargetLanguage { get; set; } = Language.CSharp;

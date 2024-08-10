@@ -2,7 +2,6 @@ using Json2SharpLib;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Models;
 using Json2SharpTests.PythonTests.Models.Answers;
-using System.Diagnostics;
 
 namespace Json2SharpTests.PythonTests;
 
@@ -48,13 +47,36 @@ public sealed class PythonDataTests
             PythonOptions = new()
             {
                 AddTypeHints = addTypeHints,
-                UseDataClass = useDataClass
+                UseDataClass = useDataClass,
+                UseOptional = true
             }
         };
 
         var actualOutput = Json2Sharp.Parse(className, input, options);
 
-        Debug.WriteLine(actualOutput);
+        Assert.Equal(
+            expectedOutput.Replace("\r", string.Empty),
+            actualOutput.Replace("\r", string.Empty)
+        );
+    }
+
+    [Theory]
+    [InlineData(nameof(NoneTypeHintTypes), NoneTypeHintTypes.Input, NoneTypeHintTypes.Output, false)]
+    [InlineData(nameof(NoneTypeHintTypes), NoneTypeHintTypes.Input, NoneTypeHintTypes.DataClassOutput, true)]
+    internal void OutputNoneTypeHintsTest(string className, string input, string expectedOutput, bool useDataClass)
+    {
+        var options = new Json2SharpOptions()
+        {
+            TargetLanguage = Language.Python,
+            PythonOptions = new()
+            {
+                AddTypeHints = true,
+                UseDataClass = useDataClass,
+                UseOptional = false
+            }
+        };
+
+        var actualOutput = Json2Sharp.Parse(className, input, options);
 
         Assert.Equal(
             expectedOutput.Replace("\r", string.Empty),

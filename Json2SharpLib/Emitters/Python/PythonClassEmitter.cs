@@ -16,6 +16,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
 {
     private readonly bool _addTypeHint;
     private readonly string _indentationPadding;
+    private readonly string _typeHintNoneTemplate;
 
     /// <summary>
     /// Creates an object that parses JSON data into a Python class.
@@ -28,6 +29,10 @@ internal sealed class PythonClassEmitter : CodeEmitter
             options.IndentationPaddingCharacter is IndentationCharacterType.Space ? ' ' : '\t',
             options.IndentationCharacterAmount
         );
+
+        _typeHintNoneTemplate = (options.UseOptional)
+            ? "Optional[{0}]"
+            : "{0} | None";
     }
 
     /// <inheritdoc />
@@ -66,9 +71,9 @@ internal sealed class PythonClassEmitter : CodeEmitter
         {
             var hasUuid = stringBuilder.Contains(": uuid");
             var hasDatetime = stringBuilder.Contains(": datetime");
-            var hasNullable = stringBuilder.Contains("Optional[");
+            var hasOptional = stringBuilder.Contains("Optional[");
 
-            if (hasUuid || hasDatetime || hasNullable)
+            if (hasUuid || hasDatetime || hasOptional)
                 stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
 
             if (hasUuid)
@@ -77,7 +82,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
             if (hasDatetime)
                 stringBuilder.Insert(0, "from datetime import datetime" + Environment.NewLine);
 
-            if (hasNullable)
+            if (hasOptional)
                 stringBuilder.Insert(0, "from typing import Optional" + Environment.NewLine);
         }
 
@@ -98,7 +103,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
     {
         var propertyType = (IsArrayOfNullableType(property, Language.Python, childrenTypes, out typeName))
-            ? $"Optional[{typeName}]"
+            ? string.Format(_typeHintNoneTemplate, typeName)
             : typeName;
 
         return $"{property.JsonName.ToSnakeCase()}{((_addTypeHint) ? $": list[{propertyType}]" : string.Empty)},";
@@ -130,7 +135,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
                 continue;
 
             var type = (_addTypeHint && J2SUtils.TryGetAliasName(property.BclType, Language.Python, out var aliasName))
-                ? ": " + ((isNullable) ? $"Optional[{aliasName}]" : aliasName)
+                ? ": " + ((isNullable) ? string.Format(_typeHintNoneTemplate, aliasName) : aliasName)
                 : string.Empty;
 
             stringBuilder.AppendIndentedLine($"{property.JsonName.ToSnakeCase()}{type},", _indentationPadding, 2);
