@@ -36,7 +36,14 @@ public sealed record Root(
     [property: JsonPropertyName("iseven")] bool Iseven
 );
 ```
-
+To generate the same output in Python, use --config:
+```bash
+$ curl -s https://api.isevenapi.xyz/api/iseven/6 | json2sharp --config python
+@dataclass
+class Root:
+    ad: str
+    iseven: bool
+```
 Or pass the JSON data to the `--json`/`-j` option.
 
 ```bash
@@ -48,7 +55,10 @@ public sealed record Root(
     [property: JsonPropertyName("iseven")] bool Iseven
 );
 ```
-
+For Python:
+```bash
+$ json2sharp -j "{ \"ad\": \"Some ad here\", \"iseven\": false }" --config python 
+```
 Or tell it to use a file as input.
 
 ```bash
@@ -60,7 +70,10 @@ public sealed record Root(
     [property: JsonPropertyName("iseven")] bool Iseven
 );
 ```
-
+For Python:
+```bash
+$ json2sharp -i IsEven.json --config python
+```
 You can also save the result to a file.
 
 ```bash
@@ -73,7 +86,9 @@ public sealed record Root(
     [property: JsonPropertyName("iseven")] bool Iseven
 );
 ```
-
+```bash
+$ curl -s https://api.isevenapi.xyz/api/iseven/6 | json2sharp -o IsEven.cs --config python
+```
 For additional options, please visit the [wiki][GithubWiki].
 
 ## NuGet
