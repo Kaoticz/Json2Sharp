@@ -11,7 +11,14 @@
 
 Json2Sharp is a CLI application that converts a JSON object to a class definition (or an equivalent for the target language).
 
-Currently, C# and Python are supported. We're open to contributions. If you'd like to add your favorite language to the mix, feel free to open a pull request!
+### 🚀 Supported Languages
+
+- ✅ **C#**
+- ✅ **Python**
+
+Want to add support for another language? We welcome contributions — just open a PR! 🙌  
+📘 For setup and configuration, see the [Configuration Guide](docs/configuration.md).
+
 
 ## Installation
 
@@ -36,14 +43,6 @@ public sealed record Root(
     [property: JsonPropertyName("iseven")] bool Iseven
 );
 ```
-To generate the same output in Python, use --config:
-```bash
-$ curl -s https://api.isevenapi.xyz/api/iseven/6 | json2sharp --config python
-@dataclass
-class Root:
-    ad: str
-    iseven: bool
-```
 Or pass the JSON data to the `--json`/`-j` option.
 
 ```bash
@@ -55,10 +54,6 @@ public sealed record Root(
     [property: JsonPropertyName("iseven")] bool Iseven
 );
 ```
-For Python:
-```bash
-$ json2sharp -j "{ \"ad\": \"Some ad here\", \"iseven\": false }" --config python 
-```
 Or tell it to use a file as input.
 
 ```bash
@@ -69,10 +64,6 @@ public sealed record Root(
     [property: JsonPropertyName("ad")] string Ad,
     [property: JsonPropertyName("iseven")] bool Iseven
 );
-```
-For Python:
-```bash
-$ json2sharp -i IsEven.json --config python
 ```
 You can also save the result to a file.
 
