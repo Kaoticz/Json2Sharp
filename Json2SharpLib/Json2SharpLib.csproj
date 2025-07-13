@@ -7,8 +7,8 @@
     <None Include="README.md" Pack="True" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Kotz.Extensions" Version="2.3.2">
-      <PrivateAssets>compile;analysers</PrivateAssets>
+    <PackageReference Include="Kotz.Extensions" Version="3.0.0">
+      <PrivateAssets>compile;analyzers</PrivateAssets>
     </PackageReference>
   </ItemGroup>
 </Project>
