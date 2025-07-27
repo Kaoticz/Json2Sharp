@@ -17,6 +17,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
     private readonly bool _addTypeHint;
     private readonly string _indentationPadding;
     private readonly string _typeHintNoneTemplate;
+    private readonly Func<string, string> _typeNameHandler;
 
     /// <summary>
     /// Creates an object that parses JSON data into a Python class.
@@ -33,6 +34,8 @@ internal sealed class PythonClassEmitter : CodeEmitter
         _typeHintNoneTemplate = (options.UseOptional)
             ? "Optional[{0}]"
             : "{0} | None";
+
+        _typeNameHandler = options.TypeNameHandler;
     }
 
     /// <inheritdoc />
@@ -93,7 +96,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
     protected override string ParseCustomType(ParsedJsonProperty property)
     {
         var propertyType = (_addTypeHint)
-            ? ": " + GetObjectTypeName(property, Language.Python)
+            ? ": " + _typeNameHandler(GetObjectTypeName(property, Language.Python))
             : string.Empty;
 
         return $"{property.JsonName.ToSnakeCase()}{propertyType},";
@@ -103,10 +106,12 @@ internal sealed class PythonClassEmitter : CodeEmitter
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
     {
         var propertyType = (IsArrayOfNullableType(property, Language.Python, childrenTypes, out typeName))
-            ? string.Format(_typeHintNoneTemplate, typeName)
-            : typeName;
+            ? string.Format(_typeHintNoneTemplate, _typeNameHandler(typeName))
+            : _typeNameHandler(typeName);
 
-        return $"{property.JsonName.ToSnakeCase()}{((_addTypeHint) ? $": list[{propertyType}]" : string.Empty)},";
+        return $"{property.JsonName.ToSnakeCase()}{((_addTypeHint)
+            ? $": list[{propertyType}]"
+            : string.Empty)},";
     }
 
     /// <summary>
@@ -196,7 +201,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
                 stringBuilder.AppendIndentedLine(ParseArrayType(property, childrenTypes, out var typeName), _indentationPadding, 2);
 
                 if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.Python), StringComparison.Ordinal))
-                    extraTypes.Add(InternalParse(typeName, childrenTypes[0].JsonElement, false));
+                    extraTypes.Add(InternalParse(_typeNameHandler(typeName), childrenTypes[0].JsonElement, false));
 
                 return true;
             default:

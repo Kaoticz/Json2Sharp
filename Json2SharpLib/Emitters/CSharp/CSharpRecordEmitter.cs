@@ -19,6 +19,7 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
     private readonly CSharpSerializationAttribute _serializationAttributeType;
     private readonly string _serializationAttribute;
     private readonly string _indentationPadding;
+    private readonly Func<string, string> _typeNameHandler;
 
     /// <summary>
     /// Creates an object that parses JSON data into a C# record using a primary constructor.
@@ -35,6 +36,8 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
             options.IndentationPaddingCharacter is IndentationCharacterType.Space ? ' ' : '\t',
             options.IndentationCharacterAmount
         );
+
+        _typeNameHandler = options.TypeNameHandler;
     }
 
     /// <inheritdoc />
@@ -86,7 +89,7 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
             _indentationPadding,
             _serializationAttribute,
             property.JsonName!,
-            GetObjectTypeName(property, Language.CSharp),
+            _typeNameHandler(GetObjectTypeName(property, Language.CSharp)),
             propertyName
         );
     }
@@ -103,7 +106,7 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
             _indentationPadding,
             _serializationAttribute,
             property.JsonName!,
-            propertyType,
+            _typeNameHandler(propertyType),
             finalName
         );
     }
@@ -130,14 +133,18 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
                 ? "?"
                 : string.Empty;
 
+            var propertyName = (property.JsonElement.ValueKind is not JsonValueKind.Array)
+                ? bclTypeName + nullableAnnotation
+                : string.IsNullOrWhiteSpace(nullableAnnotation)
+                    ? bclTypeName
+                    : bclTypeName.Insert(bclTypeName.Length - 2, nullableAnnotation);
+
             stringBuilder.AppendLine(
                 CreateMemberDeclaration(
                     _indentationPadding,
                     _serializationAttribute,
                     property.JsonName!,
-                    (property.JsonElement.ValueKind is not JsonValueKind.Array)
-                        ? bclTypeName + nullableAnnotation
-                        : string.IsNullOrWhiteSpace(nullableAnnotation) ? bclTypeName : bclTypeName.Insert(bclTypeName.Length - 2, nullableAnnotation),
+                    propertyName,
                     property.JsonName!.ToPascalCase()
                 )
             );
@@ -180,7 +187,7 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
         {
             case JsonValueKind.Object:
                 var propertyName = property.JsonName ?? property.BclType.Name;
-                extraTypes.Add(InternalParse(propertyName, property.JsonElement, false));
+                extraTypes.Add(InternalParse(_typeNameHandler(propertyName), property.JsonElement, false));
                 stringBuilder.AppendLine(ParseCustomType(property));
 
                 return true;
@@ -193,7 +200,7 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
                 stringBuilder.AppendLine(ParseArrayType(property, childrenTypes, out var typeName));
 
                 if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp), StringComparison.Ordinal))
-                    extraTypes.Add(InternalParse(typeName, childrenTypes[0].JsonElement, false));
+                    extraTypes.Add(InternalParse(_typeNameHandler(typeName), childrenTypes[0].JsonElement, false));
 
                 return true;
             default:

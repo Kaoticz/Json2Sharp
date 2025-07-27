@@ -14,7 +14,7 @@ internal sealed class Program
     /// </summary>
     /// <param name="args">CLI arguments.</param>
     /// <returns>Exit code.</returns>
-    private async static Task<int> Main(string[] args)
+    private static async Task<int> Main(string[] args)
     {
         var inputOption = new Option<FileInfo?>(["--input", "-i"], "The relative path to the JSON file in the file system.");
         var outputOption = new Option<string?>(["--output", "-o"], "The relative path to the resulting file in the file system.");

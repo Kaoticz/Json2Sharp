@@ -16,6 +16,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
 {
     private readonly string _indentationPadding;
     private readonly string _typeHintNoneTemplate;
+    private readonly Func<string, string> _typeNameHandler;
 
     /// <summary>
     /// Creates an object that parses JSON data into a Python data class.
@@ -31,6 +32,8 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         _typeHintNoneTemplate = (options.UseOptional)
             ? "Optional[{0}]"
             : "{0} | None";
+
+        _typeNameHandler = options.TypeNameHandler;
     }
 
     /// <inheritdoc />
@@ -79,7 +82,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
 
     /// <inheritdoc />
     protected override string ParseCustomType(ParsedJsonProperty property)
-        => $"{property.JsonName.ToSnakeCase()}: {GetObjectTypeName(property, Language.Python)}";
+        => $"{property.JsonName.ToSnakeCase()}: {_typeNameHandler(GetObjectTypeName(property, Language.Python))}";
 
     /// <inheritdoc />
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
@@ -88,7 +91,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
             ? string.Format(_typeHintNoneTemplate, typeName)
             : typeName;
 
-        return $"{property.JsonName.ToSnakeCase()}: list[{finalName}]";
+        return $"{property.JsonName.ToSnakeCase()}: list[{_typeNameHandler(finalName)}]";
     }
 
     /// <summary>
@@ -173,7 +176,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
                 stringBuilder.AppendIndentedLine(ParseArrayType(property, childrenTypes, out var typeName), _indentationPadding, 1);
 
                 if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.Python), StringComparison.Ordinal))
-                    extraTypes.Add(InternalParse(typeName, childrenTypes[0].JsonElement, false));
+                    extraTypes.Add(InternalParse(_typeNameHandler(typeName), childrenTypes[0].JsonElement, false));
 
                 return true;
             default:

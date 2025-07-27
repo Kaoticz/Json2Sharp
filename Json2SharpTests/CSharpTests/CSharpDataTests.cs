@@ -2,6 +2,7 @@ using Json2SharpLib;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Models;
 using Json2SharpTests.CSharpTests.Models.Answers;
+using Kotz.Extensions;
 
 namespace Json2SharpTests.CSharpTests;
 
@@ -80,6 +81,36 @@ public sealed class CSharpDataTests
             actualOutput.Replace("\r", string.Empty)
         );
     }
+    
+    [Theory]
+    [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.RecordPrimaryCtorOutputNoAtt, CSharpObjectType.Record, CSharpSerializationAttribute.NoAttribute)]
+    [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.RecordPrimaryCtorOutput, CSharpObjectType.Record, CSharpSerializationAttribute.NewtonsoftJson)]
+    [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.RecordOutput, CSharpObjectType.Record, CSharpSerializationAttribute.SystemTextJson)]
+    [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.ClassOutputNoAtt, CSharpObjectType.Class, CSharpSerializationAttribute.NoAttribute)]
+    [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.ClassOutput, CSharpObjectType.Class, CSharpSerializationAttribute.SystemTextJson)]
+    [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.StructOutput, CSharpObjectType.Struct, CSharpSerializationAttribute.SystemTextJson)]
+    internal void TypeHandleOutputTest(string className, string input, string expectedOutput, CSharpObjectType targetType, CSharpSerializationAttribute serializationAttribute)
+    {
+        var options = new Json2SharpOptions()
+        {
+            TargetLanguage = Language.CSharp,
+            
+            CSharpOptions = new()
+            {
+                TargetType = targetType,
+                SerializationAttribute = serializationAttribute,
+                TypeNameHandler = propertyType => className + propertyType.ToPascalCase()
+            }
+        };
+        
+        var actualOutput = Json2Sharp.Parse(className, input, options);
+
+        Assert.Equal(
+            expectedOutput.Replace("\r", string.Empty),
+            actualOutput.Replace("\r", string.Empty)
+        );
+    }
+    
 
     [Theory]
     [InlineData(ArrayRoot.BadInput1)]
