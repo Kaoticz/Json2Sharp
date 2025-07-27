@@ -24,18 +24,18 @@ internal static class CustomHandleTypes
         public sealed record CustomHandleTypes(
             [JsonProperty("null_thing")] object? NullThing,
             [JsonProperty("empty_thing")] object EmptyThing,
-            [JsonProperty("thing")] CustomHandleTypesThing[] Thing
+            [JsonProperty("thing")] ThingAyy[] Thing
         );
 
-        public sealed record CustomHandleTypesThing(
+        public sealed record ThingAyy(
             [JsonProperty("text")] string Text,
             [JsonProperty("number")] int Number,
             [JsonProperty("int_array")] int[] IntArray,
             [JsonProperty("prop_base:colon")] int PropBaseColon,
-            [JsonProperty("prop_custom:colon")] CustomHandleTypesPropCustomColon PropCustomColon
+            [JsonProperty("prop_custom:colon")] PropCustomColonAyy PropCustomColon
         );
 
-        public sealed record CustomHandleTypesPropCustomColon(
+        public sealed record PropCustomColonAyy(
             [JsonProperty("blep")] string Blep
         );
         """;
@@ -44,18 +44,18 @@ internal static class CustomHandleTypes
         public sealed record CustomHandleTypes(
             object? NullThing,
             object EmptyThing,
-            CustomHandleTypesThing[] Thing
+            ThingAyy[] Thing
         );
 
-        public sealed record CustomHandleTypesThing(
+        public sealed record ThingAyy(
             string Text,
             int Number,
             int[] IntArray,
             int PropBaseColon,
-            CustomHandleTypesPropCustomColon PropCustomColon
+            PropCustomColonAyy PropCustomColon
         );
 
-        public sealed record CustomHandleTypesPropCustomColon(
+        public sealed record PropCustomColonAyy(
             string Blep
         );
         """;
@@ -66,18 +66,18 @@ internal static class CustomHandleTypes
         public sealed record CustomHandleTypes(
             [property: JsonPropertyName("null_thing")] object? NullThing,
             [property: JsonPropertyName("empty_thing")] object EmptyThing,
-            [property: JsonPropertyName("thing")] CustomHandleTypesThing[] Thing
+            [property: JsonPropertyName("thing")] ThingAyy[] Thing
         );
 
-        public sealed record CustomHandleTypesThing(
+        public sealed record ThingAyy(
             [property: JsonPropertyName("text")] string Text,
             [property: JsonPropertyName("number")] int Number,
             [property: JsonPropertyName("int_array")] int[] IntArray,
             [property: JsonPropertyName("prop_base:colon")] int PropBaseColon,
-            [property: JsonPropertyName("prop_custom:colon")] CustomHandleTypesPropCustomColon PropCustomColon
+            [property: JsonPropertyName("prop_custom:colon")] PropCustomColonAyy PropCustomColon
         );
 
-        public sealed record CustomHandleTypesPropCustomColon(
+        public sealed record PropCustomColonAyy(
             [property: JsonPropertyName("blep")] string Blep
         );
         """;
@@ -94,10 +94,10 @@ internal static class CustomHandleTypes
             public required object EmptyThing { get; init; }
         
             [JsonPropertyName("thing")]
-            public required CustomHandleTypesThing[] Thing { get; init; }
+            public required ThingAyy[] Thing { get; init; }
         }
 
-        public sealed class CustomHandleTypesThing
+        public sealed class ThingAyy
         {
             [JsonPropertyName("text")]
             public required string Text { get; init; }
@@ -112,10 +112,10 @@ internal static class CustomHandleTypes
             public required int PropBaseColon { get; init; }
 
             [JsonPropertyName("prop_custom:colon")]
-            public required CustomHandleTypesPropCustomColon PropCustomColon { get; init; }
+            public required PropCustomColonAyy PropCustomColon { get; init; }
         }
 
-        public sealed class CustomHandleTypesPropCustomColon
+        public sealed class PropCustomColonAyy
         {
             [JsonPropertyName("blep")]
             public required string Blep { get; init; }
@@ -129,10 +129,10 @@ internal static class CustomHandleTypes
 
             public required object EmptyThing { get; init; }
         
-            public required CustomHandleTypesThing[] Thing { get; init; }
+            public required ThingAyy[] Thing { get; init; }
         }
 
-        public sealed class CustomHandleTypesThing
+        public sealed class ThingAyy
         {
             public required string Text { get; init; }
         
@@ -142,10 +142,10 @@ internal static class CustomHandleTypes
 
             public required int PropBaseColon { get; init; }
 
-            public required CustomHandleTypesPropCustomColon PropCustomColon { get; init; }
+            public required PropCustomColonAyy PropCustomColon { get; init; }
         }
 
-        public sealed class CustomHandleTypesPropCustomColon
+        public sealed class PropCustomColonAyy
         {
             public required string Blep { get; init; }
         }
@@ -163,10 +163,10 @@ internal static class CustomHandleTypes
             public required object EmptyThing { get; init; }
         
             [JsonPropertyName("thing")]
-            public required CustomHandleTypesThing[] Thing { get; init; }
+            public required ThingAyy[] Thing { get; init; }
         }
 
-        public readonly struct CustomHandleTypesThing
+        public readonly struct ThingAyy
         {
             [JsonPropertyName("text")]
             public required string Text { get; init; }
@@ -181,10 +181,10 @@ internal static class CustomHandleTypes
             public required int PropBaseColon { get; init; }
 
             [JsonPropertyName("prop_custom:colon")]
-            public required CustomHandleTypesPropCustomColon PropCustomColon { get; init; }
+            public required PropCustomColonAyy PropCustomColon { get; init; }
         }
 
-        public readonly struct CustomHandleTypesPropCustomColon
+        public readonly struct PropCustomColonAyy
         {
             [JsonPropertyName("blep")]
             public required string Blep { get; init; }

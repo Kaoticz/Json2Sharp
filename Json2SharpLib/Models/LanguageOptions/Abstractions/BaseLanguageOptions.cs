@@ -14,13 +14,14 @@ public abstract record BaseLanguageOptions
     /// Default is <see cref="IndentationCharacterType.Space"/>.
     /// </summary>
     public IndentationCharacterType IndentationPaddingCharacter { get; init; } = IndentationCharacterType.Space;
-    
+
     /// <summary>
     /// Defines a handler that transforms the type name of each parsed property before it is used in generated class
     /// members. Use it to apply custom naming logic to the type name of nested objects. <br />
     /// Default is a function that returns the parsed property name in the language's default naming convention.
     /// </summary>
-    public Func<string, string> TypeNameHandler { get; init; } = DefaultTypeNameHandler;
+    /// <returns>The parsed property name.</returns>
+    public Func<string, string> TypeNameHandler { get; init; } = static propertyName => propertyName;
 
     /// <summary>
     /// Defines the amount of <see cref="IndentationPaddingCharacter"/> that should be prepended to member declarations.
@@ -34,12 +35,4 @@ public abstract record BaseLanguageOptions
             ? value
             : throw new ArgumentOutOfRangeException(nameof(IndentationCharacterAmount), value, "Character amount cannot be less than zero.");
     }
-
-    /// <summary>
-    /// The default handler for property type names.
-    /// </summary>
-    /// <param name="propertyName">The name of the parsed property.</param>
-    /// <returns>The parsed property name.</returns>
-    private static string DefaultTypeNameHandler(string propertyName)
-        => propertyName;
 }

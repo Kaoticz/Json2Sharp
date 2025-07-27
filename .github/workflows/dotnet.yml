@@ -10,7 +10,7 @@ jobs:
   windows_build:
 
     runs-on: windows-latest
-    if: "!contains(format('{0} {1}', github.event.head_commit.message, github.event.pull_request.title), '[ci-skip]')"
+    if: "github.event.pull_request.draft == false || github.event_name == 'push'"
 
     env:
       DOTNET_NOLOGO: true
@@ -32,7 +32,7 @@ jobs:
   linux_build:
 
     runs-on: ubuntu-latest
-    if: "!contains(format('{0} {1}', github.event.head_commit.message, github.event.pull_request.title), '[ci-skip]')"
+    if: "github.event.pull_request.draft == false || github.event_name == 'push'"
 
     env:
       DOTNET_NOLOGO: true
@@ -54,7 +54,7 @@ jobs:
   osx_build:
 
     runs-on: macos-latest
-    if: "!contains(format('{0} {1}', github.event.head_commit.message, github.event.pull_request.title), '[ci-skip]')"
+    if: "github.event.pull_request.draft == false || github.event_name == 'push'"
 
     env:
       DOTNET_NOLOGO: true

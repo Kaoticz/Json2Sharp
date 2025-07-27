@@ -43,7 +43,7 @@ internal abstract class CodeEmitter : ICodeEmitter
     {
         using var jsonEnumerator = property.JsonElement.EnumerateObject();
         return (jsonEnumerator.Any())
-            ? property.JsonName!.ToPascalCase()
+            ? property.JsonName!.ToPascalCase() // Perhaps create an internal method that maps Language to the appropriate ext method?
             : J2SUtils.GetAliasName(typeof(object), language);
     }
 

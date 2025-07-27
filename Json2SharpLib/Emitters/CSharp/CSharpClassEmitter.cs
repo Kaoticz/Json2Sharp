@@ -216,8 +216,8 @@ internal sealed class CSharpClassEmitter : CodeEmitter
         {
             case JsonValueKind.Object:
             {
-                var propertyName = property.JsonName ?? property.BclType.Name;
-                var typeName = propertyName.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp))
+                var propertyName = GetObjectTypeName(property, Language.CSharp);
+                var typeName = propertyName.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp), StringComparison.Ordinal)
                     ? propertyName
                     : _typeNameHandler(propertyName);
                 extraTypes.Add(InternalParse(typeName, property.JsonElement, false));

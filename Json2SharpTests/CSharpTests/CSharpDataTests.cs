@@ -99,7 +99,7 @@ public sealed class CSharpDataTests
             {
                 TargetType = targetType,
                 SerializationAttribute = serializationAttribute,
-                TypeNameHandler = propertyType => className + propertyType.ToPascalCase()
+                TypeNameHandler = propertyType => propertyType + "Ayy"
             }
         };
         
