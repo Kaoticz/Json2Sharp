@@ -108,7 +108,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
 
         result += CreateMemberDeclaration(
             _indentationPadding,
-            (customType.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp)))
+            (customType.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp), StringComparison.Ordinal))
                 ? customType
                 : _typeNameHandler(customType),
             propertyName,
@@ -130,7 +130,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
         if (!string.IsNullOrWhiteSpace(_serializationAttribute))
             result += CreateMemberAttribute(_indentationPadding, _serializationAttribute, property.JsonName!) + Environment.NewLine;
 
-        result += CreateMemberDeclaration(_indentationPadding, _typeNameHandler(propertyName) + arraySuffix, propertyName, _setterType) + Environment.NewLine;
+        result += CreateMemberDeclaration(_indentationPadding, _typeNameHandler(typeName) + arraySuffix, propertyName, _setterType) + Environment.NewLine;
 
         return result;
     }
