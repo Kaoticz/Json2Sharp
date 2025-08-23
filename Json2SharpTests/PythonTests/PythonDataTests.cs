@@ -2,6 +2,7 @@ using Json2SharpLib;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Models;
 using Json2SharpTests.PythonTests.Models.Answers;
+using Kotz.Extensions;
 
 namespace Json2SharpTests.PythonTests;
 
@@ -77,6 +78,34 @@ public sealed class PythonDataTests
         };
 
         var actualOutput = Json2Sharp.Parse(className, input, options);
+
+        Assert.Equal(
+            expectedOutput.Replace("\r", string.Empty),
+            actualOutput.Replace("\r", string.Empty)
+        );
+    }
+    
+        
+    [Theory]
+    [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.Output, true, false)]
+    [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.DataClassOutput, true, true)]
+    [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.OutputNoTypeHints, false, false)]
+    internal void TypeHandleOutputTest(string className, string input, string expectedOutput, bool addTypeHints, bool useDataClass)
+    {
+        var options = new Json2SharpOptions()
+        {
+            TargetLanguage = Language.Python,
+            
+            PythonOptions = new()
+            {
+                AddTypeHints = addTypeHints,
+                UseDataClass = useDataClass,
+                UseOptional = true,
+                TypeNameHandler = propertyType => propertyType.ToSnakeCase()
+            }
+        };
+        
+        var actualOutput = Json2Sharp.Parse(className.ToSnakeCase(), input, options);
 
         Assert.Equal(
             expectedOutput.Replace("\r", string.Empty),

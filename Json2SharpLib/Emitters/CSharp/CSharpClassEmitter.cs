@@ -22,13 +22,12 @@ internal sealed class CSharpClassEmitter : CodeEmitter
     private readonly string _objectType;
     private readonly string _setterType;
     private readonly string _propertyAccessor;
-    private readonly Func<string, string> _typeNameHandler;
 
     /// <summary>
     /// Parses JSON data into a C# struct, class, or record with the base body of a class.
     /// </summary>
     /// <param name="options">The parsing options.</param>
-    internal CSharpClassEmitter(Json2SharpCSharpOptions options)
+    internal CSharpClassEmitter(Json2SharpCSharpOptions options) : base(options.TypeNameHandler)
     {
         _accessibility = options.AccessibilityLevel.ToCode() + options.TargetType switch
         {
@@ -49,8 +48,6 @@ internal sealed class CSharpClassEmitter : CodeEmitter
             ((options.IsPropertyRequired)
                 ? " required"
                 : string.Empty);
-
-        _typeNameHandler = options.TypeNameHandler;
     }
 
     /// <inheritdoc />
@@ -108,9 +105,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
 
         result += CreateMemberDeclaration(
             _indentationPadding,
-            (customType.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp), StringComparison.Ordinal))
-                ? customType
-                : _typeNameHandler(customType),
+            customType,
             propertyName,
             _setterType
         ) + Environment.NewLine;
@@ -130,7 +125,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
         if (!string.IsNullOrWhiteSpace(_serializationAttribute))
             result += CreateMemberAttribute(_indentationPadding, _serializationAttribute, property.JsonName!) + Environment.NewLine;
 
-        result += CreateMemberDeclaration(_indentationPadding, _typeNameHandler(typeName) + arraySuffix, propertyName, _setterType) + Environment.NewLine;
+        result += CreateMemberDeclaration(_indentationPadding, typeName + arraySuffix, propertyName, _setterType) + Environment.NewLine;
 
         return result;
     }
@@ -217,10 +212,8 @@ internal sealed class CSharpClassEmitter : CodeEmitter
             case JsonValueKind.Object:
             {
                 var propertyName = GetObjectTypeName(property, Language.CSharp);
-                var typeName = propertyName.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp), StringComparison.Ordinal)
-                    ? propertyName
-                    : _typeNameHandler(propertyName);
-                extraTypes.Add(InternalParse(typeName, property.JsonElement, false));
+                
+                extraTypes.Add(InternalParse(propertyName, property.JsonElement, false));
                 stringBuilder.AppendLine(ParseCustomType(property));
 
                 return true;
@@ -235,7 +228,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
                 stringBuilder.AppendLine(ParseArrayType(property, childrenTypes, out var typeName));
 
                 if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp), StringComparison.Ordinal))
-                    extraTypes.Add(InternalParse(_typeNameHandler(typeName), childrenTypes[0].JsonElement, false));
+                    extraTypes.Add(InternalParse(typeName, childrenTypes[0].JsonElement, false));
 
                 return true;
             }

@@ -21,7 +21,7 @@ public abstract record BaseLanguageOptions
     /// Default is a function that returns the parsed property name in the language's default naming convention.
     /// </summary>
     /// <returns>The parsed property name.</returns>
-    public Func<string, string> TypeNameHandler { get; init; } = static propertyName => propertyName;
+    public abstract Func<string, string> TypeNameHandler { get; init; }
 
     /// <summary>
     /// Defines the amount of <see cref="IndentationPaddingCharacter"/> that should be prepended to member declarations.

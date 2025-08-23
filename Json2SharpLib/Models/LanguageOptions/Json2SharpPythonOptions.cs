@@ -24,4 +24,7 @@ public sealed record Json2SharpPythonOptions : BaseLanguageOptions
     /// Default is <see langword="false"/>.
     /// </summary>
     public bool UseOptional { get; init; }
+
+    /// <inheritdoc />
+    public override Func<string, string> TypeNameHandler { get; init; } = static propertyName => propertyName.ToPascalCase();
 }
