@@ -14,7 +14,7 @@ internal static class TextTypes
     public const string DataClassOutput = """
         from dataclasses import dataclass
         from datetime import datetime
-        import uuid
+        from uuid import UUID
 
 
         @dataclass
@@ -22,13 +22,13 @@ internal static class TextTypes
             text: str
             empty_text: str
             date_time_offset: datetime
-            id: uuid
+            id: UUID
 
         """;
 
     public const string Output = """
         from datetime import datetime
-        import uuid
+        from uuid import UUID
 
 
         class TextTypes:
@@ -36,7 +36,7 @@ internal static class TextTypes
                 text: str,
                 empty_text: str,
                 date_time_offset: datetime,
-                id: uuid
+                id: UUID
             ) -> None:
                 self.text = text
                 self.empty_text = empty_text

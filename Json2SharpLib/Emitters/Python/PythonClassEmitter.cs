@@ -72,7 +72,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
         // Add the imports
         if (emitHeaders && _addTypeHint)
         {
-            var hasUuid = stringBuilder.Contains(": uuid");
+            var hasUuid = stringBuilder.Contains(": UUID");
             var hasDatetime = stringBuilder.Contains(": datetime");
             var hasOptional = stringBuilder.Contains("Optional[");
 
@@ -80,7 +80,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
                 stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
 
             if (hasUuid)
-                stringBuilder.Insert(0, "import uuid" + Environment.NewLine);
+                stringBuilder.Insert(0, "from uuid import UUID" + Environment.NewLine);
 
             if (hasDatetime)
                 stringBuilder.Insert(0, "from datetime import datetime" + Environment.NewLine);

@@ -65,8 +65,8 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         {
             stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
 
-            if (stringBuilder.Contains(": uuid"))
-                stringBuilder.Insert(0, "import uuid" + Environment.NewLine);
+            if (stringBuilder.Contains(": UUID"))
+                stringBuilder.Insert(0, "from uuid import UUID" + Environment.NewLine);
 
             if (stringBuilder.Contains(": datetime"))
                 stringBuilder.Insert(0, "from datetime import datetime" + Environment.NewLine);
