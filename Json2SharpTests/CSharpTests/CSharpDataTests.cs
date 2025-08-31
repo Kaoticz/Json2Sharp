@@ -99,11 +99,11 @@ public sealed class CSharpDataTests
             {
                 TargetType = targetType,
                 SerializationAttribute = serializationAttribute,
-                TypeNameHandler = propertyType => propertyType.ToPascalCase() + "Ayy"
+                TypeNameHandler = propertyType => propertyType.ToSnakeCase()
             }
         };
         
-        var actualOutput = Json2Sharp.Parse(className, input, options);
+        var actualOutput = Json2Sharp.Parse(className.ToSnakeCase(), input, options);
 
         Assert.Equal(
             expectedOutput.Replace("\r", string.Empty),

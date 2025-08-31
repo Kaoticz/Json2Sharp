@@ -21,41 +21,41 @@ internal static class CustomHandleTypes
     public const string RecordPrimaryCtorOutput = """
         using Newtonsoft.Json;
 
-        public sealed record CustomHandleTypes(
+        public sealed record custom_handle_types(
             [JsonProperty("null_thing")] object? NullThing,
             [JsonProperty("empty_thing")] object EmptyThing,
-            [JsonProperty("thing")] ThingAyy[] Thing
+            [JsonProperty("thing")] thing[] Thing
         );
 
-        public sealed record ThingAyy(
+        public sealed record thing(
             [JsonProperty("text")] string Text,
             [JsonProperty("number")] int Number,
             [JsonProperty("int_array")] int[] IntArray,
             [JsonProperty("prop_base:colon")] int PropBaseColon,
-            [JsonProperty("prop_custom:colon")] PropCustomColonAyy PropCustomColon
+            [JsonProperty("prop_custom:colon")] prop_custom_colon PropCustomColon
         );
 
-        public sealed record PropCustomColonAyy(
+        public sealed record prop_custom_colon(
             [JsonProperty("blep")] string Blep
         );
         """;
 
     public const string RecordPrimaryCtorOutputNoAtt = """
-        public sealed record CustomHandleTypes(
+        public sealed record custom_handle_types(
             object? NullThing,
             object EmptyThing,
-            ThingAyy[] Thing
+            thing[] Thing
         );
 
-        public sealed record ThingAyy(
+        public sealed record thing(
             string Text,
             int Number,
             int[] IntArray,
             int PropBaseColon,
-            PropCustomColonAyy PropCustomColon
+            prop_custom_colon PropCustomColon
         );
 
-        public sealed record PropCustomColonAyy(
+        public sealed record prop_custom_colon(
             string Blep
         );
         """;
@@ -63,21 +63,21 @@ internal static class CustomHandleTypes
     public const string RecordOutput = """
         using System.Text.Json.Serialization;
         
-        public sealed record CustomHandleTypes(
+        public sealed record custom_handle_types(
             [property: JsonPropertyName("null_thing")] object? NullThing,
             [property: JsonPropertyName("empty_thing")] object EmptyThing,
-            [property: JsonPropertyName("thing")] ThingAyy[] Thing
+            [property: JsonPropertyName("thing")] thing[] Thing
         );
 
-        public sealed record ThingAyy(
+        public sealed record thing(
             [property: JsonPropertyName("text")] string Text,
             [property: JsonPropertyName("number")] int Number,
             [property: JsonPropertyName("int_array")] int[] IntArray,
             [property: JsonPropertyName("prop_base:colon")] int PropBaseColon,
-            [property: JsonPropertyName("prop_custom:colon")] PropCustomColonAyy PropCustomColon
+            [property: JsonPropertyName("prop_custom:colon")] prop_custom_colon PropCustomColon
         );
 
-        public sealed record PropCustomColonAyy(
+        public sealed record prop_custom_colon(
             [property: JsonPropertyName("blep")] string Blep
         );
         """;
@@ -85,7 +85,7 @@ internal static class CustomHandleTypes
     public const string ClassOutput = """
         using System.Text.Json.Serialization;
         
-        public sealed class CustomHandleTypes
+        public sealed class custom_handle_types
         {
             [JsonPropertyName("null_thing")]
             public required object? NullThing { get; init; }
@@ -94,10 +94,10 @@ internal static class CustomHandleTypes
             public required object EmptyThing { get; init; }
         
             [JsonPropertyName("thing")]
-            public required ThingAyy[] Thing { get; init; }
+            public required thing[] Thing { get; init; }
         }
 
-        public sealed class ThingAyy
+        public sealed class thing
         {
             [JsonPropertyName("text")]
             public required string Text { get; init; }
@@ -112,10 +112,10 @@ internal static class CustomHandleTypes
             public required int PropBaseColon { get; init; }
 
             [JsonPropertyName("prop_custom:colon")]
-            public required PropCustomColonAyy PropCustomColon { get; init; }
+            public required prop_custom_colon PropCustomColon { get; init; }
         }
 
-        public sealed class PropCustomColonAyy
+        public sealed class prop_custom_colon
         {
             [JsonPropertyName("blep")]
             public required string Blep { get; init; }
@@ -123,16 +123,16 @@ internal static class CustomHandleTypes
         """;
 
     public const string ClassOutputNoAtt = """
-        public sealed class CustomHandleTypes
+        public sealed class custom_handle_types
         {
             public required object? NullThing { get; init; }
 
             public required object EmptyThing { get; init; }
         
-            public required ThingAyy[] Thing { get; init; }
+            public required thing[] Thing { get; init; }
         }
 
-        public sealed class ThingAyy
+        public sealed class thing
         {
             public required string Text { get; init; }
         
@@ -142,10 +142,10 @@ internal static class CustomHandleTypes
 
             public required int PropBaseColon { get; init; }
 
-            public required PropCustomColonAyy PropCustomColon { get; init; }
+            public required prop_custom_colon PropCustomColon { get; init; }
         }
 
-        public sealed class PropCustomColonAyy
+        public sealed class prop_custom_colon
         {
             public required string Blep { get; init; }
         }
@@ -154,7 +154,7 @@ internal static class CustomHandleTypes
     public const string StructOutput = """
         using System.Text.Json.Serialization;
         
-        public readonly struct CustomHandleTypes
+        public readonly struct custom_handle_types
         {
             [JsonPropertyName("null_thing")]
             public required object? NullThing { get; init; }
@@ -163,10 +163,10 @@ internal static class CustomHandleTypes
             public required object EmptyThing { get; init; }
         
             [JsonPropertyName("thing")]
-            public required ThingAyy[] Thing { get; init; }
+            public required thing[] Thing { get; init; }
         }
 
-        public readonly struct ThingAyy
+        public readonly struct thing
         {
             [JsonPropertyName("text")]
             public required string Text { get; init; }
@@ -181,10 +181,10 @@ internal static class CustomHandleTypes
             public required int PropBaseColon { get; init; }
 
             [JsonPropertyName("prop_custom:colon")]
-            public required PropCustomColonAyy PropCustomColon { get; init; }
+            public required prop_custom_colon PropCustomColon { get; init; }
         }
 
-        public readonly struct PropCustomColonAyy
+        public readonly struct prop_custom_colon
         {
             [JsonPropertyName("blep")]
             public required string Blep { get; init; }

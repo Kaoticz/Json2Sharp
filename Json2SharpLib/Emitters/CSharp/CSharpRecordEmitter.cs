@@ -50,7 +50,6 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
     /// <returns>The C# record.</returns>
     private string InternalParse(string objectName, JsonElement jsonElement, bool emitHeaders)
     {
-        objectName = objectName.ToPascalCase();
         var properties = Json2Sharp.ParseProperties(jsonElement);
 
         if (properties.Count is 0)
