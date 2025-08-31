@@ -21,7 +21,9 @@ jobs:
       - name: "Setup .NET"
         uses: "actions/setup-dotnet@v4"
         with:
-          dotnet-version: 8.x
+          dotnet-version: |
+            8.x
+            9.x
 
       - name: Build
         run: dotnet build -c Release
@@ -68,7 +70,9 @@ jobs:
       - name: "Setup .NET"
         uses: "actions/setup-dotnet@v4"
         with:
-          dotnet-version: 8.x
+          dotnet-version: |
+            8.x
+            9.x
 
       - name: Build
         run: dotnet build -c Release
@@ -116,7 +120,9 @@ jobs:
       - name: "Setup .NET"
         uses: "actions/setup-dotnet@v4"
         with:
-          dotnet-version: 8.x
+          dotnet-version: |
+            8.x
+            9.x
 
       - name: Build
         run: dotnet build -c Release
@@ -158,7 +164,9 @@ jobs:
       - name: "Setup .NET"
         uses: "actions/setup-dotnet@v2"
         with:
-          dotnet-version: 8.x
+          dotnet-version: |
+            8.x
+            9.x
 
       - name: Build
         run: dotnet build -c Release
