@@ -136,18 +136,18 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
     {
         var sanitizedExtraTypes = extraTypes
             .Where(x => !string.IsNullOrWhiteSpace(x))
-            .Reverse();
+            .Reverse()
+            .ToArray();
 
         // Add the custom types at the top
-        if (sanitizedExtraTypes.Any())
-        {
-            stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
-            stringBuilder.Insert(0, string.Join(Environment.NewLine + Environment.NewLine, sanitizedExtraTypes));
+        if (sanitizedExtraTypes.Length is 0)
+            return false;
 
-            return true;
-        }
+        stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
+        stringBuilder.Insert(0, string.Join(Environment.NewLine + Environment.NewLine, sanitizedExtraTypes));
 
-        return false;
+        return true;
+
     }
 
     /// <summary>

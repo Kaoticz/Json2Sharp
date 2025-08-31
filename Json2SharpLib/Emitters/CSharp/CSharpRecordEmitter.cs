@@ -161,9 +161,11 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
     /// <returns><see langword="true"/> if custom types were added, <see langword="false"/> otherwise.</returns>
     private static bool AddCustomTypes(StringBuilder stringBuilder, List<string> extraTypes)
     {
-        var sanitizedExtraTypes = extraTypes.Where(x => !string.IsNullOrWhiteSpace(x));
+        var sanitizedExtraTypes = extraTypes
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .ToArray();
 
-        if (!sanitizedExtraTypes.Any())
+        if (sanitizedExtraTypes.Length is 0)
             return false;
 
         stringBuilder.AppendLine(Environment.NewLine);
