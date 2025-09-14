@@ -68,18 +68,25 @@ internal sealed class PythonClassEmitter : CodeEmitter
         // Add the imports
         if (emitHeaders && _addTypeHint)
         {
-            var hasUuid = stringBuilder.Contains(": UUID");
-            var hasDatetime = stringBuilder.Contains(": datetime");
+            var hasUuid = stringBuilder.Contains("UUID");
+            var hasTimedelta = stringBuilder.Contains("timedelta");
+            var hasDatetime = stringBuilder.Contains("datetime");
             var hasOptional = stringBuilder.Contains("Optional[");
 
-            if (hasUuid || hasDatetime || hasOptional)
+            if (hasUuid || hasTimedelta || hasDatetime || hasOptional)
                 stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
 
             if (hasUuid)
                 stringBuilder.Insert(0, "from uuid import UUID" + Environment.NewLine);
 
-            if (hasDatetime)
-                stringBuilder.Insert(0, "from datetime import datetime" + Environment.NewLine);
+            if (hasTimedelta || hasDatetime)
+            {
+                var modules = (hasTimedelta && hasDatetime) ? "datetime, timedelta"
+                    : (hasTimedelta) ? "timedelta" 
+                    : "datetime";
+                
+                stringBuilder.Insert(0, "from datetime import " + modules + Environment.NewLine);
+            }
 
             if (hasOptional)
                 stringBuilder.Insert(0, "from typing import Optional" + Environment.NewLine);

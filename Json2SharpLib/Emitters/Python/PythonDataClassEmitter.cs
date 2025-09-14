@@ -59,15 +59,26 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         // Add the imports
         if (emitHeaders)
         {
+            var hasUuid = stringBuilder.Contains("UUID");
+            var hasTimedelta = stringBuilder.Contains("timedelta");
+            var hasDatetime = stringBuilder.Contains("datetime");
+            var hasOptional = stringBuilder.Contains("Optional[");
+
             stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
 
-            if (stringBuilder.Contains(": UUID"))
+            if (hasUuid)
                 stringBuilder.Insert(0, "from uuid import UUID" + Environment.NewLine);
 
-            if (stringBuilder.Contains(": datetime"))
-                stringBuilder.Insert(0, "from datetime import datetime" + Environment.NewLine);
+            if (hasTimedelta || hasDatetime)
+            {
+                var modules = (hasTimedelta && hasDatetime) ? "datetime, timedelta"
+                    : (hasTimedelta) ? "timedelta" 
+                    : "datetime";
+                
+                stringBuilder.Insert(0, "from datetime import " + modules + Environment.NewLine);
+            }
 
-            if (stringBuilder.Contains("Optional["))
+            if (hasOptional)
                 stringBuilder.Insert(0, "from typing import Optional" + Environment.NewLine);
 
             stringBuilder.Insert(0, "from dataclasses import dataclass" + Environment.NewLine);

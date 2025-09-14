@@ -87,6 +87,8 @@ internal static class JsonElementExt
             return typeof(DateTimeOffset);
         else if (jsonElement.TryGetDateTime(out _))
             return typeof(DateTime);
+        else if (TimeSpan.TryParse(jsonElement.GetString(), out _))
+            return typeof(TimeSpan);
         else
             return typeof(string);
     }
