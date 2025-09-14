@@ -11,6 +11,17 @@ namespace Json2SharpLib.Emitters.Abstractions;
 /// </summary>
 internal abstract class CodeEmitter : ICodeEmitter
 {
+    private readonly Func<string, string> _typeNameHandler;
+    
+    /// <summary>
+    /// Initializes a language code emitter. 
+    /// </summary>
+    /// <param name="typeNameHandler">
+    /// The handler that transforms the type name of each parsed property before it is used in generated class members.
+    /// </param>
+    internal CodeEmitter(Func<string, string> typeNameHandler)
+        => _typeNameHandler = typeNameHandler;
+    
     /// <inheritdoc />
     public abstract string Parse(string objectName, JsonElement jsonElement);
 
@@ -39,11 +50,11 @@ internal abstract class CodeEmitter : ICodeEmitter
     /// <param name="language">The target language for the type name.</param>
     /// <returns>The type name.</returns>
     /// <exception cref="InvalidOperationException">Occurs when <paramref name="property"/> is not of type <see cref="JsonValueKind.Object"/>.</exception>
-    protected static string GetObjectTypeName(ParsedJsonProperty property, Language language)
+    protected string GetObjectTypeName(ParsedJsonProperty property, Language language)
     {
         using var jsonEnumerator = property.JsonElement.EnumerateObject();
         return (jsonEnumerator.Any())
-            ? property.JsonName!.ToPascalCase()
+            ? _typeNameHandler(property.JsonName!)
             : J2SUtils.GetAliasName(typeof(object), language);
     }
 
@@ -57,7 +68,7 @@ internal abstract class CodeEmitter : ICodeEmitter
     /// <returns><see langword="true"/> if the array contains <see langword="null"/> elements, <see langword="false"/> otherwise.</returns>
     /// <exception cref="ArgumentException">Occurs when <paramref name="childrenTypes"/> is empty.</exception>
     /// <exception cref="InvalidOperationException">Occurs when <paramref name="property"/> is not of type <see cref="JsonValueKind.Array"/>.</exception>
-    protected static bool IsArrayOfNullableType(ParsedJsonProperty property, Language language, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
+    protected bool IsArrayOfNullableType(ParsedJsonProperty property, Language language, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
     {
         if (childrenTypes.Count is 0)
             throw new ArgumentException("Collection cannot be empty.", nameof(childrenTypes));
@@ -78,9 +89,9 @@ internal abstract class CodeEmitter : ICodeEmitter
                 IsCustomType: aliasName?.Equals(J2SUtils.GetAliasName(typeof(object), language), StringComparison.Ordinal)
             ) switch    // Else
             {
-                (1, true, true) => className,   // Array type is custom type
-                (1, true, false) => aliasName,  // Array type is non-object language type
-                (1, false, _) => className,     // Array type is custom type
+                (1, true, true) => _typeNameHandler(className),         // Array type is custom type
+                (1, true, false) => aliasName,                          // Array type is non-object language type
+                (1, false, _) => _typeNameHandler(className),           // Array type is custom type
                 _ => J2SUtils.GetAliasName(typeof(object), language),   // Array type is object language type
             };
 

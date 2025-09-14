@@ -43,4 +43,7 @@ public sealed record Json2SharpCSharpOptions : BaseLanguageOptions
     /// Default is <see langword="true"/>.
     /// </summary>
     public bool IsPropertyRequired { get; init; } = true;
+    
+    /// <inheritdoc />
+    public override Func<string, string> TypeNameHandler { get; init; } = static propertyName => propertyName.ToPascalCase();
 }

@@ -10,7 +10,7 @@ jobs:
   windows_build:
 
     runs-on: windows-latest
-    if: "!contains(format('{0} {1}', github.event.head_commit.message, github.event.pull_request.title), '[ci-skip]')"
+    if: "github.event.pull_request.draft == false || github.event_name == 'push'"
 
     env:
       DOTNET_NOLOGO: true
@@ -21,7 +21,9 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.x
+        dotnet-version: |
+          8.x
+          9.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -32,7 +34,7 @@ jobs:
   linux_build:
 
     runs-on: ubuntu-latest
-    if: "!contains(format('{0} {1}', github.event.head_commit.message, github.event.pull_request.title), '[ci-skip]')"
+    if: "github.event.pull_request.draft == false || github.event_name == 'push'"
 
     env:
       DOTNET_NOLOGO: true
@@ -43,7 +45,9 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.x
+        dotnet-version: |
+          8.x
+          9.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -54,7 +58,7 @@ jobs:
   osx_build:
 
     runs-on: macos-latest
-    if: "!contains(format('{0} {1}', github.event.head_commit.message, github.event.pull_request.title), '[ci-skip]')"
+    if: "github.event.pull_request.draft == false || github.event_name == 'push'"
 
     env:
       DOTNET_NOLOGO: true
@@ -65,7 +69,9 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.x
+        dotnet-version: |
+          8.x
+          9.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build

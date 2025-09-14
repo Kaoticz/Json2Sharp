@@ -21,7 +21,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
     /// Creates an object that parses JSON data into a Python data class.
     /// </summary>
     /// <param name="options">The parsing options.</param>
-    internal PythonDataClassEmitter(Json2SharpPythonOptions options)
+    internal PythonDataClassEmitter(Json2SharpPythonOptions options) : base(options.TypeNameHandler)
     {
         _indentationPadding = new string(
             options.IndentationPaddingCharacter is IndentationCharacterType.Space ? ' ' : '\t',
@@ -46,7 +46,6 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
     /// <returns>The Python data class.</returns>
     private string InternalParse(string objectName, JsonElement jsonElement, bool emitHeaders)
     {
-        objectName = objectName.ToPascalCase();
         var properties = Json2Sharp.ParseProperties(jsonElement);
 
         if (properties.Count is 0)
@@ -62,8 +61,8 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         {
             stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
 
-            if (stringBuilder.Contains(": uuid"))
-                stringBuilder.Insert(0, "import uuid" + Environment.NewLine);
+            if (stringBuilder.Contains(": UUID"))
+                stringBuilder.Insert(0, "from uuid import UUID" + Environment.NewLine);
 
             if (stringBuilder.Contains(": datetime"))
                 stringBuilder.Insert(0, "from datetime import datetime" + Environment.NewLine);
@@ -79,7 +78,10 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
 
     /// <inheritdoc />
     protected override string ParseCustomType(ParsedJsonProperty property)
-        => $"{property.JsonName.ToSnakeCase()}: {GetObjectTypeName(property, Language.Python)}";
+    {
+        var typeName = GetObjectTypeName(property, Language.Python);
+        return $"{property.JsonName.ToSnakeCase()}: {typeName}"; 
+    }
 
     /// <inheritdoc />
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
@@ -134,18 +136,18 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
     {
         var sanitizedExtraTypes = extraTypes
             .Where(x => !string.IsNullOrWhiteSpace(x))
-            .Reverse();
+            .Reverse()
+            .ToArray();
 
         // Add the custom types at the top
-        if (sanitizedExtraTypes.Any())
-        {
-            stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
-            stringBuilder.Insert(0, string.Join(Environment.NewLine + Environment.NewLine, sanitizedExtraTypes));
+        if (sanitizedExtraTypes.Length is 0)
+            return false;
 
-            return true;
-        }
+        stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
+        stringBuilder.Insert(0, string.Join(Environment.NewLine + Environment.NewLine, sanitizedExtraTypes));
 
-        return false;
+        return true;
+
     }
 
     /// <summary>
@@ -161,7 +163,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         {
             case JsonValueKind.Object:
                 stringBuilder.AppendIndentedLine(ParseCustomType(property), _indentationPadding, 1);
-                extraTypes.Add(InternalParse(property.JsonName!, property.JsonElement, false));
+                extraTypes.Add(InternalParse(GetObjectTypeName(property, Language.Python), property.JsonElement, false));
 
                 return true;
             case JsonValueKind.Array:

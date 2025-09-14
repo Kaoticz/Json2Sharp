@@ -27,6 +27,9 @@ internal static class TypeAliases
         [typeof(object)] = "object",
         [typeof(bool)] = "bool",
         [typeof(char)] = "char",
+        [typeof(DateTime)] = "DateTime",
+        [typeof(DateTimeOffset)] = "DateTimeOffset",
+        [typeof(Guid)] = "Guid",
 
         [typeof(string[])] = "string[]",
         [typeof(int[])] = "int[]",
@@ -43,6 +46,9 @@ internal static class TypeAliases
         [typeof(object[])] = "object[]",
         [typeof(bool[])] = "bool[]",
         [typeof(char[])] = "char[]",
+        [typeof(DateTime[])] = "DateTime[]",
+        [typeof(DateTimeOffset[])] = "DateTimeOffset[]",
+        [typeof(Guid[])] = "Guid[]",
 
         [typeof(int?[])] = "int?[]",
         [typeof(byte?[])] = "byte?[]",
@@ -57,6 +63,9 @@ internal static class TypeAliases
         [typeof(decimal?[])] = "decimal?[]",
         [typeof(bool?[])] = "bool?[]",
         [typeof(char?[])] = "char?[]",
+        [typeof(DateTime?[])] = "DateTime?[]",
+        [typeof(DateTimeOffset?[])] = "DateTimeOffset?[]",
+        [typeof(Guid?[])] = "Guid?[]",
     }.ToFrozenDictionary();
 
     /// <summary>
@@ -81,7 +90,7 @@ internal static class TypeAliases
         [typeof(char)] = "str",
         [typeof(DateTime)] = "datetime",
         [typeof(DateTimeOffset)] = "datetime",
-        [typeof(Guid)] = "uuid",
+        [typeof(Guid)] = "UUID",
 
         [typeof(string[])] = "list[str]",
         [typeof(int[])] = "list[int]",
@@ -100,7 +109,7 @@ internal static class TypeAliases
         [typeof(char[])] = "list[str]",
         [typeof(DateTime[])] = "list[datetime]",
         [typeof(DateTimeOffset[])] = "list[datetime]",
-        [typeof(Guid[])] = "list[uuid]",
+        [typeof(Guid[])] = "list[UUID]",
 
         [typeof(int?[])] = "Optional[list[int]]",
         [typeof(byte?[])] = "Optional[bytes]",
@@ -117,6 +126,6 @@ internal static class TypeAliases
         [typeof(char?[])] = "Optional[list[str]]",
         [typeof(DateTime?[])] = "Optional[list[datetime]]",
         [typeof(DateTimeOffset?[])] = "Optional[list[datetime]]",
-        [typeof(Guid?[])] = "Optional[list[uuid]]",
+        [typeof(Guid?[])] = "Optional[list[UUID]]",
     }.ToFrozenDictionary();
 }
