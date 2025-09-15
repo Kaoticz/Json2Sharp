@@ -28,6 +28,38 @@ public static class Json2Sharp
     /// <summary>
     /// Parses raw JSON data into a C# record.
     /// </summary>
+    /// <param name="rawJson">The raw JSON data.</param>
+    /// <returns>A C# record declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(string rawJson)
+        => Parse("Root", rawJson, new Json2SharpOptions());
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
+    /// </summary>
+    /// <param name="rawJson">The raw JSON data.</param>
+    /// <param name="options">The parsing options.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(string rawJson, Json2SharpOptions options)
+        => Parse("Root", rawJson, GetLanguageEmitter(options));
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration emitted by <paramref name="emitter"/>.
+    /// </summary>
+    /// <param name="rawJson">The raw JSON data.</param>
+    /// <param name="emitter">An object that converts JSON data into a language type definition.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(string rawJson, ICodeEmitter emitter)
+        => Parse("Root", rawJson, emitter);
+
+    /// <summary>
+    /// Parses raw JSON data into a C# record.
+    /// </summary>
     /// <param name="objectName">The name of the record.</param>
     /// <param name="rawJson">The raw JSON data.</param>
     /// <returns>A C# record declaration.</returns>
@@ -68,6 +100,38 @@ public static class Json2Sharp
     #endregion
 
     #region Parse - Stream
+    
+    /// <summary>
+    /// Parses raw JSON data into a C# record.
+    /// </summary>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <returns>A C# record declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(Stream utf8Json)
+        => Parse("Root", utf8Json, new Json2SharpOptions());
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
+    /// </summary>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <param name="options">The parsing options.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(Stream utf8Json, Json2SharpOptions options)
+        => Parse("Root", utf8Json, GetLanguageEmitter(options));
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration emitted by <paramref name="emitter"/>.
+    /// </summary>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <param name="emitter">An object that converts JSON data into a language type definition.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(Stream utf8Json, ICodeEmitter emitter)
+        => Parse("Root", utf8Json, emitter);
 
     /// <summary>
     /// Parses raw JSON data into a C# record.
@@ -112,6 +176,38 @@ public static class Json2Sharp
     #endregion
 
     #region Parse - ReadOnlyMemory<char>
+    
+    /// <summary>
+    /// Parses raw JSON data into a C# record.
+    /// </summary>
+    /// <param name="rawJson">The raw JSON data.</param>
+    /// <returns>A C# record declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(ReadOnlyMemory<char> rawJson)
+        => Parse("Root", rawJson, new Json2SharpOptions());
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
+    /// </summary>
+    /// <param name="rawJson">The raw JSON data.</param>
+    /// <param name="options">The parsing options.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(ReadOnlyMemory<char> rawJson, Json2SharpOptions options)
+        => Parse("Root", rawJson, GetLanguageEmitter(options));
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration emitted by <paramref name="emitter"/>.
+    /// </summary>
+    /// <param name="rawJson">The raw JSON data.</param>
+    /// <param name="emitter">An object that converts JSON data into a language type definition.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(ReadOnlyMemory<char> rawJson, ICodeEmitter emitter)
+        => Parse("Root", rawJson, emitter);
 
     /// <summary>
     /// Parses raw JSON data into a C# record.
@@ -156,6 +252,38 @@ public static class Json2Sharp
     #endregion
 
     #region Parse - ReadOnlyMemory<byte>
+    
+    /// <summary>
+    /// Parses raw JSON data into a C# record.
+    /// </summary>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <returns>A C# record declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(ReadOnlyMemory<byte> utf8Json)
+        => Parse("Root", utf8Json, new Json2SharpOptions());
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
+    /// </summary>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <param name="options">The parsing options.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(ReadOnlyMemory<byte> utf8Json, Json2SharpOptions options)
+        => Parse("Root", utf8Json, GetLanguageEmitter(options));
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration emitted by <paramref name="emitter"/>.
+    /// </summary>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <param name="emitter">An object that converts JSON data into a language type definition.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(ReadOnlyMemory<byte> utf8Json, ICodeEmitter emitter)
+        => Parse("Root", utf8Json, emitter);
 
     /// <summary>
     /// Parses raw JSON data into a C# record.
@@ -200,6 +328,38 @@ public static class Json2Sharp
     #endregion
 
     #region Parse - ReadOnlySequence<byte>
+    
+    /// <summary>
+    /// Parses raw JSON data into a C# record.
+    /// </summary>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <returns>A C# record declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(ReadOnlySequence<byte> utf8Json)
+        => Parse("Root", utf8Json, new Json2SharpOptions());
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
+    /// </summary>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <param name="options">The parsing options.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(ReadOnlySequence<byte> utf8Json, Json2SharpOptions options)
+        => Parse("Root", utf8Json, GetLanguageEmitter(options));
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration emitted by <paramref name="emitter"/>.
+    /// </summary>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <param name="emitter">An object that converts JSON data into a language type definition.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(ReadOnlySequence<byte> utf8Json, ICodeEmitter emitter)
+        => Parse("Root", utf8Json, emitter);
 
     /// <summary>
     /// Parses raw JSON data into a C# record.
@@ -325,11 +485,11 @@ public static class Json2Sharp
     {
         return options.TargetLanguage switch
         {
-            Language.CSharp when options.CSharpOptions.TargetType is CSharpObjectType.Record
-                && options.CSharpOptions.SetterType is CSharpSetterType.Init => new CSharpRecordEmitter(options.CSharpOptions),
+            Language.CSharp when options.CSharpOptions is { TargetType: CSharpObjectType.Record, SetterType: CSharpSetterType.Init }
+                => new CSharpRecordEmitter(options.CSharpOptions),
             Language.CSharp => new CSharpClassEmitter(options.CSharpOptions),
-            Language.Python when options.PythonOptions.UseDataClass
-                && options.PythonOptions.AddTypeHints => new PythonDataClassEmitter(options.PythonOptions),
+            Language.Python when options.PythonOptions is { UseDataClass: true, AddTypeHints: true }
+                => new PythonDataClassEmitter(options.PythonOptions),
             Language.Python => new PythonClassEmitter(options.PythonOptions),
             _ => throw new UnreachableException($"Emitter for language {options.TargetLanguage} was not implemented."),
         };
