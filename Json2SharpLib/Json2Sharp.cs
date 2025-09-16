@@ -36,6 +36,17 @@ public static class Json2Sharp
         => Parse("Root", rawJson, new Json2SharpOptions());
     
     /// <summary>
+    /// Parses raw JSON data into a type declaration for the specified <paramref name="language"/>.
+    /// </summary>
+    /// <param name="rawJson">The raw JSON data.</param>
+    /// <param name="language">The target language.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(string rawJson, Language language)
+        => Parse("Root", rawJson, new Json2SharpOptions() { TargetLanguage = language });
+    
+    /// <summary>
     /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
     /// </summary>
     /// <param name="rawJson">The raw JSON data.</param>
@@ -67,6 +78,18 @@ public static class Json2Sharp
     /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, string rawJson)
         => Parse(objectName, rawJson, new Json2SharpOptions());
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration for the specified <paramref name="language"/>.
+    /// </summary>
+    /// <param name="objectName">The name of the type.</param>
+    /// <param name="rawJson">The raw JSON data.</param>
+    /// <param name="language">The target language.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(string objectName, string rawJson, Language language)
+        => Parse(objectName, rawJson, new Json2SharpOptions() { TargetLanguage = language });
 
     /// <summary>
     /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
@@ -112,6 +135,17 @@ public static class Json2Sharp
         => Parse("Root", utf8Json, new Json2SharpOptions());
     
     /// <summary>
+    /// Parses raw JSON data into a type declaration for the specified <paramref name="language"/>.
+    /// </summary>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <param name="language">The target language.</param>
+    /// <returns>A C# record declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(Stream utf8Json, Language language)
+        => Parse("Root", utf8Json, new Json2SharpOptions() { TargetLanguage = language });
+    
+    /// <summary>
     /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
     /// </summary>
     /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
@@ -143,6 +177,18 @@ public static class Json2Sharp
     /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, Stream utf8Json)
         => Parse(objectName, utf8Json, new Json2SharpOptions());
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration for the specified <paramref name="language"/>.
+    /// </summary>
+    /// <param name="objectName">The name of the type.</param>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <param name="language">The target language.</param>
+    /// <returns>A C# record declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(string objectName, Stream utf8Json, Language language)
+        => Parse(objectName, utf8Json, new Json2SharpOptions() { TargetLanguage = language });
 
     /// <summary>
     /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
@@ -188,6 +234,17 @@ public static class Json2Sharp
         => Parse("Root", rawJson, new Json2SharpOptions());
     
     /// <summary>
+    /// Parses raw JSON data into a type declaration for the specified <paramref name="language"/>.
+    /// </summary>
+    /// <param name="rawJson">The raw JSON data.</param>
+    /// <param name="language">The target language.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(ReadOnlyMemory<char> rawJson, Language language)
+        => Parse("Root", rawJson, new Json2SharpOptions() { TargetLanguage = language });
+    
+    /// <summary>
     /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
     /// </summary>
     /// <param name="rawJson">The raw JSON data.</param>
@@ -219,6 +276,18 @@ public static class Json2Sharp
     /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, ReadOnlyMemory<char> rawJson)
         => Parse(objectName, rawJson, new Json2SharpOptions());
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration for the specified <paramref name="language"/>.
+    /// </summary>
+    /// <param name="objectName">The name of the type.</param>
+    /// <param name="rawJson">The raw JSON data.</param>
+    /// <param name="language">The target language.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="rawJson"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(string objectName, ReadOnlyMemory<char> rawJson, Language language)
+        => Parse(objectName, rawJson, new Json2SharpOptions() { TargetLanguage = language });
 
     /// <summary>
     /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
@@ -264,6 +333,17 @@ public static class Json2Sharp
         => Parse("Root", utf8Json, new Json2SharpOptions());
     
     /// <summary>
+    /// Parses raw JSON data into a type declaration for the specified <paramref name="language"/>.
+    /// </summary>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <param name="language">The target language.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(ReadOnlyMemory<byte> utf8Json, Language language)
+        => Parse("Root", utf8Json, new Json2SharpOptions() { TargetLanguage = language });
+    
+    /// <summary>
     /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
     /// </summary>
     /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
@@ -295,6 +375,18 @@ public static class Json2Sharp
     /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, ReadOnlyMemory<byte> utf8Json)
         => Parse(objectName, utf8Json, new Json2SharpOptions());
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration for the specified <paramref name="language"/>.
+    /// </summary>
+    /// <param name="objectName">The name of the type.</param>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <param name="language">The target language.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(string objectName, ReadOnlyMemory<byte> utf8Json, Language language)
+        => Parse(objectName, utf8Json, new Json2SharpOptions() { TargetLanguage = language });
 
     /// <summary>
     /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
@@ -340,6 +432,17 @@ public static class Json2Sharp
         => Parse("Root", utf8Json, new Json2SharpOptions());
     
     /// <summary>
+    /// Parses raw JSON data into a type declaration for the specified <paramref name="language"/>.
+    /// </summary>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <param name="language">The target language.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(ReadOnlySequence<byte> utf8Json, Language language)
+        => Parse("Root", utf8Json, new Json2SharpOptions() { TargetLanguage = language });
+    
+    /// <summary>
     /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
     /// </summary>
     /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
@@ -371,6 +474,18 @@ public static class Json2Sharp
     /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
     public static string Parse(string objectName, ReadOnlySequence<byte> utf8Json)
         => Parse(objectName, utf8Json, new Json2SharpOptions());
+    
+    /// <summary>
+    /// Parses raw JSON data into a type declaration for the specified <paramref name="language"/>.
+    /// </summary>
+    /// <param name="objectName">The name of the type.</param>
+    /// <param name="utf8Json">The raw JSON data in UTF-8.</param>
+    /// <param name="language">The target language.</param>
+    /// <returns>A type declaration.</returns>
+    /// <exception cref="InvalidOperationException">Occurs when the input doesn't contain a valid Json type.</exception>
+    /// <exception cref="JsonException">Occurs when <paramref name="utf8Json"/> does not represent a valid single JSON value.</exception>
+    public static string Parse(string objectName, ReadOnlySequence<byte> utf8Json, Language language)
+        => Parse(objectName, utf8Json, new Json2SharpOptions() { TargetLanguage = language });
 
     /// <summary>
     /// Parses raw JSON data into a type declaration specified by <paramref name="options"/>.
