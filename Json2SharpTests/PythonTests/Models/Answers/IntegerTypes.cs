@@ -81,4 +81,30 @@ internal static class IntegerTypes
                 self.ulong_number = ulong_number
 
         """;
+
+    public const string PydanticOptionalOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated
+
+
+        class IntegerTypes(BaseModel):
+            int_number: Annotated[int, Field(alias='int_number')]
+            uint_number: Annotated[int, Field(alias='uint_number')]
+            long_number: Annotated[int, Field(alias='long_number')]
+            ulong_number: Annotated[int, Field(alias='ulong_number')]
+
+        """;
+
+    public const string PydanticPipeOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated
+
+
+        class IntegerTypes(BaseModel):
+            int_number: Annotated[int, Field(alias='int_number')]
+            uint_number: Annotated[int, Field(alias='uint_number')]
+            long_number: Annotated[int, Field(alias='long_number')]
+            ulong_number: Annotated[int, Field(alias='ulong_number')]
+
+        """;
 }

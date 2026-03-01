@@ -111,6 +111,7 @@ internal sealed class ConfigHandler
             AddTypeHints = !configOptions.Any(x => x is "nth" or "notypehints"),
             UseDataClass = !configOptions.Any(x => x is "ndc" or "nodataclass"),
             UseOptional = configOptions.Any(x => x is "opt" or "optional"),
+            UsePydantic = configOptions.Any(x => x is "pyd" or "pydantic"),
 
             IndentationCharacterAmount = (int.TryParse(indentationAmountOption, out var indentationAmount))
                 ? indentationAmount

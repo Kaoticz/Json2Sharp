@@ -72,4 +72,28 @@ internal static class FloatTypes
                 self.decimal_number = decimal_number
 
         """;
+
+    public const string PydanticOptionalOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated
+
+
+        class FloatTypes(BaseModel):
+            float_number: Annotated[float, Field(alias='float_number')]
+            double_number: Annotated[float, Field(alias='double_number')]
+            decimal_number: Annotated[float, Field(alias='decimal_number')]
+
+        """;
+
+    public const string PydanticPipeOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated
+
+
+        class FloatTypes(BaseModel):
+            float_number: Annotated[float, Field(alias='float_number')]
+            double_number: Annotated[float, Field(alias='double_number')]
+            decimal_number: Annotated[float, Field(alias='decimal_number')]
+
+        """;
 }

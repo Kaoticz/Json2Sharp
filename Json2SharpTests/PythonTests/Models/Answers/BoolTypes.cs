@@ -63,4 +63,26 @@ internal static class BoolTypes
                 self.false_bool = false_bool
 
         """;
+
+    public const string PydanticOptionalOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated
+
+
+        class BoolTypes(BaseModel):
+            true_bool: Annotated[bool, Field(alias='true_bool')]
+            false_bool: Annotated[bool, Field(alias='false_bool')]
+
+        """;
+
+    public const string PydanticPipeOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated
+
+
+        class BoolTypes(BaseModel):
+            true_bool: Annotated[bool, Field(alias='true_bool')]
+            false_bool: Annotated[bool, Field(alias='false_bool')]
+
+        """;
 }

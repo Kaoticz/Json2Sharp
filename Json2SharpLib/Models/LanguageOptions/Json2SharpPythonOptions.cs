@@ -25,6 +25,12 @@ public sealed record Json2SharpPythonOptions : BaseLanguageOptions
     /// </summary>
     public bool UseOptional { get; init; }
 
+    /// <summary>
+    /// Defines whether the emitted class should be a Pydantic model. <br />
+    /// Default is <see langword="false"/>.
+    /// </summary>
+    public bool UsePydantic { get; init; }
+
     /// <inheritdoc />
     public override Func<string, string> TypeNameHandler { get; init; } = static propertyName => propertyName.ToPascalCase();
 }

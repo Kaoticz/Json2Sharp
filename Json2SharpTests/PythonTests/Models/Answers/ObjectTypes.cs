@@ -176,4 +176,52 @@ internal static class ObjectTypes
                 self.thing = thing
 
         """;
+
+    public const string PydanticOptionalOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated, Optional
+
+
+        class PropCustomColon(BaseModel):
+            blep: Annotated[str, Field(alias='blep')]
+
+
+        class Thing(BaseModel):
+            text: Annotated[str, Field(alias='text')]
+            number: Annotated[int, Field(alias='number')]
+            int_array: Annotated[list[int], Field(alias='int_array')]
+            prop_base_colon: Annotated[int, Field(alias='prop_base:colon')]
+            prop_custom_colon: Annotated[PropCustomColon, Field(alias='prop_custom:colon')]
+
+
+        class ObjectTypes(BaseModel):
+            null_thing: Annotated[Optional[object], Field(alias='null_thing')]
+            empty_thing: Annotated[object, Field(alias='empty_thing')]
+            thing: Annotated[Thing, Field(alias='thing')]
+
+        """;
+
+    public const string PydanticPipeOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated
+
+
+        class PropCustomColon(BaseModel):
+            blep: Annotated[str, Field(alias='blep')]
+
+
+        class Thing(BaseModel):
+            text: Annotated[str, Field(alias='text')]
+            number: Annotated[int, Field(alias='number')]
+            int_array: Annotated[list[int], Field(alias='int_array')]
+            prop_base_colon: Annotated[int, Field(alias='prop_base:colon')]
+            prop_custom_colon: Annotated[PropCustomColon, Field(alias='prop_custom:colon')]
+
+
+        class ObjectTypes(BaseModel):
+            null_thing: Annotated[object | None, Field(alias='null_thing')]
+            empty_thing: Annotated[object, Field(alias='empty_thing')]
+            thing: Annotated[Thing, Field(alias='thing')]
+
+        """;
 }

@@ -285,4 +285,76 @@ internal static class WeirdNameTypes
                 self.snake_asterisk = snake_asterisk
 
         """;
+
+    public const string PydanticOptionalOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated
+
+
+        class ColonObject(BaseModel):
+            normal_prop: Annotated[int, Field(alias='normal_prop')]
+            nested_colon: Annotated[int, Field(alias='nested:colon')]
+
+
+        class WeirdNameTypes(BaseModel):
+            snake_case: Annotated[int, Field(alias='snake_case')]
+            camel_case: Annotated[int, Field(alias='camelCase')]
+            pascal_case: Annotated[int, Field(alias='PascalCase')]
+            screamingcase: Annotated[int, Field(alias='SCREAMINGCASE')]
+            screaming_snake: Annotated[int, Field(alias='SCREAMING_SNAKE')]
+            kebab_case: Annotated[int, Field(alias='kebab-case')]
+            pascal_snake: Annotated[int, Field(alias='Pascal_Snake')]
+            snake_case_colon: Annotated[int, Field(alias='snake_case:colon')]
+            camel_case_colon: Annotated[int, Field(alias='camelCase:colon')]
+            pascal_case_colon: Annotated[int, Field(alias='PascalCase:Colon')]
+            screamingcase_colon: Annotated[int, Field(alias='SCREAMINGCASE:COLON')]
+            screaming_snake_colon: Annotated[int, Field(alias='SCREAMING_SNAKE:COLON')]
+            kebab_case_colon: Annotated[int, Field(alias='kebab-case:colon')]
+            pascal_snake_colon: Annotated[int, Field(alias='Pascal_Snake:Colon')]
+            colon_object: Annotated[ColonObject, Field(alias='colon:object')]
+            snake_dot: Annotated[int, Field(alias='snake.dot')]
+            snake_at: Annotated[int, Field(alias='snake@at')]
+            snake_hash: Annotated[int, Field(alias='snake#hash')]
+            snake_dollar: Annotated[int, Field(alias='snake$dollar')]
+            snake_percentage: Annotated[int, Field(alias='snake%percentage')]
+            snake_ampersand: Annotated[int, Field(alias='snake&ampersand')]
+            snake_asterisk: Annotated[int, Field(alias='snake*asterisk')]
+
+        """;
+
+    public const string PydanticPipeOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated
+
+
+        class ColonObject(BaseModel):
+            normal_prop: Annotated[int, Field(alias='normal_prop')]
+            nested_colon: Annotated[int, Field(alias='nested:colon')]
+
+
+        class WeirdNameTypes(BaseModel):
+            snake_case: Annotated[int, Field(alias='snake_case')]
+            camel_case: Annotated[int, Field(alias='camelCase')]
+            pascal_case: Annotated[int, Field(alias='PascalCase')]
+            screamingcase: Annotated[int, Field(alias='SCREAMINGCASE')]
+            screaming_snake: Annotated[int, Field(alias='SCREAMING_SNAKE')]
+            kebab_case: Annotated[int, Field(alias='kebab-case')]
+            pascal_snake: Annotated[int, Field(alias='Pascal_Snake')]
+            snake_case_colon: Annotated[int, Field(alias='snake_case:colon')]
+            camel_case_colon: Annotated[int, Field(alias='camelCase:colon')]
+            pascal_case_colon: Annotated[int, Field(alias='PascalCase:Colon')]
+            screamingcase_colon: Annotated[int, Field(alias='SCREAMINGCASE:COLON')]
+            screaming_snake_colon: Annotated[int, Field(alias='SCREAMING_SNAKE:COLON')]
+            kebab_case_colon: Annotated[int, Field(alias='kebab-case:colon')]
+            pascal_snake_colon: Annotated[int, Field(alias='Pascal_Snake:Colon')]
+            colon_object: Annotated[ColonObject, Field(alias='colon:object')]
+            snake_dot: Annotated[int, Field(alias='snake.dot')]
+            snake_at: Annotated[int, Field(alias='snake@at')]
+            snake_hash: Annotated[int, Field(alias='snake#hash')]
+            snake_dollar: Annotated[int, Field(alias='snake$dollar')]
+            snake_percentage: Annotated[int, Field(alias='snake%percentage')]
+            snake_ampersand: Annotated[int, Field(alias='snake&ampersand')]
+            snake_asterisk: Annotated[int, Field(alias='snake*asterisk')]
+
+        """;
 }

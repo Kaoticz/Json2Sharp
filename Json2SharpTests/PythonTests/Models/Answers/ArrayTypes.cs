@@ -244,4 +244,66 @@ internal static class ArrayTypes
                 self.nullable_objects_array = nullable_objects_array
 
         """;
+
+    public const string PydanticOptionalOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated, Optional
+
+
+        class NullableThingArray(BaseModel):
+            text: Annotated[str, Field(alias='text')]
+
+
+        class ThingArray(BaseModel):
+            text: Annotated[str, Field(alias='text')]
+
+
+        class ArrayTypes(BaseModel):
+            empty_array: Annotated[list[object], Field(alias='empty_array')]
+            int_array: Annotated[list[int], Field(alias='int_array')]
+            nullable_int_array: Annotated[list[Optional[int]], Field(alias='nullable_int_array')]
+            float_array: Annotated[list[float], Field(alias='float_array')]
+            nullable_float_array: Annotated[list[Optional[float]], Field(alias='nullable_float_array')]
+            string_array: Annotated[list[str], Field(alias='string_array')]
+            nullable_string_array: Annotated[list[Optional[str]], Field(alias='nullable_string_array')]
+            mixed_array: Annotated[list[object], Field(alias='mixed_array')]
+            nullable_mixed_array: Annotated[list[Optional[object]], Field(alias='nullable_mixed_array')]
+            thing_array: Annotated[list[ThingArray], Field(alias='thing_array')]
+            nullable_thing_array: Annotated[list[Optional[NullableThingArray]], Field(alias='nullable_thing_array')]
+            null_array: Annotated[list[Optional[object]], Field(alias='null_array')]
+            objects_array: Annotated[list[object], Field(alias='objects_array')]
+            nullable_objects_array: Annotated[list[Optional[object]], Field(alias='nullable_objects_array')]
+
+        """;
+
+    public const string PydanticPipeOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated
+
+
+        class NullableThingArray(BaseModel):
+            text: Annotated[str, Field(alias='text')]
+
+
+        class ThingArray(BaseModel):
+            text: Annotated[str, Field(alias='text')]
+
+
+        class ArrayTypes(BaseModel):
+            empty_array: Annotated[list[object], Field(alias='empty_array')]
+            int_array: Annotated[list[int], Field(alias='int_array')]
+            nullable_int_array: Annotated[list[int | None], Field(alias='nullable_int_array')]
+            float_array: Annotated[list[float], Field(alias='float_array')]
+            nullable_float_array: Annotated[list[float | None], Field(alias='nullable_float_array')]
+            string_array: Annotated[list[str], Field(alias='string_array')]
+            nullable_string_array: Annotated[list[str | None], Field(alias='nullable_string_array')]
+            mixed_array: Annotated[list[object], Field(alias='mixed_array')]
+            nullable_mixed_array: Annotated[list[object | None], Field(alias='nullable_mixed_array')]
+            thing_array: Annotated[list[ThingArray], Field(alias='thing_array')]
+            nullable_thing_array: Annotated[list[NullableThingArray | None], Field(alias='nullable_thing_array')]
+            null_array: Annotated[list[object | None], Field(alias='null_array')]
+            objects_array: Annotated[list[object], Field(alias='objects_array')]
+            nullable_objects_array: Annotated[list[object | None], Field(alias='nullable_objects_array')]
+
+        """;
 }

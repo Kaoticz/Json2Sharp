@@ -603,6 +603,8 @@ public static class Json2Sharp
             Language.CSharp when options.CSharpOptions is { TargetType: CSharpObjectType.Record, SetterType: CSharpSetterType.Init }
                 => new CSharpRecordEmitter(options.CSharpOptions),
             Language.CSharp => new CSharpClassEmitter(options.CSharpOptions),
+            Language.Python when options.PythonOptions is { UsePydantic: true }
+                => new PythonPydanticEmitter(options.PythonOptions),
             Language.Python when options.PythonOptions is { UseDataClass: true, AddTypeHints: true }
                 => new PythonDataClassEmitter(options.PythonOptions),
             Language.Python => new PythonClassEmitter(options.PythonOptions),

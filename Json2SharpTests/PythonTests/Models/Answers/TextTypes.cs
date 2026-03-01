@@ -158,4 +158,48 @@ internal static class TextTypes
                 self.nullable_ids = nullable_ids
 
         """;
+
+    public const string PydanticOptionalOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated, Optional
+        from datetime import datetime, timedelta
+        from uuid import UUID
+
+
+        class TextTypes(BaseModel):
+            text: Annotated[str, Field(alias='text')]
+            empty_text: Annotated[str, Field(alias='empty_text')]
+            timespan: Annotated[timedelta, Field(alias='timespan')]
+            timespans: Annotated[list[timedelta], Field(alias='timespans')]
+            nullable_timespans: Annotated[list[Optional[timedelta]], Field(alias='nullable_timespans')]
+            date_time_offset: Annotated[datetime, Field(alias='date_time_offset')]
+            date_time_offset_array: Annotated[list[datetime], Field(alias='date_time_offset_array')]
+            date_time_offset_nullable_array: Annotated[list[Optional[datetime]], Field(alias='date_time_offset_nullable_array')]
+            id: Annotated[UUID, Field(alias='id')]
+            ids: Annotated[list[UUID], Field(alias='ids')]
+            nullable_ids: Annotated[list[Optional[UUID]], Field(alias='nullable_ids')]
+
+        """;
+
+    public const string PydanticPipeOutput = """
+        from pydantic import BaseModel, Field
+        from typing import Annotated
+        from datetime import datetime, timedelta
+        from uuid import UUID
+
+
+        class TextTypes(BaseModel):
+            text: Annotated[str, Field(alias='text')]
+            empty_text: Annotated[str, Field(alias='empty_text')]
+            timespan: Annotated[timedelta, Field(alias='timespan')]
+            timespans: Annotated[list[timedelta], Field(alias='timespans')]
+            nullable_timespans: Annotated[list[timedelta | None], Field(alias='nullable_timespans')]
+            date_time_offset: Annotated[datetime, Field(alias='date_time_offset')]
+            date_time_offset_array: Annotated[list[datetime], Field(alias='date_time_offset_array')]
+            date_time_offset_nullable_array: Annotated[list[datetime | None], Field(alias='date_time_offset_nullable_array')]
+            id: Annotated[UUID, Field(alias='id')]
+            ids: Annotated[list[UUID], Field(alias='ids')]
+            nullable_ids: Annotated[list[UUID | None], Field(alias='nullable_ids')]
+
+        """;
 }
