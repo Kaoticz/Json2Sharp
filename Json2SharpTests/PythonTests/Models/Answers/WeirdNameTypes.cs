@@ -32,7 +32,7 @@ internal static class WeirdNameTypes
         }
         """;
 
-    public const string DataClassOutput = """
+    public const string DataClassOutputOptional = """
         from dataclasses import dataclass
 
 
@@ -69,7 +69,104 @@ internal static class WeirdNameTypes
 
         """;
 
-    public const string Output = """
+    public const string DataClassOutputPipe = """
+        from dataclasses import dataclass
+
+
+        @dataclass
+        class ColonObject:
+            normal_prop: int
+            nested_colon: int
+
+        
+        @dataclass
+        class WeirdNameTypes:
+            snake_case: int
+            camel_case: int
+            pascal_case: int
+            screamingcase: int
+            screaming_snake: int
+            kebab_case: int
+            pascal_snake: int
+            snake_case_colon: int
+            camel_case_colon: int
+            pascal_case_colon: int
+            screamingcase_colon: int
+            screaming_snake_colon: int
+            kebab_case_colon: int
+            pascal_snake_colon: int
+            colon_object: ColonObject
+            snake_dot: int
+            snake_at: int
+            snake_hash: int
+            snake_dollar: int
+            snake_percentage: int
+            snake_ampersand: int
+            snake_asterisk: int
+
+        """;
+
+    public const string OutputOptional = """
+        class ColonObject:
+            def __init__(
+                normal_prop: int,
+                nested_colon: int
+            ) -> None:
+                self.normal_prop: int = normal_prop
+                self.nested_colon: int = nested_colon
+
+
+        class WeirdNameTypes:
+            def __init__(
+                snake_case: int,
+                camel_case: int,
+                pascal_case: int,
+                screamingcase: int,
+                screaming_snake: int,
+                kebab_case: int,
+                pascal_snake: int,
+                snake_case_colon: int,
+                camel_case_colon: int,
+                pascal_case_colon: int,
+                screamingcase_colon: int,
+                screaming_snake_colon: int,
+                kebab_case_colon: int,
+                pascal_snake_colon: int,
+                colon_object: ColonObject,
+                snake_dot: int,
+                snake_at: int,
+                snake_hash: int,
+                snake_dollar: int,
+                snake_percentage: int,
+                snake_ampersand: int,
+                snake_asterisk: int
+            ) -> None:
+                self.snake_case: int = snake_case
+                self.camel_case: int = camel_case
+                self.pascal_case: int = pascal_case
+                self.screamingcase: int = screamingcase
+                self.screaming_snake: int = screaming_snake
+                self.kebab_case: int = kebab_case
+                self.pascal_snake: int = pascal_snake
+                self.snake_case_colon: int = snake_case_colon
+                self.camel_case_colon: int = camel_case_colon
+                self.pascal_case_colon: int = pascal_case_colon
+                self.screamingcase_colon: int = screamingcase_colon
+                self.screaming_snake_colon: int = screaming_snake_colon
+                self.kebab_case_colon: int = kebab_case_colon
+                self.pascal_snake_colon: int = pascal_snake_colon
+                self.colon_object: ColonObject = colon_object
+                self.snake_dot: int = snake_dot
+                self.snake_at: int = snake_at
+                self.snake_hash: int = snake_hash
+                self.snake_dollar: int = snake_dollar
+                self.snake_percentage: int = snake_percentage
+                self.snake_ampersand: int = snake_ampersand
+                self.snake_asterisk: int = snake_asterisk
+
+        """;
+
+    public const string OutputPipe = """
         class ColonObject:
             def __init__(
                 normal_prop: int,

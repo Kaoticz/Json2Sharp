@@ -9,7 +9,7 @@ internal static class BoolTypes
         }
         """;
 
-    public const string DataClassOutput = """
+    public const string DataClassOutputOptional = """
         from dataclasses import dataclass
 
 
@@ -20,7 +20,29 @@ internal static class BoolTypes
 
         """;
 
-    public const string Output = """
+    public const string DataClassOutputPipe = """
+        from dataclasses import dataclass
+
+
+        @dataclass
+        class BoolTypes:
+            true_bool: bool
+            false_bool: bool
+
+        """;
+
+    public const string OutputOptional = """
+        class BoolTypes:
+            def __init__(
+                true_bool: bool,
+                false_bool: bool
+            ) -> None:
+                self.true_bool: bool = true_bool
+                self.false_bool: bool = false_bool
+
+        """;
+
+    public const string OutputPipe = """
         class BoolTypes:
             def __init__(
                 true_bool: bool,

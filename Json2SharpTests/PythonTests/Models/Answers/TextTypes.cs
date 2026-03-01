@@ -18,7 +18,7 @@ internal static class TextTypes
         }
         """;
 
-    public const string DataClassOutput = """
+    public const string DataClassOutputOptional = """
         from dataclasses import dataclass
         from typing import Optional
         from datetime import datetime, timedelta
@@ -41,7 +41,29 @@ internal static class TextTypes
 
         """;
 
-    public const string Output = """
+    public const string DataClassOutputPipe = """
+        from dataclasses import dataclass
+        from datetime import datetime, timedelta
+        from uuid import UUID
+
+
+        @dataclass
+        class TextTypes:
+            text: str
+            empty_text: str
+            timespan: timedelta
+            timespans: list[timedelta]
+            nullable_timespans: list[timedelta | None]
+            date_time_offset: datetime
+            date_time_offset_array: list[datetime]
+            date_time_offset_nullable_array: list[datetime | None]
+            id: UUID
+            ids: list[UUID]
+            nullable_ids: list[UUID | None]
+
+        """;
+
+    public const string OutputOptional = """
         from typing import Optional
         from datetime import datetime, timedelta
         from uuid import UUID
@@ -72,6 +94,39 @@ internal static class TextTypes
                 self.id: UUID = id
                 self.ids: list[UUID] = ids
                 self.nullable_ids: list[Optional[UUID]] = nullable_ids
+
+        """;
+
+    public const string OutputPipe = """
+        from datetime import datetime, timedelta
+        from uuid import UUID
+
+
+        class TextTypes:
+            def __init__(
+                text: str,
+                empty_text: str,
+                timespan: timedelta,
+                timespans: list[timedelta],
+                nullable_timespans: list[timedelta | None],
+                date_time_offset: datetime,
+                date_time_offset_array: list[datetime],
+                date_time_offset_nullable_array: list[datetime | None],
+                id: UUID,
+                ids: list[UUID],
+                nullable_ids: list[UUID | None]
+            ) -> None:
+                self.text: str = text
+                self.empty_text: str = empty_text
+                self.timespan: timedelta = timespan
+                self.timespans: list[timedelta] = timespans
+                self.nullable_timespans: list[timedelta | None] = nullable_timespans
+                self.date_time_offset: datetime = date_time_offset
+                self.date_time_offset_array: list[datetime] = date_time_offset_array
+                self.date_time_offset_nullable_array: list[datetime | None] = date_time_offset_nullable_array
+                self.id: UUID = id
+                self.ids: list[UUID] = ids
+                self.nullable_ids: list[UUID | None] = nullable_ids
 
         """;
 

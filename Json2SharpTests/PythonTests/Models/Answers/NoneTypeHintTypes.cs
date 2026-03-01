@@ -28,7 +28,41 @@ internal static class NoneTypeHintTypes
         }
         """;
 
-    public const string DataClassOutput = """
+    public const string DataClassOutputOptional = """
+        from dataclasses import dataclass
+        from typing import Optional
+        
+        
+        @dataclass
+        class NullableThingArray:
+            text: str
+
+
+        @dataclass
+        class ThingArray:
+            text: str
+
+
+        @dataclass
+        class NoneTypeHintTypes:
+            empty_array: list[object]
+            int_array: list[int]
+            nullable_int_array: list[Optional[int]]
+            float_array: list[float]
+            nullable_float_array: list[Optional[float]]
+            string_array: list[str]
+            nullable_string_array: list[Optional[str]]
+            mixed_array: list[object]
+            nullable_mixed_array: list[Optional[object]]
+            thing_array: list[ThingArray]
+            nullable_thing_array: list[Optional[NullableThingArray]]
+            null_array: list[Optional[object]]
+            objects_array: list[object]
+            nullable_objects_array: list[Optional[object]]
+
+        """;
+
+    public const string DataClassOutputPipe = """
         from dataclasses import dataclass
         
         
@@ -61,7 +95,59 @@ internal static class NoneTypeHintTypes
 
         """;
 
-    public const string Output = """
+    public const string OutputOptional = """
+        from typing import Optional
+
+
+        class NullableThingArray:
+            def __init__(
+                text: str
+            ) -> None:
+                self.text: str = text
+
+
+        class ThingArray:
+            def __init__(
+                text: str
+            ) -> None:
+                self.text: str = text
+
+
+        class NoneTypeHintTypes:
+            def __init__(
+                empty_array: list[object],
+                int_array: list[int],
+                nullable_int_array: list[Optional[int]],
+                float_array: list[float],
+                nullable_float_array: list[Optional[float]],
+                string_array: list[str],
+                nullable_string_array: list[Optional[str]],
+                mixed_array: list[object],
+                nullable_mixed_array: list[Optional[object]],
+                thing_array: list[ThingArray],
+                nullable_thing_array: list[Optional[NullableThingArray]],
+                null_array: list[Optional[object]],
+                objects_array: list[object],
+                nullable_objects_array: list[Optional[object]]
+            ) -> None:
+                self.empty_array: list[object] = empty_array
+                self.int_array: list[int] = int_array
+                self.nullable_int_array: list[Optional[int]] = nullable_int_array
+                self.float_array: list[float] = float_array
+                self.nullable_float_array: list[Optional[float]] = nullable_float_array
+                self.string_array: list[str] = string_array
+                self.nullable_string_array: list[Optional[str]] = nullable_string_array
+                self.mixed_array: list[object] = mixed_array
+                self.nullable_mixed_array: list[Optional[object]] = nullable_mixed_array
+                self.thing_array: list[ThingArray] = thing_array
+                self.nullable_thing_array: list[Optional[NullableThingArray]] = nullable_thing_array
+                self.null_array: list[Optional[object]] = null_array
+                self.objects_array: list[object] = objects_array
+                self.nullable_objects_array: list[Optional[object]] = nullable_objects_array
+
+        """;
+
+    public const string OutputPipe = """
         class NullableThingArray:
             def __init__(
                 text: str

@@ -10,7 +10,7 @@ internal static class FloatTypes
         }
         """;
 
-    public const string DataClassOutput = """
+    public const string DataClassOutputOptional = """
         from dataclasses import dataclass
 
 
@@ -22,7 +22,32 @@ internal static class FloatTypes
 
         """;
 
-    public const string Output = """
+    public const string DataClassOutputPipe = """
+        from dataclasses import dataclass
+
+
+        @dataclass
+        class FloatTypes:
+            float_number: float
+            double_number: float
+            decimal_number: float
+
+        """;
+
+    public const string OutputOptional = """
+        class FloatTypes:
+            def __init__(
+                float_number: float,
+                double_number: float,
+                decimal_number: float
+            ) -> None:
+                self.float_number: float = float_number
+                self.double_number: float = double_number
+                self.decimal_number: float = decimal_number
+
+        """;
+
+    public const string OutputPipe = """
         class FloatTypes:
             def __init__(
                 float_number: float,

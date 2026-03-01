@@ -11,7 +11,7 @@ internal static class IntegerTypes
         }
         """;
 
-    public const string DataClassOutput = """
+    public const string DataClassOutputOptional = """
         from dataclasses import dataclass
 
 
@@ -24,7 +24,35 @@ internal static class IntegerTypes
 
         """;
 
-    public const string Output = """
+    public const string DataClassOutputPipe = """
+        from dataclasses import dataclass
+
+
+        @dataclass
+        class IntegerTypes:
+            int_number: int
+            uint_number: int
+            long_number: int
+            ulong_number: int
+
+        """;
+
+    public const string OutputOptional = """
+        class IntegerTypes:
+            def __init__(
+                int_number: int,
+                uint_number: int,
+                long_number: int,
+                ulong_number: int
+            ) -> None:
+                self.int_number: int = int_number
+                self.uint_number: int = uint_number
+                self.long_number: int = long_number
+                self.ulong_number: int = ulong_number
+
+        """;
+
+    public const string OutputPipe = """
         class IntegerTypes:
             def __init__(
                 int_number: int,
