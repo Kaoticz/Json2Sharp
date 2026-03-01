@@ -75,8 +75,8 @@ internal static class WeirdNameTypes
                 normal_prop: int,
                 nested_colon: int
             ) -> None:
-                self.normal_prop = normal_prop
-                self.nested_colon = nested_colon
+                self.normal_prop: int = normal_prop
+                self.nested_colon: int = nested_colon
 
 
         class WeirdNameTypes:
@@ -104,28 +104,28 @@ internal static class WeirdNameTypes
                 snake_ampersand: int,
                 snake_asterisk: int
             ) -> None:
-                self.snake_case = snake_case
-                self.camel_case = camel_case
-                self.pascal_case = pascal_case
-                self.screamingcase = screamingcase
-                self.screaming_snake = screaming_snake
-                self.kebab_case = kebab_case
-                self.pascal_snake = pascal_snake
-                self.snake_case_colon = snake_case_colon
-                self.camel_case_colon = camel_case_colon
-                self.pascal_case_colon = pascal_case_colon
-                self.screamingcase_colon = screamingcase_colon
-                self.screaming_snake_colon = screaming_snake_colon
-                self.kebab_case_colon = kebab_case_colon
-                self.pascal_snake_colon = pascal_snake_colon
-                self.colon_object = colon_object
-                self.snake_dot = snake_dot
-                self.snake_at = snake_at
-                self.snake_hash = snake_hash
-                self.snake_dollar = snake_dollar
-                self.snake_percentage = snake_percentage
-                self.snake_ampersand = snake_ampersand
-                self.snake_asterisk = snake_asterisk
+                self.snake_case: int = snake_case
+                self.camel_case: int = camel_case
+                self.pascal_case: int = pascal_case
+                self.screamingcase: int = screamingcase
+                self.screaming_snake: int = screaming_snake
+                self.kebab_case: int = kebab_case
+                self.pascal_snake: int = pascal_snake
+                self.snake_case_colon: int = snake_case_colon
+                self.camel_case_colon: int = camel_case_colon
+                self.pascal_case_colon: int = pascal_case_colon
+                self.screamingcase_colon: int = screamingcase_colon
+                self.screaming_snake_colon: int = screaming_snake_colon
+                self.kebab_case_colon: int = kebab_case_colon
+                self.pascal_snake_colon: int = pascal_snake_colon
+                self.colon_object: ColonObject = colon_object
+                self.snake_dot: int = snake_dot
+                self.snake_at: int = snake_at
+                self.snake_hash: int = snake_hash
+                self.snake_dollar: int = snake_dollar
+                self.snake_percentage: int = snake_percentage
+                self.snake_ampersand: int = snake_ampersand
+                self.snake_asterisk: int = snake_asterisk
 
         """;
 

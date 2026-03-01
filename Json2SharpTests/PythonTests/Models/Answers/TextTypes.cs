@@ -61,17 +61,17 @@ internal static class TextTypes
                 ids: list[UUID],
                 nullable_ids: list[Optional[UUID]]
             ) -> None:
-                self.text = text
-                self.empty_text = empty_text
-                self.timespan = timespan
-                self.timespans = timespans
-                self.nullable_timespans = nullable_timespans
-                self.date_time_offset = date_time_offset
-                self.date_time_offset_array = date_time_offset_array
-                self.date_time_offset_nullable_array = date_time_offset_nullable_array
-                self.id = id
-                self.ids = ids
-                self.nullable_ids = nullable_ids
+                self.text: str = text
+                self.empty_text: str = empty_text
+                self.timespan: timedelta = timespan
+                self.timespans: list[timedelta] = timespans
+                self.nullable_timespans: list[Optional[timedelta]] = nullable_timespans
+                self.date_time_offset: datetime = date_time_offset
+                self.date_time_offset_array: list[datetime] = date_time_offset_array
+                self.date_time_offset_nullable_array: list[Optional[datetime]] = date_time_offset_nullable_array
+                self.id: UUID = id
+                self.ids: list[UUID] = ids
+                self.nullable_ids: list[Optional[UUID]] = nullable_ids
 
         """;
 

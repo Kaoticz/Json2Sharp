@@ -32,10 +32,10 @@ internal static class IntegerTypes
                 long_number: int,
                 ulong_number: int
             ) -> None:
-                self.int_number = int_number
-                self.uint_number = uint_number
-                self.long_number = long_number
-                self.ulong_number = ulong_number
+                self.int_number: int = int_number
+                self.uint_number: int = uint_number
+                self.long_number: int = long_number
+                self.ulong_number: int = ulong_number
 
         """;
 

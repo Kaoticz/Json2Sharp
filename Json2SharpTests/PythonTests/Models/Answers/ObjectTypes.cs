@@ -51,7 +51,7 @@ internal static class ObjectTypes
             def __init__(
                 blep: str
             ) -> None:
-                self.blep = blep
+                self.blep: str = blep
 
 
         class Thing:
@@ -62,11 +62,11 @@ internal static class ObjectTypes
                 prop_base_colon: int,
                 prop_custom_colon: PropCustomColon
             ) -> None:
-                self.text = text
-                self.number = number
-                self.int_array = int_array
-                self.prop_base_colon = prop_base_colon
-                self.prop_custom_colon = prop_custom_colon
+                self.text: str = text
+                self.number: int = number
+                self.int_array: list[int] = int_array
+                self.prop_base_colon: int = prop_base_colon
+                self.prop_custom_colon: PropCustomColon = prop_custom_colon
 
 
         class ObjectTypes:
@@ -75,9 +75,9 @@ internal static class ObjectTypes
                 empty_thing: object,
                 thing: Thing
             ) -> None:
-                self.null_thing = null_thing
-                self.empty_thing = empty_thing
-                self.thing = thing
+                self.null_thing: Optional[object] = null_thing
+                self.empty_thing: object = empty_thing
+                self.thing: Thing = thing
 
         """;
 

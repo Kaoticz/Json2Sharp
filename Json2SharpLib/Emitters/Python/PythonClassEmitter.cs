@@ -59,7 +59,8 @@ internal sealed class PythonClassEmitter : CodeEmitter
         foreach (var property in properties)
         {
             var sanitizedJsonName = property.JsonName.ToSnakeCase();
-            stringBuilder.AppendIndentedLine($"self.{sanitizedJsonName} = {sanitizedJsonName}", _indentationPadding, 2);
+            var typeHint = (_addTypeHint) ? $": {GetPropertyType(property)}" : string.Empty;
+            stringBuilder.AppendIndentedLine($"self.{sanitizedJsonName}{typeHint} = {sanitizedJsonName}", _indentationPadding, 2);
         }
 
         // Add extra classes above the root class
@@ -109,11 +110,62 @@ internal sealed class PythonClassEmitter : CodeEmitter
     /// <inheritdoc />
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
     {
-        var propertyType = (IsArrayOfNullableType(property, Language.Python, childrenTypes, out typeName))
+        var typeHint = GetArrayTypeHint(property, childrenTypes, out typeName);
+        return $"{property.JsonName.ToSnakeCase()}{((_addTypeHint) ? $": {typeHint}" : string.Empty)},";
+    }
+
+    /// <summary>
+    /// Gets the type hint for an array <paramref name="property"/>.
+    /// </summary>
+    /// <param name="property">The property to be processed.</param>
+    /// <param name="childrenTypes">The unique types present in the array.</param>
+    /// <param name="typeName">The type of array that got parsed.</param>
+    /// <returns>The type hint.</returns>
+    private string GetArrayTypeHint(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
+    {
+        var actualChildrenTypes = (childrenTypes.Count is 0)
+            ? J2SUtils.GetArrayTypes(property)
+            : childrenTypes;
+
+        if (actualChildrenTypes.Count is 0 && property.Children.Count is not 0)
+        {
+            actualChildrenTypes = property.Children
+                .DistinctBy(x => x.JsonElement.ValueKind)
+                .ToArray();
+        }
+
+        if (actualChildrenTypes.Count is 0)
+        {
+            typeName = J2SUtils.GetAliasName(typeof(object), Language.Python);
+            return $"list[{typeName}]";
+        }
+
+        var propertyType = (IsArrayOfNullableType(property, Language.Python, actualChildrenTypes, out typeName))
             ? string.Format(_typeHintNoneTemplate, typeName)
             : typeName;
 
-        return $"{property.JsonName.ToSnakeCase()}{((_addTypeHint) ? $": list[{propertyType}]" : string.Empty)},";
+        return $"list[{propertyType}]";
+    }
+
+    /// <summary>
+    /// Gets the type hint for the specified <paramref name="property"/>.
+    /// </summary>
+    /// <param name="property">The property to be processed.</param>
+    /// <returns>The type hint.</returns>
+    private string GetPropertyType(ParsedJsonProperty property)
+    {
+        if (property.JsonElement.ValueKind is JsonValueKind.Object)
+            return GetObjectTypeName(property, Language.Python);
+        
+        if (property.JsonElement.ValueKind is JsonValueKind.Array)
+            return GetArrayTypeHint(property, Array.Empty<ParsedJsonProperty>(), out _);
+
+        var isNullable = J2SUtils.IsPropertyNullable(property.JsonElement);
+        var typeName = J2SUtils.GetAliasName(property.BclType, Language.Python);
+
+        return (isNullable)
+            ? string.Format(_typeHintNoneTemplate, typeName)
+            : typeName;
     }
 
     /// <summary>

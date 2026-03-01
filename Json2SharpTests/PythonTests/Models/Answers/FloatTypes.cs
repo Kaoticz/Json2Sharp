@@ -29,9 +29,9 @@ internal static class FloatTypes
                 double_number: float,
                 decimal_number: float
             ) -> None:
-                self.float_number = float_number
-                self.double_number = double_number
-                self.decimal_number = decimal_number
+                self.float_number: float = float_number
+                self.double_number: float = double_number
+                self.decimal_number: float = decimal_number
 
         """;
 

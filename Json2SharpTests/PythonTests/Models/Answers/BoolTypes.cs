@@ -26,8 +26,8 @@ internal static class BoolTypes
                 true_bool: bool,
                 false_bool: bool
             ) -> None:
-                self.true_bool = true_bool
-                self.false_bool = false_bool
+                self.true_bool: bool = true_bool
+                self.false_bool: bool = false_bool
 
         """;
 

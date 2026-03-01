@@ -51,7 +51,7 @@ internal static class CustomHandleTypes
             def __init__(
                 blep: str
             ) -> None:
-                self.blep = blep
+                self.blep: str = blep
 
 
         class thing:
@@ -62,11 +62,11 @@ internal static class CustomHandleTypes
                 prop_base_colon: int,
                 prop_custom_colon: prop_custom_colon
             ) -> None:
-                self.text = text
-                self.number = number
-                self.int_array = int_array
-                self.prop_base_colon = prop_base_colon
-                self.prop_custom_colon = prop_custom_colon
+                self.text: str = text
+                self.number: int = number
+                self.int_array: list[int] = int_array
+                self.prop_base_colon: int = prop_base_colon
+                self.prop_custom_colon: prop_custom_colon = prop_custom_colon
 
 
         class custom_handle_types:
@@ -75,9 +75,9 @@ internal static class CustomHandleTypes
                 empty_thing: object,
                 thing: thing
             ) -> None:
-                self.null_thing = null_thing
-                self.empty_thing = empty_thing
-                self.thing = thing
+                self.null_thing: Optional[object] = null_thing
+                self.empty_thing: object = empty_thing
+                self.thing: thing = thing
 
         """;
 

@@ -70,14 +70,14 @@ internal static class ArrayTypes
             def __init__(
                 text: str
             ) -> None:
-                self.text = text
+                self.text: str = text
 
 
         class ThingArray:
             def __init__(
                 text: str
             ) -> None:
-                self.text = text
+                self.text: str = text
 
 
         class ArrayTypes:
@@ -97,20 +97,20 @@ internal static class ArrayTypes
                 objects_array: list[object],
                 nullable_objects_array: list[Optional[object]]
             ) -> None:
-                self.empty_array = empty_array
-                self.int_array = int_array
-                self.nullable_int_array = nullable_int_array
-                self.float_array = float_array
-                self.nullable_float_array = nullable_float_array
-                self.string_array = string_array
-                self.nullable_string_array = nullable_string_array
-                self.mixed_array = mixed_array
-                self.nullable_mixed_array = nullable_mixed_array
-                self.thing_array = thing_array
-                self.nullable_thing_array = nullable_thing_array
-                self.null_array = null_array
-                self.objects_array = objects_array
-                self.nullable_objects_array = nullable_objects_array
+                self.empty_array: list[object] = empty_array
+                self.int_array: list[int] = int_array
+                self.nullable_int_array: list[Optional[int]] = nullable_int_array
+                self.float_array: list[float] = float_array
+                self.nullable_float_array: list[Optional[float]] = nullable_float_array
+                self.string_array: list[str] = string_array
+                self.nullable_string_array: list[Optional[str]] = nullable_string_array
+                self.mixed_array: list[object] = mixed_array
+                self.nullable_mixed_array: list[Optional[object]] = nullable_mixed_array
+                self.thing_array: list[ThingArray] = thing_array
+                self.nullable_thing_array: list[Optional[NullableThingArray]] = nullable_thing_array
+                self.null_array: list[Optional[object]] = null_array
+                self.objects_array: list[object] = objects_array
+                self.nullable_objects_array: list[Optional[object]] = nullable_objects_array
 
         """;
 
