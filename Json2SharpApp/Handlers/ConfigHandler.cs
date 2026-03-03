@@ -110,7 +110,7 @@ internal sealed class ConfigHandler
         {
             AddTypeHints = !configOptions.Any(x => x is "nth" or "notypehints"),
             TargetType = configOptions.Any(x => x is "pyd" or "pydantic") ? PythonObjectType.Pydantic
-                : configOptions.Any(x => x is "ndc" or "nodataclass") ? PythonObjectType.Class
+                : configOptions.Any(x => x is "class" ) ? PythonObjectType.Class
                 : PythonObjectType.DataClass,
             UseOptional = configOptions.Any(x => x is "opt" or "optional"),
 
