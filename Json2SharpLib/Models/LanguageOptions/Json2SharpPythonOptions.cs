@@ -1,3 +1,4 @@
+using Json2SharpLib.Enums;
 using Json2SharpLib.Models.LanguageOptions.Abstractions;
 
 namespace Json2SharpLib.Models.LanguageOptions;
@@ -14,22 +15,16 @@ public sealed record Json2SharpPythonOptions : BaseLanguageOptions
     public bool AddTypeHints { get; init; } = true;
 
     /// <summary>
-    /// Defines whether the emitted class should be a Python data class. <br />
-    /// Default is <see langword="true"/>.
+    /// Defines the type of object that should be emitted. <br />
+    /// Default is <see cref="PythonObjectType.DataClass"/>.
     /// </summary>
-    public bool UseDataClass { get; init; } = true;
+    public PythonObjectType TargetType { get; init; } = PythonObjectType.DataClass;
 
     /// <summary>
     /// Defines whether the emitted class should use "Optional" from the "typing" module. <br />
     /// Default is <see langword="false"/>.
     /// </summary>
     public bool UseOptional { get; init; }
-
-    /// <summary>
-    /// Defines whether the emitted class should be a Pydantic model. <br />
-    /// Default is <see langword="false"/>.
-    /// </summary>
-    public bool UsePydantic { get; init; }
 
     /// <inheritdoc />
     public override Func<string, string> TypeNameHandler { get; init; } = static propertyName => propertyName.ToPascalCase();
