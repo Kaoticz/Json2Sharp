@@ -1010,8 +1010,10 @@ internal static class ArrayTypes
         import com.fasterxml.jackson.annotation.JsonProperty;
         import java.util.ArrayList;
         import java.util.List;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @JsonProperty("empty_array")
             @NonNull
@@ -1061,146 +1063,20 @@ internal static class ArrayTypes
 
             @JsonProperty("nullable_objects_array")
             private List<Object> nullableObjectsArray = new ArrayList<>();
-
-            public List<Object> getEmptyArray() {
-                return emptyArray;
-            }
-
-            public void setEmptyArray(List<Object> emptyArray) {
-                this.emptyArray = emptyArray;
-            }
-
-            public List<Integer> getIntArray() {
-                return intArray;
-            }
-
-            public void setIntArray(List<Integer> intArray) {
-                this.intArray = intArray;
-            }
-
-            public List<Integer> getNullableIntArray() {
-                return nullableIntArray;
-            }
-
-            public void setNullableIntArray(List<Integer> nullableIntArray) {
-                this.nullableIntArray = nullableIntArray;
-            }
-
-            public List<Float> getFloatArray() {
-                return floatArray;
-            }
-
-            public void setFloatArray(List<Float> floatArray) {
-                this.floatArray = floatArray;
-            }
-
-            public List<Float> getNullableFloatArray() {
-                return nullableFloatArray;
-            }
-
-            public void setNullableFloatArray(List<Float> nullableFloatArray) {
-                this.nullableFloatArray = nullableFloatArray;
-            }
-
-            public List<String> getStringArray() {
-                return stringArray;
-            }
-
-            public void setStringArray(List<String> stringArray) {
-                this.stringArray = stringArray;
-            }
-
-            public List<String> getNullableStringArray() {
-                return nullableStringArray;
-            }
-
-            public void setNullableStringArray(List<String> nullableStringArray) {
-                this.nullableStringArray = nullableStringArray;
-            }
-
-            public List<Object> getMixedArray() {
-                return mixedArray;
-            }
-
-            public void setMixedArray(List<Object> mixedArray) {
-                this.mixedArray = mixedArray;
-            }
-
-            public List<Object> getNullableMixedArray() {
-                return nullableMixedArray;
-            }
-
-            public void setNullableMixedArray(List<Object> nullableMixedArray) {
-                this.nullableMixedArray = nullableMixedArray;
-            }
-
-            public List<ThingArray> getThingArray() {
-                return thingArray;
-            }
-
-            public void setThingArray(List<ThingArray> thingArray) {
-                this.thingArray = thingArray;
-            }
-
-            public List<NullableThingArray> getNullableThingArray() {
-                return nullableThingArray;
-            }
-
-            public void setNullableThingArray(List<NullableThingArray> nullableThingArray) {
-                this.nullableThingArray = nullableThingArray;
-            }
-
-            public List<Object> getNullArray() {
-                return nullArray;
-            }
-
-            public void setNullArray(List<Object> nullArray) {
-                this.nullArray = nullArray;
-            }
-
-            public List<Object> getObjectsArray() {
-                return objectsArray;
-            }
-
-            public void setObjectsArray(List<Object> objectsArray) {
-                this.objectsArray = objectsArray;
-            }
-
-            public List<Object> getNullableObjectsArray() {
-                return nullableObjectsArray;
-            }
-
-            public void setNullableObjectsArray(List<Object> nullableObjectsArray) {
-                this.nullableObjectsArray = nullableObjectsArray;
-            }
         }
 
+        @Data
         public class ThingArray {
             @JsonProperty("text")
             @NonNull
             private String text;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
         }
 
+        @Data
         public class NullableThingArray {
             @JsonProperty("text")
             @NonNull
             private String text;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
         }
         """;
 
@@ -2220,8 +2096,10 @@ internal static class ArrayTypes
         import com.google.gson.annotations.SerializedName;
         import java.util.ArrayList;
         import java.util.List;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @SerializedName("empty_array")
             @NonNull
@@ -2271,146 +2149,20 @@ internal static class ArrayTypes
 
             @SerializedName("nullable_objects_array")
             private List<Object> nullableObjectsArray = new ArrayList<>();
-
-            public List<Object> getEmptyArray() {
-                return emptyArray;
-            }
-
-            public void setEmptyArray(List<Object> emptyArray) {
-                this.emptyArray = emptyArray;
-            }
-
-            public List<Integer> getIntArray() {
-                return intArray;
-            }
-
-            public void setIntArray(List<Integer> intArray) {
-                this.intArray = intArray;
-            }
-
-            public List<Integer> getNullableIntArray() {
-                return nullableIntArray;
-            }
-
-            public void setNullableIntArray(List<Integer> nullableIntArray) {
-                this.nullableIntArray = nullableIntArray;
-            }
-
-            public List<Float> getFloatArray() {
-                return floatArray;
-            }
-
-            public void setFloatArray(List<Float> floatArray) {
-                this.floatArray = floatArray;
-            }
-
-            public List<Float> getNullableFloatArray() {
-                return nullableFloatArray;
-            }
-
-            public void setNullableFloatArray(List<Float> nullableFloatArray) {
-                this.nullableFloatArray = nullableFloatArray;
-            }
-
-            public List<String> getStringArray() {
-                return stringArray;
-            }
-
-            public void setStringArray(List<String> stringArray) {
-                this.stringArray = stringArray;
-            }
-
-            public List<String> getNullableStringArray() {
-                return nullableStringArray;
-            }
-
-            public void setNullableStringArray(List<String> nullableStringArray) {
-                this.nullableStringArray = nullableStringArray;
-            }
-
-            public List<Object> getMixedArray() {
-                return mixedArray;
-            }
-
-            public void setMixedArray(List<Object> mixedArray) {
-                this.mixedArray = mixedArray;
-            }
-
-            public List<Object> getNullableMixedArray() {
-                return nullableMixedArray;
-            }
-
-            public void setNullableMixedArray(List<Object> nullableMixedArray) {
-                this.nullableMixedArray = nullableMixedArray;
-            }
-
-            public List<ThingArray> getThingArray() {
-                return thingArray;
-            }
-
-            public void setThingArray(List<ThingArray> thingArray) {
-                this.thingArray = thingArray;
-            }
-
-            public List<NullableThingArray> getNullableThingArray() {
-                return nullableThingArray;
-            }
-
-            public void setNullableThingArray(List<NullableThingArray> nullableThingArray) {
-                this.nullableThingArray = nullableThingArray;
-            }
-
-            public List<Object> getNullArray() {
-                return nullArray;
-            }
-
-            public void setNullArray(List<Object> nullArray) {
-                this.nullArray = nullArray;
-            }
-
-            public List<Object> getObjectsArray() {
-                return objectsArray;
-            }
-
-            public void setObjectsArray(List<Object> objectsArray) {
-                this.objectsArray = objectsArray;
-            }
-
-            public List<Object> getNullableObjectsArray() {
-                return nullableObjectsArray;
-            }
-
-            public void setNullableObjectsArray(List<Object> nullableObjectsArray) {
-                this.nullableObjectsArray = nullableObjectsArray;
-            }
         }
 
+        @Data
         public class ThingArray {
             @SerializedName("text")
             @NonNull
             private String text;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
         }
 
+        @Data
         public class NullableThingArray {
             @SerializedName("text")
             @NonNull
             private String text;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
         }
         """;
 
@@ -3430,8 +3182,10 @@ internal static class ArrayTypes
         import com.squareup.moshi.Json;
         import java.util.ArrayList;
         import java.util.List;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @Json(name = "empty_array")
             @NonNull
@@ -3481,146 +3235,20 @@ internal static class ArrayTypes
 
             @Json(name = "nullable_objects_array")
             private List<Object> nullableObjectsArray = new ArrayList<>();
-
-            public List<Object> getEmptyArray() {
-                return emptyArray;
-            }
-
-            public void setEmptyArray(List<Object> emptyArray) {
-                this.emptyArray = emptyArray;
-            }
-
-            public List<Integer> getIntArray() {
-                return intArray;
-            }
-
-            public void setIntArray(List<Integer> intArray) {
-                this.intArray = intArray;
-            }
-
-            public List<Integer> getNullableIntArray() {
-                return nullableIntArray;
-            }
-
-            public void setNullableIntArray(List<Integer> nullableIntArray) {
-                this.nullableIntArray = nullableIntArray;
-            }
-
-            public List<Float> getFloatArray() {
-                return floatArray;
-            }
-
-            public void setFloatArray(List<Float> floatArray) {
-                this.floatArray = floatArray;
-            }
-
-            public List<Float> getNullableFloatArray() {
-                return nullableFloatArray;
-            }
-
-            public void setNullableFloatArray(List<Float> nullableFloatArray) {
-                this.nullableFloatArray = nullableFloatArray;
-            }
-
-            public List<String> getStringArray() {
-                return stringArray;
-            }
-
-            public void setStringArray(List<String> stringArray) {
-                this.stringArray = stringArray;
-            }
-
-            public List<String> getNullableStringArray() {
-                return nullableStringArray;
-            }
-
-            public void setNullableStringArray(List<String> nullableStringArray) {
-                this.nullableStringArray = nullableStringArray;
-            }
-
-            public List<Object> getMixedArray() {
-                return mixedArray;
-            }
-
-            public void setMixedArray(List<Object> mixedArray) {
-                this.mixedArray = mixedArray;
-            }
-
-            public List<Object> getNullableMixedArray() {
-                return nullableMixedArray;
-            }
-
-            public void setNullableMixedArray(List<Object> nullableMixedArray) {
-                this.nullableMixedArray = nullableMixedArray;
-            }
-
-            public List<ThingArray> getThingArray() {
-                return thingArray;
-            }
-
-            public void setThingArray(List<ThingArray> thingArray) {
-                this.thingArray = thingArray;
-            }
-
-            public List<NullableThingArray> getNullableThingArray() {
-                return nullableThingArray;
-            }
-
-            public void setNullableThingArray(List<NullableThingArray> nullableThingArray) {
-                this.nullableThingArray = nullableThingArray;
-            }
-
-            public List<Object> getNullArray() {
-                return nullArray;
-            }
-
-            public void setNullArray(List<Object> nullArray) {
-                this.nullArray = nullArray;
-            }
-
-            public List<Object> getObjectsArray() {
-                return objectsArray;
-            }
-
-            public void setObjectsArray(List<Object> objectsArray) {
-                this.objectsArray = objectsArray;
-            }
-
-            public List<Object> getNullableObjectsArray() {
-                return nullableObjectsArray;
-            }
-
-            public void setNullableObjectsArray(List<Object> nullableObjectsArray) {
-                this.nullableObjectsArray = nullableObjectsArray;
-            }
         }
 
+        @Data
         public class ThingArray {
             @Json(name = "text")
             @NonNull
             private String text;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
         }
 
+        @Data
         public class NullableThingArray {
             @Json(name = "text")
             @NonNull
             private String text;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
         }
         """;
 

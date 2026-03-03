@@ -276,8 +276,10 @@ internal static class FloatTypes
 
     public const string JacksonLombokOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @JsonProperty("float")
             @NonNull
@@ -293,38 +295,6 @@ internal static class FloatTypes
 
             @JsonProperty("nullable_float")
             private Object nullableFloat;
-
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
-            }
-
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
-            }
-
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
-            }
-
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
-            }
-
-            public Float getDecimal() {
-                return decimal;
-            }
-
-            public void setDecimal(Float decimal) {
-                this.decimal = decimal;
-            }
-
-            public Object getNullableFloat() {
-                return nullableFloat;
-            }
-
-            public void setNullableFloat(Object nullableFloat) {
-                this.nullableFloat = nullableFloat;
-            }
         }
         """;
 
@@ -604,8 +574,10 @@ internal static class FloatTypes
 
     public const string GsonLombokOutput = """
         import com.google.gson.annotations.SerializedName;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @SerializedName("float")
             @NonNull
@@ -621,38 +593,6 @@ internal static class FloatTypes
 
             @SerializedName("nullable_float")
             private Object nullableFloat;
-
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
-            }
-
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
-            }
-
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
-            }
-
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
-            }
-
-            public Float getDecimal() {
-                return decimal;
-            }
-
-            public void setDecimal(Float decimal) {
-                this.decimal = decimal;
-            }
-
-            public Object getNullableFloat() {
-                return nullableFloat;
-            }
-
-            public void setNullableFloat(Object nullableFloat) {
-                this.nullableFloat = nullableFloat;
-            }
         }
         """;
 
@@ -932,8 +872,10 @@ internal static class FloatTypes
 
     public const string MoshiLombokOutput = """
         import com.squareup.moshi.Json;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @Json(name = "float")
             @NonNull
@@ -949,38 +891,6 @@ internal static class FloatTypes
 
             @Json(name = "nullable_float")
             private Object nullableFloat;
-
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
-            }
-
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
-            }
-
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
-            }
-
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
-            }
-
-            public Float getDecimal() {
-                return decimal;
-            }
-
-            public void setDecimal(Float decimal) {
-                this.decimal = decimal;
-            }
-
-            public Object getNullableFloat() {
-                return nullableFloat;
-            }
-
-            public void setNullableFloat(Object nullableFloat) {
-                this.nullableFloat = nullableFloat;
-            }
         }
         """;
 

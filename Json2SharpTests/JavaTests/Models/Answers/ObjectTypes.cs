@@ -536,6 +536,7 @@ internal static class ObjectTypes
         import com.fasterxml.jackson.annotation.JsonProperty;
         import lombok.NonNull;
 
+        @lombok.Data
         public class Root {
             @JsonProperty("empty_object")
             @NonNull
@@ -551,54 +552,16 @@ internal static class ObjectTypes
 
             @JsonProperty("nullable_object")
             private Object nullableObject;
-
-            public Object getEmptyObject() {
-                return emptyObject;
-            }
-
-            public void setEmptyObject(Object emptyObject) {
-                this.emptyObject = emptyObject;
-            }
-
-            public SimpleObject getSimpleObject() {
-                return simpleObject;
-            }
-
-            public void setSimpleObject(SimpleObject simpleObject) {
-                this.simpleObject = simpleObject;
-            }
-
-            public NestedObject getNestedObject() {
-                return nestedObject;
-            }
-
-            public void setNestedObject(NestedObject nestedObject) {
-                this.nestedObject = nestedObject;
-            }
-
-            public Object getNullableObject() {
-                return nullableObject;
-            }
-
-            public void setNullableObject(Object nullableObject) {
-                this.nullableObject = nullableObject;
-            }
         }
 
+        @lombok.Data
         public class SimpleObject {
             @JsonProperty("text")
             @NonNull
             private String text;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
         }
 
+        @lombok.Data
         public class NestedObject {
             @JsonProperty("id")
             @NonNull
@@ -607,36 +570,13 @@ internal static class ObjectTypes
             @JsonProperty("data")
             @NonNull
             private Data data;
-
-            public Integer getId() {
-                return id;
-            }
-
-            public void setId(Integer id) {
-                this.id = id;
-            }
-
-            public Data getData() {
-                return data;
-            }
-
-            public void setData(Data data) {
-                this.data = data;
-            }
         }
 
+        @lombok.Data
         public class Data {
             @JsonProperty("text")
             @NonNull
             private String text;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
         }
         """;
 
@@ -1184,6 +1124,7 @@ internal static class ObjectTypes
         import com.google.gson.annotations.SerializedName;
         import lombok.NonNull;
 
+        @lombok.Data
         public class Root {
             @SerializedName("empty_object")
             @NonNull
@@ -1199,54 +1140,16 @@ internal static class ObjectTypes
 
             @SerializedName("nullable_object")
             private Object nullableObject;
-
-            public Object getEmptyObject() {
-                return emptyObject;
-            }
-
-            public void setEmptyObject(Object emptyObject) {
-                this.emptyObject = emptyObject;
-            }
-
-            public SimpleObject getSimpleObject() {
-                return simpleObject;
-            }
-
-            public void setSimpleObject(SimpleObject simpleObject) {
-                this.simpleObject = simpleObject;
-            }
-
-            public NestedObject getNestedObject() {
-                return nestedObject;
-            }
-
-            public void setNestedObject(NestedObject nestedObject) {
-                this.nestedObject = nestedObject;
-            }
-
-            public Object getNullableObject() {
-                return nullableObject;
-            }
-
-            public void setNullableObject(Object nullableObject) {
-                this.nullableObject = nullableObject;
-            }
         }
 
+        @lombok.Data
         public class SimpleObject {
             @SerializedName("text")
             @NonNull
             private String text;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
         }
 
+        @lombok.Data
         public class NestedObject {
             @SerializedName("id")
             @NonNull
@@ -1255,36 +1158,13 @@ internal static class ObjectTypes
             @SerializedName("data")
             @NonNull
             private Data data;
-
-            public Integer getId() {
-                return id;
-            }
-
-            public void setId(Integer id) {
-                this.id = id;
-            }
-
-            public Data getData() {
-                return data;
-            }
-
-            public void setData(Data data) {
-                this.data = data;
-            }
         }
 
+        @lombok.Data
         public class Data {
             @SerializedName("text")
             @NonNull
             private String text;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
         }
         """;
 
@@ -1832,6 +1712,7 @@ internal static class ObjectTypes
         import com.squareup.moshi.Json;
         import lombok.NonNull;
 
+        @lombok.Data
         public class Root {
             @Json(name = "empty_object")
             @NonNull
@@ -1847,54 +1728,16 @@ internal static class ObjectTypes
 
             @Json(name = "nullable_object")
             private Object nullableObject;
-
-            public Object getEmptyObject() {
-                return emptyObject;
-            }
-
-            public void setEmptyObject(Object emptyObject) {
-                this.emptyObject = emptyObject;
-            }
-
-            public SimpleObject getSimpleObject() {
-                return simpleObject;
-            }
-
-            public void setSimpleObject(SimpleObject simpleObject) {
-                this.simpleObject = simpleObject;
-            }
-
-            public NestedObject getNestedObject() {
-                return nestedObject;
-            }
-
-            public void setNestedObject(NestedObject nestedObject) {
-                this.nestedObject = nestedObject;
-            }
-
-            public Object getNullableObject() {
-                return nullableObject;
-            }
-
-            public void setNullableObject(Object nullableObject) {
-                this.nullableObject = nullableObject;
-            }
         }
 
+        @lombok.Data
         public class SimpleObject {
             @Json(name = "text")
             @NonNull
             private String text;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
         }
 
+        @lombok.Data
         public class NestedObject {
             @Json(name = "id")
             @NonNull
@@ -1903,36 +1746,13 @@ internal static class ObjectTypes
             @Json(name = "data")
             @NonNull
             private Data data;
-
-            public Integer getId() {
-                return id;
-            }
-
-            public void setId(Integer id) {
-                this.id = id;
-            }
-
-            public Data getData() {
-                return data;
-            }
-
-            public void setData(Data data) {
-                this.data = data;
-            }
         }
 
+        @lombok.Data
         public class Data {
             @Json(name = "text")
             @NonNull
             private String text;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
         }
         """;
 

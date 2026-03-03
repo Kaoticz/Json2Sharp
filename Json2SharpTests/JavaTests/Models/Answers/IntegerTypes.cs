@@ -218,8 +218,10 @@ internal static class IntegerTypes
 
     public const string JacksonLombokOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @JsonProperty("int")
             @NonNull
@@ -231,30 +233,6 @@ internal static class IntegerTypes
 
             @JsonProperty("nullable_int")
             private Object nullableInt;
-
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
-            }
-
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
-            }
-
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
-            }
-
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
-            }
-
-            public Object getNullableInt() {
-                return nullableInt;
-            }
-
-            public void setNullableInt(Object nullableInt) {
-                this.nullableInt = nullableInt;
-            }
         }
         """;
 
@@ -475,8 +453,10 @@ internal static class IntegerTypes
 
     public const string GsonLombokOutput = """
         import com.google.gson.annotations.SerializedName;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @SerializedName("int")
             @NonNull
@@ -488,30 +468,6 @@ internal static class IntegerTypes
 
             @SerializedName("nullable_int")
             private Object nullableInt;
-
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
-            }
-
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
-            }
-
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
-            }
-
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
-            }
-
-            public Object getNullableInt() {
-                return nullableInt;
-            }
-
-            public void setNullableInt(Object nullableInt) {
-                this.nullableInt = nullableInt;
-            }
         }
         """;
 
@@ -732,8 +688,10 @@ internal static class IntegerTypes
 
     public const string MoshiLombokOutput = """
         import com.squareup.moshi.Json;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @Json(name = "int")
             @NonNull
@@ -745,30 +703,6 @@ internal static class IntegerTypes
 
             @Json(name = "nullable_int")
             private Object nullableInt;
-
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
-            }
-
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
-            }
-
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
-            }
-
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
-            }
-
-            public Object getNullableInt() {
-                return nullableInt;
-            }
-
-            public void setNullableInt(Object nullableInt) {
-                this.nullableInt = nullableInt;
-            }
         }
         """;
 

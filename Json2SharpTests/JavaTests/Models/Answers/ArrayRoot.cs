@@ -106,20 +106,14 @@ internal static class ArrayRoot
 
     public const string JacksonLombokOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @JsonProperty("id")
             @NonNull
             private Integer id;
-
-            public Integer getId() {
-                return id;
-            }
-
-            public void setId(Integer id) {
-                this.id = id;
-            }
         }
         """;
 
@@ -222,20 +216,14 @@ internal static class ArrayRoot
 
     public const string GsonLombokOutput = """
         import com.google.gson.annotations.SerializedName;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @SerializedName("id")
             @NonNull
             private Integer id;
-
-            public Integer getId() {
-                return id;
-            }
-
-            public void setId(Integer id) {
-                this.id = id;
-            }
         }
         """;
 
@@ -338,20 +326,14 @@ internal static class ArrayRoot
 
     public const string MoshiLombokOutput = """
         import com.squareup.moshi.Json;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @Json(name = "id")
             @NonNull
             private Integer id;
-
-            public Integer getId() {
-                return id;
-            }
-
-            public void setId(Integer id) {
-                this.id = id;
-            }
         }
         """;
 

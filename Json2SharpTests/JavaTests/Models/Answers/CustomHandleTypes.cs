@@ -237,8 +237,10 @@ internal static class CustomHandleTypes
         import java.time.Duration;
         import java.time.OffsetDateTime;
         import java.util.UUID;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class custom_handle_types {
             @JsonProperty("id")
             @NonNull
@@ -251,30 +253,6 @@ internal static class CustomHandleTypes
             @JsonProperty("duration")
             @NonNull
             private Duration duration;
-
-            public UUID getId() {
-                return id;
-            }
-
-            public void setId(UUID id) {
-                this.id = id;
-            }
-
-            public OffsetDateTime getDate() {
-                return date;
-            }
-
-            public void setDate(OffsetDateTime date) {
-                this.date = date;
-            }
-
-            public Duration getDuration() {
-                return duration;
-            }
-
-            public void setDuration(Duration duration) {
-                this.duration = duration;
-            }
         }
         """;
 
@@ -513,8 +491,10 @@ internal static class CustomHandleTypes
         import java.time.Duration;
         import java.time.OffsetDateTime;
         import java.util.UUID;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class custom_handle_types {
             @SerializedName("id")
             @NonNull
@@ -527,30 +507,6 @@ internal static class CustomHandleTypes
             @SerializedName("duration")
             @NonNull
             private Duration duration;
-
-            public UUID getId() {
-                return id;
-            }
-
-            public void setId(UUID id) {
-                this.id = id;
-            }
-
-            public OffsetDateTime getDate() {
-                return date;
-            }
-
-            public void setDate(OffsetDateTime date) {
-                this.date = date;
-            }
-
-            public Duration getDuration() {
-                return duration;
-            }
-
-            public void setDuration(Duration duration) {
-                this.duration = duration;
-            }
         }
         """;
 
@@ -789,8 +745,10 @@ internal static class CustomHandleTypes
         import java.time.Duration;
         import java.time.OffsetDateTime;
         import java.util.UUID;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class custom_handle_types {
             @Json(name = "id")
             @NonNull
@@ -803,30 +761,6 @@ internal static class CustomHandleTypes
             @Json(name = "duration")
             @NonNull
             private Duration duration;
-
-            public UUID getId() {
-                return id;
-            }
-
-            public void setId(UUID id) {
-                this.id = id;
-            }
-
-            public OffsetDateTime getDate() {
-                return date;
-            }
-
-            public void setDate(OffsetDateTime date) {
-                this.date = date;
-            }
-
-            public Duration getDuration() {
-                return duration;
-            }
-
-            public void setDuration(Duration duration) {
-                this.duration = duration;
-            }
         }
         """;
 

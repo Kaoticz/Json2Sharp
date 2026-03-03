@@ -44,7 +44,7 @@ internal sealed class JavaClassEmitter : CodeEmitter
 
     /// <inheritdoc />
     public override string Parse(string objectName, JsonElement jsonElement)
-        => InternalParse(objectName, jsonElement, true);
+        => InternalParse(objectName, jsonElement, true, null);
 
     /// <summary>
     /// Parse JSON data into a Java class.
@@ -52,8 +52,9 @@ internal sealed class JavaClassEmitter : CodeEmitter
     /// <param name="objectName">The name of the class.</param>
     /// <param name="jsonElement">The JSON element to be processed.</param>
     /// <param name="emitHeaders"><see langword="true"/> to include the imports at the beginning, <see langword="false"/> otherwise.</param>
+    /// <param name="useFullLombokName"><see langword="true"/> to use fully qualified Lombok annotation names, <see langword="false"/> otherwise.</param>
     /// <returns>The Java class.</returns>
-    private string InternalParse(string objectName, JsonElement jsonElement, bool emitHeaders)
+    private string InternalParse(string objectName, JsonElement jsonElement, bool emitHeaders, bool? useFullLombokName)
     {
         var properties = Json2Sharp.ParseProperties(jsonElement);
 
@@ -63,11 +64,17 @@ internal sealed class JavaClassEmitter : CodeEmitter
         var extraTypes = new List<string>();
         var stringBuilder = new StringBuilder();
         var imports = new HashSet<string>();
+        var classNames = new HashSet<string>();
 
-        CollectImports(properties, imports);
+        CollectMetadata(objectName, properties, imports, classNames);
+
+        useFullLombokName ??= classNames.Contains("Data");
 
         if (emitHeaders)
         {
+            if (_nullabilityAnnotation is JavaNullabilityAnnotation.Lombok && !useFullLombokName.Value)
+                imports.Add("lombok.Data");
+
             foreach (var import in imports.OrderBy(x => x))
                 stringBuilder.AppendLine($"import {import};");
 
@@ -75,9 +82,12 @@ internal sealed class JavaClassEmitter : CodeEmitter
                 stringBuilder.AppendLine();
         }
 
+        if (_nullabilityAnnotation is JavaNullabilityAnnotation.Lombok)
+            stringBuilder.AppendLine(useFullLombokName.Value ? "@lombok.Data" : "@Data");
+
         stringBuilder.AppendLine($"public class {objectName} {{");
 
-        BuildClassMembers(stringBuilder, extraTypes, properties);
+        BuildClassMembers(stringBuilder, extraTypes, properties, useFullLombokName);
 
         stringBuilder.Append('}');
 
@@ -117,7 +127,8 @@ internal sealed class JavaClassEmitter : CodeEmitter
     /// <param name="stringBuilder">The string builder to append the members to.</param>
     /// <param name="extraTypes">A list to collect any extra types defined within the class.</param>
     /// <param name="properties">The properties to be processed.</param>
-    private void BuildClassMembers(StringBuilder stringBuilder, List<string> extraTypes, IReadOnlyList<ParsedJsonProperty> properties)
+    /// <param name="useFullLombokName"><see langword="true"/> to use fully qualified Lombok annotation names, <see langword="false"/> otherwise.</param>
+    private void BuildClassMembers(StringBuilder stringBuilder, List<string> extraTypes, IReadOnlyList<ParsedJsonProperty> properties, bool? useFullLombokName)
     {
         var fields = new List<(string Name, string Type, string JsonName, bool IsNullable, bool IsList)>();
 
@@ -132,7 +143,7 @@ internal sealed class JavaClassEmitter : CodeEmitter
             if (property.JsonElement.ValueKind is JsonValueKind.Object)
             {
                 fieldType = GetObjectTypeName(property, Language.Java);
-                extraTypes.Add(InternalParse(fieldType, property.JsonElement, false));
+                extraTypes.Add(InternalParse(fieldType, property.JsonElement, false, useFullLombokName));
                 stringBuilder.AppendLine(ParseCustomType(property));
             }
             else if (property.JsonElement.ValueKind is JsonValueKind.Array)
@@ -145,7 +156,7 @@ internal sealed class JavaClassEmitter : CodeEmitter
                     fieldType = (isList) ? $"List<{arrayElementTypeName}>" : "byte[]";
 
                     if (arrayElementTypeName != "Object" && isList && !TypeAliases.JavaAliasTypes.Values.Contains(arrayElementTypeName))
-                        extraTypes.Add(InternalParse(arrayElementTypeName, childrenTypes[0].JsonElement, false));
+                        extraTypes.Add(InternalParse(arrayElementTypeName, childrenTypes[0].JsonElement, false, useFullLombokName));
                 }
                 else
                 {
@@ -165,19 +176,22 @@ internal sealed class JavaClassEmitter : CodeEmitter
         }
 
         // 2. Getters and Setters
-        foreach (var field in fields)
+        if (_nullabilityAnnotation is not JavaNullabilityAnnotation.Lombok)
         {
-            var getterName = "get" + field.Name.ToPascalCase();
-            stringBuilder.AppendLine($"{_indentationPadding}public {field.Type} {getterName}() {{");
-            stringBuilder.AppendLine($"{_indentationPadding}{_indentationPadding}return {field.Name};");
-            stringBuilder.AppendLine($"{_indentationPadding}}}");
-            stringBuilder.AppendLine();
+            foreach (var field in fields)
+            {
+                var getterName = "get" + field.Name.ToPascalCase();
+                stringBuilder.AppendLine($"{_indentationPadding}public {field.Type} {getterName}() {{");
+                stringBuilder.AppendLine($"{_indentationPadding}{_indentationPadding}return {field.Name};");
+                stringBuilder.AppendLine($"{_indentationPadding}}}");
+                stringBuilder.AppendLine();
 
-            var setterName = "set" + field.Name.ToPascalCase();
-            stringBuilder.AppendLine($"{_indentationPadding}public void {setterName}({field.Type} {field.Name}) {{");
-            stringBuilder.AppendLine($"{_indentationPadding}{_indentationPadding}this.{field.Name} = {field.Name};");
-            stringBuilder.AppendLine($"{_indentationPadding}}}");
-            stringBuilder.AppendLine();
+                var setterName = "set" + field.Name.ToPascalCase();
+                stringBuilder.AppendLine($"{_indentationPadding}public void {setterName}({field.Type} {field.Name}) {{");
+                stringBuilder.AppendLine($"{_indentationPadding}{_indentationPadding}this.{field.Name} = {field.Name};");
+                stringBuilder.AppendLine($"{_indentationPadding}}}");
+                stringBuilder.AppendLine();
+            }
         }
 
         if (properties.Count > 0)
@@ -291,12 +305,16 @@ internal sealed class JavaClassEmitter : CodeEmitter
     }
 
     /// <summary>
-    /// Collects the necessary imports based on the properties and configuration.
+    /// Collects metadata (imports and class names) based on the properties and configuration.
     /// </summary>
+    /// <param name="objectName">The name of the class.</param>
     /// <param name="properties">The properties to be processed.</param>
     /// <param name="imports">The set to collect the imports into.</param>
-    private void CollectImports(IReadOnlyList<ParsedJsonProperty> properties, HashSet<string> imports)
+    /// <param name="classNames">The set to collect the class names into.</param>
+    private void CollectMetadata(string objectName, IReadOnlyList<ParsedJsonProperty> properties, HashSet<string> imports, HashSet<string> classNames)
     {
+        classNames.Add(objectName);
+
         if (_serializationAnnotation is JavaSerializationAnnotation.Jackson) imports.Add("com.fasterxml.jackson.annotation.JsonProperty");
         if (_serializationAnnotation is JavaSerializationAnnotation.Gson) imports.Add("com.google.gson.annotations.SerializedName");
         if (_serializationAnnotation is JavaSerializationAnnotation.Moshi) imports.Add("com.squareup.moshi.Json");
@@ -339,8 +357,23 @@ internal sealed class JavaClassEmitter : CodeEmitter
                 imports.Add("java.util.List");
             }
 
-            if (prop.Children.Count > 0)
-                CollectImports(prop.Children, imports);
+            if (prop.JsonElement.ValueKind is JsonValueKind.Object)
+            {
+                var typeName = GetObjectTypeName(prop, Language.Java);
+                CollectMetadata(typeName, Json2Sharp.ParseProperties(prop.JsonElement), imports, classNames);
+            }
+            else if (prop.JsonElement.ValueKind is JsonValueKind.Array)
+            {
+                var childrenTypes = J2SUtils.GetArrayTypes(prop);
+                if (childrenTypes.Count is not 0)
+                {
+                    IsArrayOfNullableType(prop, Language.Java, childrenTypes, out var arrayElementTypeName);
+                    var isByteArr = arrayElementTypeName.Equals("byte", StringComparison.OrdinalIgnoreCase);
+
+                    if (arrayElementTypeName != "Object" && !isByteArr && !TypeAliases.JavaAliasTypes.Values.Contains(arrayElementTypeName))
+                        CollectMetadata(arrayElementTypeName, Json2Sharp.ParseProperties(childrenTypes[0].JsonElement), imports, classNames);
+                }
+            }
         }
     }
 }

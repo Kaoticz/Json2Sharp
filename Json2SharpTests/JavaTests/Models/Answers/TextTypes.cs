@@ -160,8 +160,10 @@ internal static class TextTypes
 
     public const string JacksonLombokOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @JsonProperty("text")
             @NonNull
@@ -169,22 +171,6 @@ internal static class TextTypes
 
             @JsonProperty("nullable_text")
             private Object nullableText;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
-
-            public Object getNullableText() {
-                return nullableText;
-            }
-
-            public void setNullableText(Object nullableText) {
-                this.nullableText = nullableText;
-            }
         }
         """;
 
@@ -346,8 +332,10 @@ internal static class TextTypes
 
     public const string GsonLombokOutput = """
         import com.google.gson.annotations.SerializedName;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @SerializedName("text")
             @NonNull
@@ -355,22 +343,6 @@ internal static class TextTypes
 
             @SerializedName("nullable_text")
             private Object nullableText;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
-
-            public Object getNullableText() {
-                return nullableText;
-            }
-
-            public void setNullableText(Object nullableText) {
-                this.nullableText = nullableText;
-            }
         }
         """;
 
@@ -532,8 +504,10 @@ internal static class TextTypes
 
     public const string MoshiLombokOutput = """
         import com.squareup.moshi.Json;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @Json(name = "text")
             @NonNull
@@ -541,22 +515,6 @@ internal static class TextTypes
 
             @Json(name = "nullable_text")
             private Object nullableText;
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
-
-            public Object getNullableText() {
-                return nullableText;
-            }
-
-            public void setNullableText(Object nullableText) {
-                this.nullableText = nullableText;
-            }
         }
         """;
 

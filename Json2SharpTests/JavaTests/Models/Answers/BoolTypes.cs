@@ -160,8 +160,10 @@ internal static class BoolTypes
 
     public const string JacksonLombokOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @JsonProperty("bool")
             @NonNull
@@ -169,22 +171,6 @@ internal static class BoolTypes
 
             @JsonProperty("nullable_bool")
             private Object nullableBool;
-
-            public Boolean getBool() {
-                return bool;
-            }
-
-            public void setBool(Boolean bool) {
-                this.bool = bool;
-            }
-
-            public Object getNullableBool() {
-                return nullableBool;
-            }
-
-            public void setNullableBool(Object nullableBool) {
-                this.nullableBool = nullableBool;
-            }
         }
         """;
 
@@ -346,8 +332,10 @@ internal static class BoolTypes
 
     public const string GsonLombokOutput = """
         import com.google.gson.annotations.SerializedName;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @SerializedName("bool")
             @NonNull
@@ -355,22 +343,6 @@ internal static class BoolTypes
 
             @SerializedName("nullable_bool")
             private Object nullableBool;
-
-            public Boolean getBool() {
-                return bool;
-            }
-
-            public void setBool(Boolean bool) {
-                this.bool = bool;
-            }
-
-            public Object getNullableBool() {
-                return nullableBool;
-            }
-
-            public void setNullableBool(Object nullableBool) {
-                this.nullableBool = nullableBool;
-            }
         }
         """;
 
@@ -532,8 +504,10 @@ internal static class BoolTypes
 
     public const string MoshiLombokOutput = """
         import com.squareup.moshi.Json;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @Json(name = "bool")
             @NonNull
@@ -541,22 +515,6 @@ internal static class BoolTypes
 
             @Json(name = "nullable_bool")
             private Object nullableBool;
-
-            public Boolean getBool() {
-                return bool;
-            }
-
-            public void setBool(Boolean bool) {
-                this.bool = bool;
-            }
-
-            public Object getNullableBool() {
-                return nullableBool;
-            }
-
-            public void setNullableBool(Object nullableBool) {
-                this.nullableBool = nullableBool;
-            }
         }
         """;
 

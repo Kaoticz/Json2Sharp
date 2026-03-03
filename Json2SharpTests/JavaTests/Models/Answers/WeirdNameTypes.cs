@@ -218,8 +218,10 @@ internal static class WeirdNameTypes
 
     public const string JacksonLombokOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @JsonProperty("1-weird-name")
             @NonNull
@@ -232,30 +234,6 @@ internal static class WeirdNameTypes
             @JsonProperty("for")
             @NonNull
             private String json2sharpFor;
-
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
-            }
-
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
-            }
-
-            public String getJson2sharpClass() {
-                return json2sharpClass;
-            }
-
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
-            }
-
-            public String getJson2sharpFor() {
-                return json2sharpFor;
-            }
-
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
-            }
         }
         """;
 
@@ -476,8 +454,10 @@ internal static class WeirdNameTypes
 
     public const string GsonLombokOutput = """
         import com.google.gson.annotations.SerializedName;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @SerializedName("1-weird-name")
             @NonNull
@@ -490,30 +470,6 @@ internal static class WeirdNameTypes
             @SerializedName("for")
             @NonNull
             private String json2sharpFor;
-
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
-            }
-
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
-            }
-
-            public String getJson2sharpClass() {
-                return json2sharpClass;
-            }
-
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
-            }
-
-            public String getJson2sharpFor() {
-                return json2sharpFor;
-            }
-
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
-            }
         }
         """;
 
@@ -734,8 +690,10 @@ internal static class WeirdNameTypes
 
     public const string MoshiLombokOutput = """
         import com.squareup.moshi.Json;
+        import lombok.Data;
         import lombok.NonNull;
 
+        @Data
         public class Root {
             @Json(name = "1-weird-name")
             @NonNull
@@ -748,30 +706,6 @@ internal static class WeirdNameTypes
             @Json(name = "for")
             @NonNull
             private String json2sharpFor;
-
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
-            }
-
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
-            }
-
-            public String getJson2sharpClass() {
-                return json2sharpClass;
-            }
-
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
-            }
-
-            public String getJson2sharpFor() {
-                return json2sharpFor;
-            }
-
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
-            }
         }
         """;
 
