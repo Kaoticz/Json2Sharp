@@ -81,7 +81,7 @@ public sealed class CSharpDataTests
             actualOutput.Replace("\r", string.Empty)
         );
     }
-    
+
     [Theory]
     [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.RecordPrimaryCtorOutputNoAtt, CSharpObjectType.Record, CSharpSerializationAttribute.NoAttribute)]
     [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.RecordPrimaryCtorOutput, CSharpObjectType.Record, CSharpSerializationAttribute.NewtonsoftJson)]
@@ -94,7 +94,7 @@ public sealed class CSharpDataTests
         var options = new Json2SharpOptions()
         {
             TargetLanguage = Language.CSharp,
-            
+
             CSharpOptions = new()
             {
                 TargetType = targetType,
@@ -102,7 +102,7 @@ public sealed class CSharpDataTests
                 TypeNameHandler = propertyType => propertyType.ToSnakeCase()
             }
         };
-        
+
         var actualOutput = Json2Sharp.Parse(className.ToSnakeCase(), input, options);
 
         Assert.Equal(
@@ -110,7 +110,7 @@ public sealed class CSharpDataTests
             actualOutput.Replace("\r", string.Empty)
         );
     }
-    
+
 
     [Theory]
     [InlineData(ArrayRoot.BadInput1)]

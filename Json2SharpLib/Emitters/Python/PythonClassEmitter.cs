@@ -83,9 +83,9 @@ internal sealed class PythonClassEmitter : CodeEmitter
             if (hasTimedelta || hasDatetime)
             {
                 var modules = (hasTimedelta && hasDatetime) ? "datetime, timedelta"
-                    : (hasTimedelta) ? "timedelta" 
+                    : (hasTimedelta) ? "timedelta"
                     : "datetime";
-                
+
                 stringBuilder.Insert(0, "from datetime import " + modules + Environment.NewLine);
             }
 
@@ -103,8 +103,8 @@ internal sealed class PythonClassEmitter : CodeEmitter
             return $"{property.JsonName.ToSnakeCase()},";
 
         var typeName = GetObjectTypeName(property, Language.Python);
-        
-        return $"{property.JsonName.ToSnakeCase()}: {typeName},"; 
+
+        return $"{property.JsonName.ToSnakeCase()}: {typeName},";
     }
 
     /// <inheritdoc />
@@ -156,7 +156,7 @@ internal sealed class PythonClassEmitter : CodeEmitter
     {
         if (property.JsonElement.ValueKind is JsonValueKind.Object)
             return GetObjectTypeName(property, Language.Python);
-        
+
         if (property.JsonElement.ValueKind is JsonValueKind.Array)
             return GetArrayTypeHint(property, Array.Empty<ParsedJsonProperty>(), out _);
 

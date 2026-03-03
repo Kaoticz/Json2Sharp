@@ -38,10 +38,10 @@ internal static class CSharpStatics
     {
         ["stj"] = CSharpSerializationAttribute.SystemTextJson,
         ["systemtextjson"] = CSharpSerializationAttribute.SystemTextJson,
-        ["noatt"] = CSharpSerializationAttribute.NoAttribute,
-        ["noattribute"] = CSharpSerializationAttribute.NoAttribute,
         ["ntj"] = CSharpSerializationAttribute.NewtonsoftJson,
         ["newtonsoft"] = CSharpSerializationAttribute.NewtonsoftJson,
         ["newtonsoftjson"] = CSharpSerializationAttribute.NewtonsoftJson,
+        ["noatt"] = CSharpSerializationAttribute.NoAttribute,
+        ["noattribute"] = CSharpSerializationAttribute.NoAttribute
     }.ToFrozenDictionary();
 }

@@ -13,5 +13,10 @@ public enum Language : byte
     /// <summary>
     /// The Python language.
     /// </summary>
-    Python
+    Python,
+
+    /// <summary>
+    /// The Java language.
+    /// </summary>
+    Java
 }

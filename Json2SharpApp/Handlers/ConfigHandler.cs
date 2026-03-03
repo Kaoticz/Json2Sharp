@@ -23,7 +23,7 @@ internal sealed class ConfigHandler
         try
         {
             var targetLanguage = ParseLanguage(options);
-            exception = default;
+            exception = null;
             result = (options.Count is 0)
                 ? new Json2SharpOptions()
                 : new Json2SharpOptions()
@@ -31,6 +31,7 @@ internal sealed class ConfigHandler
                     TargetLanguage = targetLanguage,
                     CSharpOptions = (targetLanguage is Language.CSharp) ? ParseCSharpOptions(options) : new(),
                     PythonOptions = (targetLanguage is Language.Python) ? ParsePythonOptions(options) : new(),
+                    JavaOptions = (targetLanguage is Language.Java) ? ParseJavaOptions(options) : new(),
                 };
 
             return true;
@@ -38,7 +39,7 @@ internal sealed class ConfigHandler
         catch (Exception ex)
         {
             exception = ex;
-            result = default;
+            result = null;
             return false;
         }
     }
@@ -50,10 +51,9 @@ internal sealed class ConfigHandler
     /// <returns>The language to convert to.</returns>
     private static Language ParseLanguage(IReadOnlyList<string> configOptions)
     {
-        if (configOptions.Any(x => x is "py" or "python"))
-            return Language.Python;
-
-        return Language.CSharp;
+        return configOptions.Any(x => x is "py" or "python") ? Language.Python
+            : configOptions.Any(x => x is "java") ? Language.Java
+            : Language.CSharp;
     }
 
     /// <summary>
@@ -112,6 +112,37 @@ internal sealed class ConfigHandler
             UseDataClass = !configOptions.Any(x => x is "ndc" or "nodataclass"),
             UseOptional = configOptions.Any(x => x is "opt" or "optional"),
             UsePydantic = configOptions.Any(x => x is "pyd" or "pydantic"),
+
+            IndentationCharacterAmount = (int.TryParse(indentationAmountOption, out var indentationAmount))
+                ? indentationAmount
+                : 4,
+
+            IndentationPaddingCharacter = (configOptions.Contains("tab"))
+                ? IndentationCharacterType.Tab
+                : IndentationCharacterType.Space,
+        };
+    }
+
+    /// <summary>
+    /// Parse the Java options.
+    /// </summary>
+    /// <param name="configOptions">The command-line configuration options.</param>
+    /// <returns>The parsed Java options.</returns>
+    private static Json2SharpJavaOptions ParseJavaOptions(IReadOnlyList<string> configOptions)
+    {
+        var indentationAmountOption = configOptions.FirstOrDefault(x => x.StartsWith("ind:", StringComparison.Ordinal))?[4..];
+
+        return new()
+        {
+            SerializationAnnotation = JavaStatics.SerializationAnnotations.GetValueOrDefault(
+                configOptions.FirstOrDefault(JavaStatics.SerializationAnnotations.ContainsKey) ?? "jackson"
+            ),
+
+            NullabilityAnnotation = JavaStatics.NullabilityAnnotations.GetValueOrDefault(
+                configOptions.FirstOrDefault(JavaStatics.NullabilityAnnotations.ContainsKey) ?? "nonullability"
+            ),
+
+            UseRecord = !configOptions.Contains("class"),
 
             IndentationCharacterAmount = (int.TryParse(indentationAmountOption, out var indentationAmount))
                 ? indentationAmount

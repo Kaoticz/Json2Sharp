@@ -71,9 +71,9 @@ internal sealed class PythonPydanticEmitter : CodeEmitter
             if (hasTimedelta || hasDatetime)
             {
                 var modules = (hasTimedelta && hasDatetime) ? "datetime, timedelta"
-                    : (hasTimedelta) ? "timedelta" 
+                    : (hasTimedelta) ? "timedelta"
                     : "datetime";
-                
+
                 importsBuilder.AppendLine("from datetime import " + modules);
             }
 

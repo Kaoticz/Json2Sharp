@@ -31,7 +31,7 @@ public sealed class PythonDataTests
     [InlineData(nameof(WeirdNameTypes), WeirdNameTypes.Input, WeirdNameTypes.OutputOptional, true, false, true, false)]
     [InlineData(nameof(WeirdNameTypes), WeirdNameTypes.Input, WeirdNameTypes.DataClassOutputOptional, true, true, true, false)]
     [InlineData(nameof(WeirdNameTypes), WeirdNameTypes.Input, WeirdNameTypes.PydanticOptionalOutput, true, true, true, true)]
-    
+
     // T | None tests
     [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.OutputPipe, true, false, false, false)]
     [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.DataClassOutputPipe, true, true, false, false)]
@@ -127,8 +127,8 @@ public sealed class PythonDataTests
             actualOutput.Replace("\r", string.Empty)
         );
     }
-    
-        
+
+
     [Theory]
     [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.OutputOptional, true, false, true, false)]
     [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.DataClassOutputOptional, true, true, true, false)]
@@ -142,7 +142,7 @@ public sealed class PythonDataTests
         var options = new Json2SharpOptions()
         {
             TargetLanguage = Language.Python,
-            
+
             PythonOptions = new()
             {
                 AddTypeHints = addTypeHints,
@@ -152,7 +152,7 @@ public sealed class PythonDataTests
                 TypeNameHandler = propertyType => propertyType.ToSnakeCase()
             }
         };
-        
+
         var actualOutput = Json2Sharp.Parse(className.ToSnakeCase(), input, options);
 
         Assert.Equal(

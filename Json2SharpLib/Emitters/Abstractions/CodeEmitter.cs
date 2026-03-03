@@ -12,7 +12,7 @@ namespace Json2SharpLib.Emitters.Abstractions;
 internal abstract class CodeEmitter : ICodeEmitter
 {
     private readonly Func<string, string> _typeNameHandler;
-    
+
     /// <summary>
     /// Initializes a language code emitter. 
     /// </summary>
@@ -21,7 +21,7 @@ internal abstract class CodeEmitter : ICodeEmitter
     /// </param>
     internal CodeEmitter(Func<string, string> typeNameHandler)
         => _typeNameHandler = typeNameHandler;
-    
+
     /// <inheritdoc />
     public abstract string Parse(string objectName, JsonElement jsonElement);
 

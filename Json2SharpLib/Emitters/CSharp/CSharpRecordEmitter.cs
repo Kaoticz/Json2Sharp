@@ -185,28 +185,28 @@ internal sealed class CSharpRecordEmitter : CodeEmitter
         switch (property.JsonElement.ValueKind)
         {
             case JsonValueKind.Object:
-            {
-                var propertyName = GetObjectTypeName(property, Language.CSharp);
-                extraTypes.Add(InternalParse(propertyName, property.JsonElement, false));
-                stringBuilder.AppendLine(ParseCustomType(property));
+                {
+                    var propertyName = GetObjectTypeName(property, Language.CSharp);
+                    extraTypes.Add(InternalParse(propertyName, property.JsonElement, false));
+                    stringBuilder.AppendLine(ParseCustomType(property));
 
-                return true;
-            }
+                    return true;
+                }
 
             case JsonValueKind.Array:
-            {
-                var childrenTypes = J2SUtils.GetArrayTypes(property);
+                {
+                    var childrenTypes = J2SUtils.GetArrayTypes(property);
 
-                if (childrenTypes.Count is 0)
-                    return false;
+                    if (childrenTypes.Count is 0)
+                        return false;
 
-                stringBuilder.AppendLine(ParseArrayType(property, childrenTypes, out var typeName));
+                    stringBuilder.AppendLine(ParseArrayType(property, childrenTypes, out var typeName));
 
-                if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp), StringComparison.Ordinal))
-                    extraTypes.Add(InternalParse(typeName, childrenTypes[0].JsonElement, false));
+                    if (!typeName.Equals(J2SUtils.GetAliasName(typeof(object), Language.CSharp), StringComparison.Ordinal))
+                        extraTypes.Add(InternalParse(typeName, childrenTypes[0].JsonElement, false));
 
-                return true;
-            }
+                    return true;
+                }
             default:
                 return false;
         }
