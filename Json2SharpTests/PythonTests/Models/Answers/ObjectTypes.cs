@@ -18,14 +18,22 @@ internal static class ObjectTypes
 
     public const string DataClassOutputOptional = """
         from dataclasses import dataclass
-        from typing import Optional
+        from typing import Optional, Any, Self
 
 
         @dataclass
         class PropCustomColon:
             blep: str
 
-        
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'blep': json_dict['blep'],
+                }
+
+                return cls(**data)
+
+
         @dataclass
         class Thing:
             text: str
@@ -34,24 +42,55 @@ internal static class ObjectTypes
             prop_base_colon: int
             prop_custom_colon: PropCustomColon
 
-        
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                    'number': json_dict['number'],
+                    'int_array': json_dict['int_array'],
+                    'prop_base_colon': json_dict['prop_base:colon'],
+                    'prop_custom_colon': json_dict['prop_custom:colon'],
+                }
+
+                return cls(**data)
+
+
         @dataclass
         class ObjectTypes:
             null_thing: Optional[object]
             empty_thing: object
             thing: Thing
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'null_thing': json_dict['null_thing'],
+                    'empty_thing': json_dict['empty_thing'],
+                    'thing': json_dict['thing'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string DataClassOutputPipe = """
         from dataclasses import dataclass
+        from typing import Any, Self
 
 
         @dataclass
         class PropCustomColon:
             blep: str
 
-        
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'blep': json_dict['blep'],
+                }
+
+                return cls(**data)
+
+
         @dataclass
         class Thing:
             text: str
@@ -60,17 +99,39 @@ internal static class ObjectTypes
             prop_base_colon: int
             prop_custom_colon: PropCustomColon
 
-        
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                    'number': json_dict['number'],
+                    'int_array': json_dict['int_array'],
+                    'prop_base_colon': json_dict['prop_base:colon'],
+                    'prop_custom_colon': json_dict['prop_custom:colon'],
+                }
+
+                return cls(**data)
+
+
         @dataclass
         class ObjectTypes:
             null_thing: object | None
             empty_thing: object
             thing: Thing
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'null_thing': json_dict['null_thing'],
+                    'empty_thing': json_dict['empty_thing'],
+                    'thing': json_dict['thing'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string OutputOptional = """
-        from typing import Optional
+        from typing import Optional, Any, Self
 
 
         class PropCustomColon:
@@ -78,6 +139,14 @@ internal static class ObjectTypes
                 blep: str
             ) -> None:
                 self.blep: str = blep
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'blep': json_dict['blep'],
+                }
+
+                return cls(**data)
 
 
         class Thing:
@@ -93,6 +162,18 @@ internal static class ObjectTypes
                 self.int_array: list[int] = int_array
                 self.prop_base_colon: int = prop_base_colon
                 self.prop_custom_colon: PropCustomColon = prop_custom_colon
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                    'number': json_dict['number'],
+                    'int_array': json_dict['int_array'],
+                    'prop_base_colon': json_dict['prop_base:colon'],
+                    'prop_custom_colon': json_dict['prop_custom:colon'],
+                }
+
+                return cls(**data)
 
 
         class ObjectTypes:
@@ -105,14 +186,35 @@ internal static class ObjectTypes
                 self.empty_thing: object = empty_thing
                 self.thing: Thing = thing
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'null_thing': json_dict['null_thing'],
+                    'empty_thing': json_dict['empty_thing'],
+                    'thing': json_dict['thing'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string OutputPipe = """
+        from typing import Any, Self
+
+
         class PropCustomColon:
             def __init__(
                 blep: str
             ) -> None:
                 self.blep: str = blep
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'blep': json_dict['blep'],
+                }
+
+                return cls(**data)
 
 
         class Thing:
@@ -129,6 +231,18 @@ internal static class ObjectTypes
                 self.prop_base_colon: int = prop_base_colon
                 self.prop_custom_colon: PropCustomColon = prop_custom_colon
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                    'number': json_dict['number'],
+                    'int_array': json_dict['int_array'],
+                    'prop_base_colon': json_dict['prop_base:colon'],
+                    'prop_custom_colon': json_dict['prop_custom:colon'],
+                }
+
+                return cls(**data)
+
 
         class ObjectTypes:
             def __init__(
@@ -140,6 +254,16 @@ internal static class ObjectTypes
                 self.empty_thing: object = empty_thing
                 self.thing: Thing = thing
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'null_thing': json_dict['null_thing'],
+                    'empty_thing': json_dict['empty_thing'],
+                    'thing': json_dict['thing'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string OutputNoTypeHints = """
@@ -148,6 +272,14 @@ internal static class ObjectTypes
                 blep
             ):
                 self.blep = blep
+
+            @classmethod
+            def from_json(cls, json_dict):
+                data = {
+                    'blep': json_dict['blep'],
+                }
+
+                return cls(**data)
 
 
         class Thing:
@@ -164,6 +296,18 @@ internal static class ObjectTypes
                 self.prop_base_colon = prop_base_colon
                 self.prop_custom_colon = prop_custom_colon
 
+            @classmethod
+            def from_json(cls, json_dict):
+                data = {
+                    'text': json_dict['text'],
+                    'number': json_dict['number'],
+                    'int_array': json_dict['int_array'],
+                    'prop_base_colon': json_dict['prop_base:colon'],
+                    'prop_custom_colon': json_dict['prop_custom:colon'],
+                }
+
+                return cls(**data)
+
 
         class ObjectTypes:
             def __init__(
@@ -174,6 +318,16 @@ internal static class ObjectTypes
                 self.null_thing = null_thing
                 self.empty_thing = empty_thing
                 self.thing = thing
+
+            @classmethod
+            def from_json(cls, json_dict):
+                data = {
+                    'null_thing': json_dict['null_thing'],
+                    'empty_thing': json_dict['empty_thing'],
+                    'thing': json_dict['thing'],
+                }
+
+                return cls(**data)
 
         """;
 

@@ -34,6 +34,7 @@ internal static class WeirdNameTypes
 
     public const string DataClassOutputOptional = """
         from dataclasses import dataclass
+        from typing import Any, Self
 
 
         @dataclass
@@ -41,7 +42,16 @@ internal static class WeirdNameTypes
             normal_prop: int
             nested_colon: int
 
-        
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'normal_prop': json_dict['normal_prop'],
+                    'nested_colon': json_dict['nested:colon'],
+                }
+
+                return cls(**data)
+
+
         @dataclass
         class WeirdNameTypes:
             snake_case: int
@@ -66,11 +76,41 @@ internal static class WeirdNameTypes
             snake_percentage: int
             snake_ampersand: int
             snake_asterisk: int
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'snake_case': json_dict['snake_case'],
+                    'camel_case': json_dict['camelCase'],
+                    'pascal_case': json_dict['PascalCase'],
+                    'screamingcase': json_dict['SCREAMINGCASE'],
+                    'screaming_snake': json_dict['SCREAMING_SNAKE'],
+                    'kebab_case': json_dict['kebab-case'],
+                    'pascal_snake': json_dict['Pascal_Snake'],
+                    'snake_case_colon': json_dict['snake_case:colon'],
+                    'camel_case_colon': json_dict['camelCase:colon'],
+                    'pascal_case_colon': json_dict['PascalCase:Colon'],
+                    'screamingcase_colon': json_dict['SCREAMINGCASE:COLON'],
+                    'screaming_snake_colon': json_dict['SCREAMING_SNAKE:COLON'],
+                    'kebab_case_colon': json_dict['kebab-case:colon'],
+                    'pascal_snake_colon': json_dict['Pascal_Snake:Colon'],
+                    'colon_object': json_dict['colon:object'],
+                    'snake_dot': json_dict['snake.dot'],
+                    'snake_at': json_dict['snake@at'],
+                    'snake_hash': json_dict['snake#hash'],
+                    'snake_dollar': json_dict['snake$dollar'],
+                    'snake_percentage': json_dict['snake%percentage'],
+                    'snake_ampersand': json_dict['snake&ampersand'],
+                    'snake_asterisk': json_dict['snake*asterisk'],
+                }
+
+                return cls(**data)
 
         """;
 
     public const string DataClassOutputPipe = """
         from dataclasses import dataclass
+        from typing import Any, Self
 
 
         @dataclass
@@ -78,7 +118,16 @@ internal static class WeirdNameTypes
             normal_prop: int
             nested_colon: int
 
-        
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'normal_prop': json_dict['normal_prop'],
+                    'nested_colon': json_dict['nested:colon'],
+                }
+
+                return cls(**data)
+
+
         @dataclass
         class WeirdNameTypes:
             snake_case: int
@@ -104,9 +153,41 @@ internal static class WeirdNameTypes
             snake_ampersand: int
             snake_asterisk: int
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'snake_case': json_dict['snake_case'],
+                    'camel_case': json_dict['camelCase'],
+                    'pascal_case': json_dict['PascalCase'],
+                    'screamingcase': json_dict['SCREAMINGCASE'],
+                    'screaming_snake': json_dict['SCREAMING_SNAKE'],
+                    'kebab_case': json_dict['kebab-case'],
+                    'pascal_snake': json_dict['Pascal_Snake'],
+                    'snake_case_colon': json_dict['snake_case:colon'],
+                    'camel_case_colon': json_dict['camelCase:colon'],
+                    'pascal_case_colon': json_dict['PascalCase:Colon'],
+                    'screamingcase_colon': json_dict['SCREAMINGCASE:COLON'],
+                    'screaming_snake_colon': json_dict['SCREAMING_SNAKE:COLON'],
+                    'kebab_case_colon': json_dict['kebab-case:colon'],
+                    'pascal_snake_colon': json_dict['Pascal_Snake:Colon'],
+                    'colon_object': json_dict['colon:object'],
+                    'snake_dot': json_dict['snake.dot'],
+                    'snake_at': json_dict['snake@at'],
+                    'snake_hash': json_dict['snake#hash'],
+                    'snake_dollar': json_dict['snake$dollar'],
+                    'snake_percentage': json_dict['snake%percentage'],
+                    'snake_ampersand': json_dict['snake&ampersand'],
+                    'snake_asterisk': json_dict['snake*asterisk'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string OutputOptional = """
+        from typing import Any, Self
+
+
         class ColonObject:
             def __init__(
                 normal_prop: int,
@@ -114,6 +195,15 @@ internal static class WeirdNameTypes
             ) -> None:
                 self.normal_prop: int = normal_prop
                 self.nested_colon: int = nested_colon
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'normal_prop': json_dict['normal_prop'],
+                    'nested_colon': json_dict['nested:colon'],
+                }
+
+                return cls(**data)
 
 
         class WeirdNameTypes:
@@ -163,10 +253,42 @@ internal static class WeirdNameTypes
                 self.snake_percentage: int = snake_percentage
                 self.snake_ampersand: int = snake_ampersand
                 self.snake_asterisk: int = snake_asterisk
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'snake_case': json_dict['snake_case'],
+                    'camel_case': json_dict['camelCase'],
+                    'pascal_case': json_dict['PascalCase'],
+                    'screamingcase': json_dict['SCREAMINGCASE'],
+                    'screaming_snake': json_dict['SCREAMING_SNAKE'],
+                    'kebab_case': json_dict['kebab-case'],
+                    'pascal_snake': json_dict['Pascal_Snake'],
+                    'snake_case_colon': json_dict['snake_case:colon'],
+                    'camel_case_colon': json_dict['camelCase:colon'],
+                    'pascal_case_colon': json_dict['PascalCase:Colon'],
+                    'screamingcase_colon': json_dict['SCREAMINGCASE:COLON'],
+                    'screaming_snake_colon': json_dict['SCREAMING_SNAKE:COLON'],
+                    'kebab_case_colon': json_dict['kebab-case:colon'],
+                    'pascal_snake_colon': json_dict['Pascal_Snake:Colon'],
+                    'colon_object': json_dict['colon:object'],
+                    'snake_dot': json_dict['snake.dot'],
+                    'snake_at': json_dict['snake@at'],
+                    'snake_hash': json_dict['snake#hash'],
+                    'snake_dollar': json_dict['snake$dollar'],
+                    'snake_percentage': json_dict['snake%percentage'],
+                    'snake_ampersand': json_dict['snake&ampersand'],
+                    'snake_asterisk': json_dict['snake*asterisk'],
+                }
+
+                return cls(**data)
 
         """;
 
     public const string OutputPipe = """
+        from typing import Any, Self
+
+
         class ColonObject:
             def __init__(
                 normal_prop: int,
@@ -174,6 +296,15 @@ internal static class WeirdNameTypes
             ) -> None:
                 self.normal_prop: int = normal_prop
                 self.nested_colon: int = nested_colon
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'normal_prop': json_dict['normal_prop'],
+                    'nested_colon': json_dict['nested:colon'],
+                }
+
+                return cls(**data)
 
 
         class WeirdNameTypes:
@@ -223,6 +354,35 @@ internal static class WeirdNameTypes
                 self.snake_percentage: int = snake_percentage
                 self.snake_ampersand: int = snake_ampersand
                 self.snake_asterisk: int = snake_asterisk
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'snake_case': json_dict['snake_case'],
+                    'camel_case': json_dict['camelCase'],
+                    'pascal_case': json_dict['PascalCase'],
+                    'screamingcase': json_dict['SCREAMINGCASE'],
+                    'screaming_snake': json_dict['SCREAMING_SNAKE'],
+                    'kebab_case': json_dict['kebab-case'],
+                    'pascal_snake': json_dict['Pascal_Snake'],
+                    'snake_case_colon': json_dict['snake_case:colon'],
+                    'camel_case_colon': json_dict['camelCase:colon'],
+                    'pascal_case_colon': json_dict['PascalCase:Colon'],
+                    'screamingcase_colon': json_dict['SCREAMINGCASE:COLON'],
+                    'screaming_snake_colon': json_dict['SCREAMING_SNAKE:COLON'],
+                    'kebab_case_colon': json_dict['kebab-case:colon'],
+                    'pascal_snake_colon': json_dict['Pascal_Snake:Colon'],
+                    'colon_object': json_dict['colon:object'],
+                    'snake_dot': json_dict['snake.dot'],
+                    'snake_at': json_dict['snake@at'],
+                    'snake_hash': json_dict['snake#hash'],
+                    'snake_dollar': json_dict['snake$dollar'],
+                    'snake_percentage': json_dict['snake%percentage'],
+                    'snake_ampersand': json_dict['snake&ampersand'],
+                    'snake_asterisk': json_dict['snake*asterisk'],
+                }
+
+                return cls(**data)
 
         """;
 
@@ -234,6 +394,15 @@ internal static class WeirdNameTypes
             ):
                 self.normal_prop = normal_prop
                 self.nested_colon = nested_colon
+
+            @classmethod
+            def from_json(cls, json_dict):
+                data = {
+                    'normal_prop': json_dict['normal_prop'],
+                    'nested_colon': json_dict['nested:colon'],
+                }
+
+                return cls(**data)
 
 
         class WeirdNameTypes:
@@ -283,6 +452,35 @@ internal static class WeirdNameTypes
                 self.snake_percentage = snake_percentage
                 self.snake_ampersand = snake_ampersand
                 self.snake_asterisk = snake_asterisk
+
+            @classmethod
+            def from_json(cls, json_dict):
+                data = {
+                    'snake_case': json_dict['snake_case'],
+                    'camel_case': json_dict['camelCase'],
+                    'pascal_case': json_dict['PascalCase'],
+                    'screamingcase': json_dict['SCREAMINGCASE'],
+                    'screaming_snake': json_dict['SCREAMING_SNAKE'],
+                    'kebab_case': json_dict['kebab-case'],
+                    'pascal_snake': json_dict['Pascal_Snake'],
+                    'snake_case_colon': json_dict['snake_case:colon'],
+                    'camel_case_colon': json_dict['camelCase:colon'],
+                    'pascal_case_colon': json_dict['PascalCase:Colon'],
+                    'screamingcase_colon': json_dict['SCREAMINGCASE:COLON'],
+                    'screaming_snake_colon': json_dict['SCREAMING_SNAKE:COLON'],
+                    'kebab_case_colon': json_dict['kebab-case:colon'],
+                    'pascal_snake_colon': json_dict['Pascal_Snake:Colon'],
+                    'colon_object': json_dict['colon:object'],
+                    'snake_dot': json_dict['snake.dot'],
+                    'snake_at': json_dict['snake@at'],
+                    'snake_hash': json_dict['snake#hash'],
+                    'snake_dollar': json_dict['snake$dollar'],
+                    'snake_percentage': json_dict['snake%percentage'],
+                    'snake_ampersand': json_dict['snake&ampersand'],
+                    'snake_asterisk': json_dict['snake*asterisk'],
+                }
+
+                return cls(**data)
 
         """;
 

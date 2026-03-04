@@ -14,8 +14,16 @@ namespace Json2SharpLib.Emitters.Python;
 /// </summary>
 internal sealed class PythonDataClassEmitter : CodeEmitter
 {
+    private readonly bool _addTypeHint;
     private readonly string _indentationPadding;
     private readonly string _typeHintNoneTemplate;
+
+    private static readonly HashSet<string> _pythonKeywords =
+    [
+        "False", "None", "True", "and", "as", "assert", "async", "await", "break", "class", "continue", "def", "del",
+        "elif", "else", "except", "finally", "for", "from", "global", "if", "import", "in", "is", "lambda", "nonlocal",
+        "not", "or", "pass", "raise", "return", "try", "while", "with", "yield"
+    ];
 
     /// <summary>
     /// Creates an object that parses JSON data into a Python data class.
@@ -23,6 +31,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
     /// <param name="options">The parsing options.</param>
     internal PythonDataClassEmitter(Json2SharpPythonOptions options) : base(options.TypeNameHandler)
     {
+        _addTypeHint = options.AddTypeHints;
         _indentationPadding = new string(
             options.IndentationPaddingCharacter is IndentationCharacterType.Space ? ' ' : '\t',
             options.IndentationCharacterAmount
@@ -53,6 +62,9 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
 
         var stringBuilder = BuildDataClass(objectName, properties, out var extraTypes);
 
+        // Build the from_json method
+        BuildFromJsonMethod(stringBuilder, properties);
+
         // Add extra classes above the root class
         AddCustomTypes(stringBuilder, extraTypes);
 
@@ -63,6 +75,8 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
             var hasTimedelta = stringBuilder.Contains("timedelta");
             var hasDatetime = stringBuilder.Contains("datetime");
             var hasOptional = stringBuilder.Contains("Optional[");
+            var hasAny = stringBuilder.Contains("Any");
+            var hasSelf = stringBuilder.Contains("Self");
 
             stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
 
@@ -78,8 +92,15 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
                 stringBuilder.Insert(0, "from datetime import " + modules + Environment.NewLine);
             }
 
+            var typingModules = new List<string>(3);
             if (hasOptional)
-                stringBuilder.Insert(0, "from typing import Optional" + Environment.NewLine);
+                typingModules.Add("Optional");
+            if (hasAny)
+                typingModules.Add("Any");
+            if (hasSelf)
+                typingModules.Add("Self");
+            if (typingModules.Count > 0)
+                stringBuilder.Insert(0, $"from typing import {string.Join(", ", typingModules)}" + Environment.NewLine);
 
             stringBuilder.Insert(0, "from dataclasses import dataclass" + Environment.NewLine);
         }
@@ -87,11 +108,53 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         return stringBuilder.ToStringAndClear();
     }
 
+    /// <summary>
+    /// Builds the from_json method.
+    /// </summary>
+    /// <param name="stringBuilder">The string builder to append the method to.</param>
+    /// <param name="properties">The properties of the class.</param>
+    private void BuildFromJsonMethod(StringBuilder stringBuilder, IReadOnlyList<ParsedJsonProperty> properties)
+    {
+        stringBuilder.AppendLine();
+        stringBuilder.AppendIndentedLine("@classmethod", _indentationPadding, 1);
+
+        if (_addTypeHint)
+        {
+            stringBuilder.AppendIndentedLine("def from_json(cls, json_dict: dict[str, Any]) -> Self:", _indentationPadding, 1);
+            stringBuilder.AppendIndentedLine("data: dict[str, Any] = {", _indentationPadding, 2);
+        }
+        else
+        {
+            stringBuilder.AppendIndentedLine("def from_json(cls, json_dict):", _indentationPadding, 1);
+            stringBuilder.AppendIndentedLine("data = {", _indentationPadding, 2);
+        }
+
+        foreach (var property in properties)
+            stringBuilder.AppendIndentedLine($"'{GetSafePropertyName(property.JsonName!)}': json_dict['{property.JsonName}'],", _indentationPadding, 3);
+
+        stringBuilder.AppendIndentedLine("}", _indentationPadding, 2);
+        stringBuilder.AppendLine();
+        stringBuilder.AppendIndentedLine("return cls(**data)", _indentationPadding, 2);
+    }
+
+    /// <summary>
+    /// Gets a safe property name that does not conflict with Python keywords or start with a digit.
+    /// </summary>
+    /// <param name="name">The name to be processed.</param>
+    /// <returns>A safe property name.</returns>
+    private static string GetSafePropertyName(string name)
+    {
+        var snakeCaseName = name.ToSnakeCase();
+        return (_pythonKeywords.Contains(snakeCaseName) || char.IsDigit(snakeCaseName[0]))
+            ? snakeCaseName + "_"
+            : snakeCaseName;
+    }
+
     /// <inheritdoc />
     protected override string ParseCustomType(ParsedJsonProperty property)
     {
         var typeName = GetObjectTypeName(property, Language.Python);
-        return $"{property.JsonName.ToSnakeCase()}: {typeName}";
+        return $"{GetSafePropertyName(property.JsonName!)}: {typeName}";
     }
 
     /// <inheritdoc />
@@ -101,7 +164,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
             ? string.Format(_typeHintNoneTemplate, typeName)
             : typeName;
 
-        return $"{property.JsonName.ToSnakeCase()}: list[{finalName}]";
+        return $"{GetSafePropertyName(property.JsonName!)}: list[{finalName}]";
     }
 
     /// <summary>
@@ -131,7 +194,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
                 ? (isNullable) ? string.Format(_typeHintNoneTemplate, aliasName) : aliasName
                 : throw new InvalidOperationException("Could not get alias for " + property.BclType.Name);
 
-            stringBuilder.AppendIndentedLine($"{property.JsonName.ToSnakeCase()}: {type}", _indentationPadding, 1);
+            stringBuilder.AppendIndentedLine($"{GetSafePropertyName(property.JsonName!)}: {type}", _indentationPadding, 1);
         }
 
         return stringBuilder;

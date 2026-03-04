@@ -30,17 +30,33 @@ internal static class ArrayTypes
 
     public const string DataClassOutputOptional = """
         from dataclasses import dataclass
-        from typing import Optional
+        from typing import Optional, Any, Self
         
         
         @dataclass
         class NullableThingArray:
             text: str
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                }
+
+                return cls(**data)
+
 
         @dataclass
         class ThingArray:
             text: str
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                }
+
+                return cls(**data)
 
 
         @dataclass
@@ -60,20 +76,58 @@ internal static class ArrayTypes
             objects_array: list[object]
             nullable_objects_array: list[Optional[object]]
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'empty_array': json_dict['empty_array'],
+                    'int_array': json_dict['int_array'],
+                    'nullable_int_array': json_dict['nullable_int_array'],
+                    'float_array': json_dict['float_array'],
+                    'nullable_float_array': json_dict['nullable_float_array'],
+                    'string_array': json_dict['string_array'],
+                    'nullable_string_array': json_dict['nullable_string_array'],
+                    'mixed_array': json_dict['mixed_array'],
+                    'nullable_mixed_array': json_dict['nullable_mixed_array'],
+                    'thing_array': json_dict['thing_array'],
+                    'nullable_thing_array': json_dict['nullable_thing_array'],
+                    'null_array': json_dict['null_array'],
+                    'objects_array': json_dict['objects_array'],
+                    'nullable_objects_array': json_dict['nullable_objects_array'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string DataClassOutputPipe = """
         from dataclasses import dataclass
+        from typing import Any, Self
         
         
         @dataclass
         class NullableThingArray:
             text: str
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                }
+
+                return cls(**data)
+
 
         @dataclass
         class ThingArray:
             text: str
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                }
+
+                return cls(**data)
 
 
         @dataclass
@@ -93,10 +147,31 @@ internal static class ArrayTypes
             objects_array: list[object]
             nullable_objects_array: list[object | None]
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'empty_array': json_dict['empty_array'],
+                    'int_array': json_dict['int_array'],
+                    'nullable_int_array': json_dict['nullable_int_array'],
+                    'float_array': json_dict['float_array'],
+                    'nullable_float_array': json_dict['nullable_float_array'],
+                    'string_array': json_dict['string_array'],
+                    'nullable_string_array': json_dict['nullable_string_array'],
+                    'mixed_array': json_dict['mixed_array'],
+                    'nullable_mixed_array': json_dict['nullable_mixed_array'],
+                    'thing_array': json_dict['thing_array'],
+                    'nullable_thing_array': json_dict['nullable_thing_array'],
+                    'null_array': json_dict['null_array'],
+                    'objects_array': json_dict['objects_array'],
+                    'nullable_objects_array': json_dict['nullable_objects_array'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string OutputOptional = """
-        from typing import Optional
+        from typing import Optional, Any, Self
 
 
         class NullableThingArray:
@@ -105,12 +180,28 @@ internal static class ArrayTypes
             ) -> None:
                 self.text: str = text
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                }
+
+                return cls(**data)
+
 
         class ThingArray:
             def __init__(
                 text: str
             ) -> None:
                 self.text: str = text
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                }
+
+                return cls(**data)
 
 
         class ArrayTypes:
@@ -145,14 +236,46 @@ internal static class ArrayTypes
                 self.objects_array: list[object] = objects_array
                 self.nullable_objects_array: list[Optional[object]] = nullable_objects_array
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'empty_array': json_dict['empty_array'],
+                    'int_array': json_dict['int_array'],
+                    'nullable_int_array': json_dict['nullable_int_array'],
+                    'float_array': json_dict['float_array'],
+                    'nullable_float_array': json_dict['nullable_float_array'],
+                    'string_array': json_dict['string_array'],
+                    'nullable_string_array': json_dict['nullable_string_array'],
+                    'mixed_array': json_dict['mixed_array'],
+                    'nullable_mixed_array': json_dict['nullable_mixed_array'],
+                    'thing_array': json_dict['thing_array'],
+                    'nullable_thing_array': json_dict['nullable_thing_array'],
+                    'null_array': json_dict['null_array'],
+                    'objects_array': json_dict['objects_array'],
+                    'nullable_objects_array': json_dict['nullable_objects_array'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string OutputPipe = """
+        from typing import Any, Self
+
+
         class NullableThingArray:
             def __init__(
                 text: str
             ) -> None:
                 self.text: str = text
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                }
+
+                return cls(**data)
 
 
         class ThingArray:
@@ -160,6 +283,14 @@ internal static class ArrayTypes
                 text: str
             ) -> None:
                 self.text: str = text
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                }
+
+                return cls(**data)
 
 
         class ArrayTypes:
@@ -194,6 +325,27 @@ internal static class ArrayTypes
                 self.objects_array: list[object] = objects_array
                 self.nullable_objects_array: list[object | None] = nullable_objects_array
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'empty_array': json_dict['empty_array'],
+                    'int_array': json_dict['int_array'],
+                    'nullable_int_array': json_dict['nullable_int_array'],
+                    'float_array': json_dict['float_array'],
+                    'nullable_float_array': json_dict['nullable_float_array'],
+                    'string_array': json_dict['string_array'],
+                    'nullable_string_array': json_dict['nullable_string_array'],
+                    'mixed_array': json_dict['mixed_array'],
+                    'nullable_mixed_array': json_dict['nullable_mixed_array'],
+                    'thing_array': json_dict['thing_array'],
+                    'nullable_thing_array': json_dict['nullable_thing_array'],
+                    'null_array': json_dict['null_array'],
+                    'objects_array': json_dict['objects_array'],
+                    'nullable_objects_array': json_dict['nullable_objects_array'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string OutputNoTypeHints = """
@@ -203,12 +355,28 @@ internal static class ArrayTypes
             ):
                 self.text = text
 
+            @classmethod
+            def from_json(cls, json_dict):
+                data = {
+                    'text': json_dict['text'],
+                }
+
+                return cls(**data)
+
 
         class ThingArray:
             def __init__(
                 text
             ):
                 self.text = text
+
+            @classmethod
+            def from_json(cls, json_dict):
+                data = {
+                    'text': json_dict['text'],
+                }
+
+                return cls(**data)
 
 
         class ArrayTypes:
@@ -242,6 +410,27 @@ internal static class ArrayTypes
                 self.null_array = null_array
                 self.objects_array = objects_array
                 self.nullable_objects_array = nullable_objects_array
+
+            @classmethod
+            def from_json(cls, json_dict):
+                data = {
+                    'empty_array': json_dict['empty_array'],
+                    'int_array': json_dict['int_array'],
+                    'nullable_int_array': json_dict['nullable_int_array'],
+                    'float_array': json_dict['float_array'],
+                    'nullable_float_array': json_dict['nullable_float_array'],
+                    'string_array': json_dict['string_array'],
+                    'nullable_string_array': json_dict['nullable_string_array'],
+                    'mixed_array': json_dict['mixed_array'],
+                    'nullable_mixed_array': json_dict['nullable_mixed_array'],
+                    'thing_array': json_dict['thing_array'],
+                    'nullable_thing_array': json_dict['nullable_thing_array'],
+                    'null_array': json_dict['null_array'],
+                    'objects_array': json_dict['objects_array'],
+                    'nullable_objects_array': json_dict['nullable_objects_array'],
+                }
+
+                return cls(**data)
 
         """;
 

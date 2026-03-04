@@ -11,17 +11,28 @@ internal static class BoolTypes
 
     public const string DataClassOutputOptional = """
         from dataclasses import dataclass
+        from typing import Any, Self
 
 
         @dataclass
         class BoolTypes:
             true_bool: bool
             false_bool: bool
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'true_bool': json_dict['true_bool'],
+                    'false_bool': json_dict['false_bool'],
+                }
+
+                return cls(**data)
 
         """;
 
     public const string DataClassOutputPipe = """
         from dataclasses import dataclass
+        from typing import Any, Self
 
 
         @dataclass
@@ -29,9 +40,21 @@ internal static class BoolTypes
             true_bool: bool
             false_bool: bool
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'true_bool': json_dict['true_bool'],
+                    'false_bool': json_dict['false_bool'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string OutputOptional = """
+        from typing import Any, Self
+
+
         class BoolTypes:
             def __init__(
                 true_bool: bool,
@@ -39,10 +62,22 @@ internal static class BoolTypes
             ) -> None:
                 self.true_bool: bool = true_bool
                 self.false_bool: bool = false_bool
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'true_bool': json_dict['true_bool'],
+                    'false_bool': json_dict['false_bool'],
+                }
+
+                return cls(**data)
 
         """;
 
     public const string OutputPipe = """
+        from typing import Any, Self
+
+
         class BoolTypes:
             def __init__(
                 true_bool: bool,
@@ -50,6 +85,15 @@ internal static class BoolTypes
             ) -> None:
                 self.true_bool: bool = true_bool
                 self.false_bool: bool = false_bool
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'true_bool': json_dict['true_bool'],
+                    'false_bool': json_dict['false_bool'],
+                }
+
+                return cls(**data)
 
         """;
 
@@ -61,6 +105,15 @@ internal static class BoolTypes
             ):
                 self.true_bool = true_bool
                 self.false_bool = false_bool
+
+            @classmethod
+            def from_json(cls, json_dict):
+                data = {
+                    'true_bool': json_dict['true_bool'],
+                    'false_bool': json_dict['false_bool'],
+                }
+
+                return cls(**data)
 
         """;
 

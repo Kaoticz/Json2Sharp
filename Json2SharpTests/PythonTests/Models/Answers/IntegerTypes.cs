@@ -13,6 +13,7 @@ internal static class IntegerTypes
 
     public const string DataClassOutputOptional = """
         from dataclasses import dataclass
+        from typing import Any, Self
 
 
         @dataclass
@@ -21,11 +22,23 @@ internal static class IntegerTypes
             uint_number: int
             long_number: int
             ulong_number: int
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'int_number': json_dict['int_number'],
+                    'uint_number': json_dict['uint_number'],
+                    'long_number': json_dict['long_number'],
+                    'ulong_number': json_dict['ulong_number'],
+                }
+
+                return cls(**data)
 
         """;
 
     public const string DataClassOutputPipe = """
         from dataclasses import dataclass
+        from typing import Any, Self
 
 
         @dataclass
@@ -35,9 +48,23 @@ internal static class IntegerTypes
             long_number: int
             ulong_number: int
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'int_number': json_dict['int_number'],
+                    'uint_number': json_dict['uint_number'],
+                    'long_number': json_dict['long_number'],
+                    'ulong_number': json_dict['ulong_number'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string OutputOptional = """
+        from typing import Any, Self
+
+
         class IntegerTypes:
             def __init__(
                 int_number: int,
@@ -49,10 +76,24 @@ internal static class IntegerTypes
                 self.uint_number: int = uint_number
                 self.long_number: int = long_number
                 self.ulong_number: int = ulong_number
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'int_number': json_dict['int_number'],
+                    'uint_number': json_dict['uint_number'],
+                    'long_number': json_dict['long_number'],
+                    'ulong_number': json_dict['ulong_number'],
+                }
+
+                return cls(**data)
 
         """;
 
     public const string OutputPipe = """
+        from typing import Any, Self
+
+
         class IntegerTypes:
             def __init__(
                 int_number: int,
@@ -64,6 +105,17 @@ internal static class IntegerTypes
                 self.uint_number: int = uint_number
                 self.long_number: int = long_number
                 self.ulong_number: int = ulong_number
+
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'int_number': json_dict['int_number'],
+                    'uint_number': json_dict['uint_number'],
+                    'long_number': json_dict['long_number'],
+                    'ulong_number': json_dict['ulong_number'],
+                }
+
+                return cls(**data)
 
         """;
 
@@ -79,6 +131,17 @@ internal static class IntegerTypes
                 self.uint_number = uint_number
                 self.long_number = long_number
                 self.ulong_number = ulong_number
+
+            @classmethod
+            def from_json(cls, json_dict):
+                data = {
+                    'int_number': json_dict['int_number'],
+                    'uint_number': json_dict['uint_number'],
+                    'long_number': json_dict['long_number'],
+                    'ulong_number': json_dict['ulong_number'],
+                }
+
+                return cls(**data)
 
         """;
 

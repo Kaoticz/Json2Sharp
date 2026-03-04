@@ -20,7 +20,7 @@ internal static class TextTypes
 
     public const string DataClassOutputOptional = """
         from dataclasses import dataclass
-        from typing import Optional
+        from typing import Optional, Any, Self
         from datetime import datetime, timedelta
         from uuid import UUID
 
@@ -39,10 +39,29 @@ internal static class TextTypes
             ids: list[UUID]
             nullable_ids: list[Optional[UUID]]
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                    'empty_text': json_dict['empty_text'],
+                    'timespan': json_dict['timespan'],
+                    'timespans': json_dict['timespans'],
+                    'nullable_timespans': json_dict['nullable_timespans'],
+                    'date_time_offset': json_dict['date_time_offset'],
+                    'date_time_offset_array': json_dict['date_time_offset_array'],
+                    'date_time_offset_nullable_array': json_dict['date_time_offset_nullable_array'],
+                    'id': json_dict['id'],
+                    'ids': json_dict['ids'],
+                    'nullable_ids': json_dict['nullable_ids'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string DataClassOutputPipe = """
         from dataclasses import dataclass
+        from typing import Any, Self
         from datetime import datetime, timedelta
         from uuid import UUID
 
@@ -61,10 +80,28 @@ internal static class TextTypes
             ids: list[UUID]
             nullable_ids: list[UUID | None]
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                    'empty_text': json_dict['empty_text'],
+                    'timespan': json_dict['timespan'],
+                    'timespans': json_dict['timespans'],
+                    'nullable_timespans': json_dict['nullable_timespans'],
+                    'date_time_offset': json_dict['date_time_offset'],
+                    'date_time_offset_array': json_dict['date_time_offset_array'],
+                    'date_time_offset_nullable_array': json_dict['date_time_offset_nullable_array'],
+                    'id': json_dict['id'],
+                    'ids': json_dict['ids'],
+                    'nullable_ids': json_dict['nullable_ids'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string OutputOptional = """
-        from typing import Optional
+        from typing import Optional, Any, Self
         from datetime import datetime, timedelta
         from uuid import UUID
 
@@ -95,9 +132,28 @@ internal static class TextTypes
                 self.ids: list[UUID] = ids
                 self.nullable_ids: list[Optional[UUID]] = nullable_ids
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                    'empty_text': json_dict['empty_text'],
+                    'timespan': json_dict['timespan'],
+                    'timespans': json_dict['timespans'],
+                    'nullable_timespans': json_dict['nullable_timespans'],
+                    'date_time_offset': json_dict['date_time_offset'],
+                    'date_time_offset_array': json_dict['date_time_offset_array'],
+                    'date_time_offset_nullable_array': json_dict['date_time_offset_nullable_array'],
+                    'id': json_dict['id'],
+                    'ids': json_dict['ids'],
+                    'nullable_ids': json_dict['nullable_ids'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string OutputPipe = """
+        from typing import Any, Self
         from datetime import datetime, timedelta
         from uuid import UUID
 
@@ -128,6 +184,24 @@ internal static class TextTypes
                 self.ids: list[UUID] = ids
                 self.nullable_ids: list[UUID | None] = nullable_ids
 
+            @classmethod
+            def from_json(cls, json_dict: dict[str, Any]) -> Self:
+                data: dict[str, Any] = {
+                    'text': json_dict['text'],
+                    'empty_text': json_dict['empty_text'],
+                    'timespan': json_dict['timespan'],
+                    'timespans': json_dict['timespans'],
+                    'nullable_timespans': json_dict['nullable_timespans'],
+                    'date_time_offset': json_dict['date_time_offset'],
+                    'date_time_offset_array': json_dict['date_time_offset_array'],
+                    'date_time_offset_nullable_array': json_dict['date_time_offset_nullable_array'],
+                    'id': json_dict['id'],
+                    'ids': json_dict['ids'],
+                    'nullable_ids': json_dict['nullable_ids'],
+                }
+
+                return cls(**data)
+
         """;
 
     public const string OutputNoTypeHints = """
@@ -156,6 +230,24 @@ internal static class TextTypes
                 self.id = id
                 self.ids = ids
                 self.nullable_ids = nullable_ids
+
+            @classmethod
+            def from_json(cls, json_dict):
+                data = {
+                    'text': json_dict['text'],
+                    'empty_text': json_dict['empty_text'],
+                    'timespan': json_dict['timespan'],
+                    'timespans': json_dict['timespans'],
+                    'nullable_timespans': json_dict['nullable_timespans'],
+                    'date_time_offset': json_dict['date_time_offset'],
+                    'date_time_offset_array': json_dict['date_time_offset_array'],
+                    'date_time_offset_nullable_array': json_dict['date_time_offset_nullable_array'],
+                    'id': json_dict['id'],
+                    'ids': json_dict['ids'],
+                    'nullable_ids': json_dict['nullable_ids'],
+                }
+
+                return cls(**data)
 
         """;
 
