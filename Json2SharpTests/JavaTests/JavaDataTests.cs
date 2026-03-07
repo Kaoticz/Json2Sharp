@@ -34,7 +34,7 @@ public sealed class JavaDataTests
     }
 
     [Theory]
-    // Integer Types (19 variations)
+    // Integer Types
     [InlineData(IntegerTypes.Input, IntegerTypes.NoAnnotationOutput, false, JavaSerializationAnnotation.NoAnnotation, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(IntegerTypes.Input, IntegerTypes.JacksonOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(IntegerTypes.Input, IntegerTypes.JacksonJakartaOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]
@@ -74,7 +74,7 @@ public sealed class JavaDataTests
     [InlineData(IntegerTypes.Input, IntegerTypes.MoshiLombokRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.Lombok)]
     [InlineData(IntegerTypes.Input, IntegerTypes.MoshiFindBugsRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.FindBugs)]
     
-    // Bool Types (19 variations)
+    // Bool Types
     [InlineData(BoolTypes.Input, BoolTypes.NoAnnotationOutput, false, JavaSerializationAnnotation.NoAnnotation, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(BoolTypes.Input, BoolTypes.JacksonOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(BoolTypes.Input, BoolTypes.JacksonJakartaOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]
@@ -114,7 +114,7 @@ public sealed class JavaDataTests
     [InlineData(BoolTypes.Input, BoolTypes.MoshiLombokRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.Lombok)]
     [InlineData(BoolTypes.Input, BoolTypes.MoshiFindBugsRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.FindBugs)]
 
-    // Float Types (19 variations)
+    // Float Types
     [InlineData(FloatTypes.Input, FloatTypes.NoAnnotationOutput, false, JavaSerializationAnnotation.NoAnnotation, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(FloatTypes.Input, FloatTypes.JacksonOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(FloatTypes.Input, FloatTypes.JacksonJakartaOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]
@@ -154,7 +154,7 @@ public sealed class JavaDataTests
     [InlineData(FloatTypes.Input, FloatTypes.MoshiLombokRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.Lombok)]
     [InlineData(FloatTypes.Input, FloatTypes.MoshiFindBugsRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.FindBugs)]
 
-    // Text Types (19 variations)
+    // Text Types
     [InlineData(TextTypes.Input, TextTypes.NoAnnotationOutput, false, JavaSerializationAnnotation.NoAnnotation, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(TextTypes.Input, TextTypes.JacksonOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(TextTypes.Input, TextTypes.JacksonJakartaOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]
@@ -194,7 +194,7 @@ public sealed class JavaDataTests
     [InlineData(TextTypes.Input, TextTypes.MoshiLombokRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.Lombok)]
     [InlineData(TextTypes.Input, TextTypes.MoshiFindBugsRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.FindBugs)]
 
-    // Array Root (19 variations)
+    // Array Root
     [InlineData(ArrayRoot.Input, ArrayRoot.NoAnnotationOutput, false, JavaSerializationAnnotation.NoAnnotation, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(ArrayRoot.Input, ArrayRoot.JacksonOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(ArrayRoot.Input, ArrayRoot.JacksonJakartaOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]
@@ -234,7 +234,7 @@ public sealed class JavaDataTests
     [InlineData(ArrayRoot.Input, ArrayRoot.MoshiLombokRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.Lombok)]
     [InlineData(ArrayRoot.Input, ArrayRoot.MoshiFindBugsRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.FindBugs)]
 
-    // Object Types (19 variations)
+    // Object Types
     [InlineData(ObjectTypes.Input, ObjectTypes.NoAnnotationOutput, false, JavaSerializationAnnotation.NoAnnotation, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(ObjectTypes.Input, ObjectTypes.JacksonOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(ObjectTypes.Input, ObjectTypes.JacksonJakartaOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]
@@ -274,7 +274,7 @@ public sealed class JavaDataTests
     [InlineData(ObjectTypes.Input, ObjectTypes.MoshiLombokRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.Lombok)]
     [InlineData(ObjectTypes.Input, ObjectTypes.MoshiFindBugsRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.FindBugs)]
 
-    // Array Types (19 variations)
+    // Array Types
     [InlineData(ArrayTypes.Input, ArrayTypes.NoAnnotationOutput, false, JavaSerializationAnnotation.NoAnnotation, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(ArrayTypes.Input, ArrayTypes.JacksonOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(ArrayTypes.Input, ArrayTypes.JacksonJakartaOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]
@@ -314,7 +314,7 @@ public sealed class JavaDataTests
     [InlineData(ArrayTypes.Input, ArrayTypes.MoshiLombokRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.Lombok)]
     [InlineData(ArrayTypes.Input, ArrayTypes.MoshiFindBugsRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.FindBugs)]
 
-    // Weird Name Types (19 variations)
+    // Weird Name Types
     [InlineData(WeirdNameTypes.Input, WeirdNameTypes.NoAnnotationOutput, false, JavaSerializationAnnotation.NoAnnotation, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(WeirdNameTypes.Input, WeirdNameTypes.JacksonOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(WeirdNameTypes.Input, WeirdNameTypes.JacksonJakartaOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]
@@ -376,7 +376,7 @@ public sealed class JavaDataTests
     }
 
     [Theory]
-    // Custom Handle Types (19 variations)
+    // Custom Handle Types
     [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.NoAnnotationOutput, false, JavaSerializationAnnotation.NoAnnotation, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.JacksonOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.JacksonJakartaOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]

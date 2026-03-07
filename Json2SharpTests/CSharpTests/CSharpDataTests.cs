@@ -14,22 +14,20 @@ public sealed class CSharpDataTests
 
     public static IEnumerable<object[]> GetExhaustiveTestMatrix()
     {
-        foreach (var targetType in Enum.GetValues<CSharpObjectType>())
-        {
-            foreach (var accessibility in _accessibilityLevels)
-            {
-                foreach (var isSealed in _boolValues)
-                {
-                    foreach (var isRequired in _boolValues)
-                    {
-                        foreach (var setter in _setterTypes)
-                        {
-                            yield return [targetType, accessibility, isSealed, isRequired, setter];
-                        }
-                    }
-                }
-            }
-        }
+        return Enum.GetValues<CSharpObjectType>()
+            .SelectMany(_ => _accessibilityLevels, (targetType, accessibility) => new { targetType, accessibility })
+            .SelectMany(_ => _boolValues, (prev, isSealed) => new { prev.targetType, prev.accessibility, isSealed })
+            .SelectMany(_ => _boolValues, (prev, isRequired) => new { prev.targetType, prev.accessibility, prev.isSealed, isRequired })
+            .SelectMany(
+                _ => _setterTypes, 
+                (prev, setter) => new object[] 
+                { 
+                    prev.targetType, 
+                    prev.accessibility, 
+                    prev.isSealed, 
+                    prev.isRequired, 
+                    setter 
+                });
     }
 
     [Theory]
