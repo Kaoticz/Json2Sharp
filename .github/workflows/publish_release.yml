@@ -34,8 +34,8 @@ jobs:
       - name: Publish
         run: |
           cd .\Json2SharpApp\
-          dotnet publish --self-contained -c Release -r win-x64 -o "$env:WORK_DIR_PATH\build\Json2Sharp_win-x64"
-          dotnet publish --self-contained -c Release -r win-arm64 -o "$env:WORK_DIR_PATH\build\Json2Sharp_win-arm64"
+          dotnet publish --self-contained -c Release -f net10.0 -r win-x64 -o "$env:WORK_DIR_PATH\build\Json2Sharp_win-x64"
+          dotnet publish --self-contained -c Release -f net10.0 -r win-arm64 -o "$env:WORK_DIR_PATH\build\Json2Sharp_win-arm64"
           cd ..\
 
       - name: Package
@@ -83,8 +83,8 @@ jobs:
       - name: Publish
         run: |
           cd ./Json2SharpApp
-          dotnet publish --self-contained -c Release -r linux-x64 -o ~/build/Json2Sharp_linux-x64
-          dotnet publish --self-contained -c Release -r linux-arm64 -o ~/build/Json2Sharp_linux-arm64
+          dotnet publish --self-contained -c Release -f net10.0 -r linux-x64 -o ~/build/Json2Sharp_linux-x64
+          dotnet publish --self-contained -c Release -f net10.0 -r linux-arm64 -o ~/build/Json2Sharp_linux-arm64
           cd ../
 
       - name: Package
@@ -133,8 +133,8 @@ jobs:
       - name: Publish
         run: |
           cd ./Json2SharpApp
-          dotnet publish --self-contained -c Release -r osx-x64 -o ~/build/Json2Sharp_osx-x64
-          dotnet publish --self-contained -c Release -r osx-arm64 -o ~/build/Json2Sharp_osx-arm64
+          dotnet publish --self-contained -c Release -f net10.0 -r osx-x64 -o ~/build/Json2Sharp_osx-x64
+          dotnet publish --self-contained -c Release -f net10.0 -r osx-arm64 -o ~/build/Json2Sharp_osx-arm64
           cd ../
 
       - name: Package
