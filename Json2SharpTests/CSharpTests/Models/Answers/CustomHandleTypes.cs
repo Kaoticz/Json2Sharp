@@ -23,24 +23,24 @@ internal static class CustomHandleTypes
 
     public const string RecordPrimaryCtorOutputNoAtt = """
         public sealed record custom_handle_types(
-            Guid id,
-            DateTimeOffset date,
-            TimeSpan duration,
-            object? null_thing,
-            object empty_thing,
-            thing[] thing
+            Guid Id,
+            DateTimeOffset Date,
+            TimeSpan Duration,
+            object? NullThing,
+            object EmptyThing,
+            thing[] Thing
         );
         
         public sealed record thing(
-            string text,
-            int number,
-            int[] int_array,
-            int prop_base_colon,
-            prop_custom_colon prop_custom_colon
+            string Text,
+            int Number,
+            int[] IntArray,
+            int PropBaseColon,
+            prop_custom_colon PropCustomColon
         );
         
         public sealed record prop_custom_colon(
-            string blep
+            string Blep
         );
         """;
 
@@ -48,24 +48,24 @@ internal static class CustomHandleTypes
         using Newtonsoft.Json;
         
         public sealed record custom_handle_types(
-            [JsonProperty("id")] Guid id,
-            [JsonProperty("date")] DateTimeOffset date,
-            [JsonProperty("duration")] TimeSpan duration,
-            [JsonProperty("null_thing")] object? null_thing,
-            [JsonProperty("empty_thing")] object empty_thing,
-            [JsonProperty("thing")] thing[] thing
+            [JsonProperty("id")] Guid Id,
+            [JsonProperty("date")] DateTimeOffset Date,
+            [JsonProperty("duration")] TimeSpan Duration,
+            [JsonProperty("null_thing")] object? NullThing,
+            [JsonProperty("empty_thing")] object EmptyThing,
+            [JsonProperty("thing")] thing[] Thing
         );
         
         public sealed record thing(
-            [JsonProperty("text")] string text,
-            [JsonProperty("number")] int number,
-            [JsonProperty("int_array")] int[] int_array,
-            [JsonProperty("prop_base:colon")] int prop_base_colon,
-            [JsonProperty("prop_custom:colon")] prop_custom_colon prop_custom_colon
+            [JsonProperty("text")] string Text,
+            [JsonProperty("number")] int Number,
+            [JsonProperty("int_array")] int[] IntArray,
+            [JsonProperty("prop_base:colon")] int PropBaseColon,
+            [JsonProperty("prop_custom:colon")] prop_custom_colon PropCustomColon
         );
         
         public sealed record prop_custom_colon(
-            [JsonProperty("blep")] string blep
+            [JsonProperty("blep")] string Blep
         );
         """;
 
@@ -73,59 +73,59 @@ internal static class CustomHandleTypes
         using System.Text.Json.Serialization;
         
         public sealed record custom_handle_types(
-            [property: JsonPropertyName("id")] Guid id,
-            [property: JsonPropertyName("date")] DateTimeOffset date,
-            [property: JsonPropertyName("duration")] TimeSpan duration,
-            [property: JsonPropertyName("null_thing")] object? null_thing,
-            [property: JsonPropertyName("empty_thing")] object empty_thing,
-            [property: JsonPropertyName("thing")] thing[] thing
+            [property: JsonPropertyName("id")] Guid Id,
+            [property: JsonPropertyName("date")] DateTimeOffset Date,
+            [property: JsonPropertyName("duration")] TimeSpan Duration,
+            [property: JsonPropertyName("null_thing")] object? NullThing,
+            [property: JsonPropertyName("empty_thing")] object EmptyThing,
+            [property: JsonPropertyName("thing")] thing[] Thing
         );
         
         public sealed record thing(
-            [property: JsonPropertyName("text")] string text,
-            [property: JsonPropertyName("number")] int number,
-            [property: JsonPropertyName("int_array")] int[] int_array,
-            [property: JsonPropertyName("prop_base:colon")] int prop_base_colon,
-            [property: JsonPropertyName("prop_custom:colon")] prop_custom_colon prop_custom_colon
+            [property: JsonPropertyName("text")] string Text,
+            [property: JsonPropertyName("number")] int Number,
+            [property: JsonPropertyName("int_array")] int[] IntArray,
+            [property: JsonPropertyName("prop_base:colon")] int PropBaseColon,
+            [property: JsonPropertyName("prop_custom:colon")] prop_custom_colon PropCustomColon
         );
         
         public sealed record prop_custom_colon(
-            [property: JsonPropertyName("blep")] string blep
+            [property: JsonPropertyName("blep")] string Blep
         );
         """;
 
     public const string ClassOutputNoAtt = """
         public sealed class custom_handle_types
         {
-            public required Guid id { get; init; }
+            public required Guid Id { get; init; }
         
-            public required DateTimeOffset date { get; init; }
+            public required DateTimeOffset Date { get; init; }
         
-            public required TimeSpan duration { get; init; }
+            public required TimeSpan Duration { get; init; }
         
-            public required object? null_thing { get; init; }
+            public required object? NullThing { get; init; }
         
-            public required object empty_thing { get; init; }
+            public required object EmptyThing { get; init; }
         
-            public required thing[] thing { get; init; }
+            public required thing[] Thing { get; init; }
         }
         
         public sealed class thing
         {
-            public required string text { get; init; }
+            public required string Text { get; init; }
         
-            public required int number { get; init; }
+            public required int Number { get; init; }
         
-            public required int[] int_array { get; init; }
+            public required int[] IntArray { get; init; }
         
-            public required int prop_base_colon { get; init; }
+            public required int PropBaseColon { get; init; }
         
-            public required prop_custom_colon prop_custom_colon { get; init; }
+            public required prop_custom_colon PropCustomColon { get; init; }
         }
         
         public sealed class prop_custom_colon
         {
-            public required string blep { get; init; }
+            public required string Blep { get; init; }
         }
         """;
 
@@ -135,46 +135,46 @@ internal static class CustomHandleTypes
         public sealed class custom_handle_types
         {
             [JsonPropertyName("id")]
-            public required Guid id { get; init; }
+            public required Guid Id { get; init; }
         
             [JsonPropertyName("date")]
-            public required DateTimeOffset date { get; init; }
+            public required DateTimeOffset Date { get; init; }
         
             [JsonPropertyName("duration")]
-            public required TimeSpan duration { get; init; }
+            public required TimeSpan Duration { get; init; }
         
             [JsonPropertyName("null_thing")]
-            public required object? null_thing { get; init; }
+            public required object? NullThing { get; init; }
         
             [JsonPropertyName("empty_thing")]
-            public required object empty_thing { get; init; }
+            public required object EmptyThing { get; init; }
         
             [JsonPropertyName("thing")]
-            public required thing[] thing { get; init; }
+            public required thing[] Thing { get; init; }
         }
         
         public sealed class thing
         {
             [JsonPropertyName("text")]
-            public required string text { get; init; }
+            public required string Text { get; init; }
         
             [JsonPropertyName("number")]
-            public required int number { get; init; }
+            public required int Number { get; init; }
         
             [JsonPropertyName("int_array")]
-            public required int[] int_array { get; init; }
+            public required int[] IntArray { get; init; }
         
             [JsonPropertyName("prop_base:colon")]
-            public required int prop_base_colon { get; init; }
+            public required int PropBaseColon { get; init; }
         
             [JsonPropertyName("prop_custom:colon")]
-            public required prop_custom_colon prop_custom_colon { get; init; }
+            public required prop_custom_colon PropCustomColon { get; init; }
         }
         
         public sealed class prop_custom_colon
         {
             [JsonPropertyName("blep")]
-            public required string blep { get; init; }
+            public required string Blep { get; init; }
         }
         """;
 
@@ -184,46 +184,46 @@ internal static class CustomHandleTypes
         public readonly struct custom_handle_types
         {
             [JsonPropertyName("id")]
-            public required Guid id { get; init; }
+            public required Guid Id { get; init; }
         
             [JsonPropertyName("date")]
-            public required DateTimeOffset date { get; init; }
+            public required DateTimeOffset Date { get; init; }
         
             [JsonPropertyName("duration")]
-            public required TimeSpan duration { get; init; }
+            public required TimeSpan Duration { get; init; }
         
             [JsonPropertyName("null_thing")]
-            public required object? null_thing { get; init; }
+            public required object? NullThing { get; init; }
         
             [JsonPropertyName("empty_thing")]
-            public required object empty_thing { get; init; }
+            public required object EmptyThing { get; init; }
         
             [JsonPropertyName("thing")]
-            public required thing[] thing { get; init; }
+            public required thing[] Thing { get; init; }
         }
         
         public readonly struct thing
         {
             [JsonPropertyName("text")]
-            public required string text { get; init; }
+            public required string Text { get; init; }
         
             [JsonPropertyName("number")]
-            public required int number { get; init; }
+            public required int Number { get; init; }
         
             [JsonPropertyName("int_array")]
-            public required int[] int_array { get; init; }
+            public required int[] IntArray { get; init; }
         
             [JsonPropertyName("prop_base:colon")]
-            public required int prop_base_colon { get; init; }
+            public required int PropBaseColon { get; init; }
         
             [JsonPropertyName("prop_custom:colon")]
-            public required prop_custom_colon prop_custom_colon { get; init; }
+            public required prop_custom_colon PropCustomColon { get; init; }
         }
         
         public readonly struct prop_custom_colon
         {
             [JsonPropertyName("blep")]
-            public required string blep { get; init; }
+            public required string Blep { get; init; }
         }
         """;
 

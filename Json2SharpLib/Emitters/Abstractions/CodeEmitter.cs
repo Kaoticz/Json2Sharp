@@ -108,9 +108,9 @@ internal abstract class CodeEmitter : ICodeEmitter
     {
         var processedName = language switch
         {
-            Language.CSharp => _typeNameHandler(name),
-            Language.Python => _typeNameHandler(name).ToSnakeCase(),
-            Language.Java => _typeNameHandler(name).ToCamelCase(),
+            Language.CSharp => name.ToPascalCase(),
+            Language.Python => name.ToSnakeCase(),
+            Language.Java => name.ToCamelCase(),
             _ => name
         };
 
