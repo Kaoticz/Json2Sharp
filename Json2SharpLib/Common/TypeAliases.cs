@@ -1,4 +1,5 @@
 using System.Collections.Frozen;
+using System.Numerics;
 
 namespace Json2SharpLib.Common;
 
@@ -31,6 +32,7 @@ internal static class TypeAliases
         [typeof(TimeSpan)] = nameof(TimeSpan),
         [typeof(DateTimeOffset)] = nameof(DateTimeOffset),
         [typeof(Guid)] = nameof(Guid),
+        [typeof(BigInteger)] = "BigInteger",
 
         [typeof(string[])] = "string[]",
         [typeof(int[])] = "int[]",
@@ -51,6 +53,7 @@ internal static class TypeAliases
         [typeof(TimeSpan[])] = nameof(TimeSpan) + "[]",
         [typeof(DateTimeOffset[])] = nameof(DateTimeOffset) + "[]",
         [typeof(Guid[])] = nameof(Guid) + "[]",
+        [typeof(BigInteger[])] = nameof(BigInteger) + "[]",
 
         [typeof(int?[])] = "int?[]",
         [typeof(byte?[])] = "byte?[]",
@@ -69,6 +72,7 @@ internal static class TypeAliases
         [typeof(TimeSpan?[])] = nameof(TimeSpan) + "?[]",
         [typeof(DateTimeOffset?[])] = nameof(DateTimeOffset) + "?[]",
         [typeof(Guid?[])] = nameof(Guid) + "?[]",
+        [typeof(BigInteger?[])] = nameof(BigInteger) + "?[]",
     }.ToFrozenDictionary();
 
     /// <summary>
@@ -95,6 +99,7 @@ internal static class TypeAliases
         [typeof(TimeSpan)] = "timedelta",
         [typeof(DateTime)] = "datetime",
         [typeof(DateTimeOffset)] = "datetime",
+        [typeof(BigInteger)] = "int",
 
         [typeof(string[])] = "list[str]",
         [typeof(int[])] = "list[int]",
@@ -115,6 +120,7 @@ internal static class TypeAliases
         [typeof(TimeSpan[])] = "list[timedelta]",
         [typeof(DateTime[])] = "list[datetime]",
         [typeof(DateTimeOffset[])] = "list[datetime]",
+        [typeof(BigInteger[])] = "list[int]",
 
         [typeof(int?[])] = "Optional[list[int]]",
         [typeof(byte?[])] = "Optional[bytes]",
@@ -133,6 +139,7 @@ internal static class TypeAliases
         [typeof(TimeSpan?[])] = "Optional[list[timedelta]]",
         [typeof(DateTime?[])] = "Optional[list[datetime]]",
         [typeof(DateTimeOffset?[])] = "Optional[list[datetime]]",
+        [typeof(BigInteger?[])] = "Optional[list[int]]",
     }.ToFrozenDictionary();
 
     /// <summary>
@@ -159,6 +166,7 @@ internal static class TypeAliases
         [typeof(TimeSpan)] = "Duration",
         [typeof(DateTime)] = "OffsetDateTime",
         [typeof(DateTimeOffset)] = "OffsetDateTime",
+        [typeof(BigInteger)] = "BigInteger",
 
         [typeof(string[])] = "List<String>",
         [typeof(int[])] = "List<Integer>",
@@ -179,6 +187,7 @@ internal static class TypeAliases
         [typeof(TimeSpan[])] = "List<Duration>",
         [typeof(DateTime[])] = "List<OffsetDateTime>",
         [typeof(DateTimeOffset[])] = "List<OffsetDateTime>",
+        [typeof(BigInteger[])] = "List<BigInteger>",
 
         [typeof(int?[])] = "List<Integer>",
         [typeof(byte?[])] = "List<Byte>",
@@ -197,5 +206,6 @@ internal static class TypeAliases
         [typeof(TimeSpan?[])] = "List<Duration>",
         [typeof(DateTime?[])] = "List<OffsetDateTime>",
         [typeof(DateTimeOffset?[])] = "List<OffsetDateTime>",
+        [typeof(BigInteger?[])] = "List<BigInteger>",
     }.ToFrozenDictionary();
 }

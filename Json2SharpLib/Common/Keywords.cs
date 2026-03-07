@@ -2,24 +2,14 @@ using System.Collections.Frozen;
 namespace Json2SharpLib.Common;
 
 /// <summary>
-/// Defines constants for the library.
+/// Defines keywords for multiple programming languages.
 /// </summary>
-internal static class Constants
+internal static class Keywords
 {
-    /// <summary>
-    /// C# using for System Text Json.
-    /// </summary>
-    public const string StjUsing = "using System.Text.Json.Serialization;";
-
-    /// <summary>
-    /// C# using for Newtonsoft Json.
-    /// </summary>
-    public const string NewtonsoftUsing = "using Newtonsoft.Json;";
-
     /// <summary>
     /// The collection of C# keywords.
     /// </summary>
-    public static FrozenSet<string> CSharpKeywords { get; } = new[]
+    public static FrozenSet<string> CSharp { get; } = new[]
     {
         "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const",
         "continue", "decimal", "default", "delegate", "do", "double", "else", "enum", "event", "explicit",
@@ -36,7 +26,7 @@ internal static class Constants
     /// <summary>
     /// The collection of Python keywords.
     /// </summary>
-    public static FrozenSet<string> PythonKeywords { get; } = new[]
+    public static FrozenSet<string> Python { get; } = new[]
     {
         "False", "None", "True", "and", "as", "assert", "async", "await", "break", "class", "continue", "def", "del",
         "elif", "else", "except", "finally", "for", "from", "global", "if", "import", "in", "is", "lambda", "nonlocal",
@@ -46,7 +36,7 @@ internal static class Constants
     /// <summary>
     /// The collection of Java keywords.
     /// </summary>
-    public static FrozenSet<string> JavaKeywords { get; } = new[]
+    public static FrozenSet<string> Java { get; } = new[]
     {
         "abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue",
         "default", "do", "double", "else", "enum", "extends", "final", "finally", "float", "for", "goto",

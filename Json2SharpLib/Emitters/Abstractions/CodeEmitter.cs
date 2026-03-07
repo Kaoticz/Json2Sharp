@@ -119,9 +119,9 @@ internal abstract class CodeEmitter : ICodeEmitter
 
         return language switch
         {
-            Language.CSharp => (Constants.CSharpKeywords.Contains(processedName) || char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
-            Language.Python => (Constants.PythonKeywords.Contains(processedName)) ? processedName + "_" : (char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
-            Language.Java => (Constants.JavaKeywords.Contains(processedName)) ? processedName + "Value" : (char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
+            Language.CSharp => (Keywords.CSharp.Contains(processedName) || char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
+            Language.Python => (Keywords.Python.Contains(processedName)) ? processedName + "_" : (char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
+            Language.Java => (Keywords.Java.Contains(processedName)) ? processedName + "Value" : (char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
             _ => processedName
         };
     }

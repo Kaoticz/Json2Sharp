@@ -6,15 +6,20 @@ internal static class IntegerTypes
         {
             "int": 1,
             "long": 2147483648,
+            "big_int": 18446744073709551616,
             "nullable_int": null
         }
         """;
 
     public const string NoAnnotationOutput = """
+        import java.math.BigInteger;
+
         public class Root {
             private Integer intValue;
 
             private Long longValue;
+
+            private BigInteger bigInt;
 
             private Object nullableInt;
 
@@ -34,6 +39,14 @@ internal static class IntegerTypes
                 this.longValue = longValue;
             }
 
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
+            }
+
             public Object getNullableInt() {
                 return nullableInt;
             }
@@ -47,6 +60,7 @@ internal static class IntegerTypes
     // Class variations
     public const string JacksonOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import java.math.BigInteger;
 
         public class Root {
             @JsonProperty("int")
@@ -54,6 +68,9 @@ internal static class IntegerTypes
 
             @JsonProperty("long")
             private Long longValue;
+
+            @JsonProperty("big_int")
+            private BigInteger bigInt;
 
             @JsonProperty("nullable_int")
             private Object nullableInt;
@@ -72,6 +89,14 @@ internal static class IntegerTypes
 
             public void setLongValue(Long longValue) {
                 this.longValue = longValue;
+            }
+
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
             }
 
             public Object getNullableInt() {
@@ -88,6 +113,7 @@ internal static class IntegerTypes
         import com.fasterxml.jackson.annotation.JsonProperty;
         import jakarta.validation.constraints.NotNull;
         import jakarta.validation.constraints.Nullable;
+        import java.math.BigInteger;
 
         public class Root {
             @JsonProperty("int")
@@ -97,6 +123,10 @@ internal static class IntegerTypes
             @JsonProperty("long")
             @NotNull
             private Long longValue;
+
+            @JsonProperty("big_int")
+            @NotNull
+            private BigInteger bigInt;
 
             @JsonProperty("nullable_int")
             @Nullable
@@ -116,6 +146,14 @@ internal static class IntegerTypes
 
             public void setLongValue(Long longValue) {
                 this.longValue = longValue;
+            }
+
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
             }
 
             public Object getNullableInt() {
@@ -130,6 +168,7 @@ internal static class IntegerTypes
 
     public const string JacksonJSpecifyOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import java.math.BigInteger;
         import org.jspecify.annotations.NonNull;
         import org.jspecify.annotations.Nullable;
 
@@ -141,6 +180,10 @@ internal static class IntegerTypes
             @JsonProperty("long")
             @NonNull
             private Long longValue;
+
+            @JsonProperty("big_int")
+            @NonNull
+            private BigInteger bigInt;
 
             @JsonProperty("nullable_int")
             @Nullable
@@ -160,6 +203,14 @@ internal static class IntegerTypes
 
             public void setLongValue(Long longValue) {
                 this.longValue = longValue;
+            }
+
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
             }
 
             public Object getNullableInt() {
@@ -174,6 +225,7 @@ internal static class IntegerTypes
 
     public const string JacksonJetBrainsOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import java.math.BigInteger;
         import org.jetbrains.annotations.NotNull;
         import org.jetbrains.annotations.Nullable;
 
@@ -185,6 +237,10 @@ internal static class IntegerTypes
             @JsonProperty("long")
             @NotNull
             private Long longValue;
+
+            @JsonProperty("big_int")
+            @NotNull
+            private BigInteger bigInt;
 
             @JsonProperty("nullable_int")
             @Nullable
@@ -204,6 +260,14 @@ internal static class IntegerTypes
 
             public void setLongValue(Long longValue) {
                 this.longValue = longValue;
+            }
+
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
             }
 
             public Object getNullableInt() {
@@ -218,6 +282,7 @@ internal static class IntegerTypes
 
     public const string JacksonLombokOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import java.math.BigInteger;
         import lombok.Data;
         import lombok.NonNull;
 
@@ -231,6 +296,10 @@ internal static class IntegerTypes
             @NonNull
             private Long longValue;
 
+            @JsonProperty("big_int")
+            @NonNull
+            private BigInteger bigInt;
+
             @JsonProperty("nullable_int")
             private Object nullableInt;
         }
@@ -238,6 +307,7 @@ internal static class IntegerTypes
 
     public const string JacksonFindBugsOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import java.math.BigInteger;
         import javax.annotation.Nonnull;
         import javax.annotation.Nullable;
 
@@ -249,6 +319,10 @@ internal static class IntegerTypes
             @JsonProperty("long")
             @Nonnull
             private Long longValue;
+
+            @JsonProperty("big_int")
+            @Nonnull
+            private BigInteger bigInt;
 
             @JsonProperty("nullable_int")
             @Nullable
@@ -270,6 +344,14 @@ internal static class IntegerTypes
                 this.longValue = longValue;
             }
 
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
+            }
+
             public Object getNullableInt() {
                 return nullableInt;
             }
@@ -282,6 +364,7 @@ internal static class IntegerTypes
 
     public const string GsonOutput = """
         import com.google.gson.annotations.SerializedName;
+        import java.math.BigInteger;
 
         public class Root {
             @SerializedName("int")
@@ -289,6 +372,9 @@ internal static class IntegerTypes
 
             @SerializedName("long")
             private Long longValue;
+
+            @SerializedName("big_int")
+            private BigInteger bigInt;
 
             @SerializedName("nullable_int")
             private Object nullableInt;
@@ -307,6 +393,14 @@ internal static class IntegerTypes
 
             public void setLongValue(Long longValue) {
                 this.longValue = longValue;
+            }
+
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
             }
 
             public Object getNullableInt() {
@@ -323,6 +417,7 @@ internal static class IntegerTypes
         import com.google.gson.annotations.SerializedName;
         import jakarta.validation.constraints.NotNull;
         import jakarta.validation.constraints.Nullable;
+        import java.math.BigInteger;
 
         public class Root {
             @SerializedName("int")
@@ -332,6 +427,10 @@ internal static class IntegerTypes
             @SerializedName("long")
             @NotNull
             private Long longValue;
+
+            @SerializedName("big_int")
+            @NotNull
+            private BigInteger bigInt;
 
             @SerializedName("nullable_int")
             @Nullable
@@ -351,6 +450,14 @@ internal static class IntegerTypes
 
             public void setLongValue(Long longValue) {
                 this.longValue = longValue;
+            }
+
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
             }
 
             public Object getNullableInt() {
@@ -365,6 +472,7 @@ internal static class IntegerTypes
 
     public const string GsonJSpecifyOutput = """
         import com.google.gson.annotations.SerializedName;
+        import java.math.BigInteger;
         import org.jspecify.annotations.NonNull;
         import org.jspecify.annotations.Nullable;
 
@@ -376,6 +484,10 @@ internal static class IntegerTypes
             @SerializedName("long")
             @NonNull
             private Long longValue;
+
+            @SerializedName("big_int")
+            @NonNull
+            private BigInteger bigInt;
 
             @SerializedName("nullable_int")
             @Nullable
@@ -395,6 +507,14 @@ internal static class IntegerTypes
 
             public void setLongValue(Long longValue) {
                 this.longValue = longValue;
+            }
+
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
             }
 
             public Object getNullableInt() {
@@ -409,6 +529,7 @@ internal static class IntegerTypes
 
     public const string GsonJetBrainsOutput = """
         import com.google.gson.annotations.SerializedName;
+        import java.math.BigInteger;
         import org.jetbrains.annotations.NotNull;
         import org.jetbrains.annotations.Nullable;
 
@@ -420,6 +541,10 @@ internal static class IntegerTypes
             @SerializedName("long")
             @NotNull
             private Long longValue;
+
+            @SerializedName("big_int")
+            @NotNull
+            private BigInteger bigInt;
 
             @SerializedName("nullable_int")
             @Nullable
@@ -439,6 +564,14 @@ internal static class IntegerTypes
 
             public void setLongValue(Long longValue) {
                 this.longValue = longValue;
+            }
+
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
             }
 
             public Object getNullableInt() {
@@ -453,6 +586,7 @@ internal static class IntegerTypes
 
     public const string GsonLombokOutput = """
         import com.google.gson.annotations.SerializedName;
+        import java.math.BigInteger;
         import lombok.Data;
         import lombok.NonNull;
 
@@ -466,6 +600,10 @@ internal static class IntegerTypes
             @NonNull
             private Long longValue;
 
+            @SerializedName("big_int")
+            @NonNull
+            private BigInteger bigInt;
+
             @SerializedName("nullable_int")
             private Object nullableInt;
         }
@@ -473,6 +611,7 @@ internal static class IntegerTypes
 
     public const string GsonFindBugsOutput = """
         import com.google.gson.annotations.SerializedName;
+        import java.math.BigInteger;
         import javax.annotation.Nonnull;
         import javax.annotation.Nullable;
 
@@ -484,6 +623,10 @@ internal static class IntegerTypes
             @SerializedName("long")
             @Nonnull
             private Long longValue;
+
+            @SerializedName("big_int")
+            @Nonnull
+            private BigInteger bigInt;
 
             @SerializedName("nullable_int")
             @Nullable
@@ -505,6 +648,14 @@ internal static class IntegerTypes
                 this.longValue = longValue;
             }
 
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
+            }
+
             public Object getNullableInt() {
                 return nullableInt;
             }
@@ -517,6 +668,7 @@ internal static class IntegerTypes
 
     public const string MoshiOutput = """
         import com.squareup.moshi.Json;
+        import java.math.BigInteger;
 
         public class Root {
             @Json(name = "int")
@@ -524,6 +676,9 @@ internal static class IntegerTypes
 
             @Json(name = "long")
             private Long longValue;
+
+            @Json(name = "big_int")
+            private BigInteger bigInt;
 
             @Json(name = "nullable_int")
             private Object nullableInt;
@@ -542,6 +697,14 @@ internal static class IntegerTypes
 
             public void setLongValue(Long longValue) {
                 this.longValue = longValue;
+            }
+
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
             }
 
             public Object getNullableInt() {
@@ -558,6 +721,7 @@ internal static class IntegerTypes
         import com.squareup.moshi.Json;
         import jakarta.validation.constraints.NotNull;
         import jakarta.validation.constraints.Nullable;
+        import java.math.BigInteger;
 
         public class Root {
             @Json(name = "int")
@@ -567,6 +731,10 @@ internal static class IntegerTypes
             @Json(name = "long")
             @NotNull
             private Long longValue;
+
+            @Json(name = "big_int")
+            @NotNull
+            private BigInteger bigInt;
 
             @Json(name = "nullable_int")
             @Nullable
@@ -586,6 +754,14 @@ internal static class IntegerTypes
 
             public void setLongValue(Long longValue) {
                 this.longValue = longValue;
+            }
+
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
             }
 
             public Object getNullableInt() {
@@ -600,6 +776,7 @@ internal static class IntegerTypes
 
     public const string MoshiJSpecifyOutput = """
         import com.squareup.moshi.Json;
+        import java.math.BigInteger;
         import org.jspecify.annotations.NonNull;
         import org.jspecify.annotations.Nullable;
 
@@ -611,6 +788,10 @@ internal static class IntegerTypes
             @Json(name = "long")
             @NonNull
             private Long longValue;
+
+            @Json(name = "big_int")
+            @NonNull
+            private BigInteger bigInt;
 
             @Json(name = "nullable_int")
             @Nullable
@@ -630,6 +811,14 @@ internal static class IntegerTypes
 
             public void setLongValue(Long longValue) {
                 this.longValue = longValue;
+            }
+
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
             }
 
             public Object getNullableInt() {
@@ -644,6 +833,7 @@ internal static class IntegerTypes
 
     public const string MoshiJetBrainsOutput = """
         import com.squareup.moshi.Json;
+        import java.math.BigInteger;
         import org.jetbrains.annotations.NotNull;
         import org.jetbrains.annotations.Nullable;
 
@@ -655,6 +845,10 @@ internal static class IntegerTypes
             @Json(name = "long")
             @NotNull
             private Long longValue;
+
+            @Json(name = "big_int")
+            @NotNull
+            private BigInteger bigInt;
 
             @Json(name = "nullable_int")
             @Nullable
@@ -674,6 +868,14 @@ internal static class IntegerTypes
 
             public void setLongValue(Long longValue) {
                 this.longValue = longValue;
+            }
+
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
             }
 
             public Object getNullableInt() {
@@ -688,6 +890,7 @@ internal static class IntegerTypes
 
     public const string MoshiLombokOutput = """
         import com.squareup.moshi.Json;
+        import java.math.BigInteger;
         import lombok.Data;
         import lombok.NonNull;
 
@@ -701,6 +904,10 @@ internal static class IntegerTypes
             @NonNull
             private Long longValue;
 
+            @Json(name = "big_int")
+            @NonNull
+            private BigInteger bigInt;
+
             @Json(name = "nullable_int")
             private Object nullableInt;
         }
@@ -708,6 +915,7 @@ internal static class IntegerTypes
 
     public const string MoshiFindBugsOutput = """
         import com.squareup.moshi.Json;
+        import java.math.BigInteger;
         import javax.annotation.Nonnull;
         import javax.annotation.Nullable;
 
@@ -719,6 +927,10 @@ internal static class IntegerTypes
             @Json(name = "long")
             @Nonnull
             private Long longValue;
+
+            @Json(name = "big_int")
+            @Nonnull
+            private BigInteger bigInt;
 
             @Json(name = "nullable_int")
             @Nullable
@@ -740,6 +952,14 @@ internal static class IntegerTypes
                 this.longValue = longValue;
             }
 
+            public BigInteger getBigInt() {
+                return bigInt;
+            }
+
+            public void setBigInt(BigInteger bigInt) {
+                this.bigInt = bigInt;
+            }
+
             public Object getNullableInt() {
                 return nullableInt;
             }
@@ -752,19 +972,24 @@ internal static class IntegerTypes
 
     // Record variations
     public const string NoAnnotationRecordOutput = """
+        import java.math.BigInteger;
+
         public record Root(
             Integer intValue,
             Long longValue,
+            BigInteger bigInt,
             Object nullableInt
         ) {}
         """;
 
     public const string JacksonRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import java.math.BigInteger;
 
         public record Root(
             @JsonProperty("int") Integer intValue,
             @JsonProperty("long") Long longValue,
+            @JsonProperty("big_int") BigInteger bigInt,
             @JsonProperty("nullable_int") Object nullableInt
         ) {}
         """;
@@ -773,67 +998,79 @@ internal static class IntegerTypes
         import com.fasterxml.jackson.annotation.JsonProperty;
         import jakarta.validation.constraints.NotNull;
         import jakarta.validation.constraints.Nullable;
+        import java.math.BigInteger;
 
         public record Root(
             @JsonProperty("int") @NotNull Integer intValue,
             @JsonProperty("long") @NotNull Long longValue,
+            @JsonProperty("big_int") @NotNull BigInteger bigInt,
             @JsonProperty("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
 
     public const string JacksonJSpecifyRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import java.math.BigInteger;
         import org.jspecify.annotations.NonNull;
         import org.jspecify.annotations.Nullable;
 
         public record Root(
             @JsonProperty("int") @NonNull Integer intValue,
             @JsonProperty("long") @NonNull Long longValue,
+            @JsonProperty("big_int") @NonNull BigInteger bigInt,
             @JsonProperty("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
 
     public const string JacksonJetBrainsRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import java.math.BigInteger;
         import org.jetbrains.annotations.NotNull;
         import org.jetbrains.annotations.Nullable;
 
         public record Root(
             @JsonProperty("int") @NotNull Integer intValue,
             @JsonProperty("long") @NotNull Long longValue,
+            @JsonProperty("big_int") @NotNull BigInteger bigInt,
             @JsonProperty("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
 
     public const string JacksonLombokRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import java.math.BigInteger;
         import lombok.NonNull;
 
         public record Root(
             @JsonProperty("int") @NonNull Integer intValue,
             @JsonProperty("long") @NonNull Long longValue,
+            @JsonProperty("big_int") @NonNull BigInteger bigInt,
             @JsonProperty("nullable_int") Object nullableInt
         ) {}
         """;
 
     public const string JacksonFindBugsRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import java.math.BigInteger;
         import javax.annotation.Nonnull;
         import javax.annotation.Nullable;
 
         public record Root(
             @JsonProperty("int") @Nonnull Integer intValue,
             @JsonProperty("long") @Nonnull Long longValue,
+            @JsonProperty("big_int") @Nonnull BigInteger bigInt,
             @JsonProperty("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
 
     public const string GsonRecordOutput = """
         import com.google.gson.annotations.SerializedName;
+        import java.math.BigInteger;
 
         public record Root(
             @SerializedName("int") Integer intValue,
             @SerializedName("long") Long longValue,
+            @SerializedName("big_int") BigInteger bigInt,
             @SerializedName("nullable_int") Object nullableInt
         ) {}
         """;
@@ -842,67 +1079,79 @@ internal static class IntegerTypes
         import com.google.gson.annotations.SerializedName;
         import jakarta.validation.constraints.NotNull;
         import jakarta.validation.constraints.Nullable;
+        import java.math.BigInteger;
 
         public record Root(
             @SerializedName("int") @NotNull Integer intValue,
             @SerializedName("long") @NotNull Long longValue,
+            @SerializedName("big_int") @NotNull BigInteger bigInt,
             @SerializedName("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
 
     public const string GsonJSpecifyRecordOutput = """
         import com.google.gson.annotations.SerializedName;
+        import java.math.BigInteger;
         import org.jspecify.annotations.NonNull;
         import org.jspecify.annotations.Nullable;
 
         public record Root(
             @SerializedName("int") @NonNull Integer intValue,
             @SerializedName("long") @NonNull Long longValue,
+            @SerializedName("big_int") @NonNull BigInteger bigInt,
             @SerializedName("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
 
     public const string GsonJetBrainsRecordOutput = """
         import com.google.gson.annotations.SerializedName;
+        import java.math.BigInteger;
         import org.jetbrains.annotations.NotNull;
         import org.jetbrains.annotations.Nullable;
 
         public record Root(
             @SerializedName("int") @NotNull Integer intValue,
             @SerializedName("long") @NotNull Long longValue,
+            @SerializedName("big_int") @NotNull BigInteger bigInt,
             @SerializedName("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
 
     public const string GsonLombokRecordOutput = """
         import com.google.gson.annotations.SerializedName;
+        import java.math.BigInteger;
         import lombok.NonNull;
 
         public record Root(
             @SerializedName("int") @NonNull Integer intValue,
             @SerializedName("long") @NonNull Long longValue,
+            @SerializedName("big_int") @NonNull BigInteger bigInt,
             @SerializedName("nullable_int") Object nullableInt
         ) {}
         """;
 
     public const string GsonFindBugsRecordOutput = """
         import com.google.gson.annotations.SerializedName;
+        import java.math.BigInteger;
         import javax.annotation.Nonnull;
         import javax.annotation.Nullable;
 
         public record Root(
             @SerializedName("int") @Nonnull Integer intValue,
             @SerializedName("long") @Nonnull Long longValue,
+            @SerializedName("big_int") @Nonnull BigInteger bigInt,
             @SerializedName("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
 
     public const string MoshiRecordOutput = """
         import com.squareup.moshi.Json;
+        import java.math.BigInteger;
 
         public record Root(
             @Json(name = "int") Integer intValue,
             @Json(name = "long") Long longValue,
+            @Json(name = "big_int") BigInteger bigInt,
             @Json(name = "nullable_int") Object nullableInt
         ) {}
         """;
@@ -911,57 +1160,67 @@ internal static class IntegerTypes
         import com.squareup.moshi.Json;
         import jakarta.validation.constraints.NotNull;
         import jakarta.validation.constraints.Nullable;
+        import java.math.BigInteger;
 
         public record Root(
             @Json(name = "int") @NotNull Integer intValue,
             @Json(name = "long") @NotNull Long longValue,
+            @Json(name = "big_int") @NotNull BigInteger bigInt,
             @Json(name = "nullable_int") @Nullable Object nullableInt
         ) {}
         """;
 
     public const string MoshiJSpecifyRecordOutput = """
         import com.squareup.moshi.Json;
+        import java.math.BigInteger;
         import org.jspecify.annotations.NonNull;
         import org.jspecify.annotations.Nullable;
 
         public record Root(
             @Json(name = "int") @NonNull Integer intValue,
             @Json(name = "long") @NonNull Long longValue,
+            @Json(name = "big_int") @NonNull BigInteger bigInt,
             @Json(name = "nullable_int") @Nullable Object nullableInt
         ) {}
         """;
 
     public const string MoshiJetBrainsRecordOutput = """
         import com.squareup.moshi.Json;
+        import java.math.BigInteger;
         import org.jetbrains.annotations.NotNull;
         import org.jetbrains.annotations.Nullable;
 
         public record Root(
             @Json(name = "int") @NotNull Integer intValue,
             @Json(name = "long") @NotNull Long longValue,
+            @Json(name = "big_int") @NotNull BigInteger bigInt,
             @Json(name = "nullable_int") @Nullable Object nullableInt
         ) {}
         """;
 
     public const string MoshiLombokRecordOutput = """
         import com.squareup.moshi.Json;
+        import java.math.BigInteger;
         import lombok.NonNull;
 
         public record Root(
             @Json(name = "int") @NonNull Integer intValue,
             @Json(name = "long") @NonNull Long longValue,
+            @Json(name = "big_int") @NonNull BigInteger bigInt,
             @Json(name = "nullable_int") Object nullableInt
         ) {}
         """;
 
     public const string MoshiFindBugsRecordOutput = """
         import com.squareup.moshi.Json;
+        import java.math.BigInteger;
         import javax.annotation.Nonnull;
         import javax.annotation.Nullable;
 
         public record Root(
             @Json(name = "int") @Nonnull Integer intValue,
             @Json(name = "long") @Nonnull Long longValue,
+            @Json(name = "big_int") @Nonnull BigInteger bigInt,
             @Json(name = "nullable_int") @Nullable Object nullableInt
         ) {}
         """;

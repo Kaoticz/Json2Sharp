@@ -4,6 +4,7 @@ using Json2SharpLib.Enums;
 using Json2SharpLib.Extensions;
 using Json2SharpLib.Models;
 using Json2SharpLib.Models.LanguageOptions;
+using System.Numerics;
 using System.Text;
 using System.Text.Json;
 
@@ -331,7 +332,9 @@ internal sealed class JavaClassEmitter : CodeEmitter
                 imports.Add("java.util.UUID");
             else if (prop.BclType == typeof(TimeSpan))
                 imports.Add("java.time.Duration");
-            
+            else if (prop.BclType == typeof(BigInteger))
+                imports.Add("java.math.BigInteger");
+
             if (prop.JsonElement.ValueKind is JsonValueKind.Array && prop.BclType != typeof(byte[]))
             {
                 imports.Add("java.util.ArrayList");

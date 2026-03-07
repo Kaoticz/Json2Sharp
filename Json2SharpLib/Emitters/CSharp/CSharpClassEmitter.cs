@@ -4,6 +4,7 @@ using Json2SharpLib.Enums;
 using Json2SharpLib.Extensions;
 using Json2SharpLib.Models;
 using Json2SharpLib.Models.LanguageOptions;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
@@ -15,6 +16,10 @@ namespace Json2SharpLib.Emitters.CSharp;
 /// </summary>
 internal sealed class CSharpClassEmitter : CodeEmitter
 {
+    private const string _stjUsing = "using System.Text.Json.Serialization;";
+    private const string _newtonsoftUsing = "using Newtonsoft.Json;";
+    private const string _systemNumericsUsing = "using System.Numerics;";
+
     private readonly string _accessibility;
     private readonly CSharpSerializationAttribute _serializationAttributeType;
     private readonly string _serializationAttribute;
@@ -72,10 +77,30 @@ internal sealed class CSharpClassEmitter : CodeEmitter
         var stringBuilder = new StringBuilder();
 
         // Namespace declaration
-        if (emitHeaders && _serializationAttributeType is CSharpSerializationAttribute.SystemTextJson)
-            stringBuilder.AppendLine(Constants.StjUsing + Environment.NewLine);
-        else if (emitHeaders && _serializationAttributeType is CSharpSerializationAttribute.NewtonsoftJson)
-            stringBuilder.AppendLine(Constants.NewtonsoftUsing + Environment.NewLine);
+        if (emitHeaders)
+        {
+            var hasAnyUsing = false;
+
+            if (_serializationAttributeType is CSharpSerializationAttribute.SystemTextJson)
+            {
+                stringBuilder.AppendLine(_stjUsing);
+                hasAnyUsing = true;
+            }
+            else if (_serializationAttributeType is CSharpSerializationAttribute.NewtonsoftJson)
+            {
+                stringBuilder.AppendLine(_newtonsoftUsing);
+                hasAnyUsing = true;
+            }
+
+            if (jsonElement.ValueKind is JsonValueKind.Object && jsonElement.EnumerateObject().Any(x => x.Value.ToBclType() == typeof(BigInteger)))
+            {
+                stringBuilder.AppendLine(_systemNumericsUsing);
+                hasAnyUsing = true;
+            }
+
+            if (hasAnyUsing)
+                stringBuilder.AppendLine();
+        }
 
         // Class declaration
         stringBuilder.AppendLine($"{_accessibility} {_objectType} {objectName}");

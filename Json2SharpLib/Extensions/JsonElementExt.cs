@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Text.Json;
 
 namespace Json2SharpLib.Extensions;
@@ -109,6 +110,8 @@ internal static class JsonElementExt
             return typeof(long);
         else if (jsonElement.TryGetUInt64(out _))
             return typeof(ulong);
+        else if (jsonElement.GetRawText().All(char.IsDigit))
+            return typeof(BigInteger);
         else if (jsonElement.TryGetSingle(out var floatValue) && !float.IsInfinity(floatValue) && !HasDecimalPrecisionOver(jsonElement, 7))
             return typeof(float);
         else if (jsonElement.TryGetDouble(out _) && !HasDecimalPrecisionOver(jsonElement, 16))
