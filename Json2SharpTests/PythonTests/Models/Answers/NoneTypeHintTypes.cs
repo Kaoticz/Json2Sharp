@@ -96,7 +96,6 @@ internal static class NoneTypeHintTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string DataClassOutputPipe = """
@@ -167,7 +166,6 @@ internal static class NoneTypeHintTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputOptional = """
@@ -176,6 +174,7 @@ internal static class NoneTypeHintTypes
 
         class NullableThingArray:
             def __init__(
+                self,
                 text: str
             ) -> None:
                 self.text: str = text
@@ -191,6 +190,7 @@ internal static class NoneTypeHintTypes
 
         class ThingArray:
             def __init__(
+                self,
                 text: str
             ) -> None:
                 self.text: str = text
@@ -206,6 +206,7 @@ internal static class NoneTypeHintTypes
 
         class NoneTypeHintTypes:
             def __init__(
+                self,
                 empty_array: list[object],
                 int_array: list[int],
                 nullable_int_array: list[Optional[int]],
@@ -256,7 +257,6 @@ internal static class NoneTypeHintTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputPipe = """
@@ -265,6 +265,7 @@ internal static class NoneTypeHintTypes
 
         class NullableThingArray:
             def __init__(
+                self,
                 text: str
             ) -> None:
                 self.text: str = text
@@ -280,6 +281,7 @@ internal static class NoneTypeHintTypes
 
         class ThingArray:
             def __init__(
+                self,
                 text: str
             ) -> None:
                 self.text: str = text
@@ -295,6 +297,7 @@ internal static class NoneTypeHintTypes
 
         class NoneTypeHintTypes:
             def __init__(
+                self,
                 empty_array: list[object],
                 int_array: list[int],
                 nullable_int_array: list[int | None],
@@ -345,7 +348,6 @@ internal static class NoneTypeHintTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string PydanticOptionalOutput = """
@@ -376,7 +378,6 @@ internal static class NoneTypeHintTypes
             null_array: Annotated[list[Optional[object]], Field(alias='null_array')]
             objects_array: Annotated[list[object], Field(alias='objects_array')]
             nullable_objects_array: Annotated[list[Optional[object]], Field(alias='nullable_objects_array')]
-
         """;
 
     public const string PydanticPipeOutput = """
@@ -407,6 +408,5 @@ internal static class NoneTypeHintTypes
             null_array: Annotated[list[object | None], Field(alias='null_array')]
             objects_array: Annotated[list[object], Field(alias='objects_array')]
             nullable_objects_array: Annotated[list[object | None], Field(alias='nullable_objects_array')]
-
         """;
 }

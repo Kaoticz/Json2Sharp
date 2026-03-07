@@ -96,7 +96,6 @@ internal static class ArrayTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string DataClassOutputPipe = """
@@ -167,7 +166,6 @@ internal static class ArrayTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputOptional = """
@@ -176,6 +174,7 @@ internal static class ArrayTypes
 
         class NullableThingArray:
             def __init__(
+                self,
                 text: str
             ) -> None:
                 self.text: str = text
@@ -191,6 +190,7 @@ internal static class ArrayTypes
 
         class ThingArray:
             def __init__(
+                self,
                 text: str
             ) -> None:
                 self.text: str = text
@@ -206,6 +206,7 @@ internal static class ArrayTypes
 
         class ArrayTypes:
             def __init__(
+                self,
                 empty_array: list[object],
                 int_array: list[int],
                 nullable_int_array: list[Optional[int]],
@@ -256,7 +257,6 @@ internal static class ArrayTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputPipe = """
@@ -265,6 +265,7 @@ internal static class ArrayTypes
 
         class NullableThingArray:
             def __init__(
+                self,
                 text: str
             ) -> None:
                 self.text: str = text
@@ -280,6 +281,7 @@ internal static class ArrayTypes
 
         class ThingArray:
             def __init__(
+                self,
                 text: str
             ) -> None:
                 self.text: str = text
@@ -295,6 +297,7 @@ internal static class ArrayTypes
 
         class ArrayTypes:
             def __init__(
+                self,
                 empty_array: list[object],
                 int_array: list[int],
                 nullable_int_array: list[int | None],
@@ -345,12 +348,12 @@ internal static class ArrayTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputNoTypeHints = """
         class NullableThingArray:
             def __init__(
+                self,
                 text
             ):
                 self.text = text
@@ -366,6 +369,7 @@ internal static class ArrayTypes
 
         class ThingArray:
             def __init__(
+                self,
                 text
             ):
                 self.text = text
@@ -381,6 +385,7 @@ internal static class ArrayTypes
 
         class ArrayTypes:
             def __init__(
+                self,
                 empty_array,
                 int_array,
                 nullable_int_array,
@@ -431,7 +436,6 @@ internal static class ArrayTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string PydanticOptionalOutput = """
@@ -462,7 +466,6 @@ internal static class ArrayTypes
             null_array: Annotated[list[Optional[object]], Field(alias='null_array')]
             objects_array: Annotated[list[object], Field(alias='objects_array')]
             nullable_objects_array: Annotated[list[Optional[object]], Field(alias='nullable_objects_array')]
-
         """;
 
     public const string PydanticPipeOutput = """
@@ -493,6 +496,5 @@ internal static class ArrayTypes
             null_array: Annotated[list[object | None], Field(alias='null_array')]
             objects_array: Annotated[list[object], Field(alias='objects_array')]
             nullable_objects_array: Annotated[list[object | None], Field(alias='nullable_objects_array')]
-
         """;
 }

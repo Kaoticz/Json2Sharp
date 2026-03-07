@@ -22,7 +22,7 @@ internal static class CustomHandleTypes
 
 
         @dataclass
-        class prop_custom_colon:
+        class prop__custom__colon:
             blep: str
 
             @classmethod
@@ -40,7 +40,7 @@ internal static class CustomHandleTypes
             number: int
             int_array: list[int]
             prop_base_colon: int
-            prop_custom_colon: prop_custom_colon
+            prop_custom_colon: prop__custom__colon
 
             @classmethod
             def from_json(cls, json_dict: dict[str, Any]) -> Self:
@@ -56,7 +56,7 @@ internal static class CustomHandleTypes
 
 
         @dataclass
-        class custom_handle_types:
+        class custom__handle__types:
             null_thing: Optional[object]
             empty_thing: object
             thing: thing
@@ -70,7 +70,6 @@ internal static class CustomHandleTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string DataClassOutputPipe = """
@@ -79,7 +78,7 @@ internal static class CustomHandleTypes
 
 
         @dataclass
-        class prop_custom_colon:
+        class prop__custom__colon:
             blep: str
 
             @classmethod
@@ -97,7 +96,7 @@ internal static class CustomHandleTypes
             number: int
             int_array: list[int]
             prop_base_colon: int
-            prop_custom_colon: prop_custom_colon
+            prop_custom_colon: prop__custom__colon
 
             @classmethod
             def from_json(cls, json_dict: dict[str, Any]) -> Self:
@@ -113,7 +112,7 @@ internal static class CustomHandleTypes
 
 
         @dataclass
-        class custom_handle_types:
+        class custom__handle__types:
             null_thing: object | None
             empty_thing: object
             thing: thing
@@ -127,15 +126,15 @@ internal static class CustomHandleTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputOptional = """
         from typing import Optional, Any, Self
 
 
-        class prop_custom_colon:
+        class prop__custom__colon:
             def __init__(
+                self,
                 blep: str
             ) -> None:
                 self.blep: str = blep
@@ -151,17 +150,18 @@ internal static class CustomHandleTypes
 
         class thing:
             def __init__(
+                self,
                 text: str,
                 number: int,
                 int_array: list[int],
                 prop_base_colon: int,
-                prop_custom_colon: prop_custom_colon
+                prop_custom_colon: prop__custom__colon
             ) -> None:
                 self.text: str = text
                 self.number: int = number
                 self.int_array: list[int] = int_array
                 self.prop_base_colon: int = prop_base_colon
-                self.prop_custom_colon: prop_custom_colon = prop_custom_colon
+                self.prop_custom_colon: prop__custom__colon = prop_custom_colon
 
             @classmethod
             def from_json(cls, json_dict: dict[str, Any]) -> Self:
@@ -176,8 +176,9 @@ internal static class CustomHandleTypes
                 return cls(**data)
 
 
-        class custom_handle_types:
+        class custom__handle__types:
             def __init__(
+                self,
                 null_thing: Optional[object],
                 empty_thing: object,
                 thing: thing
@@ -195,15 +196,15 @@ internal static class CustomHandleTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputPipe = """
         from typing import Any, Self
 
 
-        class prop_custom_colon:
+        class prop__custom__colon:
             def __init__(
+                self,
                 blep: str
             ) -> None:
                 self.blep: str = blep
@@ -219,17 +220,18 @@ internal static class CustomHandleTypes
 
         class thing:
             def __init__(
+                self,
                 text: str,
                 number: int,
                 int_array: list[int],
                 prop_base_colon: int,
-                prop_custom_colon: prop_custom_colon
+                prop_custom_colon: prop__custom__colon
             ) -> None:
                 self.text: str = text
                 self.number: int = number
                 self.int_array: list[int] = int_array
                 self.prop_base_colon: int = prop_base_colon
-                self.prop_custom_colon: prop_custom_colon = prop_custom_colon
+                self.prop_custom_colon: prop__custom__colon = prop_custom_colon
 
             @classmethod
             def from_json(cls, json_dict: dict[str, Any]) -> Self:
@@ -244,8 +246,9 @@ internal static class CustomHandleTypes
                 return cls(**data)
 
 
-        class custom_handle_types:
+        class custom__handle__types:
             def __init__(
+                self,
                 null_thing: object | None,
                 empty_thing: object,
                 thing: thing
@@ -263,12 +266,12 @@ internal static class CustomHandleTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputNoTypeHints = """
-        class prop_custom_colon:
+        class prop__custom__colon:
             def __init__(
+                self,
                 blep
             ):
                 self.blep = blep
@@ -284,6 +287,7 @@ internal static class CustomHandleTypes
 
         class thing:
             def __init__(
+                self,
                 text,
                 number,
                 int_array,
@@ -309,8 +313,9 @@ internal static class CustomHandleTypes
                 return cls(**data)
 
 
-        class custom_handle_types:
+        class custom__handle__types:
             def __init__(
+                self,
                 null_thing,
                 empty_thing,
                 thing
@@ -328,7 +333,6 @@ internal static class CustomHandleTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string PydanticOptionalOutput = """
@@ -336,7 +340,7 @@ internal static class CustomHandleTypes
         from typing import Annotated, Optional
 
 
-        class prop_custom_colon(BaseModel):
+        class prop__custom__colon(BaseModel):
             blep: Annotated[str, Field(alias='blep')]
 
 
@@ -345,14 +349,13 @@ internal static class CustomHandleTypes
             number: Annotated[int, Field(alias='number')]
             int_array: Annotated[list[int], Field(alias='int_array')]
             prop_base_colon: Annotated[int, Field(alias='prop_base:colon')]
-            prop_custom_colon: Annotated[prop_custom_colon, Field(alias='prop_custom:colon')]
+            prop_custom_colon: Annotated[prop__custom__colon, Field(alias='prop_custom:colon')]
 
 
-        class custom_handle_types(BaseModel):
+        class custom__handle__types(BaseModel):
             null_thing: Annotated[Optional[object], Field(alias='null_thing')]
             empty_thing: Annotated[object, Field(alias='empty_thing')]
             thing: Annotated[thing, Field(alias='thing')]
-
         """;
 
     public const string PydanticPipeOutput = """
@@ -360,7 +363,7 @@ internal static class CustomHandleTypes
         from typing import Annotated
 
 
-        class prop_custom_colon(BaseModel):
+        class prop__custom__colon(BaseModel):
             blep: Annotated[str, Field(alias='blep')]
 
 
@@ -369,13 +372,12 @@ internal static class CustomHandleTypes
             number: Annotated[int, Field(alias='number')]
             int_array: Annotated[list[int], Field(alias='int_array')]
             prop_base_colon: Annotated[int, Field(alias='prop_base:colon')]
-            prop_custom_colon: Annotated[prop_custom_colon, Field(alias='prop_custom:colon')]
+            prop_custom_colon: Annotated[prop__custom__colon, Field(alias='prop_custom:colon')]
 
 
-        class custom_handle_types(BaseModel):
+        class custom__handle__types(BaseModel):
             null_thing: Annotated[object | None, Field(alias='null_thing')]
             empty_thing: Annotated[object, Field(alias='empty_thing')]
             thing: Annotated[thing, Field(alias='thing')]
-
         """;
 }

@@ -27,7 +27,6 @@ internal static class BoolTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string DataClassOutputPipe = """
@@ -48,7 +47,6 @@ internal static class BoolTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputOptional = """
@@ -57,6 +55,7 @@ internal static class BoolTypes
 
         class BoolTypes:
             def __init__(
+                self,
                 true_bool: bool,
                 false_bool: bool
             ) -> None:
@@ -71,7 +70,6 @@ internal static class BoolTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputPipe = """
@@ -80,6 +78,7 @@ internal static class BoolTypes
 
         class BoolTypes:
             def __init__(
+                self,
                 true_bool: bool,
                 false_bool: bool
             ) -> None:
@@ -94,12 +93,12 @@ internal static class BoolTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputNoTypeHints = """
         class BoolTypes:
             def __init__(
+                self,
                 true_bool,
                 false_bool
             ):
@@ -114,7 +113,6 @@ internal static class BoolTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string PydanticOptionalOutput = """
@@ -125,7 +123,6 @@ internal static class BoolTypes
         class BoolTypes(BaseModel):
             true_bool: Annotated[bool, Field(alias='true_bool')]
             false_bool: Annotated[bool, Field(alias='false_bool')]
-
         """;
 
     public const string PydanticPipeOutput = """
@@ -136,6 +133,5 @@ internal static class BoolTypes
         class BoolTypes(BaseModel):
             true_bool: Annotated[bool, Field(alias='true_bool')]
             false_bool: Annotated[bool, Field(alias='false_bool')]
-
         """;
 }

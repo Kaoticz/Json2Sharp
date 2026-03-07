@@ -18,16 +18,6 @@ internal sealed class JavaClassEmitter : CodeEmitter
     private readonly JavaNullabilityAnnotation _nullabilityAnnotation;
     private readonly string _indentationPadding;
 
-    private static readonly HashSet<string> _javaKeywords =
-    [
-        "abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue",
-        "default", "do", "double", "else", "enum", "extends", "final", "finally", "float", "for", "goto",
-        "if", "implements", "import", "instanceof", "int", "interface", "long", "native", "new", "package",
-        "private", "protected", "public", "return", "short", "static", "strictfp", "super", "switch",
-        "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while",
-        "true", "false", "null"
-    ];
-
     /// <summary>
     /// Parses JSON data into a Java class.
     /// </summary>
@@ -100,7 +90,7 @@ internal sealed class JavaClassEmitter : CodeEmitter
     protected override string ParseCustomType(ParsedJsonProperty property)
     {
         var jsonName = property.JsonName!;
-        var name = GetSafeFieldName(jsonName);
+        var name = GetSafePropertyName(jsonName, Language.Java);
         var type = GetObjectTypeName(property, Language.Java);
         var isNullable = J2SUtils.IsPropertyNullable(property.JsonElement);
 
@@ -111,7 +101,7 @@ internal sealed class JavaClassEmitter : CodeEmitter
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
     {
         var jsonName = property.JsonName!;
-        var name = GetSafeFieldName(jsonName);
+        var name = GetSafePropertyName(jsonName, Language.Java);
         IsArrayOfNullableType(property, Language.Java, childrenTypes, out typeName);
 
         var isByteArr = typeName.Equals("byte", StringComparison.OrdinalIgnoreCase);
@@ -135,7 +125,7 @@ internal sealed class JavaClassEmitter : CodeEmitter
         foreach (var property in properties)
         {
             var jsonName = property.JsonName!;
-            var fieldName = GetSafeFieldName(jsonName);
+            var fieldName = GetSafePropertyName(jsonName, Language.Java);
             var isNullable = J2SUtils.IsPropertyNullable(property.JsonElement);
             var isList = false;
             string fieldType;
@@ -180,13 +170,17 @@ internal sealed class JavaClassEmitter : CodeEmitter
         {
             foreach (var field in fields)
             {
-                var getterName = "get" + field.Name.ToPascalCase();
+                var methodNameSuffix = (char.IsDigit(field.Name[0]) || (field.Name.Length > 1 && field.Name[0] == '_' && char.IsDigit(field.Name[1])))
+                    ? field.Name
+                    : field.Name.ToPascalCase();
+
+                var getterName = "get" + methodNameSuffix;
                 stringBuilder.AppendLine($"{_indentationPadding}public {field.Type} {getterName}() {{");
                 stringBuilder.AppendLine($"{_indentationPadding}{_indentationPadding}return {field.Name};");
                 stringBuilder.AppendLine($"{_indentationPadding}}}");
                 stringBuilder.AppendLine();
 
-                var setterName = "set" + field.Name.ToPascalCase();
+                var setterName = "set" + methodNameSuffix;
                 stringBuilder.AppendLine($"{_indentationPadding}public void {setterName}({field.Type} {field.Name}) {{");
                 stringBuilder.AppendLine($"{_indentationPadding}{_indentationPadding}this.{field.Name} = {field.Name};");
                 stringBuilder.AppendLine($"{_indentationPadding}}}");
@@ -228,19 +222,6 @@ internal sealed class JavaClassEmitter : CodeEmitter
             JavaSerializationAnnotation.Moshi => $"{indentationPadding}@Json(name = \"{jsonName}\")",
             _ => null
         };
-    }
-
-    /// <summary>
-    /// Gets a safe field name that does not conflict with Java keywords or start with a digit.
-    /// </summary>
-    /// <param name="name">The name to be processed.</param>
-    /// <returns>A safe field name.</returns>
-    private static string GetSafeFieldName(string name)
-    {
-        var camelCaseName = name.ToCamelCase();
-        return (_javaKeywords.Contains(camelCaseName) || char.IsDigit(camelCaseName[0]))
-            ? "json2sharp" + camelCaseName.ToPascalCase()
-            : camelCaseName;
     }
 
     /// <summary>

@@ -56,7 +56,6 @@ internal static class TextTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string DataClassOutputPipe = """
@@ -97,7 +96,6 @@ internal static class TextTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputOptional = """
@@ -108,6 +106,7 @@ internal static class TextTypes
 
         class TextTypes:
             def __init__(
+                self,
                 text: str,
                 empty_text: str,
                 timespan: timedelta,
@@ -149,7 +148,6 @@ internal static class TextTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputPipe = """
@@ -160,6 +158,7 @@ internal static class TextTypes
 
         class TextTypes:
             def __init__(
+                self,
                 text: str,
                 empty_text: str,
                 timespan: timedelta,
@@ -201,12 +200,12 @@ internal static class TextTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputNoTypeHints = """
         class TextTypes:
             def __init__(
+                self,
                 text,
                 empty_text,
                 timespan,
@@ -248,7 +247,6 @@ internal static class TextTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string PydanticOptionalOutput = """
@@ -270,7 +268,6 @@ internal static class TextTypes
             id: Annotated[UUID, Field(alias='id')]
             ids: Annotated[list[UUID], Field(alias='ids')]
             nullable_ids: Annotated[list[Optional[UUID]], Field(alias='nullable_ids')]
-
         """;
 
     public const string PydanticPipeOutput = """
@@ -292,6 +289,5 @@ internal static class TextTypes
             id: Annotated[UUID, Field(alias='id')]
             ids: Annotated[list[UUID], Field(alias='ids')]
             nullable_ids: Annotated[list[UUID | None], Field(alias='nullable_ids')]
-
         """;
 }

@@ -94,7 +94,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
     /// <inheritdoc />
     protected override string ParseCustomType(ParsedJsonProperty property)
     {
-        var propertyName = property.JsonName.ToPascalCase() ?? property.BclType.Name;
+        var propertyName = GetSafePropertyName(property.JsonName!, Language.CSharp);
         var result = string.Empty;
 
         if (!string.IsNullOrWhiteSpace(_serializationAttribute))
@@ -115,7 +115,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
     /// <inheritdoc />
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
     {
-        var propertyName = property.JsonName.ToPascalCase() ?? property.BclType.Name;
+        var propertyName = GetSafePropertyName(property.JsonName!, Language.CSharp);
         var result = string.Empty;
         var arraySuffix = (IsArrayOfNullableType(property, Language.CSharp, childrenTypes, out typeName))
             ? "?[]"
@@ -166,7 +166,7 @@ internal sealed class CSharpClassEmitter : CodeEmitter
                 CreateMemberDeclaration(
                     _indentationPadding,
                     propertyType,
-                    property.JsonName!.ToPascalCase(),
+                    GetSafePropertyName(property.JsonName!, Language.CSharp),
                     _setterType
                 )
             );

@@ -70,7 +70,6 @@ internal static class ObjectTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string DataClassOutputPipe = """
@@ -127,7 +126,6 @@ internal static class ObjectTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputOptional = """
@@ -136,6 +134,7 @@ internal static class ObjectTypes
 
         class PropCustomColon:
             def __init__(
+                self,
                 blep: str
             ) -> None:
                 self.blep: str = blep
@@ -151,6 +150,7 @@ internal static class ObjectTypes
 
         class Thing:
             def __init__(
+                self,
                 text: str,
                 number: int,
                 int_array: list[int],
@@ -178,6 +178,7 @@ internal static class ObjectTypes
 
         class ObjectTypes:
             def __init__(
+                self,
                 null_thing: Optional[object],
                 empty_thing: object,
                 thing: Thing
@@ -195,7 +196,6 @@ internal static class ObjectTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputPipe = """
@@ -204,6 +204,7 @@ internal static class ObjectTypes
 
         class PropCustomColon:
             def __init__(
+                self,
                 blep: str
             ) -> None:
                 self.blep: str = blep
@@ -219,6 +220,7 @@ internal static class ObjectTypes
 
         class Thing:
             def __init__(
+                self,
                 text: str,
                 number: int,
                 int_array: list[int],
@@ -246,6 +248,7 @@ internal static class ObjectTypes
 
         class ObjectTypes:
             def __init__(
+                self,
                 null_thing: object | None,
                 empty_thing: object,
                 thing: Thing
@@ -263,12 +266,12 @@ internal static class ObjectTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputNoTypeHints = """
         class PropCustomColon:
             def __init__(
+                self,
                 blep
             ):
                 self.blep = blep
@@ -284,6 +287,7 @@ internal static class ObjectTypes
 
         class Thing:
             def __init__(
+                self,
                 text,
                 number,
                 int_array,
@@ -311,6 +315,7 @@ internal static class ObjectTypes
 
         class ObjectTypes:
             def __init__(
+                self,
                 null_thing,
                 empty_thing,
                 thing
@@ -328,7 +333,6 @@ internal static class ObjectTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string PydanticOptionalOutput = """
@@ -352,7 +356,6 @@ internal static class ObjectTypes
             null_thing: Annotated[Optional[object], Field(alias='null_thing')]
             empty_thing: Annotated[object, Field(alias='empty_thing')]
             thing: Annotated[Thing, Field(alias='thing')]
-
         """;
 
     public const string PydanticPipeOutput = """
@@ -376,6 +379,5 @@ internal static class ObjectTypes
             null_thing: Annotated[object | None, Field(alias='null_thing')]
             empty_thing: Annotated[object, Field(alias='empty_thing')]
             thing: Annotated[Thing, Field(alias='thing')]
-
         """;
 }

@@ -99,6 +99,34 @@ internal abstract class CodeEmitter : ICodeEmitter
     }
 
     /// <summary>
+    /// Gets a safe property name for the specified <paramref name="language"/>.
+    /// </summary>
+    /// <param name="name">The name to be processed.</param>
+    /// <param name="language">The target language.</param>
+    /// <returns>A safe property name.</returns>
+    protected string GetSafePropertyName(string name, Language language)
+    {
+        var processedName = language switch
+        {
+            Language.CSharp => _typeNameHandler(name),
+            Language.Python => _typeNameHandler(name).ToSnakeCase(),
+            Language.Java => _typeNameHandler(name).ToCamelCase(),
+            _ => name
+        };
+
+        if (string.IsNullOrWhiteSpace(processedName))
+            return processedName;
+
+        return language switch
+        {
+            Language.CSharp => (Constants.CSharpKeywords.Contains(processedName) || char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
+            Language.Python => (Constants.PythonKeywords.Contains(processedName)) ? processedName + "_" : (char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
+            Language.Java => (Constants.JavaKeywords.Contains(processedName)) ? processedName + "Value" : (char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
+            _ => processedName
+        };
+    }
+
+    /// <summary>
     /// Checks if the specified <paramref name="property"/> is an array that contains objects of different types.
     /// </summary>
     /// <param name="property">The Json property.</param>

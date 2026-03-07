@@ -105,7 +105,6 @@ internal static class WeirdNameTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string DataClassOutputPipe = """
@@ -181,7 +180,6 @@ internal static class WeirdNameTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputOptional = """
@@ -190,6 +188,7 @@ internal static class WeirdNameTypes
 
         class ColonObject:
             def __init__(
+                self,
                 normal_prop: int,
                 nested_colon: int
             ) -> None:
@@ -208,6 +207,7 @@ internal static class WeirdNameTypes
 
         class WeirdNameTypes:
             def __init__(
+                self,
                 snake_case: int,
                 camel_case: int,
                 pascal_case: int,
@@ -282,7 +282,6 @@ internal static class WeirdNameTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputPipe = """
@@ -291,6 +290,7 @@ internal static class WeirdNameTypes
 
         class ColonObject:
             def __init__(
+                self,
                 normal_prop: int,
                 nested_colon: int
             ) -> None:
@@ -309,6 +309,7 @@ internal static class WeirdNameTypes
 
         class WeirdNameTypes:
             def __init__(
+                self,
                 snake_case: int,
                 camel_case: int,
                 pascal_case: int,
@@ -383,12 +384,12 @@ internal static class WeirdNameTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputNoTypeHints = """
         class ColonObject:
             def __init__(
+                self,
                 normal_prop,
                 nested_colon
             ):
@@ -407,6 +408,7 @@ internal static class WeirdNameTypes
 
         class WeirdNameTypes:
             def __init__(
+                self,
                 snake_case,
                 camel_case,
                 pascal_case,
@@ -481,7 +483,6 @@ internal static class WeirdNameTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string PydanticOptionalOutput = """
@@ -517,7 +518,6 @@ internal static class WeirdNameTypes
             snake_percentage: Annotated[int, Field(alias='snake%percentage')]
             snake_ampersand: Annotated[int, Field(alias='snake&ampersand')]
             snake_asterisk: Annotated[int, Field(alias='snake*asterisk')]
-
         """;
 
     public const string PydanticPipeOutput = """
@@ -553,6 +553,5 @@ internal static class WeirdNameTypes
             snake_percentage: Annotated[int, Field(alias='snake%percentage')]
             snake_ampersand: Annotated[int, Field(alias='snake&ampersand')]
             snake_asterisk: Annotated[int, Field(alias='snake*asterisk')]
-
         """;
 }

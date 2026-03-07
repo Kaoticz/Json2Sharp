@@ -13,28 +13,28 @@ internal static class FloatTypes
 
     public const string NoAnnotationOutput = """
         public class Root {
-            private Float json2sharpFloat;
+            private Float floatValue;
 
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             private Float decimal;
 
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -61,10 +61,10 @@ internal static class FloatTypes
 
         public class Root {
             @JsonProperty("float")
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @JsonProperty("double")
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @JsonProperty("decimal")
             private Float decimal;
@@ -72,20 +72,20 @@ internal static class FloatTypes
             @JsonProperty("nullable_float")
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -114,11 +114,11 @@ internal static class FloatTypes
         public class Root {
             @JsonProperty("float")
             @NotNull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @JsonProperty("double")
             @NotNull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @JsonProperty("decimal")
             @NotNull
@@ -128,20 +128,20 @@ internal static class FloatTypes
             @Nullable
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -170,11 +170,11 @@ internal static class FloatTypes
         public class Root {
             @JsonProperty("float")
             @NonNull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @JsonProperty("double")
             @NonNull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @JsonProperty("decimal")
             @NonNull
@@ -184,20 +184,20 @@ internal static class FloatTypes
             @Nullable
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -226,11 +226,11 @@ internal static class FloatTypes
         public class Root {
             @JsonProperty("float")
             @NotNull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @JsonProperty("double")
             @NotNull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @JsonProperty("decimal")
             @NotNull
@@ -240,20 +240,20 @@ internal static class FloatTypes
             @Nullable
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -283,11 +283,11 @@ internal static class FloatTypes
         public class Root {
             @JsonProperty("float")
             @NonNull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @JsonProperty("double")
             @NonNull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @JsonProperty("decimal")
             @NonNull
@@ -306,11 +306,11 @@ internal static class FloatTypes
         public class Root {
             @JsonProperty("float")
             @Nonnull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @JsonProperty("double")
             @Nonnull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @JsonProperty("decimal")
             @Nonnull
@@ -320,20 +320,20 @@ internal static class FloatTypes
             @Nullable
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -359,10 +359,10 @@ internal static class FloatTypes
 
         public class Root {
             @SerializedName("float")
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @SerializedName("double")
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @SerializedName("decimal")
             private Float decimal;
@@ -370,20 +370,20 @@ internal static class FloatTypes
             @SerializedName("nullable_float")
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -412,11 +412,11 @@ internal static class FloatTypes
         public class Root {
             @SerializedName("float")
             @NotNull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @SerializedName("double")
             @NotNull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @SerializedName("decimal")
             @NotNull
@@ -426,20 +426,20 @@ internal static class FloatTypes
             @Nullable
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -468,11 +468,11 @@ internal static class FloatTypes
         public class Root {
             @SerializedName("float")
             @NonNull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @SerializedName("double")
             @NonNull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @SerializedName("decimal")
             @NonNull
@@ -482,20 +482,20 @@ internal static class FloatTypes
             @Nullable
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -524,11 +524,11 @@ internal static class FloatTypes
         public class Root {
             @SerializedName("float")
             @NotNull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @SerializedName("double")
             @NotNull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @SerializedName("decimal")
             @NotNull
@@ -538,20 +538,20 @@ internal static class FloatTypes
             @Nullable
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -581,11 +581,11 @@ internal static class FloatTypes
         public class Root {
             @SerializedName("float")
             @NonNull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @SerializedName("double")
             @NonNull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @SerializedName("decimal")
             @NonNull
@@ -604,11 +604,11 @@ internal static class FloatTypes
         public class Root {
             @SerializedName("float")
             @Nonnull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @SerializedName("double")
             @Nonnull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @SerializedName("decimal")
             @Nonnull
@@ -618,20 +618,20 @@ internal static class FloatTypes
             @Nullable
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -657,10 +657,10 @@ internal static class FloatTypes
 
         public class Root {
             @Json(name = "float")
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @Json(name = "double")
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @Json(name = "decimal")
             private Float decimal;
@@ -668,20 +668,20 @@ internal static class FloatTypes
             @Json(name = "nullable_float")
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -710,11 +710,11 @@ internal static class FloatTypes
         public class Root {
             @Json(name = "float")
             @NotNull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @Json(name = "double")
             @NotNull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @Json(name = "decimal")
             @NotNull
@@ -724,20 +724,20 @@ internal static class FloatTypes
             @Nullable
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -766,11 +766,11 @@ internal static class FloatTypes
         public class Root {
             @Json(name = "float")
             @NonNull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @Json(name = "double")
             @NonNull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @Json(name = "decimal")
             @NonNull
@@ -780,20 +780,20 @@ internal static class FloatTypes
             @Nullable
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -822,11 +822,11 @@ internal static class FloatTypes
         public class Root {
             @Json(name = "float")
             @NotNull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @Json(name = "double")
             @NotNull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @Json(name = "decimal")
             @NotNull
@@ -836,20 +836,20 @@ internal static class FloatTypes
             @Nullable
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -879,11 +879,11 @@ internal static class FloatTypes
         public class Root {
             @Json(name = "float")
             @NonNull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @Json(name = "double")
             @NonNull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @Json(name = "decimal")
             @NonNull
@@ -902,11 +902,11 @@ internal static class FloatTypes
         public class Root {
             @Json(name = "float")
             @Nonnull
-            private Float json2sharpFloat;
+            private Float floatValue;
 
             @Json(name = "double")
             @Nonnull
-            private Float json2sharpDouble;
+            private Float doubleValue;
 
             @Json(name = "decimal")
             @Nonnull
@@ -916,20 +916,20 @@ internal static class FloatTypes
             @Nullable
             private Object nullableFloat;
 
-            public Float getJson2sharpFloat() {
-                return json2sharpFloat;
+            public Float getFloatValue() {
+                return floatValue;
             }
 
-            public void setJson2sharpFloat(Float json2sharpFloat) {
-                this.json2sharpFloat = json2sharpFloat;
+            public void setFloatValue(Float floatValue) {
+                this.floatValue = floatValue;
             }
 
-            public Float getJson2sharpDouble() {
-                return json2sharpDouble;
+            public Float getDoubleValue() {
+                return doubleValue;
             }
 
-            public void setJson2sharpDouble(Float json2sharpDouble) {
-                this.json2sharpDouble = json2sharpDouble;
+            public void setDoubleValue(Float doubleValue) {
+                this.doubleValue = doubleValue;
             }
 
             public Float getDecimal() {
@@ -953,8 +953,8 @@ internal static class FloatTypes
     // Record variations
     public const string NoAnnotationRecordOutput = """
         public record Root(
-            Float json2sharpFloat,
-            Float json2sharpDouble,
+            Float floatValue,
+            Float doubleValue,
             Float decimal,
             Object nullableFloat
         ) {}
@@ -964,8 +964,8 @@ internal static class FloatTypes
         import com.fasterxml.jackson.annotation.JsonProperty;
 
         public record Root(
-            @JsonProperty("float") Float json2sharpFloat,
-            @JsonProperty("double") Float json2sharpDouble,
+            @JsonProperty("float") Float floatValue,
+            @JsonProperty("double") Float doubleValue,
             @JsonProperty("decimal") Float decimal,
             @JsonProperty("nullable_float") Object nullableFloat
         ) {}
@@ -977,8 +977,8 @@ internal static class FloatTypes
         import jakarta.validation.constraints.Nullable;
 
         public record Root(
-            @JsonProperty("float") @NotNull Float json2sharpFloat,
-            @JsonProperty("double") @NotNull Float json2sharpDouble,
+            @JsonProperty("float") @NotNull Float floatValue,
+            @JsonProperty("double") @NotNull Float doubleValue,
             @JsonProperty("decimal") @NotNull Float decimal,
             @JsonProperty("nullable_float") @Nullable Object nullableFloat
         ) {}
@@ -990,8 +990,8 @@ internal static class FloatTypes
         import org.jspecify.annotations.Nullable;
 
         public record Root(
-            @JsonProperty("float") @NonNull Float json2sharpFloat,
-            @JsonProperty("double") @NonNull Float json2sharpDouble,
+            @JsonProperty("float") @NonNull Float floatValue,
+            @JsonProperty("double") @NonNull Float doubleValue,
             @JsonProperty("decimal") @NonNull Float decimal,
             @JsonProperty("nullable_float") @Nullable Object nullableFloat
         ) {}
@@ -1003,8 +1003,8 @@ internal static class FloatTypes
         import org.jetbrains.annotations.Nullable;
 
         public record Root(
-            @JsonProperty("float") @NotNull Float json2sharpFloat,
-            @JsonProperty("double") @NotNull Float json2sharpDouble,
+            @JsonProperty("float") @NotNull Float floatValue,
+            @JsonProperty("double") @NotNull Float doubleValue,
             @JsonProperty("decimal") @NotNull Float decimal,
             @JsonProperty("nullable_float") @Nullable Object nullableFloat
         ) {}
@@ -1015,8 +1015,8 @@ internal static class FloatTypes
         import lombok.NonNull;
 
         public record Root(
-            @JsonProperty("float") @NonNull Float json2sharpFloat,
-            @JsonProperty("double") @NonNull Float json2sharpDouble,
+            @JsonProperty("float") @NonNull Float floatValue,
+            @JsonProperty("double") @NonNull Float doubleValue,
             @JsonProperty("decimal") @NonNull Float decimal,
             @JsonProperty("nullable_float") Object nullableFloat
         ) {}
@@ -1028,8 +1028,8 @@ internal static class FloatTypes
         import javax.annotation.Nullable;
 
         public record Root(
-            @JsonProperty("float") @Nonnull Float json2sharpFloat,
-            @JsonProperty("double") @Nonnull Float json2sharpDouble,
+            @JsonProperty("float") @Nonnull Float floatValue,
+            @JsonProperty("double") @Nonnull Float doubleValue,
             @JsonProperty("decimal") @Nonnull Float decimal,
             @JsonProperty("nullable_float") @Nullable Object nullableFloat
         ) {}
@@ -1039,8 +1039,8 @@ internal static class FloatTypes
         import com.google.gson.annotations.SerializedName;
 
         public record Root(
-            @SerializedName("float") Float json2sharpFloat,
-            @SerializedName("double") Float json2sharpDouble,
+            @SerializedName("float") Float floatValue,
+            @SerializedName("double") Float doubleValue,
             @SerializedName("decimal") Float decimal,
             @SerializedName("nullable_float") Object nullableFloat
         ) {}
@@ -1052,8 +1052,8 @@ internal static class FloatTypes
         import jakarta.validation.constraints.Nullable;
 
         public record Root(
-            @SerializedName("float") @NotNull Float json2sharpFloat,
-            @SerializedName("double") @NotNull Float json2sharpDouble,
+            @SerializedName("float") @NotNull Float floatValue,
+            @SerializedName("double") @NotNull Float doubleValue,
             @SerializedName("decimal") @NotNull Float decimal,
             @SerializedName("nullable_float") @Nullable Object nullableFloat
         ) {}
@@ -1065,8 +1065,8 @@ internal static class FloatTypes
         import org.jspecify.annotations.Nullable;
 
         public record Root(
-            @SerializedName("float") @NonNull Float json2sharpFloat,
-            @SerializedName("double") @NonNull Float json2sharpDouble,
+            @SerializedName("float") @NonNull Float floatValue,
+            @SerializedName("double") @NonNull Float doubleValue,
             @SerializedName("decimal") @NonNull Float decimal,
             @SerializedName("nullable_float") @Nullable Object nullableFloat
         ) {}
@@ -1078,8 +1078,8 @@ internal static class FloatTypes
         import org.jetbrains.annotations.Nullable;
 
         public record Root(
-            @SerializedName("float") @NotNull Float json2sharpFloat,
-            @SerializedName("double") @NotNull Float json2sharpDouble,
+            @SerializedName("float") @NotNull Float floatValue,
+            @SerializedName("double") @NotNull Float doubleValue,
             @SerializedName("decimal") @NotNull Float decimal,
             @SerializedName("nullable_float") @Nullable Object nullableFloat
         ) {}
@@ -1090,8 +1090,8 @@ internal static class FloatTypes
         import lombok.NonNull;
 
         public record Root(
-            @SerializedName("float") @NonNull Float json2sharpFloat,
-            @SerializedName("double") @NonNull Float json2sharpDouble,
+            @SerializedName("float") @NonNull Float floatValue,
+            @SerializedName("double") @NonNull Float doubleValue,
             @SerializedName("decimal") @NonNull Float decimal,
             @SerializedName("nullable_float") Object nullableFloat
         ) {}
@@ -1103,8 +1103,8 @@ internal static class FloatTypes
         import javax.annotation.Nullable;
 
         public record Root(
-            @SerializedName("float") @Nonnull Float json2sharpFloat,
-            @SerializedName("double") @Nonnull Float json2sharpDouble,
+            @SerializedName("float") @Nonnull Float floatValue,
+            @SerializedName("double") @Nonnull Float doubleValue,
             @SerializedName("decimal") @Nonnull Float decimal,
             @SerializedName("nullable_float") @Nullable Object nullableFloat
         ) {}
@@ -1114,8 +1114,8 @@ internal static class FloatTypes
         import com.squareup.moshi.Json;
 
         public record Root(
-            @Json(name = "float") Float json2sharpFloat,
-            @Json(name = "double") Float json2sharpDouble,
+            @Json(name = "float") Float floatValue,
+            @Json(name = "double") Float doubleValue,
             @Json(name = "decimal") Float decimal,
             @Json(name = "nullable_float") Object nullableFloat
         ) {}
@@ -1127,8 +1127,8 @@ internal static class FloatTypes
         import jakarta.validation.constraints.Nullable;
 
         public record Root(
-            @Json(name = "float") @NotNull Float json2sharpFloat,
-            @Json(name = "double") @NotNull Float json2sharpDouble,
+            @Json(name = "float") @NotNull Float floatValue,
+            @Json(name = "double") @NotNull Float doubleValue,
             @Json(name = "decimal") @NotNull Float decimal,
             @Json(name = "nullable_float") @Nullable Object nullableFloat
         ) {}
@@ -1140,8 +1140,8 @@ internal static class FloatTypes
         import org.jspecify.annotations.Nullable;
 
         public record Root(
-            @Json(name = "float") @NonNull Float json2sharpFloat,
-            @Json(name = "double") @NonNull Float json2sharpDouble,
+            @Json(name = "float") @NonNull Float floatValue,
+            @Json(name = "double") @NonNull Float doubleValue,
             @Json(name = "decimal") @NonNull Float decimal,
             @Json(name = "nullable_float") @Nullable Object nullableFloat
         ) {}
@@ -1153,8 +1153,8 @@ internal static class FloatTypes
         import org.jetbrains.annotations.Nullable;
 
         public record Root(
-            @Json(name = "float") @NotNull Float json2sharpFloat,
-            @Json(name = "double") @NotNull Float json2sharpDouble,
+            @Json(name = "float") @NotNull Float floatValue,
+            @Json(name = "double") @NotNull Float doubleValue,
             @Json(name = "decimal") @NotNull Float decimal,
             @Json(name = "nullable_float") @Nullable Object nullableFloat
         ) {}
@@ -1165,8 +1165,8 @@ internal static class FloatTypes
         import lombok.NonNull;
 
         public record Root(
-            @Json(name = "float") @NonNull Float json2sharpFloat,
-            @Json(name = "double") @NonNull Float json2sharpDouble,
+            @Json(name = "float") @NonNull Float floatValue,
+            @Json(name = "double") @NonNull Float doubleValue,
             @Json(name = "decimal") @NonNull Float decimal,
             @Json(name = "nullable_float") Object nullableFloat
         ) {}
@@ -1178,8 +1178,8 @@ internal static class FloatTypes
         import javax.annotation.Nullable;
 
         public record Root(
-            @Json(name = "float") @Nonnull Float json2sharpFloat,
-            @Json(name = "double") @Nonnull Float json2sharpDouble,
+            @Json(name = "float") @Nonnull Float floatValue,
+            @Json(name = "double") @Nonnull Float doubleValue,
             @Json(name = "decimal") @Nonnull Float decimal,
             @Json(name = "nullable_float") @Nullable Object nullableFloat
         ) {}

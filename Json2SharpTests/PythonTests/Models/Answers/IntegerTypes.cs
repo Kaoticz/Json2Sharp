@@ -33,7 +33,6 @@ internal static class IntegerTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string DataClassOutputPipe = """
@@ -58,7 +57,6 @@ internal static class IntegerTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputOptional = """
@@ -67,6 +65,7 @@ internal static class IntegerTypes
 
         class IntegerTypes:
             def __init__(
+                self,
                 int_number: int,
                 uint_number: int,
                 long_number: int,
@@ -87,7 +86,6 @@ internal static class IntegerTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputPipe = """
@@ -96,6 +94,7 @@ internal static class IntegerTypes
 
         class IntegerTypes:
             def __init__(
+                self,
                 int_number: int,
                 uint_number: int,
                 long_number: int,
@@ -116,12 +115,12 @@ internal static class IntegerTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputNoTypeHints = """
         class IntegerTypes:
             def __init__(
+                self,
                 int_number,
                 uint_number,
                 long_number,
@@ -142,7 +141,6 @@ internal static class IntegerTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string PydanticOptionalOutput = """
@@ -155,7 +153,6 @@ internal static class IntegerTypes
             uint_number: Annotated[int, Field(alias='uint_number')]
             long_number: Annotated[int, Field(alias='long_number')]
             ulong_number: Annotated[int, Field(alias='ulong_number')]
-
         """;
 
     public const string PydanticPipeOutput = """
@@ -168,6 +165,5 @@ internal static class IntegerTypes
             uint_number: Annotated[int, Field(alias='uint_number')]
             long_number: Annotated[int, Field(alias='long_number')]
             ulong_number: Annotated[int, Field(alias='ulong_number')]
-
         """;
 }

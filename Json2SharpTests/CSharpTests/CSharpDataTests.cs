@@ -8,7 +8,57 @@ namespace Json2SharpTests.CSharpTests;
 
 public sealed class CSharpDataTests
 {
+    private static readonly CSharpAccessibilityLevel[] _accessibilityLevels = Enum.GetValues<CSharpAccessibilityLevel>();
+    private static readonly CSharpSetterType[] _setterTypes = Enum.GetValues<CSharpSetterType>();
+    private static readonly bool[] _boolValues = [true, false];
+
+    public static IEnumerable<object[]> GetExhaustiveTestMatrix()
+    {
+        foreach (var targetType in Enum.GetValues<CSharpObjectType>())
+        {
+            foreach (var accessibility in _accessibilityLevels)
+            {
+                foreach (var isSealed in _boolValues)
+                {
+                    foreach (var isRequired in _boolValues)
+                    {
+                        foreach (var setter in _setterTypes)
+                        {
+                            yield return [targetType, accessibility, isSealed, isRequired, setter];
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     [Theory]
+    [MemberData(nameof(GetExhaustiveTestMatrix))]
+    internal void ExhaustiveMatrixTest(CSharpObjectType targetType, CSharpAccessibilityLevel accessibility, bool isSealed, bool isRequired, CSharpSetterType setter)
+    {
+        var options = new Json2SharpOptions()
+        {
+            TargetLanguage = Language.CSharp,
+            CSharpOptions = new()
+            {
+                TargetType = targetType,
+                AccessibilityLevel = accessibility,
+                IsSealed = isSealed,
+                IsPropertyRequired = isRequired,
+                SetterType = setter,
+                SerializationAttribute = CSharpSerializationAttribute.SystemTextJson
+            }
+        };
+
+        // We just want to ensure it doesn't throw and generates SOMETHING for now.
+        // The more specific tests below verify exact output for common configurations.
+        var actualOutput = Json2Sharp.Parse("TestClass", BoolTypes.Input, options);
+        Assert.NotEmpty(actualOutput);
+    }
+
+    [Theory]
+    [InlineData(nameof(KeywordTypes), KeywordTypes.Input, KeywordTypes.RecordOutput, CSharpObjectType.Record, CSharpSerializationAttribute.SystemTextJson)]
+    [InlineData(nameof(KeywordTypes), KeywordTypes.Input, KeywordTypes.ClassOutput, CSharpObjectType.Class, CSharpSerializationAttribute.SystemTextJson)]
     [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.RecordPrimaryCtorOutputNoAtt, CSharpObjectType.Record, CSharpSerializationAttribute.NoAttribute)]
     [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.RecordPrimaryCtorOutput, CSharpObjectType.Record, CSharpSerializationAttribute.NewtonsoftJson)]
     [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.RecordOutput, CSharpObjectType.Record, CSharpSerializationAttribute.SystemTextJson)]

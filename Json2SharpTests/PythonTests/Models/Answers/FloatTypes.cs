@@ -30,7 +30,6 @@ internal static class FloatTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string DataClassOutputPipe = """
@@ -53,7 +52,6 @@ internal static class FloatTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputOptional = """
@@ -62,6 +60,7 @@ internal static class FloatTypes
 
         class FloatTypes:
             def __init__(
+                self,
                 float_number: float,
                 double_number: float,
                 decimal_number: float
@@ -79,7 +78,6 @@ internal static class FloatTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputPipe = """
@@ -88,6 +86,7 @@ internal static class FloatTypes
 
         class FloatTypes:
             def __init__(
+                self,
                 float_number: float,
                 double_number: float,
                 decimal_number: float
@@ -105,12 +104,12 @@ internal static class FloatTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string OutputNoTypeHints = """
         class FloatTypes:
             def __init__(
+                self,
                 float_number,
                 double_number,
                 decimal_number
@@ -128,7 +127,6 @@ internal static class FloatTypes
                 }
 
                 return cls(**data)
-
         """;
 
     public const string PydanticOptionalOutput = """
@@ -140,7 +138,6 @@ internal static class FloatTypes
             float_number: Annotated[float, Field(alias='float_number')]
             double_number: Annotated[float, Field(alias='double_number')]
             decimal_number: Annotated[float, Field(alias='decimal_number')]
-
         """;
 
     public const string PydanticPipeOutput = """
@@ -152,6 +149,5 @@ internal static class FloatTypes
             float_number: Annotated[float, Field(alias='float_number')]
             double_number: Annotated[float, Field(alias='double_number')]
             decimal_number: Annotated[float, Field(alias='decimal_number')]
-
         """;
 }

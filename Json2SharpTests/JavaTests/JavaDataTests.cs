@@ -10,6 +10,30 @@ namespace Json2SharpTests.JavaTests;
 public sealed class JavaDataTests
 {
     [Theory]
+    [InlineData(KeywordTypes.Input, KeywordTypes.Output, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.NoAnnotation)]
+    [InlineData(KeywordTypes.Input, KeywordTypes.RecordOutput, true, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.NoAnnotation)]
+    internal void KeywordTest(string input, string expectedOutput, bool useRecord, JavaSerializationAnnotation serializationAnnotation, JavaNullabilityAnnotation nullabilityAnnotation)
+    {
+        var options = new Json2SharpOptions()
+        {
+            TargetLanguage = Language.Java,
+            JavaOptions = new()
+            {
+                UseRecord = useRecord,
+                SerializationAnnotation = serializationAnnotation,
+                NullabilityAnnotation = nullabilityAnnotation
+            }
+        };
+
+        var actualOutput = Json2Sharp.Parse("KeywordTypes", input, options);
+
+        Assert.Equal(
+            expectedOutput.Replace("\r", string.Empty),
+            actualOutput.Replace("\r", string.Empty)
+        );
+    }
+
+    [Theory]
     // Integer Types (19 variations)
     [InlineData(IntegerTypes.Input, IntegerTypes.NoAnnotationOutput, false, JavaSerializationAnnotation.NoAnnotation, JavaNullabilityAnnotation.NoAnnotation)]
     [InlineData(IntegerTypes.Input, IntegerTypes.JacksonOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.NoAnnotation)]

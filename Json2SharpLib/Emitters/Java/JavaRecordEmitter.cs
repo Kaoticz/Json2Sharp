@@ -18,16 +18,6 @@ internal sealed class JavaRecordEmitter : CodeEmitter
     private readonly JavaNullabilityAnnotation _nullabilityAnnotation;
     private readonly string _indentationPadding;
 
-    private static readonly HashSet<string> _javaKeywords =
-    [
-        "abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue",
-        "default", "do", "double", "else", "enum", "extends", "final", "finally", "float", "for", "goto",
-        "if", "implements", "import", "instanceof", "int", "interface", "long", "native", "new", "package",
-        "private", "protected", "public", "return", "short", "static", "strictfp", "super", "switch",
-        "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while",
-        "true", "false", "null"
-    ];
-
     /// <summary>
     /// Parses JSON data into a Java record.
     /// </summary>
@@ -90,7 +80,7 @@ internal sealed class JavaRecordEmitter : CodeEmitter
     protected override string ParseCustomType(ParsedJsonProperty property)
     {
         var jsonName = property.JsonName!;
-        var fieldName = GetSafeFieldName(jsonName);
+        var fieldName = GetSafePropertyName(jsonName, Language.Java);
         var customType = GetObjectTypeName(property, Language.Java);
         var isNullable = J2SUtils.IsPropertyNullable(property.JsonElement);
 
@@ -113,7 +103,7 @@ internal sealed class JavaRecordEmitter : CodeEmitter
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
     {
         var jsonName = property.JsonName!;
-        var fieldName = GetSafeFieldName(jsonName);
+        var fieldName = GetSafePropertyName(jsonName, Language.Java);
         IsArrayOfNullableType(property, Language.Java, childrenTypes, out typeName);
         var isByteArr = typeName.Equals("byte", StringComparison.OrdinalIgnoreCase);
         var fullTypeName = (isByteArr) ? "byte[]" : $"List<{typeName}>";
@@ -151,7 +141,7 @@ internal sealed class JavaRecordEmitter : CodeEmitter
             }
 
             var jsonName = property.JsonName!;
-            var fieldName = GetSafeFieldName(jsonName);
+            var fieldName = GetSafePropertyName(jsonName, Language.Java);
             var typeName = J2SUtils.GetAliasName(property.BclType, Language.Java);
             var isNullable = J2SUtils.IsPropertyNullable(property.JsonElement);
 
@@ -223,19 +213,6 @@ internal sealed class JavaRecordEmitter : CodeEmitter
 
         stringBuilder.AppendLine(Environment.NewLine);
         stringBuilder.AppendJoin(Environment.NewLine + Environment.NewLine, sanitizedExtraTypes);
-    }
-
-    /// <summary>
-    /// Gets a safe field name that does not conflict with Java keywords or start with a digit.
-    /// </summary>
-    /// <param name="name">The name to be processed.</param>
-    /// <returns>A safe field name.</returns>
-    private static string GetSafeFieldName(string name)
-    {
-        var camelCaseName = name.ToCamelCase();
-        return (_javaKeywords.Contains(camelCaseName) || char.IsDigit(camelCaseName[0]))
-            ? "json2sharp" + camelCaseName.ToPascalCase()
-            : camelCaseName;
     }
 
     /// <summary>

@@ -8,6 +8,67 @@ namespace Json2SharpTests.PythonTests;
 
 public sealed class PythonDataTests
 {
+    private static readonly bool[] _boolValues = [true, false];
+
+    public static IEnumerable<object[]> GetExhaustiveTestMatrix()
+    {
+        foreach (var targetType in Enum.GetValues<PythonObjectType>())
+        {
+            foreach (var addTypeHints in _boolValues)
+            {
+                foreach (var useOptional in _boolValues)
+                {
+                    yield return [targetType, addTypeHints, useOptional];
+                }
+            }
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(GetExhaustiveTestMatrix))]
+    internal void ExhaustiveMatrixTest(PythonObjectType targetType, bool addTypeHints, bool useOptional)
+    {
+        var options = new Json2SharpOptions()
+        {
+            TargetLanguage = Language.Python,
+            PythonOptions = new()
+            {
+                TargetType = targetType,
+                AddTypeHints = addTypeHints,
+                UseOptional = useOptional
+            }
+        };
+
+        // We just want to ensure it doesn't throw and generates SOMETHING.
+        var actualOutput = Json2Sharp.Parse("TestClass", BoolTypes.Input, options);
+        Assert.NotEmpty(actualOutput);
+    }
+
+    [Theory]
+    [InlineData(KeywordTypes.Input, KeywordTypes.Output, true, PythonObjectType.Class, true)]
+    [InlineData(KeywordTypes.Input, KeywordTypes.DataClassOutput, true, PythonObjectType.DataClass, true)]
+    [InlineData(KeywordTypes.Input, KeywordTypes.PydanticOutput, true, PythonObjectType.Pydantic, true)]
+    internal void KeywordTest(string input, string expectedOutput, bool addTypeHints, PythonObjectType targetType, bool useOptional)
+    {
+        var options = new Json2SharpOptions()
+        {
+            TargetLanguage = Language.Python,
+            PythonOptions = new()
+            {
+                AddTypeHints = addTypeHints,
+                TargetType = targetType,
+                UseOptional = useOptional
+            }
+        };
+
+        var actualOutput = Json2Sharp.Parse("KeywordTypes", input, options);
+
+        Assert.Equal(
+            expectedOutput.Replace("\r", string.Empty),
+            actualOutput.Replace("\r", string.Empty)
+        );
+    }
+
     [Theory]
     // Optional[T] tests
     [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.OutputOptional, true, PythonObjectType.Class, true)]
@@ -54,6 +115,9 @@ public sealed class PythonDataTests
     [InlineData(nameof(WeirdNameTypes), WeirdNameTypes.Input, WeirdNameTypes.OutputPipe, true, PythonObjectType.Class, false)]
     [InlineData(nameof(WeirdNameTypes), WeirdNameTypes.Input, WeirdNameTypes.DataClassOutputPipe, true, PythonObjectType.DataClass, false)]
     [InlineData(nameof(WeirdNameTypes), WeirdNameTypes.Input, WeirdNameTypes.PydanticPipeOutput, true, PythonObjectType.Pydantic, false)]
+    [InlineData(nameof(ArrayRoot), ArrayRoot.Input, ArrayRoot.OutputOptional, true, PythonObjectType.Class, true)]
+    [InlineData(nameof(ArrayRoot), ArrayRoot.Input, ArrayRoot.DataClassOutputOptional, true, PythonObjectType.DataClass, true)]
+    [InlineData(nameof(ArrayRoot), ArrayRoot.Input, ArrayRoot.PydanticOptionalOutput, true, PythonObjectType.Pydantic, true)]
 
     // No type hints tests (should be the same regardless of UseOptional)
     [InlineData(nameof(IntegerTypes), IntegerTypes.Input, IntegerTypes.OutputNoTypeHints, false, PythonObjectType.Class, true)]
@@ -146,11 +210,11 @@ public sealed class PythonDataTests
                 AddTypeHints = addTypeHints,
                 TargetType = targetType,
                 UseOptional = useOptional,
-                TypeNameHandler = propertyType => propertyType.ToSnakeCase()
+                TypeNameHandler = propertyType => propertyType.ToSnakeCase().Replace("_", "__")
             }
         };
 
-        var actualOutput = Json2Sharp.Parse(className.ToSnakeCase(), input, options);
+        var actualOutput = Json2Sharp.Parse(className.ToSnakeCase().Replace("_", "__"), input, options);
 
         Assert.Equal(
             expectedOutput.Replace("\r", string.Empty),

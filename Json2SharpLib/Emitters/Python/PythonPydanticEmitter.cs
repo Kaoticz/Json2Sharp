@@ -56,13 +56,15 @@ internal sealed class PythonPydanticEmitter : CodeEmitter
         // Add extra classes above the root class
         AddCustomTypes(stringBuilder, extraTypes);
 
+        var result = stringBuilder.ToStringAndClear().TrimEnd();
+
         // Add the imports
         if (emitHeaders)
         {
-            var hasUuid = stringBuilder.Contains("UUID");
-            var hasTimedelta = stringBuilder.Contains("timedelta");
-            var hasDatetime = stringBuilder.Contains("datetime");
-            var hasOptional = stringBuilder.Contains("Optional[");
+            var hasUuid = result.Contains("UUID");
+            var hasTimedelta = result.Contains("timedelta");
+            var hasDatetime = result.Contains("datetime");
+            var hasOptional = result.Contains("Optional[");
 
             var importsBuilder = new StringBuilder();
             importsBuilder.AppendLine("from pydantic import BaseModel, Field");
@@ -80,25 +82,29 @@ internal sealed class PythonPydanticEmitter : CodeEmitter
             if (hasUuid)
                 importsBuilder.AppendLine("from uuid import UUID");
 
-            stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine + Environment.NewLine);
-            stringBuilder.Insert(0, importsBuilder.ToString().TrimEnd());
+            stringBuilder.Append(importsBuilder);
+            stringBuilder.AppendLine();
+            stringBuilder.AppendLine();
+            stringBuilder.Append(result);
+
+            return stringBuilder.ToStringAndClear();
         }
 
-        return stringBuilder.ToStringAndClear();
+        return result;
     }
 
     /// <inheritdoc />
     protected override string ParseCustomType(ParsedJsonProperty property)
     {
         var typeName = GetObjectTypeName(property, Language.Python);
-        return $"{property.JsonName.ToSnakeCase()}: Annotated[{typeName}, Field(alias='{property.JsonName}')]";
+        return $"{GetSafePropertyName(property.JsonName!, Language.Python)}: Annotated[{typeName}, Field(alias='{property.JsonName}')]";
     }
 
     /// <inheritdoc />
     protected override string ParseArrayType(ParsedJsonProperty property, IReadOnlyList<ParsedJsonProperty> childrenTypes, out string typeName)
     {
         var typeHint = GetArrayTypeHint(property, childrenTypes, out typeName);
-        return $"{property.JsonName.ToSnakeCase()}: Annotated[{typeHint}, Field(alias='{property.JsonName}')]";
+        return $"{GetSafePropertyName(property.JsonName!, Language.Python)}: Annotated[{typeHint}, Field(alias='{property.JsonName}')]";
     }
 
     /// <summary>
@@ -160,7 +166,7 @@ internal sealed class PythonPydanticEmitter : CodeEmitter
                 ? ((isNullable) ? string.Format(_typeHintNoneTemplate, aliasName) : aliasName)
                 : "object";
 
-            stringBuilder.AppendIndentedLine($"{property.JsonName.ToSnakeCase()}: Annotated[{type}, Field(alias='{property.JsonName}')]", _indentationPadding, 1);
+            stringBuilder.AppendIndentedLine($"{GetSafePropertyName(property.JsonName!, Language.Python)}: Annotated[{type}, Field(alias='{property.JsonName}')]", _indentationPadding, 1);
         }
 
         return stringBuilder;
@@ -183,11 +189,10 @@ internal sealed class PythonPydanticEmitter : CodeEmitter
             return false;
 
         // Add the custom types at the top
-        stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
-        stringBuilder.Insert(0, string.Join(Environment.NewLine + Environment.NewLine, sanitizedExtraTypes));
+        stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine + Environment.NewLine);
+        stringBuilder.Insert(0, string.Join(Environment.NewLine + Environment.NewLine + Environment.NewLine, sanitizedExtraTypes));
 
         return true;
-
     }
 
     /// <summary>

@@ -12,26 +12,26 @@ internal static class IntegerTypes
 
     public const string NoAnnotationOutput = """
         public class Root {
-            private Integer json2sharpInt;
+            private Integer intValue;
 
-            private Long json2sharpLong;
+            private Long longValue;
 
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -50,28 +50,28 @@ internal static class IntegerTypes
 
         public class Root {
             @JsonProperty("int")
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @JsonProperty("long")
-            private Long json2sharpLong;
+            private Long longValue;
 
             @JsonProperty("nullable_int")
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -92,30 +92,30 @@ internal static class IntegerTypes
         public class Root {
             @JsonProperty("int")
             @NotNull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @JsonProperty("long")
             @NotNull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @JsonProperty("nullable_int")
             @Nullable
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -136,30 +136,30 @@ internal static class IntegerTypes
         public class Root {
             @JsonProperty("int")
             @NonNull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @JsonProperty("long")
             @NonNull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @JsonProperty("nullable_int")
             @Nullable
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -180,30 +180,30 @@ internal static class IntegerTypes
         public class Root {
             @JsonProperty("int")
             @NotNull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @JsonProperty("long")
             @NotNull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @JsonProperty("nullable_int")
             @Nullable
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -225,11 +225,11 @@ internal static class IntegerTypes
         public class Root {
             @JsonProperty("int")
             @NonNull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @JsonProperty("long")
             @NonNull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @JsonProperty("nullable_int")
             private Object nullableInt;
@@ -244,30 +244,30 @@ internal static class IntegerTypes
         public class Root {
             @JsonProperty("int")
             @Nonnull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @JsonProperty("long")
             @Nonnull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @JsonProperty("nullable_int")
             @Nullable
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -285,28 +285,28 @@ internal static class IntegerTypes
 
         public class Root {
             @SerializedName("int")
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @SerializedName("long")
-            private Long json2sharpLong;
+            private Long longValue;
 
             @SerializedName("nullable_int")
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -327,30 +327,30 @@ internal static class IntegerTypes
         public class Root {
             @SerializedName("int")
             @NotNull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @SerializedName("long")
             @NotNull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @SerializedName("nullable_int")
             @Nullable
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -371,30 +371,30 @@ internal static class IntegerTypes
         public class Root {
             @SerializedName("int")
             @NonNull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @SerializedName("long")
             @NonNull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @SerializedName("nullable_int")
             @Nullable
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -415,30 +415,30 @@ internal static class IntegerTypes
         public class Root {
             @SerializedName("int")
             @NotNull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @SerializedName("long")
             @NotNull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @SerializedName("nullable_int")
             @Nullable
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -460,11 +460,11 @@ internal static class IntegerTypes
         public class Root {
             @SerializedName("int")
             @NonNull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @SerializedName("long")
             @NonNull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @SerializedName("nullable_int")
             private Object nullableInt;
@@ -479,30 +479,30 @@ internal static class IntegerTypes
         public class Root {
             @SerializedName("int")
             @Nonnull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @SerializedName("long")
             @Nonnull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @SerializedName("nullable_int")
             @Nullable
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -520,28 +520,28 @@ internal static class IntegerTypes
 
         public class Root {
             @Json(name = "int")
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @Json(name = "long")
-            private Long json2sharpLong;
+            private Long longValue;
 
             @Json(name = "nullable_int")
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -562,30 +562,30 @@ internal static class IntegerTypes
         public class Root {
             @Json(name = "int")
             @NotNull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @Json(name = "long")
             @NotNull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @Json(name = "nullable_int")
             @Nullable
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -606,30 +606,30 @@ internal static class IntegerTypes
         public class Root {
             @Json(name = "int")
             @NonNull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @Json(name = "long")
             @NonNull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @Json(name = "nullable_int")
             @Nullable
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -650,30 +650,30 @@ internal static class IntegerTypes
         public class Root {
             @Json(name = "int")
             @NotNull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @Json(name = "long")
             @NotNull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @Json(name = "nullable_int")
             @Nullable
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -695,11 +695,11 @@ internal static class IntegerTypes
         public class Root {
             @Json(name = "int")
             @NonNull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @Json(name = "long")
             @NonNull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @Json(name = "nullable_int")
             private Object nullableInt;
@@ -714,30 +714,30 @@ internal static class IntegerTypes
         public class Root {
             @Json(name = "int")
             @Nonnull
-            private Integer json2sharpInt;
+            private Integer intValue;
 
             @Json(name = "long")
             @Nonnull
-            private Long json2sharpLong;
+            private Long longValue;
 
             @Json(name = "nullable_int")
             @Nullable
             private Object nullableInt;
 
-            public Integer getJson2sharpInt() {
-                return json2sharpInt;
+            public Integer getIntValue() {
+                return intValue;
             }
 
-            public void setJson2sharpInt(Integer json2sharpInt) {
-                this.json2sharpInt = json2sharpInt;
+            public void setIntValue(Integer intValue) {
+                this.intValue = intValue;
             }
 
-            public Long getJson2sharpLong() {
-                return json2sharpLong;
+            public Long getLongValue() {
+                return longValue;
             }
 
-            public void setJson2sharpLong(Long json2sharpLong) {
-                this.json2sharpLong = json2sharpLong;
+            public void setLongValue(Long longValue) {
+                this.longValue = longValue;
             }
 
             public Object getNullableInt() {
@@ -753,8 +753,8 @@ internal static class IntegerTypes
     // Record variations
     public const string NoAnnotationRecordOutput = """
         public record Root(
-            Integer json2sharpInt,
-            Long json2sharpLong,
+            Integer intValue,
+            Long longValue,
             Object nullableInt
         ) {}
         """;
@@ -763,8 +763,8 @@ internal static class IntegerTypes
         import com.fasterxml.jackson.annotation.JsonProperty;
 
         public record Root(
-            @JsonProperty("int") Integer json2sharpInt,
-            @JsonProperty("long") Long json2sharpLong,
+            @JsonProperty("int") Integer intValue,
+            @JsonProperty("long") Long longValue,
             @JsonProperty("nullable_int") Object nullableInt
         ) {}
         """;
@@ -775,8 +775,8 @@ internal static class IntegerTypes
         import jakarta.validation.constraints.Nullable;
 
         public record Root(
-            @JsonProperty("int") @NotNull Integer json2sharpInt,
-            @JsonProperty("long") @NotNull Long json2sharpLong,
+            @JsonProperty("int") @NotNull Integer intValue,
+            @JsonProperty("long") @NotNull Long longValue,
             @JsonProperty("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
@@ -787,8 +787,8 @@ internal static class IntegerTypes
         import org.jspecify.annotations.Nullable;
 
         public record Root(
-            @JsonProperty("int") @NonNull Integer json2sharpInt,
-            @JsonProperty("long") @NonNull Long json2sharpLong,
+            @JsonProperty("int") @NonNull Integer intValue,
+            @JsonProperty("long") @NonNull Long longValue,
             @JsonProperty("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
@@ -799,8 +799,8 @@ internal static class IntegerTypes
         import org.jetbrains.annotations.Nullable;
 
         public record Root(
-            @JsonProperty("int") @NotNull Integer json2sharpInt,
-            @JsonProperty("long") @NotNull Long json2sharpLong,
+            @JsonProperty("int") @NotNull Integer intValue,
+            @JsonProperty("long") @NotNull Long longValue,
             @JsonProperty("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
@@ -810,8 +810,8 @@ internal static class IntegerTypes
         import lombok.NonNull;
 
         public record Root(
-            @JsonProperty("int") @NonNull Integer json2sharpInt,
-            @JsonProperty("long") @NonNull Long json2sharpLong,
+            @JsonProperty("int") @NonNull Integer intValue,
+            @JsonProperty("long") @NonNull Long longValue,
             @JsonProperty("nullable_int") Object nullableInt
         ) {}
         """;
@@ -822,8 +822,8 @@ internal static class IntegerTypes
         import javax.annotation.Nullable;
 
         public record Root(
-            @JsonProperty("int") @Nonnull Integer json2sharpInt,
-            @JsonProperty("long") @Nonnull Long json2sharpLong,
+            @JsonProperty("int") @Nonnull Integer intValue,
+            @JsonProperty("long") @Nonnull Long longValue,
             @JsonProperty("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
@@ -832,8 +832,8 @@ internal static class IntegerTypes
         import com.google.gson.annotations.SerializedName;
 
         public record Root(
-            @SerializedName("int") Integer json2sharpInt,
-            @SerializedName("long") Long json2sharpLong,
+            @SerializedName("int") Integer intValue,
+            @SerializedName("long") Long longValue,
             @SerializedName("nullable_int") Object nullableInt
         ) {}
         """;
@@ -844,8 +844,8 @@ internal static class IntegerTypes
         import jakarta.validation.constraints.Nullable;
 
         public record Root(
-            @SerializedName("int") @NotNull Integer json2sharpInt,
-            @SerializedName("long") @NotNull Long json2sharpLong,
+            @SerializedName("int") @NotNull Integer intValue,
+            @SerializedName("long") @NotNull Long longValue,
             @SerializedName("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
@@ -856,8 +856,8 @@ internal static class IntegerTypes
         import org.jspecify.annotations.Nullable;
 
         public record Root(
-            @SerializedName("int") @NonNull Integer json2sharpInt,
-            @SerializedName("long") @NonNull Long json2sharpLong,
+            @SerializedName("int") @NonNull Integer intValue,
+            @SerializedName("long") @NonNull Long longValue,
             @SerializedName("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
@@ -868,8 +868,8 @@ internal static class IntegerTypes
         import org.jetbrains.annotations.Nullable;
 
         public record Root(
-            @SerializedName("int") @NotNull Integer json2sharpInt,
-            @SerializedName("long") @NotNull Long json2sharpLong,
+            @SerializedName("int") @NotNull Integer intValue,
+            @SerializedName("long") @NotNull Long longValue,
             @SerializedName("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
@@ -879,8 +879,8 @@ internal static class IntegerTypes
         import lombok.NonNull;
 
         public record Root(
-            @SerializedName("int") @NonNull Integer json2sharpInt,
-            @SerializedName("long") @NonNull Long json2sharpLong,
+            @SerializedName("int") @NonNull Integer intValue,
+            @SerializedName("long") @NonNull Long longValue,
             @SerializedName("nullable_int") Object nullableInt
         ) {}
         """;
@@ -891,8 +891,8 @@ internal static class IntegerTypes
         import javax.annotation.Nullable;
 
         public record Root(
-            @SerializedName("int") @Nonnull Integer json2sharpInt,
-            @SerializedName("long") @Nonnull Long json2sharpLong,
+            @SerializedName("int") @Nonnull Integer intValue,
+            @SerializedName("long") @Nonnull Long longValue,
             @SerializedName("nullable_int") @Nullable Object nullableInt
         ) {}
         """;
@@ -901,8 +901,8 @@ internal static class IntegerTypes
         import com.squareup.moshi.Json;
 
         public record Root(
-            @Json(name = "int") Integer json2sharpInt,
-            @Json(name = "long") Long json2sharpLong,
+            @Json(name = "int") Integer intValue,
+            @Json(name = "long") Long longValue,
             @Json(name = "nullable_int") Object nullableInt
         ) {}
         """;
@@ -913,8 +913,8 @@ internal static class IntegerTypes
         import jakarta.validation.constraints.Nullable;
 
         public record Root(
-            @Json(name = "int") @NotNull Integer json2sharpInt,
-            @Json(name = "long") @NotNull Long json2sharpLong,
+            @Json(name = "int") @NotNull Integer intValue,
+            @Json(name = "long") @NotNull Long longValue,
             @Json(name = "nullable_int") @Nullable Object nullableInt
         ) {}
         """;
@@ -925,8 +925,8 @@ internal static class IntegerTypes
         import org.jspecify.annotations.Nullable;
 
         public record Root(
-            @Json(name = "int") @NonNull Integer json2sharpInt,
-            @Json(name = "long") @NonNull Long json2sharpLong,
+            @Json(name = "int") @NonNull Integer intValue,
+            @Json(name = "long") @NonNull Long longValue,
             @Json(name = "nullable_int") @Nullable Object nullableInt
         ) {}
         """;
@@ -937,8 +937,8 @@ internal static class IntegerTypes
         import org.jetbrains.annotations.Nullable;
 
         public record Root(
-            @Json(name = "int") @NotNull Integer json2sharpInt,
-            @Json(name = "long") @NotNull Long json2sharpLong,
+            @Json(name = "int") @NotNull Integer intValue,
+            @Json(name = "long") @NotNull Long longValue,
             @Json(name = "nullable_int") @Nullable Object nullableInt
         ) {}
         """;
@@ -948,8 +948,8 @@ internal static class IntegerTypes
         import lombok.NonNull;
 
         public record Root(
-            @Json(name = "int") @NonNull Integer json2sharpInt,
-            @Json(name = "long") @NonNull Long json2sharpLong,
+            @Json(name = "int") @NonNull Integer intValue,
+            @Json(name = "long") @NonNull Long longValue,
             @Json(name = "nullable_int") Object nullableInt
         ) {}
         """;
@@ -960,8 +960,8 @@ internal static class IntegerTypes
         import javax.annotation.Nullable;
 
         public record Root(
-            @Json(name = "int") @Nonnull Integer json2sharpInt,
-            @Json(name = "long") @Nonnull Long json2sharpLong,
+            @Json(name = "int") @Nonnull Integer intValue,
+            @Json(name = "long") @Nonnull Long longValue,
             @Json(name = "nullable_int") @Nullable Object nullableInt
         ) {}
         """;

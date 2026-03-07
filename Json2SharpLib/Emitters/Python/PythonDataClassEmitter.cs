@@ -18,13 +18,6 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
     private readonly string _indentationPadding;
     private readonly string _typeHintNoneTemplate;
 
-    private static readonly HashSet<string> _pythonKeywords =
-    [
-        "False", "None", "True", "and", "as", "assert", "async", "await", "break", "class", "continue", "def", "del",
-        "elif", "else", "except", "finally", "for", "from", "global", "if", "import", "in", "is", "lambda", "nonlocal",
-        "not", "or", "pass", "raise", "return", "try", "while", "with", "yield"
-    ];
-
     /// <summary>
     /// Creates an object that parses JSON data into a Python data class.
     /// </summary>
@@ -62,50 +55,59 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
 
         var stringBuilder = BuildDataClass(objectName, properties, out var extraTypes);
 
-        // Build the from_json method
+        // Build the from_json() method
         BuildFromJsonMethod(stringBuilder, properties);
 
         // Add extra classes above the root class
         AddCustomTypes(stringBuilder, extraTypes);
 
+        var result = stringBuilder.ToStringAndClear().TrimEnd();
+
+        if (!emitHeaders)
+            return result;
+
         // Add the imports
-        if (emitHeaders)
+        var hasUuid = result.Contains("UUID");
+        var hasTimedelta = result.Contains("timedelta");
+        var hasDatetime = result.Contains("datetime");
+        var hasOptional = result.Contains("Optional[");
+        var hasAny = result.Contains("Any");
+        var hasSelf = result.Contains("Self");
+        var typingModules = new List<string>(3);
+        
+        if (hasOptional)
+            typingModules.Add("Optional");
+        if (hasAny)
+            typingModules.Add("Any");
+        if (hasSelf)
+            typingModules.Add("Self");
+
+        if (typingModules.Count > 0)
+            stringBuilder.Insert(0, $"from typing import {string.Join(", ", typingModules)}" + Environment.NewLine);
+
+        if (hasTimedelta || hasDatetime)
         {
-            var hasUuid = stringBuilder.Contains("UUID");
-            var hasTimedelta = stringBuilder.Contains("timedelta");
-            var hasDatetime = stringBuilder.Contains("datetime");
-            var hasOptional = stringBuilder.Contains("Optional[");
-            var hasAny = stringBuilder.Contains("Any");
-            var hasSelf = stringBuilder.Contains("Self");
+            var modules = (hasTimedelta && hasDatetime) ? "datetime, timedelta"
+                : (hasTimedelta) ? "timedelta" 
+                : "datetime";
 
-            stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
-
-            if (hasUuid)
-                stringBuilder.Insert(0, "from uuid import UUID" + Environment.NewLine);
-
-            if (hasTimedelta || hasDatetime)
-            {
-                var modules = (hasTimedelta && hasDatetime) ? "datetime, timedelta"
-                    : (hasTimedelta) ? "timedelta"
-                    : "datetime";
-
-                stringBuilder.Insert(0, "from datetime import " + modules + Environment.NewLine);
-            }
-
-            var typingModules = new List<string>(3);
-            if (hasOptional)
-                typingModules.Add("Optional");
-            if (hasAny)
-                typingModules.Add("Any");
-            if (hasSelf)
-                typingModules.Add("Self");
-            if (typingModules.Count > 0)
-                stringBuilder.Insert(0, $"from typing import {string.Join(", ", typingModules)}" + Environment.NewLine);
-
-            stringBuilder.Insert(0, "from dataclasses import dataclass" + Environment.NewLine);
+            stringBuilder.AppendLine("from datetime import " + modules);
         }
 
+        if (hasUuid)
+            stringBuilder.AppendLine("from uuid import UUID");
+
+        stringBuilder.Insert(0, "from dataclasses import dataclass" + Environment.NewLine);
+
+        if (stringBuilder.Length > 0)
+        {
+            stringBuilder.AppendLine();
+            stringBuilder.AppendLine();
+        }
+
+        stringBuilder.Append(result);
         return stringBuilder.ToStringAndClear();
+
     }
 
     /// <summary>
@@ -130,31 +132,18 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         }
 
         foreach (var property in properties)
-            stringBuilder.AppendIndentedLine($"'{GetSafePropertyName(property.JsonName!)}': json_dict['{property.JsonName}'],", _indentationPadding, 3);
+            stringBuilder.AppendIndentedLine($"'{GetSafePropertyName(property.JsonName!, Language.Python)}': json_dict['{property.JsonName}'],", _indentationPadding, 3);
 
         stringBuilder.AppendIndentedLine("}", _indentationPadding, 2);
         stringBuilder.AppendLine();
         stringBuilder.AppendIndentedLine("return cls(**data)", _indentationPadding, 2);
     }
 
-    /// <summary>
-    /// Gets a safe property name that does not conflict with Python keywords or start with a digit.
-    /// </summary>
-    /// <param name="name">The name to be processed.</param>
-    /// <returns>A safe property name.</returns>
-    private static string GetSafePropertyName(string name)
-    {
-        var snakeCaseName = name.ToSnakeCase();
-        return (_pythonKeywords.Contains(snakeCaseName) || char.IsDigit(snakeCaseName[0]))
-            ? snakeCaseName + "_"
-            : snakeCaseName;
-    }
-
     /// <inheritdoc />
     protected override string ParseCustomType(ParsedJsonProperty property)
     {
         var typeName = GetObjectTypeName(property, Language.Python);
-        return $"{GetSafePropertyName(property.JsonName!)}: {typeName}";
+        return $"{GetSafePropertyName(property.JsonName!, Language.Python)}: {typeName}";
     }
 
     /// <inheritdoc />
@@ -164,7 +153,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
             ? string.Format(_typeHintNoneTemplate, typeName)
             : typeName;
 
-        return $"{GetSafePropertyName(property.JsonName!)}: list[{finalName}]";
+        return $"{GetSafePropertyName(property.JsonName!, Language.Python)}: list[{finalName}]";
     }
 
     /// <summary>
@@ -194,7 +183,7 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
                 ? (isNullable) ? string.Format(_typeHintNoneTemplate, aliasName) : aliasName
                 : throw new InvalidOperationException("Could not get alias for " + property.BclType.Name);
 
-            stringBuilder.AppendIndentedLine($"{GetSafePropertyName(property.JsonName!)}: {type}", _indentationPadding, 1);
+            stringBuilder.AppendIndentedLine($"{GetSafePropertyName(property.JsonName!, Language.Python)}: {type}", _indentationPadding, 1);
         }
 
         return stringBuilder;
@@ -217,11 +206,10 @@ internal sealed class PythonDataClassEmitter : CodeEmitter
         if (sanitizedExtraTypes.Length is 0)
             return false;
 
-        stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine);
-        stringBuilder.Insert(0, string.Join(Environment.NewLine + Environment.NewLine, sanitizedExtraTypes));
+        stringBuilder.Insert(0, Environment.NewLine + Environment.NewLine + Environment.NewLine);
+        stringBuilder.Insert(0, string.Join(Environment.NewLine + Environment.NewLine + Environment.NewLine, sanitizedExtraTypes));
 
         return true;
-
     }
 
     /// <summary>

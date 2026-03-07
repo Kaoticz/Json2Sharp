@@ -12,34 +12,34 @@ internal static class WeirdNameTypes
 
     public const string NoAnnotationOutput = """
         public class Root {
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
-            private String json2sharpClass;
+            private String classValue;
 
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -50,36 +50,36 @@ internal static class WeirdNameTypes
 
         public class Root {
             @JsonProperty("1-weird-name")
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @JsonProperty("class")
-            private String json2sharpClass;
+            private String classValue;
 
             @JsonProperty("for")
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -92,38 +92,38 @@ internal static class WeirdNameTypes
         public class Root {
             @JsonProperty("1-weird-name")
             @NotNull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @JsonProperty("class")
             @NotNull
-            private String json2sharpClass;
+            private String classValue;
 
             @JsonProperty("for")
             @NotNull
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -136,38 +136,38 @@ internal static class WeirdNameTypes
         public class Root {
             @JsonProperty("1-weird-name")
             @NonNull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @JsonProperty("class")
             @NonNull
-            private String json2sharpClass;
+            private String classValue;
 
             @JsonProperty("for")
             @NonNull
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -180,38 +180,38 @@ internal static class WeirdNameTypes
         public class Root {
             @JsonProperty("1-weird-name")
             @NotNull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @JsonProperty("class")
             @NotNull
-            private String json2sharpClass;
+            private String classValue;
 
             @JsonProperty("for")
             @NotNull
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -225,15 +225,15 @@ internal static class WeirdNameTypes
         public class Root {
             @JsonProperty("1-weird-name")
             @NonNull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @JsonProperty("class")
             @NonNull
-            private String json2sharpClass;
+            private String classValue;
 
             @JsonProperty("for")
             @NonNull
-            private String json2sharpFor;
+            private String forValue;
         }
         """;
 
@@ -245,38 +245,38 @@ internal static class WeirdNameTypes
         public class Root {
             @JsonProperty("1-weird-name")
             @Nonnull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @JsonProperty("class")
             @Nonnull
-            private String json2sharpClass;
+            private String classValue;
 
             @JsonProperty("for")
             @Nonnull
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -286,36 +286,36 @@ internal static class WeirdNameTypes
 
         public class Root {
             @SerializedName("1-weird-name")
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @SerializedName("class")
-            private String json2sharpClass;
+            private String classValue;
 
             @SerializedName("for")
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -328,38 +328,38 @@ internal static class WeirdNameTypes
         public class Root {
             @SerializedName("1-weird-name")
             @NotNull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @SerializedName("class")
             @NotNull
-            private String json2sharpClass;
+            private String classValue;
 
             @SerializedName("for")
             @NotNull
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -372,38 +372,38 @@ internal static class WeirdNameTypes
         public class Root {
             @SerializedName("1-weird-name")
             @NonNull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @SerializedName("class")
             @NonNull
-            private String json2sharpClass;
+            private String classValue;
 
             @SerializedName("for")
             @NonNull
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -416,38 +416,38 @@ internal static class WeirdNameTypes
         public class Root {
             @SerializedName("1-weird-name")
             @NotNull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @SerializedName("class")
             @NotNull
-            private String json2sharpClass;
+            private String classValue;
 
             @SerializedName("for")
             @NotNull
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -461,15 +461,15 @@ internal static class WeirdNameTypes
         public class Root {
             @SerializedName("1-weird-name")
             @NonNull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @SerializedName("class")
             @NonNull
-            private String json2sharpClass;
+            private String classValue;
 
             @SerializedName("for")
             @NonNull
-            private String json2sharpFor;
+            private String forValue;
         }
         """;
 
@@ -481,38 +481,38 @@ internal static class WeirdNameTypes
         public class Root {
             @SerializedName("1-weird-name")
             @Nonnull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @SerializedName("class")
             @Nonnull
-            private String json2sharpClass;
+            private String classValue;
 
             @SerializedName("for")
             @Nonnull
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -522,36 +522,36 @@ internal static class WeirdNameTypes
 
         public class Root {
             @Json(name = "1-weird-name")
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @Json(name = "class")
-            private String json2sharpClass;
+            private String classValue;
 
             @Json(name = "for")
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -564,38 +564,38 @@ internal static class WeirdNameTypes
         public class Root {
             @Json(name = "1-weird-name")
             @NotNull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @Json(name = "class")
             @NotNull
-            private String json2sharpClass;
+            private String classValue;
 
             @Json(name = "for")
             @NotNull
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -608,38 +608,38 @@ internal static class WeirdNameTypes
         public class Root {
             @Json(name = "1-weird-name")
             @NonNull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @Json(name = "class")
             @NonNull
-            private String json2sharpClass;
+            private String classValue;
 
             @Json(name = "for")
             @NonNull
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -652,38 +652,38 @@ internal static class WeirdNameTypes
         public class Root {
             @Json(name = "1-weird-name")
             @NotNull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @Json(name = "class")
             @NotNull
-            private String json2sharpClass;
+            private String classValue;
 
             @Json(name = "for")
             @NotNull
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -697,15 +697,15 @@ internal static class WeirdNameTypes
         public class Root {
             @Json(name = "1-weird-name")
             @NonNull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @Json(name = "class")
             @NonNull
-            private String json2sharpClass;
+            private String classValue;
 
             @Json(name = "for")
             @NonNull
-            private String json2sharpFor;
+            private String forValue;
         }
         """;
 
@@ -717,38 +717,38 @@ internal static class WeirdNameTypes
         public class Root {
             @Json(name = "1-weird-name")
             @Nonnull
-            private String json2sharp1WeirdName;
+            private String _1WeirdName;
 
             @Json(name = "class")
             @Nonnull
-            private String json2sharpClass;
+            private String classValue;
 
             @Json(name = "for")
             @Nonnull
-            private String json2sharpFor;
+            private String forValue;
 
-            public String getJson2sharp1WeirdName() {
-                return json2sharp1WeirdName;
+            public String get_1WeirdName() {
+                return _1WeirdName;
             }
 
-            public void setJson2sharp1WeirdName(String json2sharp1WeirdName) {
-                this.json2sharp1WeirdName = json2sharp1WeirdName;
+            public void set_1WeirdName(String _1WeirdName) {
+                this._1WeirdName = _1WeirdName;
             }
 
-            public String getJson2sharpClass() {
-                return json2sharpClass;
+            public String getClassValue() {
+                return classValue;
             }
 
-            public void setJson2sharpClass(String json2sharpClass) {
-                this.json2sharpClass = json2sharpClass;
+            public void setClassValue(String classValue) {
+                this.classValue = classValue;
             }
 
-            public String getJson2sharpFor() {
-                return json2sharpFor;
+            public String getForValue() {
+                return forValue;
             }
 
-            public void setJson2sharpFor(String json2sharpFor) {
-                this.json2sharpFor = json2sharpFor;
+            public void setForValue(String forValue) {
+                this.forValue = forValue;
             }
         }
         """;
@@ -756,9 +756,9 @@ internal static class WeirdNameTypes
     // Record variations
     public const string NoAnnotationRecordOutput = """
         public record Root(
-            String json2sharp1WeirdName,
-            String json2sharpClass,
-            String json2sharpFor
+            String _1WeirdName,
+            String classValue,
+            String forValue
         ) {}
         """;
 
@@ -766,9 +766,9 @@ internal static class WeirdNameTypes
         import com.fasterxml.jackson.annotation.JsonProperty;
 
         public record Root(
-            @JsonProperty("1-weird-name") String json2sharp1WeirdName,
-            @JsonProperty("class") String json2sharpClass,
-            @JsonProperty("for") String json2sharpFor
+            @JsonProperty("1-weird-name") String _1WeirdName,
+            @JsonProperty("class") String classValue,
+            @JsonProperty("for") String forValue
         ) {}
         """;
 
@@ -778,9 +778,9 @@ internal static class WeirdNameTypes
         import jakarta.validation.constraints.Nullable;
 
         public record Root(
-            @JsonProperty("1-weird-name") @NotNull String json2sharp1WeirdName,
-            @JsonProperty("class") @NotNull String json2sharpClass,
-            @JsonProperty("for") @NotNull String json2sharpFor
+            @JsonProperty("1-weird-name") @NotNull String _1WeirdName,
+            @JsonProperty("class") @NotNull String classValue,
+            @JsonProperty("for") @NotNull String forValue
         ) {}
         """;
 
@@ -790,9 +790,9 @@ internal static class WeirdNameTypes
         import org.jspecify.annotations.Nullable;
 
         public record Root(
-            @JsonProperty("1-weird-name") @NonNull String json2sharp1WeirdName,
-            @JsonProperty("class") @NonNull String json2sharpClass,
-            @JsonProperty("for") @NonNull String json2sharpFor
+            @JsonProperty("1-weird-name") @NonNull String _1WeirdName,
+            @JsonProperty("class") @NonNull String classValue,
+            @JsonProperty("for") @NonNull String forValue
         ) {}
         """;
 
@@ -802,9 +802,9 @@ internal static class WeirdNameTypes
         import org.jetbrains.annotations.Nullable;
 
         public record Root(
-            @JsonProperty("1-weird-name") @NotNull String json2sharp1WeirdName,
-            @JsonProperty("class") @NotNull String json2sharpClass,
-            @JsonProperty("for") @NotNull String json2sharpFor
+            @JsonProperty("1-weird-name") @NotNull String _1WeirdName,
+            @JsonProperty("class") @NotNull String classValue,
+            @JsonProperty("for") @NotNull String forValue
         ) {}
         """;
 
@@ -813,9 +813,9 @@ internal static class WeirdNameTypes
         import lombok.NonNull;
 
         public record Root(
-            @JsonProperty("1-weird-name") @NonNull String json2sharp1WeirdName,
-            @JsonProperty("class") @NonNull String json2sharpClass,
-            @JsonProperty("for") @NonNull String json2sharpFor
+            @JsonProperty("1-weird-name") @NonNull String _1WeirdName,
+            @JsonProperty("class") @NonNull String classValue,
+            @JsonProperty("for") @NonNull String forValue
         ) {}
         """;
 
@@ -825,9 +825,9 @@ internal static class WeirdNameTypes
         import javax.annotation.Nullable;
 
         public record Root(
-            @JsonProperty("1-weird-name") @Nonnull String json2sharp1WeirdName,
-            @JsonProperty("class") @Nonnull String json2sharpClass,
-            @JsonProperty("for") @Nonnull String json2sharpFor
+            @JsonProperty("1-weird-name") @Nonnull String _1WeirdName,
+            @JsonProperty("class") @Nonnull String classValue,
+            @JsonProperty("for") @Nonnull String forValue
         ) {}
         """;
 
@@ -835,9 +835,9 @@ internal static class WeirdNameTypes
         import com.google.gson.annotations.SerializedName;
 
         public record Root(
-            @SerializedName("1-weird-name") String json2sharp1WeirdName,
-            @SerializedName("class") String json2sharpClass,
-            @SerializedName("for") String json2sharpFor
+            @SerializedName("1-weird-name") String _1WeirdName,
+            @SerializedName("class") String classValue,
+            @SerializedName("for") String forValue
         ) {}
         """;
 
@@ -847,9 +847,9 @@ internal static class WeirdNameTypes
         import jakarta.validation.constraints.Nullable;
 
         public record Root(
-            @SerializedName("1-weird-name") @NotNull String json2sharp1WeirdName,
-            @SerializedName("class") @NotNull String json2sharpClass,
-            @SerializedName("for") @NotNull String json2sharpFor
+            @SerializedName("1-weird-name") @NotNull String _1WeirdName,
+            @SerializedName("class") @NotNull String classValue,
+            @SerializedName("for") @NotNull String forValue
         ) {}
         """;
 
@@ -859,9 +859,9 @@ internal static class WeirdNameTypes
         import org.jspecify.annotations.Nullable;
 
         public record Root(
-            @SerializedName("1-weird-name") @NonNull String json2sharp1WeirdName,
-            @SerializedName("class") @NonNull String json2sharpClass,
-            @SerializedName("for") @NonNull String json2sharpFor
+            @SerializedName("1-weird-name") @NonNull String _1WeirdName,
+            @SerializedName("class") @NonNull String classValue,
+            @SerializedName("for") @NonNull String forValue
         ) {}
         """;
 
@@ -871,9 +871,9 @@ internal static class WeirdNameTypes
         import org.jetbrains.annotations.Nullable;
 
         public record Root(
-            @SerializedName("1-weird-name") @NotNull String json2sharp1WeirdName,
-            @SerializedName("class") @NotNull String json2sharpClass,
-            @SerializedName("for") @NotNull String json2sharpFor
+            @SerializedName("1-weird-name") @NotNull String _1WeirdName,
+            @SerializedName("class") @NotNull String classValue,
+            @SerializedName("for") @NotNull String forValue
         ) {}
         """;
 
@@ -882,9 +882,9 @@ internal static class WeirdNameTypes
         import lombok.NonNull;
 
         public record Root(
-            @SerializedName("1-weird-name") @NonNull String json2sharp1WeirdName,
-            @SerializedName("class") @NonNull String json2sharpClass,
-            @SerializedName("for") @NonNull String json2sharpFor
+            @SerializedName("1-weird-name") @NonNull String _1WeirdName,
+            @SerializedName("class") @NonNull String classValue,
+            @SerializedName("for") @NonNull String forValue
         ) {}
         """;
 
@@ -894,9 +894,9 @@ internal static class WeirdNameTypes
         import javax.annotation.Nullable;
 
         public record Root(
-            @SerializedName("1-weird-name") @Nonnull String json2sharp1WeirdName,
-            @SerializedName("class") @Nonnull String json2sharpClass,
-            @SerializedName("for") @Nonnull String json2sharpFor
+            @SerializedName("1-weird-name") @Nonnull String _1WeirdName,
+            @SerializedName("class") @Nonnull String classValue,
+            @SerializedName("for") @Nonnull String forValue
         ) {}
         """;
 
@@ -904,9 +904,9 @@ internal static class WeirdNameTypes
         import com.squareup.moshi.Json;
 
         public record Root(
-            @Json(name = "1-weird-name") String json2sharp1WeirdName,
-            @Json(name = "class") String json2sharpClass,
-            @Json(name = "for") String json2sharpFor
+            @Json(name = "1-weird-name") String _1WeirdName,
+            @Json(name = "class") String classValue,
+            @Json(name = "for") String forValue
         ) {}
         """;
 
@@ -916,9 +916,9 @@ internal static class WeirdNameTypes
         import jakarta.validation.constraints.Nullable;
 
         public record Root(
-            @Json(name = "1-weird-name") @NotNull String json2sharp1WeirdName,
-            @Json(name = "class") @NotNull String json2sharpClass,
-            @Json(name = "for") @NotNull String json2sharpFor
+            @Json(name = "1-weird-name") @NotNull String _1WeirdName,
+            @Json(name = "class") @NotNull String classValue,
+            @Json(name = "for") @NotNull String forValue
         ) {}
         """;
 
@@ -928,9 +928,9 @@ internal static class WeirdNameTypes
         import org.jspecify.annotations.Nullable;
 
         public record Root(
-            @Json(name = "1-weird-name") @NonNull String json2sharp1WeirdName,
-            @Json(name = "class") @NonNull String json2sharpClass,
-            @Json(name = "for") @NonNull String json2sharpFor
+            @Json(name = "1-weird-name") @NonNull String _1WeirdName,
+            @Json(name = "class") @NonNull String classValue,
+            @Json(name = "for") @NonNull String forValue
         ) {}
         """;
 
@@ -940,9 +940,9 @@ internal static class WeirdNameTypes
         import org.jetbrains.annotations.Nullable;
 
         public record Root(
-            @Json(name = "1-weird-name") @NotNull String json2sharp1WeirdName,
-            @Json(name = "class") @NotNull String json2sharpClass,
-            @Json(name = "for") @NotNull String json2sharpFor
+            @Json(name = "1-weird-name") @NotNull String _1WeirdName,
+            @Json(name = "class") @NotNull String classValue,
+            @Json(name = "for") @NotNull String forValue
         ) {}
         """;
 
@@ -951,9 +951,9 @@ internal static class WeirdNameTypes
         import lombok.NonNull;
 
         public record Root(
-            @Json(name = "1-weird-name") @NonNull String json2sharp1WeirdName,
-            @Json(name = "class") @NonNull String json2sharpClass,
-            @Json(name = "for") @NonNull String json2sharpFor
+            @Json(name = "1-weird-name") @NonNull String _1WeirdName,
+            @Json(name = "class") @NonNull String classValue,
+            @Json(name = "for") @NonNull String forValue
         ) {}
         """;
 
@@ -963,9 +963,9 @@ internal static class WeirdNameTypes
         import javax.annotation.Nullable;
 
         public record Root(
-            @Json(name = "1-weird-name") @Nonnull String json2sharp1WeirdName,
-            @Json(name = "class") @Nonnull String json2sharpClass,
-            @Json(name = "for") @Nonnull String json2sharpFor
+            @Json(name = "1-weird-name") @Nonnull String _1WeirdName,
+            @Json(name = "class") @Nonnull String classValue,
+            @Json(name = "for") @Nonnull String forValue
         ) {}
         """;
 }
