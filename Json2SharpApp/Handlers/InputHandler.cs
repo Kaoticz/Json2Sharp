@@ -29,13 +29,13 @@ internal static class InputHandler
     /// </returns>
     public static bool? Handle(FileInfo? fileInfo, string objectName, string? jsonString, Json2SharpOptions options, out string result)
     {
-        var rawJson = (TryGetPipedData(out var pipedData)) ? pipedData
+        var rawJson = (TryGetPipedData(out var pipedData) && !string.IsNullOrWhiteSpace(pipedData)) ? pipedData
             : (!string.IsNullOrWhiteSpace(jsonString)) ? jsonString
             : (fileInfo is null) ? null
             : File.ReadAllText(fileInfo.FullName);
 
         // If no data was provided, abort.
-        if (rawJson is null)
+        if (string.IsNullOrWhiteSpace(rawJson))
         {
             result = string.Empty;
             return null;

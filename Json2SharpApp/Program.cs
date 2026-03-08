@@ -16,11 +16,11 @@ internal sealed class Program
     /// <returns>Exit code.</returns>
     private static async Task<int> Main(string[] args)
     {
-        var inputOption = new Option<FileInfo?>(["--input", "-i"], "The relative path to the JSON file in the file system.");
-        var outputOption = new Option<string?>(["--output", "-o"], "The relative path to the resulting file in the file system.");
-        var nameOption = new Option<string?>(["--name", "-n"], "The name of the root object.");
-        var jsonOption = new Option<string?>(["--json", "-j"], "The JSON object to convert.");
-        var configOption = new Option<string?>(["--config", "-c"], "The conversion options.");
+        var inputOption = new Option<FileInfo?>("--input", "-i") { Description = "The relative path to the JSON file in the file system." };
+        var outputOption = new Option<string?>("--output", "-o") { Description = "The relative path to the resulting file in the file system." };
+        var nameOption = new Option<string?>("--name", "-n") { Description = "The name of the root object." };
+        var jsonOption = new Option<string?>("--json", "-j") { Description = "The JSON object to convert." };
+        var configOption = new Option<string?>("--config", "-c") { Description = "The conversion options." };
         var rootCommand = new RootCommand("Convert a JSON object to a language type definition.")
         {
             inputOption,
@@ -30,13 +30,17 @@ internal sealed class Program
             configOption
         };
 
-        rootCommand.SetHandler(
-            async (inputFile, outputPath, nameOption, jsonOption, configOptions)
-                => await RootHandlerAsync(rootCommand, inputFile, outputPath, nameOption, jsonOption, configOptions),
-            inputOption, outputOption, nameOption, jsonOption, configOption
-        );
+        rootCommand.SetAction(async (parseResult, cancellationToken) =>
+        {
+            var inputFile = parseResult.GetValue(inputOption);
+            var outputPath = parseResult.GetValue(outputOption);
+            var name = parseResult.GetValue(nameOption);
+            var json = parseResult.GetValue(jsonOption);
+            var config = parseResult.GetValue(configOption);
+            await RootHandlerAsync(rootCommand, inputFile, outputPath, name, json, config);
+        });
 
-        return await rootCommand.InvokeAsync(args);
+        return await rootCommand.Parse(args).InvokeAsync();
     }
 
     /// <summary>
@@ -51,7 +55,7 @@ internal sealed class Program
     /// <param name="rootObjectName">The name of the root object or <see langword="null"/> if it was not provided.</param>
     /// <param name="jsonString">The raw JSON data or <see langword="null"/> if it was not provided.</param>
     /// <param name="configOptions">The command-line configuration options.</param>
-    private async static Task RootHandlerAsync(RootCommand rootCommand, FileInfo? inputFile, string? outputPath, string? rootObjectName, string? jsonString, string? configOptions)
+    private static async Task RootHandlerAsync(RootCommand rootCommand, FileInfo? inputFile, string? outputPath, string? rootObjectName, string? jsonString, string? configOptions)
     {
         rootObjectName ??= Path.GetFileNameWithoutExtension(outputPath ?? inputFile?.Name) ?? "Root";
         var rawOptions = configOptions?.ToLowerInvariant().Split(' ', StringSplitOptions.TrimEntries) ?? [];
@@ -75,7 +79,7 @@ internal sealed class Program
         else
         {
             await OutputHandler.StderrWriteAsync("Error: no valid input was provided." + Environment.NewLine, ConsoleColor.Red);
-            await rootCommand.InvokeAsync("--help");
+            await rootCommand.Parse("--help").InvokeAsync();
             Environment.Exit((int)ExitCode.InvalidInput);
         }
     }

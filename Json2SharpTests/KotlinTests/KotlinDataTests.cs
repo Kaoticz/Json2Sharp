@@ -84,7 +84,6 @@ public sealed class KotlinDataTests
     }
 
     [Theory]
-    // Custom Handle Types
     [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.NoAnnotationOutput, KotlinSerializationAnnotation.NoAnnotation)]
     [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.KotlinxOutput, KotlinSerializationAnnotation.Kotlinx)]
     [InlineData(nameof(CustomHandleTypes), CustomHandleTypes.Input, CustomHandleTypes.JacksonOutput, KotlinSerializationAnnotation.Jackson)]
