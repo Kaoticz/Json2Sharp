@@ -201,11 +201,11 @@ jobs:
 
       - name: "Create the package"
         run: |
-          mkdir -p ~/build
-          dotnet pack ./Json2SharpApp/Json2SharpApp.csproj -p:PublishTrimmed=false -p:PublishSingleFile=false -p:Version='${{ github.event.release.tag_name }}' -c Release -o ~/build
+          mkdir -p build-cli
+          dotnet pack ./Json2SharpApp/Json2SharpApp.csproj -p:PublishTrimmed=false -p:PublishSingleFile=false -p:Version='${{ github.event.release.tag_name }}' -c Release -o build-cli
 
       - name: "Clean output folder"
-        run: rm -f ~/build/Json2SharpLib*
-
+        run: rm -f build-cli/Json2SharpLib*
+  
       - name: "Upload the tool to NuGet"
-        run: dotnet nuget push "~/build/*" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        run: dotnet nuget push "build-cli/*" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
