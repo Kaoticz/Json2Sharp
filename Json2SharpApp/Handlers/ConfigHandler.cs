@@ -32,6 +32,7 @@ internal sealed class ConfigHandler
                     CSharpOptions = (targetLanguage is Language.CSharp) ? ParseCSharpOptions(options) : new(),
                     PythonOptions = (targetLanguage is Language.Python) ? ParsePythonOptions(options) : new(),
                     JavaOptions = (targetLanguage is Language.Java) ? ParseJavaOptions(options) : new(),
+                    KotlinOptions = (targetLanguage is Language.Kotlin) ? ParseKotlinOptions(options) : new(),
                 };
 
             return true;
@@ -53,6 +54,7 @@ internal sealed class ConfigHandler
     {
         return configOptions.Any(x => x is "py" or "python") ? Language.Python
             : configOptions.Any(x => x is "java") ? Language.Java
+            : configOptions.Any(x => x is "kt" or "kotlin") ? Language.Kotlin
             : Language.CSharp;
     }
 
@@ -144,6 +146,31 @@ internal sealed class ConfigHandler
             ),
 
             UseRecord = !configOptions.Contains("class"),
+
+            IndentationCharacterAmount = (int.TryParse(indentationAmountOption, out var indentationAmount))
+                ? indentationAmount
+                : 4,
+
+            IndentationPaddingCharacter = (configOptions.Contains("tab"))
+                ? IndentationCharacterType.Tab
+                : IndentationCharacterType.Space,
+        };
+    }
+
+    /// <summary>
+    /// Parse the Kotlin options.
+    /// </summary>
+    /// <param name="configOptions">The command-line configuration options.</param>
+    /// <returns>The parsed Kotlin options.</returns>
+    private static Json2SharpKotlinOptions ParseKotlinOptions(IReadOnlyList<string> configOptions)
+    {
+        var indentationAmountOption = configOptions.FirstOrDefault(x => x.StartsWith("ind:", StringComparison.Ordinal))?[4..];
+
+        return new()
+        {
+            SerializationAnnotation = KotlinStatics.SerializationAnnotations.GetValueOrDefault(
+                configOptions.FirstOrDefault(KotlinStatics.SerializationAnnotations.ContainsKey) ?? "kotlinx"
+            ),
 
             IndentationCharacterAmount = (int.TryParse(indentationAmountOption, out var indentationAmount))
                 ? indentationAmount

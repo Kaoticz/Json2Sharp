@@ -11,7 +11,27 @@
 
 Json2Sharp is a CLI application that converts a JSON object to a class definition (or an equivalent for the target language).
 
-Currently, C#, Java and Python are supported. We're open to contributions. If you'd like to add your favorite language to the mix, feel free to open a pull request!
+<table>
+  <thead>
+    <tr>
+      <th colspan="3" style="text-align:center;">Currently Supported Languages</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>C#</td>
+      <td>Kotlin</td>
+      <td>Python</td>
+    </tr>
+    <tr>
+      <td>Java</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+We're open to contributions. If you'd like to add your favorite language to the mix, feel free to open a pull request!
 
 ## Installation
 

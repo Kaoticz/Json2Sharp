@@ -45,4 +45,18 @@ internal static class Keywords
         "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while",
         "true", "false", "null"
     }.ToFrozenSet();
+
+    /// <summary>
+    /// The collection of Kotlin keywords.
+    /// </summary>
+    public static FrozenSet<string> Kotlin { get; } = new[]
+    {
+        "as", "as?", "break", "class", "continue", "do", "else", "false", "for", "fun", "if", "in", "!in", "interface",
+        "is", "!is", "null", "object", "package", "return", "super", "this", "throw", "true", "try", "typealias", "val",
+        "var", "when", "while", "by", "constructor", "delegate", "dynamic", "field", "file", "get", "init", "import",
+        "it", "operator", "property", "receiver", "set", "setparam", "where", "actual", "abstract", "annotation",
+        "companion", "crossinline", "data", "enum", "expect", "external", "final", "infix", "inline", "inner",
+        "internal", "lateinit", "noinline", "open", "out", "override", "private", "protected", "public",
+        "reified", "sealed", "suspend", "tailrec", "vararg"
+    }.ToFrozenSet();
 }

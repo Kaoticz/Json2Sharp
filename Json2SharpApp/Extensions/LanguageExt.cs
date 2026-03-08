@@ -20,6 +20,8 @@ internal static class LanguageExt
         {
             Language.CSharp => ".cs",
             Language.Python => ".py",
+            Language.Java => ".java",
+            Language.Kotlin => ".kt",
             _ => throw new UnreachableException($"Extension for language {language} has not been implemented."),
         };
     }

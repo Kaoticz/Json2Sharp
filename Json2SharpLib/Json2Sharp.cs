@@ -2,6 +2,7 @@ using Json2SharpLib.Emitters.Abstractions;
 using Json2SharpLib.Emitters.CSharp;
 using Json2SharpLib.Emitters.Python;
 using Json2SharpLib.Emitters.Java;
+using Json2SharpLib.Emitters.Kotlin;
 using Json2SharpLib.Enums;
 using Json2SharpLib.Extensions;
 using Json2SharpLib.Models;
@@ -612,6 +613,7 @@ public static class Json2Sharp
             Language.Java when options.JavaOptions is { UseRecord: true }
                 => new JavaRecordEmitter(options.JavaOptions),
             Language.Java => new JavaClassEmitter(options.JavaOptions),
+            Language.Kotlin => new KotlinDataClassEmitter(options.KotlinOptions),
             _ => throw new UnreachableException($"Emitter for language {options.TargetLanguage} was not implemented."),
         };
     }

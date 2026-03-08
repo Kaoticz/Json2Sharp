@@ -28,4 +28,9 @@ public sealed record Json2SharpOptions
     /// Parsing options for the Java language.
     /// </summary>
     public Json2SharpJavaOptions JavaOptions { get; init; } = new();
+
+    /// <summary>
+    /// Parsing options for the Kotlin language.
+    /// </summary>
+    public Json2SharpKotlinOptions KotlinOptions { get; init; } = new();
 }

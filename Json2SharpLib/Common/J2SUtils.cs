@@ -80,6 +80,7 @@ internal static class J2SUtils
             Language.CSharp => TypeAliases.CSharpAliasTypes,
             Language.Python => TypeAliases.PythonAliasTypes,
             Language.Java => TypeAliases.JavaAliasTypes,
+            Language.Kotlin => TypeAliases.KotlinAliasTypes,
             _ => _emptyAliasTypes
         };
 

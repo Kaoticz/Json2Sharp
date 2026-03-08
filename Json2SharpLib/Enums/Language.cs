@@ -18,5 +18,10 @@ public enum Language : byte
     /// <summary>
     /// The Java language.
     /// </summary>
-    Java
+    Java,
+
+    /// <summary>
+    /// The Kotlin language.
+    /// </summary>
+    Kotlin
 }

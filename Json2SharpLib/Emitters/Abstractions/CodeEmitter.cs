@@ -111,6 +111,7 @@ internal abstract class CodeEmitter : ICodeEmitter
             Language.CSharp => name.ToPascalCase(),
             Language.Python => name.ToSnakeCase(),
             Language.Java => name.ToCamelCase(),
+            Language.Kotlin => name.ToCamelCase(),
             _ => name
         };
 
@@ -122,6 +123,7 @@ internal abstract class CodeEmitter : ICodeEmitter
             Language.CSharp => (Keywords.CSharp.Contains(processedName) || char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
             Language.Python => (Keywords.Python.Contains(processedName)) ? processedName + "_" : (char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
             Language.Java => (Keywords.Java.Contains(processedName)) ? processedName + "Value" : (char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
+            Language.Kotlin => (Keywords.Kotlin.Contains(processedName)) ? $"`{processedName}`" : (char.IsDigit(processedName[0])) ? "_" + processedName : processedName,
             _ => processedName
         };
     }
