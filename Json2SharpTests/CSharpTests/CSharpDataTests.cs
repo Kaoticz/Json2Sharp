@@ -27,7 +27,8 @@ public sealed class CSharpDataTests
                     prev.isSealed, 
                     prev.isRequired, 
                     setter 
-                });
+                }
+            );
     }
 
     [Theory]

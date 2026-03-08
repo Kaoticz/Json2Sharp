@@ -11,7 +11,7 @@
     <!-- NuGet Packaging -->
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>json2sharp</ToolCommandName>
-    <PackageTags>console cli tool json csharp python</PackageTags>
+    <PackageTags>console cli tool json csharp java python</PackageTags>
     <PackageProjectUrl>https://github.com/Kaoticz/Json2Sharp</PackageProjectUrl>
     <PackageReleaseNotes>https://github.com/Kaoticz/Json2Sharp/releases/latest</PackageReleaseNotes>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
@@ -21,6 +21,6 @@
     <None Include="README.md" Pack="True" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+    <PackageReference Include="System.CommandLine" Version="2.0.3" />
   </ItemGroup>
 </Project>
