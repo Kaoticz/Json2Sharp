@@ -4,14 +4,18 @@ on:
   release:
     types: ["published"]
 
+env:
+  DOTNET_VERSIONS: |
+    9.x
+    10.x
+  TARGET_FRAMEWORK: "net10.0"
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
 jobs:
   publish_windows:
-    
     runs-on: windows-latest
-
     env:
-      DOTNET_NOLOGO: true
-      DOTNET_CLI_TELEMETRY_OPTOUT: true
       WORK_DIR_PATH: ${{ github.RUNNER_TEMP }}
 
     steps:
@@ -21,21 +25,19 @@ jobs:
       - name: "Setup .NET"
         uses: "actions/setup-dotnet@v4"
         with:
-          dotnet-version: |
-            9.x
-            10.x
+          dotnet-version: ${{ env.DOTNET_VERSIONS }}
 
       - name: Build
         run: dotnet build -c Release
 
       - name: Test
         run: dotnet test -c Release
-          
+
       - name: Publish
         run: |
           cd .\Json2SharpApp\
-          dotnet publish --self-contained -c Release -f net10.0 -r win-x64 -o "$env:WORK_DIR_PATH\build\Json2Sharp_win-x64"
-          dotnet publish --self-contained -c Release -f net10.0 -r win-arm64 -o "$env:WORK_DIR_PATH\build\Json2Sharp_win-arm64"
+          dotnet publish --self-contained -c Release -f ${{ env.TARGET_FRAMEWORK }} -r win-x64 -o "$env:WORK_DIR_PATH\build\Json2Sharp_win-x64"
+          dotnet publish --self-contained -c Release -f ${{ env.TARGET_FRAMEWORK }} -r win-arm64 -o "$env:WORK_DIR_PATH\build\Json2Sharp_win-arm64"
           cd ..\
 
       - name: Package
@@ -52,17 +54,11 @@ jobs:
           artifacts: ${{ env.WORK_DIR_PATH }}\zips\*
           token: ${{ secrets.REPO_GITHUB_TOKEN }}
           tag: ${{ github.event.release.tag_name }}
-          omitBodyDuringUpdate: true # We don't want to update the body of the release.
-          omitNameDuringUpdate: true # We don't want to update the name of the release.
+          omitBodyDuringUpdate: true
+          omitNameDuringUpdate: true
 
   publish_linux:
-
     runs-on: ubuntu-latest
-
-    env:
-      DOTNET_NOLOGO: true
-      DOTNET_CLI_TELEMETRY_OPTOUT: true
-
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v4"
@@ -70,9 +66,7 @@ jobs:
       - name: "Setup .NET"
         uses: "actions/setup-dotnet@v4"
         with:
-          dotnet-version: |
-            9.x
-            10.x
+          dotnet-version: ${{ env.DOTNET_VERSIONS }}
 
       - name: Build
         run: dotnet build -c Release
@@ -83,8 +77,8 @@ jobs:
       - name: Publish
         run: |
           cd ./Json2SharpApp
-          dotnet publish --self-contained -c Release -f net10.0 -r linux-x64 -o ~/build/Json2Sharp_linux-x64
-          dotnet publish --self-contained -c Release -f net10.0 -r linux-arm64 -o ~/build/Json2Sharp_linux-arm64
+          dotnet publish --self-contained -c Release -f ${{ env.TARGET_FRAMEWORK }} -r linux-x64 -o ~/build/Json2Sharp_linux-x64
+          dotnet publish --self-contained -c Release -f ${{ env.TARGET_FRAMEWORK }} -r linux-arm64 -o ~/build/Json2Sharp_linux-arm64
           cd ../
 
       - name: Package
@@ -102,17 +96,11 @@ jobs:
           artifacts: "~/zips/*"
           token: ${{ secrets.REPO_GITHUB_TOKEN }}
           tag: ${{ github.event.release.tag_name }}
-          omitBodyDuringUpdate: true # We don't want to update the body of the release.
-          omitNameDuringUpdate: true # We don't want to update the name of the release.
+          omitBodyDuringUpdate: true
+          omitNameDuringUpdate: true
 
   publish_macos:
-
     runs-on: macos-latest
-
-    env:
-      DOTNET_NOLOGO: true
-      DOTNET_CLI_TELEMETRY_OPTOUT: true
-
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v4"
@@ -120,9 +108,7 @@ jobs:
       - name: "Setup .NET"
         uses: "actions/setup-dotnet@v4"
         with:
-          dotnet-version: |
-            9.x
-            10.x
+          dotnet-version: ${{ env.DOTNET_VERSIONS }}
 
       - name: Build
         run: dotnet build -c Release
@@ -133,8 +119,8 @@ jobs:
       - name: Publish
         run: |
           cd ./Json2SharpApp
-          dotnet publish --self-contained -c Release -f net10.0 -r osx-x64 -o ~/build/Json2Sharp_osx-x64
-          dotnet publish --self-contained -c Release -f net10.0 -r osx-arm64 -o ~/build/Json2Sharp_osx-arm64
+          dotnet publish --self-contained -c Release -f ${{ env.TARGET_FRAMEWORK }} -r osx-x64 -o ~/build/Json2Sharp_osx-x64
+          dotnet publish --self-contained -c Release -f ${{ env.TARGET_FRAMEWORK }} -r osx-arm64 -o ~/build/Json2Sharp_osx-arm64
           cd ../
 
       - name: Package
@@ -152,8 +138,8 @@ jobs:
           artifacts: "~/zips/*"
           token: ${{ secrets.REPO_GITHUB_TOKEN }}
           tag: ${{ github.event.release.tag_name }}
-          omitBodyDuringUpdate: true # We don't want to update the body of the release.
-          omitNameDuringUpdate: true # We don't want to update the name of the release.
+          omitBodyDuringUpdate: true
+          omitNameDuringUpdate: true
 
   publish_nuget:
     runs-on: ubuntu-latest
@@ -162,11 +148,9 @@ jobs:
         uses: "actions/checkout@v4"
 
       - name: "Setup .NET"
-        uses: "actions/setup-dotnet@v2"
+        uses: "actions/setup-dotnet@v4"
         with:
-          dotnet-version: |
-            9.x
-            10.x
+          dotnet-version: ${{ env.DOTNET_VERSIONS }}
 
       - name: Build
         run: dotnet build -c Release
@@ -196,5 +180,32 @@ jobs:
           artifacts: "build/*"
           token: ${{ secrets.REPO_GITHUB_TOKEN }}
           tag: ${{ github.event.release.tag_name }}
-          omitBodyDuringUpdate: true # We don't want to update the body of the release.
-          omitNameDuringUpdate: true # We don't want to update the name of the release.
+          omitBodyDuringUpdate: true
+          omitNameDuringUpdate: true
+
+  publish_cli:
+    needs: publish_nuget
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+
+      - name: "Setup .NET"
+        uses: "actions/setup-dotnet@v4"
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSIONS }}
+
+      - name: "Edit the Json2SharpApp.csproj file"
+        run: |
+          sed -i 's|<AssemblyName>.*</AssemblyName>|<AssemblyName>json2sharp-cli</AssemblyName>|g' ./Json2SharpApp/Json2SharpApp.csproj
+
+      - name: "Create the package"
+        run: |
+          mkdir -p ~/build
+          dotnet pack ./Json2SharpApp/Json2SharpApp.csproj -p:PublishTrimmed=false -p:PublishSingleFile=false -p:Version='${{ github.event.release.tag_name }}' -c Release -o ~/build
+
+      - name: "Clean output folder"
+        run: rm -f ~/build/Json2SharpLib*
+
+      - name: "Upload the tool to NuGet"
+        run: dotnet nuget push "~/build/*" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
