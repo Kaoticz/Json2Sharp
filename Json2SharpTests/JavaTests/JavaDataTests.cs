@@ -354,6 +354,29 @@ public sealed class JavaDataTests
     [InlineData(WeirdNameTypes.Input, WeirdNameTypes.MoshiLombokRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.Lombok)]
     [InlineData(WeirdNameTypes.Input, WeirdNameTypes.MoshiFindBugsRecordOutput, true, JavaSerializationAnnotation.Moshi, JavaNullabilityAnnotation.FindBugs)]
 
+    // Nullability Import Types
+    [InlineData(NullabilityImportTypes.NonNullableOnlyInput, NullabilityImportTypes.NonNullableOnlyJacksonJakartaOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]
+    [InlineData(NullabilityImportTypes.NullableOnlyInput, NullabilityImportTypes.NullableOnlyJacksonJakartaOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]
+    [InlineData(NullabilityImportTypes.NonNullableOnlyInput, NullabilityImportTypes.NonNullableOnlyJacksonJSpecifyOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.JSpecify)]
+    [InlineData(NullabilityImportTypes.NullableOnlyInput, NullabilityImportTypes.NullableOnlyJacksonJSpecifyOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.JSpecify)]
+    [InlineData(NullabilityImportTypes.NonNullableOnlyInput, NullabilityImportTypes.NonNullableOnlyJacksonJetBrainsOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.JetBrains)]
+    [InlineData(NullabilityImportTypes.NullableOnlyInput, NullabilityImportTypes.NullableOnlyJacksonJetBrainsOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.JetBrains)]
+    [InlineData(NullabilityImportTypes.NonNullableOnlyInput, NullabilityImportTypes.NonNullableOnlyJacksonLombokOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Lombok)]
+    [InlineData(NullabilityImportTypes.NullableOnlyInput, NullabilityImportTypes.NullableOnlyJacksonLombokOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Lombok)]
+    [InlineData(NullabilityImportTypes.NonNullableOnlyInput, NullabilityImportTypes.NonNullableOnlyJacksonFindBugsOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.FindBugs)]
+    [InlineData(NullabilityImportTypes.NullableOnlyInput, NullabilityImportTypes.NullableOnlyJacksonFindBugsOutput, false, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.FindBugs)]
+
+    [InlineData(NullabilityImportTypes.NonNullableOnlyInput, NullabilityImportTypes.NonNullableOnlyJacksonJakartaRecordOutput, true, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]
+    [InlineData(NullabilityImportTypes.NullableOnlyInput, NullabilityImportTypes.NullableOnlyJacksonJakartaRecordOutput, true, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Jakarta)]
+    [InlineData(NullabilityImportTypes.NonNullableOnlyInput, NullabilityImportTypes.NonNullableOnlyJacksonJSpecifyRecordOutput, true, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.JSpecify)]
+    [InlineData(NullabilityImportTypes.NullableOnlyInput, NullabilityImportTypes.NullableOnlyJacksonJSpecifyRecordOutput, true, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.JSpecify)]
+    [InlineData(NullabilityImportTypes.NonNullableOnlyInput, NullabilityImportTypes.NonNullableOnlyJacksonJetBrainsRecordOutput, true, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.JetBrains)]
+    [InlineData(NullabilityImportTypes.NullableOnlyInput, NullabilityImportTypes.NullableOnlyJacksonJetBrainsRecordOutput, true, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.JetBrains)]
+    [InlineData(NullabilityImportTypes.NonNullableOnlyInput, NullabilityImportTypes.NonNullableOnlyJacksonLombokRecordOutput, true, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Lombok)]
+    [InlineData(NullabilityImportTypes.NullableOnlyInput, NullabilityImportTypes.NullableOnlyJacksonLombokRecordOutput, true, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.Lombok)]
+    [InlineData(NullabilityImportTypes.NonNullableOnlyInput, NullabilityImportTypes.NonNullableOnlyJacksonFindBugsRecordOutput, true, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.FindBugs)]
+    [InlineData(NullabilityImportTypes.NullableOnlyInput, NullabilityImportTypes.NullableOnlyJacksonFindBugsRecordOutput, true, JavaSerializationAnnotation.Jackson, JavaNullabilityAnnotation.FindBugs)]
+
     internal void OutputTest(string input, string expectedOutput, bool useRecord, JavaSerializationAnnotation serializationAnnotation, JavaNullabilityAnnotation nullabilityAnnotation)
     {
         var options = new Json2SharpOptions()

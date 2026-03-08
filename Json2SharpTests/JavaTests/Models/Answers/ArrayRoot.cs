@@ -47,7 +47,6 @@ internal static class ArrayRoot
     public const string JacksonJakartaOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import jakarta.validation.constraints.NotNull;
-        import jakarta.validation.constraints.Nullable;
 
         public class Root {
             @JsonProperty("id")
@@ -67,7 +66,6 @@ internal static class ArrayRoot
     public const string JacksonJSpecifyOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import org.jspecify.annotations.NonNull;
-        import org.jspecify.annotations.Nullable;
 
         public class Root {
             @JsonProperty("id")
@@ -87,7 +85,6 @@ internal static class ArrayRoot
     public const string JacksonJetBrainsOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import org.jetbrains.annotations.NotNull;
-        import org.jetbrains.annotations.Nullable;
 
         public class Root {
             @JsonProperty("id")
@@ -120,7 +117,6 @@ internal static class ArrayRoot
     public const string JacksonFindBugsOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import javax.annotation.Nonnull;
-        import javax.annotation.Nullable;
 
         public class Root {
             @JsonProperty("id")
@@ -157,7 +153,6 @@ internal static class ArrayRoot
     public const string GsonJakartaOutput = """
         import com.google.gson.annotations.SerializedName;
         import jakarta.validation.constraints.NotNull;
-        import jakarta.validation.constraints.Nullable;
 
         public class Root {
             @SerializedName("id")
@@ -177,7 +172,6 @@ internal static class ArrayRoot
     public const string GsonJSpecifyOutput = """
         import com.google.gson.annotations.SerializedName;
         import org.jspecify.annotations.NonNull;
-        import org.jspecify.annotations.Nullable;
 
         public class Root {
             @SerializedName("id")
@@ -197,7 +191,6 @@ internal static class ArrayRoot
     public const string GsonJetBrainsOutput = """
         import com.google.gson.annotations.SerializedName;
         import org.jetbrains.annotations.NotNull;
-        import org.jetbrains.annotations.Nullable;
 
         public class Root {
             @SerializedName("id")
@@ -230,7 +223,6 @@ internal static class ArrayRoot
     public const string GsonFindBugsOutput = """
         import com.google.gson.annotations.SerializedName;
         import javax.annotation.Nonnull;
-        import javax.annotation.Nullable;
 
         public class Root {
             @SerializedName("id")
@@ -267,7 +259,6 @@ internal static class ArrayRoot
     public const string MoshiJakartaOutput = """
         import com.squareup.moshi.Json;
         import jakarta.validation.constraints.NotNull;
-        import jakarta.validation.constraints.Nullable;
 
         public class Root {
             @Json(name = "id")
@@ -287,7 +278,6 @@ internal static class ArrayRoot
     public const string MoshiJSpecifyOutput = """
         import com.squareup.moshi.Json;
         import org.jspecify.annotations.NonNull;
-        import org.jspecify.annotations.Nullable;
 
         public class Root {
             @Json(name = "id")
@@ -307,7 +297,6 @@ internal static class ArrayRoot
     public const string MoshiJetBrainsOutput = """
         import com.squareup.moshi.Json;
         import org.jetbrains.annotations.NotNull;
-        import org.jetbrains.annotations.Nullable;
 
         public class Root {
             @Json(name = "id")
@@ -340,7 +329,6 @@ internal static class ArrayRoot
     public const string MoshiFindBugsOutput = """
         import com.squareup.moshi.Json;
         import javax.annotation.Nonnull;
-        import javax.annotation.Nullable;
 
         public class Root {
             @Json(name = "id")
@@ -375,7 +363,6 @@ internal static class ArrayRoot
     public const string JacksonJakartaRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import jakarta.validation.constraints.NotNull;
-        import jakarta.validation.constraints.Nullable;
 
         public record Root(
             @JsonProperty("id") @NotNull Integer id
@@ -385,7 +372,6 @@ internal static class ArrayRoot
     public const string JacksonJSpecifyRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import org.jspecify.annotations.NonNull;
-        import org.jspecify.annotations.Nullable;
 
         public record Root(
             @JsonProperty("id") @NonNull Integer id
@@ -395,7 +381,6 @@ internal static class ArrayRoot
     public const string JacksonJetBrainsRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import org.jetbrains.annotations.NotNull;
-        import org.jetbrains.annotations.Nullable;
 
         public record Root(
             @JsonProperty("id") @NotNull Integer id
@@ -414,7 +399,6 @@ internal static class ArrayRoot
     public const string JacksonFindBugsRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import javax.annotation.Nonnull;
-        import javax.annotation.Nullable;
 
         public record Root(
             @JsonProperty("id") @Nonnull Integer id
@@ -432,7 +416,6 @@ internal static class ArrayRoot
     public const string GsonJakartaRecordOutput = """
         import com.google.gson.annotations.SerializedName;
         import jakarta.validation.constraints.NotNull;
-        import jakarta.validation.constraints.Nullable;
 
         public record Root(
             @SerializedName("id") @NotNull Integer id
@@ -442,7 +425,6 @@ internal static class ArrayRoot
     public const string GsonJSpecifyRecordOutput = """
         import com.google.gson.annotations.SerializedName;
         import org.jspecify.annotations.NonNull;
-        import org.jspecify.annotations.Nullable;
 
         public record Root(
             @SerializedName("id") @NonNull Integer id
@@ -452,7 +434,6 @@ internal static class ArrayRoot
     public const string GsonJetBrainsRecordOutput = """
         import com.google.gson.annotations.SerializedName;
         import org.jetbrains.annotations.NotNull;
-        import org.jetbrains.annotations.Nullable;
 
         public record Root(
             @SerializedName("id") @NotNull Integer id
@@ -471,7 +452,6 @@ internal static class ArrayRoot
     public const string GsonFindBugsRecordOutput = """
         import com.google.gson.annotations.SerializedName;
         import javax.annotation.Nonnull;
-        import javax.annotation.Nullable;
 
         public record Root(
             @SerializedName("id") @Nonnull Integer id
@@ -489,7 +469,6 @@ internal static class ArrayRoot
     public const string MoshiJakartaRecordOutput = """
         import com.squareup.moshi.Json;
         import jakarta.validation.constraints.NotNull;
-        import jakarta.validation.constraints.Nullable;
 
         public record Root(
             @Json(name = "id") @NotNull Integer id
@@ -499,7 +478,6 @@ internal static class ArrayRoot
     public const string MoshiJSpecifyRecordOutput = """
         import com.squareup.moshi.Json;
         import org.jspecify.annotations.NonNull;
-        import org.jspecify.annotations.Nullable;
 
         public record Root(
             @Json(name = "id") @NonNull Integer id
@@ -509,7 +487,6 @@ internal static class ArrayRoot
     public const string MoshiJetBrainsRecordOutput = """
         import com.squareup.moshi.Json;
         import org.jetbrains.annotations.NotNull;
-        import org.jetbrains.annotations.Nullable;
 
         public record Root(
             @Json(name = "id") @NotNull Integer id
@@ -528,7 +505,6 @@ internal static class ArrayRoot
     public const string MoshiFindBugsRecordOutput = """
         import com.squareup.moshi.Json;
         import javax.annotation.Nonnull;
-        import javax.annotation.Nullable;
 
         public record Root(
             @Json(name = "id") @Nonnull Integer id

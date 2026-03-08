@@ -87,7 +87,6 @@ internal static class WeirdNameTypes
     public const string JacksonJakartaOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import jakarta.validation.constraints.NotNull;
-        import jakarta.validation.constraints.Nullable;
 
         public class Root {
             @JsonProperty("1-weird-name")
@@ -131,7 +130,6 @@ internal static class WeirdNameTypes
     public const string JacksonJSpecifyOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import org.jspecify.annotations.NonNull;
-        import org.jspecify.annotations.Nullable;
 
         public class Root {
             @JsonProperty("1-weird-name")
@@ -175,7 +173,6 @@ internal static class WeirdNameTypes
     public const string JacksonJetBrainsOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import org.jetbrains.annotations.NotNull;
-        import org.jetbrains.annotations.Nullable;
 
         public class Root {
             @JsonProperty("1-weird-name")
@@ -240,7 +237,6 @@ internal static class WeirdNameTypes
     public const string JacksonFindBugsOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import javax.annotation.Nonnull;
-        import javax.annotation.Nullable;
 
         public class Root {
             @JsonProperty("1-weird-name")
@@ -323,7 +319,6 @@ internal static class WeirdNameTypes
     public const string GsonJakartaOutput = """
         import com.google.gson.annotations.SerializedName;
         import jakarta.validation.constraints.NotNull;
-        import jakarta.validation.constraints.Nullable;
 
         public class Root {
             @SerializedName("1-weird-name")
@@ -367,7 +362,6 @@ internal static class WeirdNameTypes
     public const string GsonJSpecifyOutput = """
         import com.google.gson.annotations.SerializedName;
         import org.jspecify.annotations.NonNull;
-        import org.jspecify.annotations.Nullable;
 
         public class Root {
             @SerializedName("1-weird-name")
@@ -411,7 +405,6 @@ internal static class WeirdNameTypes
     public const string GsonJetBrainsOutput = """
         import com.google.gson.annotations.SerializedName;
         import org.jetbrains.annotations.NotNull;
-        import org.jetbrains.annotations.Nullable;
 
         public class Root {
             @SerializedName("1-weird-name")
@@ -476,7 +469,6 @@ internal static class WeirdNameTypes
     public const string GsonFindBugsOutput = """
         import com.google.gson.annotations.SerializedName;
         import javax.annotation.Nonnull;
-        import javax.annotation.Nullable;
 
         public class Root {
             @SerializedName("1-weird-name")
@@ -559,7 +551,6 @@ internal static class WeirdNameTypes
     public const string MoshiJakartaOutput = """
         import com.squareup.moshi.Json;
         import jakarta.validation.constraints.NotNull;
-        import jakarta.validation.constraints.Nullable;
 
         public class Root {
             @Json(name = "1-weird-name")
@@ -603,7 +594,6 @@ internal static class WeirdNameTypes
     public const string MoshiJSpecifyOutput = """
         import com.squareup.moshi.Json;
         import org.jspecify.annotations.NonNull;
-        import org.jspecify.annotations.Nullable;
 
         public class Root {
             @Json(name = "1-weird-name")
@@ -647,7 +637,6 @@ internal static class WeirdNameTypes
     public const string MoshiJetBrainsOutput = """
         import com.squareup.moshi.Json;
         import org.jetbrains.annotations.NotNull;
-        import org.jetbrains.annotations.Nullable;
 
         public class Root {
             @Json(name = "1-weird-name")
@@ -712,7 +701,6 @@ internal static class WeirdNameTypes
     public const string MoshiFindBugsOutput = """
         import com.squareup.moshi.Json;
         import javax.annotation.Nonnull;
-        import javax.annotation.Nullable;
 
         public class Root {
             @Json(name = "1-weird-name")
@@ -775,7 +763,6 @@ internal static class WeirdNameTypes
     public const string JacksonJakartaRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import jakarta.validation.constraints.NotNull;
-        import jakarta.validation.constraints.Nullable;
 
         public record Root(
             @JsonProperty("1-weird-name") @NotNull String _1WeirdName,
@@ -787,7 +774,6 @@ internal static class WeirdNameTypes
     public const string JacksonJSpecifyRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import org.jspecify.annotations.NonNull;
-        import org.jspecify.annotations.Nullable;
 
         public record Root(
             @JsonProperty("1-weird-name") @NonNull String _1WeirdName,
@@ -799,7 +785,6 @@ internal static class WeirdNameTypes
     public const string JacksonJetBrainsRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import org.jetbrains.annotations.NotNull;
-        import org.jetbrains.annotations.Nullable;
 
         public record Root(
             @JsonProperty("1-weird-name") @NotNull String _1WeirdName,
@@ -822,7 +807,6 @@ internal static class WeirdNameTypes
     public const string JacksonFindBugsRecordOutput = """
         import com.fasterxml.jackson.annotation.JsonProperty;
         import javax.annotation.Nonnull;
-        import javax.annotation.Nullable;
 
         public record Root(
             @JsonProperty("1-weird-name") @Nonnull String _1WeirdName,
@@ -844,7 +828,6 @@ internal static class WeirdNameTypes
     public const string GsonJakartaRecordOutput = """
         import com.google.gson.annotations.SerializedName;
         import jakarta.validation.constraints.NotNull;
-        import jakarta.validation.constraints.Nullable;
 
         public record Root(
             @SerializedName("1-weird-name") @NotNull String _1WeirdName,
@@ -856,7 +839,6 @@ internal static class WeirdNameTypes
     public const string GsonJSpecifyRecordOutput = """
         import com.google.gson.annotations.SerializedName;
         import org.jspecify.annotations.NonNull;
-        import org.jspecify.annotations.Nullable;
 
         public record Root(
             @SerializedName("1-weird-name") @NonNull String _1WeirdName,
@@ -868,7 +850,6 @@ internal static class WeirdNameTypes
     public const string GsonJetBrainsRecordOutput = """
         import com.google.gson.annotations.SerializedName;
         import org.jetbrains.annotations.NotNull;
-        import org.jetbrains.annotations.Nullable;
 
         public record Root(
             @SerializedName("1-weird-name") @NotNull String _1WeirdName,
@@ -891,7 +872,6 @@ internal static class WeirdNameTypes
     public const string GsonFindBugsRecordOutput = """
         import com.google.gson.annotations.SerializedName;
         import javax.annotation.Nonnull;
-        import javax.annotation.Nullable;
 
         public record Root(
             @SerializedName("1-weird-name") @Nonnull String _1WeirdName,
@@ -913,7 +893,6 @@ internal static class WeirdNameTypes
     public const string MoshiJakartaRecordOutput = """
         import com.squareup.moshi.Json;
         import jakarta.validation.constraints.NotNull;
-        import jakarta.validation.constraints.Nullable;
 
         public record Root(
             @Json(name = "1-weird-name") @NotNull String _1WeirdName,
@@ -925,7 +904,6 @@ internal static class WeirdNameTypes
     public const string MoshiJSpecifyRecordOutput = """
         import com.squareup.moshi.Json;
         import org.jspecify.annotations.NonNull;
-        import org.jspecify.annotations.Nullable;
 
         public record Root(
             @Json(name = "1-weird-name") @NonNull String _1WeirdName,
@@ -937,7 +915,6 @@ internal static class WeirdNameTypes
     public const string MoshiJetBrainsRecordOutput = """
         import com.squareup.moshi.Json;
         import org.jetbrains.annotations.NotNull;
-        import org.jetbrains.annotations.Nullable;
 
         public record Root(
             @Json(name = "1-weird-name") @NotNull String _1WeirdName,
@@ -960,7 +937,6 @@ internal static class WeirdNameTypes
     public const string MoshiFindBugsRecordOutput = """
         import com.squareup.moshi.Json;
         import javax.annotation.Nonnull;
-        import javax.annotation.Nullable;
 
         public record Root(
             @Json(name = "1-weird-name") @Nonnull String _1WeirdName,

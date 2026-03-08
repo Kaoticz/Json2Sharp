@@ -282,31 +282,29 @@ internal sealed class JavaRecordEmitter : CodeEmitter
         else if (_serializationAnnotation is JavaSerializationAnnotation.Moshi)
             imports.Add("com.squareup.moshi.Json");
 
-        switch (_nullabilityAnnotation)
-        {
-            case JavaNullabilityAnnotation.Jakarta:
-                imports.Add("jakarta.validation.constraints.NotNull");
-                imports.Add("jakarta.validation.constraints.Nullable");
-                break;
-            case JavaNullabilityAnnotation.JSpecify:
-                imports.Add("org.jspecify.annotations.NonNull");
-                imports.Add("org.jspecify.annotations.Nullable");
-                break;
-            case JavaNullabilityAnnotation.JetBrains:
-                imports.Add("org.jetbrains.annotations.NotNull");
-                imports.Add("org.jetbrains.annotations.Nullable");
-                break;
-            case JavaNullabilityAnnotation.Lombok:
-                imports.Add("lombok.NonNull");
-                break;
-            case JavaNullabilityAnnotation.FindBugs:
-                imports.Add("javax.annotation.Nonnull");
-                imports.Add("javax.annotation.Nullable");
-                break;
-        }
-
         foreach (var prop in properties)
         {
+            var isNullable = J2SUtils.IsPropertyNullable(prop.JsonElement);
+
+            switch (_nullabilityAnnotation)
+            {
+                case JavaNullabilityAnnotation.Jakarta:
+                    imports.Add(isNullable ? "jakarta.validation.constraints.Nullable" : "jakarta.validation.constraints.NotNull");
+                    break;
+                case JavaNullabilityAnnotation.JSpecify:
+                    imports.Add(isNullable ? "org.jspecify.annotations.Nullable" : "org.jspecify.annotations.NonNull");
+                    break;
+                case JavaNullabilityAnnotation.JetBrains:
+                    imports.Add(isNullable ? "org.jetbrains.annotations.Nullable" : "org.jetbrains.annotations.NotNull");
+                    break;
+                case JavaNullabilityAnnotation.Lombok:
+                    if (!isNullable) imports.Add("lombok.NonNull");
+                    break;
+                case JavaNullabilityAnnotation.FindBugs:
+                    imports.Add(isNullable ? "javax.annotation.Nullable" : "javax.annotation.Nonnull");
+                    break;
+            }
+
             if (prop.BclType == typeof(DateTime) || prop.BclType == typeof(DateTimeOffset))
                 imports.Add("java.time.OffsetDateTime");
             else if (prop.BclType == typeof(Guid))
